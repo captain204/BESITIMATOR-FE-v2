@@ -1,12 +1,12 @@
 import Layout from "@/components/Layout";
 import AboutHeader from "@/screens/AboutScreen/AboutHeader";
-import About from "@/screens/LandingPageScreen/About";
+// import About from "@/screens/LandingPageScreen/About";
 import Terms from "@/screens/TermsAndConditionScreen/TermsAndConditionScreen";
 import React from "react";
 
 const page = () => {
   return (
-    <div className="bg-black">
+    <div>
       <Layout>
         <AboutHeader
           title="Terms and Conditions"

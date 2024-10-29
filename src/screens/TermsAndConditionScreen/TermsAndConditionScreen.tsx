@@ -4,7 +4,11 @@ import Head from "next/head";
 
 const Terms = () => {
   return (
-    <div className="bg-tetiary h-auto p-6 md:p-12">
+    <div
+      className=" h-auto p-6 md:p-12 shadow-md relative bg-cover bg-center overflow-hidden "
+      style={{ backgroundImage: 'url("/benifit.png")' }}
+    >
+       <div className="absolute inset-0 bg-white opacity-95"></div>
       <Head>
         <title>Terms and Conditions | Building Estimator</title>
         <meta
@@ -12,7 +16,7 @@ const Terms = () => {
           content="Terms and Conditions for Building Estimator"
         />
       </Head>
-      <div className="max-w-4xl mx-auto bg-navy bg-secondary rounded-lg shadow-xl p-6">
+      <div className="max-w-4xl mx-auto bg-navy relative bg-white rounded-lg shadow-xl p-6 text-black">
         <h1 className="text-3xl font-bold text-white mb-6 text-center">
           Terms and Conditions
         </h1>

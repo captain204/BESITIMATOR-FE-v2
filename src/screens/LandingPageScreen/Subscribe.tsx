@@ -1,12 +1,11 @@
 "use client";
-import { motion } from "framer-motion";
 import React, { useState } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { bottomToTopVariants } from "../../components/constants/Framer";
+
 import {
   Dialog,
   DialogHeader,

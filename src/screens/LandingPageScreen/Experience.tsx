@@ -49,7 +49,7 @@ const Experience = () => {
 
         {/* Right Section: Statement */}
         <div
-          className="mr-auto  lg:col-span-6  relative"
+          className="mr-auto  lg:col-span-6  relative md:mt-0 mt-4"
           // initial="hidden"
           // whileInView="visible"
           // viewport={{ once: true, amount: 0.2 }}

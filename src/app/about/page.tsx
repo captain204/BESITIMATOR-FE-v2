@@ -1,7 +1,8 @@
 import Layout from "@/components/Layout";
 import AboutHeader from "@/screens/AboutScreen/AboutHeader";
-import About from "@/screens/LandingPageScreen/About";
 import Experience from "@/screens/LandingPageScreen/Experience";
+import ContactUs from "@/screens/LandingPageScreen/Subscribe";
+import Subservices from "@/screens/LandingPageScreen/SubServices";
 import React from "react";
 
 const page = () => {
@@ -13,8 +14,12 @@ const page = () => {
           breadcrumbItems={[{ label: "Home", link: "/" }, { label: "About" }]}
         />
 
+        <Subservices />
         <Experience />
-        <About />
+
+        <ContactUs />
+
+        {/* <About /> */}
       </Layout>
     </div>
   );

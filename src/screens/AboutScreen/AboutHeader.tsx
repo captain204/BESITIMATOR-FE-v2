@@ -15,11 +15,12 @@ interface AboutHeaderProps {
 const AboutHeader: React.FC<AboutHeaderProps> = ({ title, breadcrumbItems }) => {
   return (
     <div
-      className="relative w-full h-[20rem] bg-cover flex flex-col items-center justify-center text-white"
+      className="relative w-full h-[20rem] bg-cover flex flex-col items-center justify-center text-white mt-20"
       style={{
-        backgroundImage: `url('/bc.jpg')`,
+        backgroundImage: `url('/bgimage.jpeg')`,
       }}
     >
+      <div className="absolute inset-0 bg-black opacity-90"></div>
       <motion.div
         className="text-center mb-10"
         initial="hide"
@@ -43,7 +44,7 @@ const AboutHeader: React.FC<AboutHeaderProps> = ({ title, breadcrumbItems }) => 
                 {item.link ? (
                   <li>
                     <Link href={item.link}>
-                      <div className="hover:text-blue-400">{item.label}</div>
+                      <div className="hover:underline">{item.label}</div>
                     </Link>
                   </li>
                 ) : (
