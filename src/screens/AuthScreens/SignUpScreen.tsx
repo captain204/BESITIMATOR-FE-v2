@@ -9,11 +9,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { RootState } from "@/Globals/store/store";
 import { Spinner } from "@material-tailwind/react";
-import {
-  AsyncThunkAction,
-  ThunkDispatch,
-  UnknownAction,
-} from "@reduxjs/toolkit";
+import { ThunkDispatch, UnknownAction } from "@reduxjs/toolkit";
 import { signupUser } from "@/Globals/Slices/AuthSlices/SignupSlice";
 import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
@@ -115,12 +111,16 @@ const SignUpScreen = () => {
   }, []);
 
   return (
-    <div>
-      <section className="bg-tetiary dark:bg-gray-900 md:my-64">
+    <div
+      className="relative bg-cover bg-center overflow-hidden"
+      style={{ backgroundImage: 'url("/benifit.png")' }}
+    >
+      <div className="absolute inset-0 bg-white  opacity-95"></div>
+      <section className=" md:my-64 relative ">
         <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen">
-          <div className="w-full bg-[#00000040] rounded-lg shadow dark:border md:mt-0 sm:max-w-md md:max-w-lg xl:p-0 dark:bg-gray-800 dark:border-gray-700">
-            <div className="p-6 space-y-4 md:space-y-6 sm:p-8">
-              <h1 className="text-xl font-bold leading-tight tracking-tight text-white md:text-2xl dark:text-white">
+          <div className="w-full  shadow-xl rounded-lg border  dark:border md:mt-0 sm:max-w-md md:max-w-lg xl:p-0 dark:bg-gray-800 dark:border-gray-700">
+            <div className="p-6 space-y-4 md:space-y-6 sm:p-8 ">
+              <h1 className="text-xl font-bold leading-tight tracking-tight text-black md:text-2xl ">
                 Create an account
               </h1>
               <form
@@ -129,7 +129,7 @@ const SignUpScreen = () => {
               >
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div>
-                    <label className="block mb-2 text-sm font-medium text-white">
+                    <label className="block mb-2 text-sm font-medium text-black">
                       First Name
                     </label>
                     <input
@@ -140,7 +140,7 @@ const SignUpScreen = () => {
                         setFirstName(e.target.value);
                         clearErrors("firstName");
                       }}
-                      className="bg-transparent border border-gray-300 text-white text-sm rounded-lg block w-full p-2.5"
+                      className="bg-transparent border border-gray-300 text-black text-sm rounded-lg block w-full p-2.5"
                     />
                     <p className="text-red-500 text-sm">
                       {errors.firstName?.message}
@@ -148,7 +148,7 @@ const SignUpScreen = () => {
                   </div>
 
                   <div>
-                    <label className="block mb-2 text-sm font-medium text-white">
+                    <label className="block mb-2 text-sm font-medium text-black">
                       Last Name
                     </label>
                     <input
@@ -159,7 +159,7 @@ const SignUpScreen = () => {
                         setLastName(e.target.value);
                         clearErrors("lastName");
                       }}
-                      className="bg-transparent border border-gray-300 text-white text-sm rounded-lg block w-full p-2.5"
+                      className="bg-transparent border border-gray-300 text-black text-sm rounded-lg block w-full p-2.5"
                     />
                     <p className="text-red-500 text-sm">
                       {errors.lastName?.message}
@@ -168,7 +168,7 @@ const SignUpScreen = () => {
                 </div>
 
                 <div>
-                  <label className="block mb-2 text-sm font-medium text-white">
+                  <label className="block mb-2 text-sm font-medium text-black">
                     Your Email
                   </label>
                   <input
@@ -179,7 +179,7 @@ const SignUpScreen = () => {
                     onChange={(e) => {
                       setEmail(e.target.value), clearErrors("email");
                     }}
-                    className="bg-transparent border border-gray-300 text-white text-sm rounded-lg block w-full p-2.5"
+                    className="bg-transparent border border-gray-300 text-black text-sm rounded-lg block w-full p-2.5"
                   />
                   <p className="text-red-500 text-sm ">
                     {errors.email?.message}
@@ -188,7 +188,7 @@ const SignUpScreen = () => {
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div>
-                    <label className="block mb-2 text-sm font-medium text-white">
+                    <label className="block mb-2 text-sm font-medium text-black">
                       Password
                     </label>
                     <div className="relative">
@@ -201,7 +201,7 @@ const SignUpScreen = () => {
                           clearErrors("password");
                         }}
                         type={showPassword ? "text" : "password"}
-                        className="bg-transparent border border-gray-300 text-white text-sm rounded-lg block w-full p-2.5 pr-10"
+                        className="bg-transparent border border-gray-300 text-black text-sm rounded-lg block w-full p-2.5 pr-10"
                       />
                       <button
                         type="button"
@@ -209,9 +209,9 @@ const SignUpScreen = () => {
                         className="absolute inset-y-0 right-0 flex items-center pr-3"
                       >
                         {showPassword ? (
-                          <FaEye className="text-white" />
+                          <FaEye className="text-black" />
                         ) : (
-                          <FaEyeSlash className="text-white" />
+                          <FaEyeSlash className="text-black" />
                         )}
                       </button>
                     </div>
@@ -221,7 +221,7 @@ const SignUpScreen = () => {
                   </div>
 
                   <div>
-                    <label className="block mb-2 text-sm font-medium text-white">
+                    <label className="block mb-2 text-sm font-medium text-black">
                       Confirm Password
                     </label>
                     <div className="relative">
@@ -234,7 +234,7 @@ const SignUpScreen = () => {
                           clearErrors("confirmPassword");
                         }}
                         type={showConfirmPassword ? "text" : "password"}
-                        className="bg-transparent border border-gray-300 text-white text-sm rounded-lg block w-full p-2.5 pr-10"
+                        className="bg-transparent border border-gray-300 text-black text-sm rounded-lg block w-full p-2.5 pr-10"
                       />
                       <button
                         type="button"
@@ -244,9 +244,9 @@ const SignUpScreen = () => {
                         className="absolute inset-y-0 right-0 flex items-center pr-3"
                       >
                         {showConfirmPassword ? (
-                          <FaEye className="text-white" />
+                          <FaEye className="text-black" />
                         ) : (
-                          <FaEyeSlash className="text-white" />
+                          <FaEyeSlash className="text-black" />
                         )}
                       </button>
                     </div>
@@ -258,12 +258,12 @@ const SignUpScreen = () => {
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div>
-                    <label className="block mb-2 text-sm font-medium text-white">
+                    <label className="block mb-2 text-sm font-medium text-black">
                       Select a Country
                     </label>
                     <select
                       {...register("country")}
-                      className="border bg-transparent border-gray-300 text-sm rounded-lg block w-full p-2.5"
+                      className="border bg-transparent border-gray-300 text-sm rounded-lg block w-full p-2.5 text-black"
                       value={country}
                       onChange={(e) => {
                         setCountry(e.target.value);
@@ -288,12 +288,12 @@ const SignUpScreen = () => {
                   </div>
 
                   <div>
-                    <label className="block mb-2 text-sm font-medium text-white">
+                    <label className="block mb-2 text-sm font-medium text-black">
                       Who are you?
                     </label>
                     <select
                       {...register("role")}
-                      className="border bg-transparent border-gray-300 text-sm rounded-lg block w-full p-2.5"
+                      className="border bg-transparent border-gray-300 text-sm rounded-lg block w-full p-2.5 text-black"
                       value={role}
                       onChange={(e) => {
                         setRole(e.target.value);
@@ -343,10 +343,10 @@ const SignUpScreen = () => {
                     />
                   </div>
                   <div className="ml-3 text-sm">
-                    <label className="font-light text-white">
+                    <label className="font-light text-black">
                       I accept the{" "}
                       <a
-                        className="font-medium text-white hover:underline"
+                        className="font-medium text-black hover:underline"
                         href="#"
                       >
                         Terms and Conditions
@@ -360,20 +360,20 @@ const SignUpScreen = () => {
                 {loading ? (
                   <button
                     type="submit"
-                    className="w-full flex items-center justify-center text-white bg-primary hover:bg-primary-700 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
+                    className="w-full flex items-center justify-center text-black bg-primary hover:bg-primary-700 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
                   >
-                    <Spinner className="h-5 w-5 text-white" />
+                    <Spinner className="h-5 w-5 text-black" />
                   </button>
                 ) : (
                   <button
                     type="submit"
-                    className="w-full text-white bg-primary hover:bg-primary-700 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
+                    className="w-full text-white bg-yellow-700 hover:bg-primary-700 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
                   >
                     Create an account
                   </button>
                 )}
 
-                <p className="text-sm font-light text-white text-center">
+                <p className="text-sm font-light text-black text-center">
                   Already have an account?{" "}
                   <Link
                     href="/login"
@@ -385,7 +385,7 @@ const SignUpScreen = () => {
 
                 <Typography
                   color="gray"
-                  className="mt-4 text-center font-normal text-white"
+                  className="mt-4 text-center font-normal text-black"
                 >
                   Or sign up with
                 </Typography>
@@ -405,7 +405,7 @@ const SignUpScreen = () => {
                   </button>
                   <button
                     type="button"
-                    className="flex items-center justify-center w-full text-white bg-blue-500 hover:bg-blue-600 font-medium rounded-lg text-sm px-5 py-2.5"
+                    className="flex items-center justify-center w-full text-white bg-black font-medium rounded-lg text-sm px-5 py-2.5"
                   >
                     <FaTwitter className="mr-2" /> Sign up with Twitter
                   </button>
