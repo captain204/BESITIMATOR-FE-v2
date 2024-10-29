@@ -1,7 +1,7 @@
 "use client";
 import { Typography } from "@material-tailwind/react";
 import Link from "next/link";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import {
   FaFacebook,
   FaGoogle,
@@ -17,7 +17,8 @@ import { RootState } from "@/Globals/store/store";
 import { loginUser } from "@/Globals/Slices/AuthSlices/LoginUserSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { Spinner } from "@material-tailwind/react";
-import { getUser } from "@/Globals/Slices/AuthSlices/GetUser";
+import { FiX } from "react-icons/fi";
+import { FaX } from "react-icons/fa6";
 
 // Validation schema
 const schema = yup.object().shape({
@@ -64,23 +65,28 @@ const LoginScreen = () => {
   // }, [success, dispatch]);
 
   return (
-    <div>
-      <section className="bg-tetiary dark:bg-gray-900 md:my-20">
+    <div
+      className="relative bg-cover bg-center overflow-hidden"
+      style={{ backgroundImage: 'url("/benifit.png")' }}
+    >
+      <div className="absolute inset-0 bg-white opacity-95"></div>
+
+      <section className=" md:my-20 relative">
         <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen">
-          <div className="w-full bg-[#00000040] rounded-lg shadow dark:border md:mt-0 sm:max-w-md md:max-w-lg xl:p-0 dark:bg-gray-800 dark:border-gray-700">
-            <div className="p-6 space-y-4 md:space-y-6 sm:p-8">
-              <h1 className="text-xl font-bold leading-tight tracking-tight text-white md:text-2xl dark:text-white">
+          <div className="w-full bg-white rounded-lg shadow border md:mt-0 sm:max-w-md md:max-w-lg xl:p-0 dark:bg-gray-800 dark:border-gray-700">
+            <div className="p-6 space-y-4 md:space-y-6 sm:p-8 shadow-xl">
+              <h1 className="text-xl font-bold leading-tight tracking-tight text-black md:text-2xl">
                 Login
               </h1>
 
               <form
-                className="space-y-4 md:space-y-6"
+                className="space-y-4 md:space-y-6 text-black"
                 onSubmit={handleSubmit(onSubmit)}
               >
                 <div>
                   <label
                     htmlFor="email"
-                    className="block mb-2 text-sm font-medium text-white"
+                    className="block mb-2 text-sm font-medium text-black"
                   >
                     Your Email
                   </label>
@@ -107,7 +113,7 @@ const LoginScreen = () => {
                 <div>
                   <label
                     htmlFor="password"
-                    className="block mb-2 text-sm font-medium text-white"
+                    className="block mb-2 text-sm font-medium text-black"
                   >
                     Password
                   </label>
@@ -124,16 +130,16 @@ const LoginScreen = () => {
                       }}
                       className={`bg-transparent border ${
                         errors.password ? "border-red-500" : "border-gray-300"
-                      } text-white text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 pr-10 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500`}
+                      } text-black text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 pr-10 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-black dark:focus:ring-blue-500 dark:focus:border-blue-500`}
                     />
                     <span
                       className="absolute inset-y-0 right-0 flex items-center pr-3 cursor-pointer"
                       onClick={() => setShowPassword(!showPassword)}
                     >
                       {showPassword ? (
-                        <FaEye className="text-white" />
+                        <FaEye className="text-black" />
                       ) : (
-                        <FaEyeSlash className="text-white" />
+                        <FaEyeSlash className="text-black" />
                       )}
                     </span>
                   </div>
@@ -146,7 +152,7 @@ const LoginScreen = () => {
 
                 <button
                   type="submit"
-                  className="w-full flex justify-center text-sm text-white bg-primary hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
+                  className="w-full flex justify-center text-sm text-white bg-yellow-800 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
                 >
                   {loading ? (
                     <Spinner className="w-4 h-4 text-white " />
@@ -166,19 +172,19 @@ const LoginScreen = () => {
                       />
                     </div>
                     <div className="md:ml-3 ml-1 text-sm ">
-                      <label htmlFor="terms" className="font-light text-white">
+                      <label htmlFor="terms" className="font-light text-black">
                         Remember me
                       </label>
                     </div>
                   </div>
                   <Link href="/reset-password">
-                    <p className="text-sm font-light text-white hover:underline">
+                    <p className="text-sm font-light text-black hover:underline">
                       Forgot Password?
                     </p>
                   </Link>
                 </div>
 
-                {/* <p className="text-sm font-light text-white text-center">
+                {/* <p className="text-sm font-light text-black text-center">
                   You don't have an account?{" "}
                   <Link
                     href="/signup"
@@ -190,7 +196,7 @@ const LoginScreen = () => {
 
                 <Typography
                   color="gray"
-                  className="mt-4 text-center font-normal text-white"
+                  className="mt-4 text-center font-normal text-black"
                 >
                   Or sign in with
                 </Typography>
@@ -210,9 +216,9 @@ const LoginScreen = () => {
                   </button>
                   <button
                     type="button"
-                    className="flex items-center justify-center w-full text-white bg-blue-500 hover:bg-blue-600 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 dark:bg-blue-500 dark:hover:bg-blue-600 dark:focus:ring-blue-800"
+                    className="flex items-center justify-center w-full text-white bg-black hover:bg-blue-600 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 dark:bg-blue-500 dark:hover:bg-blue-600 dark:focus:ring-blue-800"
                   >
-                    <FaTwitter className="mr-2" /> Sign up with Twitter
+                    <FaX className="mr-2" /> Sign up with twitter
                   </button>
                 </div>
               </form>

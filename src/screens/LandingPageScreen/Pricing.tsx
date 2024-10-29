@@ -41,13 +41,13 @@ export function PricingCard({ plan, price, features, sub, under }: any) {
         color="transparent"
         className="m-0 mb-8 rounded-none border-b border-gray-300 pb-8 text-center"
       >
-          <Typography
+        <Typography
           variant="small"
           className="font-semibold text-xl uppercase text-black mb-3"
         >
           {plan}
         </Typography>
-        
+
         <Typography
           variant="h1"
           className="mb-4 flex justify-center gap-1 text-3xl font-bold text-yellow-700"
@@ -56,8 +56,6 @@ export function PricingCard({ plan, price, features, sub, under }: any) {
           {price}
           <span className="text-3xl">/{under}</span>
         </Typography>
-
-      
 
         <Typography className="text-black  text-2sm">{sub}</Typography>
       </CardHeader>

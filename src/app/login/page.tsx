@@ -6,15 +6,13 @@ import React from "react";
 
 const page = () => {
   return (
-    <div className="bg-tetiary">
-      <Layout>
+    <Layout>
       <AboutHeader
-          title="Login"
-          breadcrumbItems={[{ label: "Home", link: "/" }, { label: "Login" }]}
-        />
-        <LoginScreen />
-      </Layout>
-    </div>
+        title="Login"
+        breadcrumbItems={[{ label: "Home", link: "/" }, { label: "Login" }]}
+      />
+      <LoginScreen />
+    </Layout>
   );
 };
 
