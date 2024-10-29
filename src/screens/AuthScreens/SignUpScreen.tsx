@@ -116,9 +116,9 @@ const SignUpScreen = () => {
       style={{ backgroundImage: 'url("/benifit.png")' }}
     >
       <div className="absolute inset-0 bg-white  opacity-95"></div>
-      <section className=" md:my-64 relative ">
+      <section className=" md:my-44 relative ">
         <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen">
-          <div className="w-full  shadow-xl rounded-lg border  dark:border md:mt-0 sm:max-w-md md:max-w-lg xl:p-0 dark:bg-gray-800 dark:border-gray-700">
+          <div className="w-full  shadow-xl rounded-lg border bg-white md:mt-0 sm:max-w-md md:max-w-lg xl:p-0 dark:bg-gray-800 dark:border-gray-700">
             <div className="p-6 space-y-4 md:space-y-6 sm:p-8 ">
               <h1 className="text-xl font-bold leading-tight tracking-tight text-black md:text-2xl ">
                 Create an account
