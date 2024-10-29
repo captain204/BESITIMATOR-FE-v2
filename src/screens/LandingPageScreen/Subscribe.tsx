@@ -76,7 +76,7 @@ const ContactUs = () => {
 
   return (
     <div
-      className="relative bg-cover bg-center overflow-hidden "
+      className="relative bg-cover bg-center overflow-hidden"
       style={{ backgroundImage: 'url("/benifit.png")' }}
     >
       <div className="absolute inset-0 bg-white opacity-95"></div>

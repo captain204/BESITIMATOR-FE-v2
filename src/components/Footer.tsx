@@ -15,9 +15,9 @@ const LINKS = [
   {
     title: "Quick Links",
     items: [
-      { name: "Partners", href: "/partners" },
-      { name: "Advertise With Us", href: "/advertise" },
-      { name: "Product", href: "/product" },
+      { name: "Partners", href: "/" },
+      { name: "Advertise With Us", href: "/advertise-with-us" },
+      { name: "Product", href: "/your-product" },
       { name: "Pricing Plans", href: "/pricing" },
     ],
   },

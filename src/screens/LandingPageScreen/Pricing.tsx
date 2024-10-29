@@ -7,7 +7,7 @@ import {
   Typography,
   Button,
 } from "@material-tailwind/react";
-import { motion, useInView } from "framer-motion";
+import { motion } from "framer-motion";
 import { useRef } from "react";
 
 function CheckIcon() {
@@ -18,7 +18,7 @@ function CheckIcon() {
       viewBox="0 0 24 24"
       strokeWidth={2}
       stroke="currentColor"
-      className="h-3 w-3"
+      className="h-3 w-3 text-yellow-700"
     >
       <path
         strokeLinecap="round"
@@ -29,36 +29,43 @@ function CheckIcon() {
   );
 }
 
-export function PricingCard({ plan, price, features }: any) {
+export function PricingCard({ plan, price, features, sub, under }: any) {
   return (
-    <Card variant="gradient" className="w-full max-w-[20rem] p-8 bg-secondary">
+    <Card
+      variant="gradient"
+      className="w-96 h-[400px] p-8 bg-white border border-gray-200 shadow-lg rounded-xl transform transition-all duration-300 hover:scale-105"
+    >
       <CardHeader
         floated={false}
         shadow={false}
         color="transparent"
-        className="m-0 mb-8 rounded-none border-b border-white/10 pb-8 text-center"
+        className="m-0 mb-8 rounded-none border-b border-gray-300 pb-8 text-center"
       >
-        <Typography
+          <Typography
           variant="small"
-          color="white"
-          className="font-normal uppercase"
+          className="font-semibold text-xl uppercase text-black mb-3"
         >
           {plan}
         </Typography>
+        
         <Typography
           variant="h1"
-          color="white"
-          className="mt-6 flex justify-center gap-1 text-7xl font-normal"
+          className="mb-4 flex justify-center gap-1 text-3xl font-bold text-yellow-700"
         >
-          <span className="mt-2 text-4xl">$</span>
-          {price} <span className="self-end text-4xl">/mo</span>
+          <span className="text-3xl">₦</span>
+          {price}
+          <span className="text-3xl">/{under}</span>
         </Typography>
+
+      
+
+        <Typography className="text-black  text-2sm">{sub}</Typography>
       </CardHeader>
       <CardBody className="p-0">
-        <ul className="flex flex-col gap-4 text-white">
+        <ul className="flex flex-col gap-4 text-black">
           {features.map((feature: any, index: any) => (
-            <li key={index} className="flex items-center gap-4">
-              <span className="rounded-full border border-white/20 bg-white/20 p-1">
+            <li key={index} className="flex items-center gap-2">
+              <span className="rounded-full border border-yellow-500 bg-yellow-100 p-1">
                 <CheckIcon />
               </span>
               <Typography className="font-normal">{feature}</Typography>
@@ -66,11 +73,10 @@ export function PricingCard({ plan, price, features }: any) {
           ))}
         </ul>
       </CardBody>
-      <CardFooter className="mt-12 p-0">
+      <CardFooter className="mt-8 p-0">
         <Button
           size="lg"
-          color="white"
-          className="hover:scale-[1.02] focus:scale-[1.02] active:scale-100"
+          className="bg-yellow-700 text-black hover:bg-yellow-700 hover:scale-105 transition-transform transform"
           ripple={false}
           fullWidth={true}
         >
@@ -83,41 +89,44 @@ export function PricingCard({ plan, price, features }: any) {
 
 const Pricing = () => {
   const ref = useRef(null);
-  const isInView = useInView(ref, { once: true });
 
   const cards = [
     {
       plan: "Automated Calculation",
-      price: "29",
-      features: [
-        "5 team members",
-        "200+ components",
-        "40+ built-in pages",
-        "1 year free updates",
-        "Life time technical support",
-      ],
+      price: "0.00",
+      features: ["No of 50 Automatic calculation"],
+      sub: "For New User First 50 Automated Calculation Free",
+      under: "50",
     },
     {
-      plan: "Cost Tracker",
-      price: "49",
-      features: [
-        "10 team members",
-        "300+ components",
-        "60+ built-in pages",
-        "2 years free updates",
-        "Priority technical support",
-      ],
+      plan: "Automated Calculation",
+      price: "10,000.00",
+      features: ["No of 100 Automatic calculation"],
+      sub: "100 Automated calculation",
+      under: "100",
     },
     {
+      plan: "Custom Project",
+      price: "0.00",
+      features: ["No of 1 Project Available"],
+      sub: "No of 1 Project Available",
+      under: "1",
+    },
+
+    {
       plan: "Cost Tracker",
-      price: "99",
-      features: [
-        "Unlimited team members",
-        "500+ components",
-        "100+ built-in pages",
-        "3 years free updates",
-        "24/7 technical support",
-      ],
+      price: "10,000.00",
+      features: ["No of 1 Project Available"],
+      sub: "First cost tracker is free for all users.",
+      under: "1",
+    },
+
+    {
+      plan: "custom project",
+      price: "0.00",
+      features: ["No of 1 Project Available"],
+      sub: "1",
+      under: "1",
     },
   ];
 
@@ -134,7 +143,12 @@ const Pricing = () => {
   };
 
   return (
-    <div ref={ref} className="flex justify-center gap-6 flex-wrap py-20">
+    <div
+      ref={ref}
+      className="flex justify-center gap-6 flex-wrap py-20 relative bg-cover bg-center overflow-hidden"
+      style={{ backgroundImage: 'url("/benifit.png")' }}
+    >
+      <div className="absolute inset-0 bg-white opacity-95"></div>
       {cards.map((card, index) => (
         <motion.div
           key={index}
@@ -143,11 +157,14 @@ const Pricing = () => {
           whileInView="visible"
           variants={cardVariants}
           viewport={{ once: true, amount: 0.2 }}
+          className="relative"
         >
           <PricingCard
             plan={card.plan}
             price={card.price}
             features={card.features}
+            sub={card.sub}
+            under={card.under}
           />
         </motion.div>
       ))}
