@@ -26,6 +26,7 @@ import {
   UserGroupIcon,
 } from "@heroicons/react/24/solid";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 const navListMenuItems = [
   {
@@ -106,7 +107,7 @@ function NavListMenu() {
         <MenuHandler>
           <Typography as="div" variant="small" className="font-medium">
             <ListItem
-              className="flex items-center gap-2 py-2 pr-4 font-medium text-gray-900"
+              className="flex items-center gap-2 py-2.5 pr-4 font-medium text-gray-900"
               selected={isMenuOpen || isMobileMenuOpen}
               onClick={() => setIsMobileMenuOpen((cur) => !cur)}
             >
@@ -145,7 +146,7 @@ function NavListMenu() {
 function NavList() {
   return (
     <List className="mt-4 mb-6 p-0 lg:mt-0 lg:mb-0 lg:flex-row lg:p-1">
-      <Typography
+      {/* <Typography
         as="a"
         href="#"
         variant="small"
@@ -153,9 +154,14 @@ function NavList() {
         className="font-medium"
       >
         <ListItem className="flex items-center gap-2 py-2 pr-4">About</ListItem>
-      </Typography>
+      </Typography> */}
+      <Link href="/about" passHref>
+        <ListItem className="flex text-sm items-center gap-2 py-2 pr-4 font-medium text-gray-900">
+          About
+        </ListItem>
+      </Link>
 
-      <Typography
+      {/* <Typography
         as="a"
         href="#"
         variant="small"
@@ -165,11 +171,17 @@ function NavList() {
         <ListItem className="flex items-center gap-2 py-2 pr-4">
           Pricing
         </ListItem>
-      </Typography>
+      </Typography> */}
+
+      <Link href="/pricing" passHref>
+        <ListItem className="flex  text-sm items-center gap-2 py-2 pr-4 font-medium text-gray-900 ">
+          Pricing
+        </ListItem>
+      </Link>
 
       <NavListMenu />
 
-      <Typography
+      {/* <Typography
         as="a"
         href="#"
         variant="small"
@@ -177,7 +189,14 @@ function NavList() {
         className="font-medium"
       >
         <ListItem className="flex items-center gap-2 py-2 pr-4">Blog</ListItem>
-      </Typography>
+      </Typography> */}
+
+      <Link href="/blog" passHref>
+        <ListItem className="flex items-center gap-2 py-2 pr-4 font-medium text-sm text-gray-900">
+          Blog
+        </ListItem>
+      </Link>
+      {/* 
       <Typography
         as="a"
         href="#"
@@ -186,13 +205,20 @@ function NavList() {
         className="font-medium"
       >
         <ListItem className="flex items-center gap-2 py-2 pr-4">FAQ</ListItem>
-      </Typography>
+      </Typography> */}
+
+      <Link href="/faq" passHref>
+        <ListItem className="flex text-sm items-center gap-2 py-2 pr-4 font-medium text-gray-900">
+          FAQ
+        </ListItem>
+      </Link>
     </List>
   );
 }
 
 const NavbarWithMegaMenu = () => {
   const [openNav, setOpenNav] = React.useState(false);
+  const router = useRouter();
 
   React.useEffect(() => {
     window.addEventListener(
@@ -245,13 +271,13 @@ const NavbarWithMegaMenu = () => {
                   />
                 </svg>
                 <input
-                style={{border: "1px solid gre"}}
+                  style={{ border: "1px solid gre" }}
                   className="w-full  bg-transparent placeholder:text-slate-400 text-slate-700 text-sm border border-slate-200 rounded-md pl-10 pr-3 py-2 transition duration-300 ease focus:outline-none focus:border-slate-400 hover:border-slate-300 shadow-sm focus:shadow"
                   placeholder="Search ..."
                 />
               </div>
             </div>
-            <Button className="bg-yellow-700" size="sm">
+            <Button className="bg-yellow-700" size="sm"  onClick={() => router.push("/login")}>
               Sign In
             </Button>
           </div>
@@ -271,7 +297,7 @@ const NavbarWithMegaMenu = () => {
         <Collapse open={openNav}>
           <NavList />
           <div className="flex w-full flex-nowrap items-center gap-2 lg:hidden">
-          <div className="w-full">
+            <div className="w-full">
               <div className="relative flex items-center">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -291,7 +317,7 @@ const NavbarWithMegaMenu = () => {
                 />
               </div>
             </div>
-            <Button size="sm" fullWidth className="bg-yellow-600">
+            <Button size="sm" fullWidth className="bg-yellow-600"  onClick={() => router.push("/login")}>
               Sign In
             </Button>
           </div>
