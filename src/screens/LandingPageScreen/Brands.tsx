@@ -12,7 +12,7 @@ const brands = [
 
 const BrandsSection = () => {
   return (
-    <section className="relative py-16 bg-cover bg-center" style={{ backgroundImage: 'url("/benifit.png")' }}>
+    <section className="relative pb-16 bg-cover bg-center" style={{ backgroundImage: 'url("/benifit.png")' }}>
       <div className="absolute inset-0 bg-white opacity-95"></div>
       <div className="relative container mx-auto px-8 lg:px-10 text-center">
         <h2 className="md:text-4xl text-2xl font-extrabold text-gray-900 mb-10">

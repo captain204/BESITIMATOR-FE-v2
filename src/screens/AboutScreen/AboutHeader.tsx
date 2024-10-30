@@ -15,7 +15,7 @@ interface AboutHeaderProps {
 const AboutHeader: React.FC<AboutHeaderProps> = ({ title, breadcrumbItems }) => {
   return (
     <div
-      className="relative w-full h-[20rem] bg-cover flex flex-col items-center justify-center text-white mt-20"
+      className="relative w-full md:h-[20rem] h-[15rem] bg-cover flex flex-col items-center justify-center text-white md:mt-20"
       style={{
         backgroundImage: `url('/bgimage.jpeg')`,
       }}
@@ -32,7 +32,7 @@ const AboutHeader: React.FC<AboutHeaderProps> = ({ title, breadcrumbItems }) => 
         <Typography
           variant="h6"
           color="white"
-          className="text-5xl font-bold mx-auto"
+          className="text-5xl font-bold mx-auto  mt-28 md:mt-0"
         >
           {title}
         </Typography>

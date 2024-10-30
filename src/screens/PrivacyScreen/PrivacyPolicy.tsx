@@ -3,11 +3,11 @@ import React from "react";
 const PrivacyPolicy = () => {
   return (
     <div
-      className=" h-auto p-6 md:p-12 relative bg-cover bg-center overflow-hidden "
+      className=" h-auto p-6  relative bg-cover bg-center overflow-hidden "
       style={{ backgroundImage: 'url("/benifit.png")' }}
     >
        <div className="absolute inset-0 bg-white opacity-95"></div>
-      <div className="relative max-w-4xl mx-auto p-6 bg-white  text-black rounded-lg shadow-lg my-10 overflow-hidden">
+      <div className="relative max-w-4xl mx-auto p-6 bg-white  text-black rounded-lg shadow-lg border overflow-hidden">
         <h1 className="text-3xl font-bold mb-6">Privacy Policy</h1>
         <p className="mb-4">
           Building Estimator built the The Building Estimator app as a Freemium

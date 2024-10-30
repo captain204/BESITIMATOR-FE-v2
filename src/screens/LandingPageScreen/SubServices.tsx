@@ -56,7 +56,7 @@ const Subservices = () => {
           {cards.map((card, index) => (
             <div
               key={index}
-              className="max-w-sm bg-white border rounded-lg shadow-lg dark:bg-gray-800 p-6 hover:shadow-2xl transition-all duration-300 z-10"
+              className="max-w-sm bg-white border rounded-lg shadow-lg dark:bg-gray-800 p-4 md:p-6 hover:shadow-2xl transition-all duration-300 z-10"
             >
               <h5 className="mb-2 text-xl font-semibold tracking-tight text-black">
                 {card.title}

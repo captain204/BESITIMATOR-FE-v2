@@ -80,7 +80,7 @@ const ContactUs = () => {
       style={{ backgroundImage: 'url("/benifit.png")' }}
     >
       <div className="absolute inset-0 bg-white opacity-95"></div>
-      <div className=" flex flex-col md:flex-row-reverse p-4 md:p-14 mt-10 justify-center items-center text-black">
+      <div className=" flex flex-col md:flex-row-reverse p-4 md:p-14 md:mt-0 mt-6 justify-center items-center text-black">
         <ToastContainer />
 
         <Dialog open={openDialog} handler={toggleDialog} size="md">
@@ -177,7 +177,7 @@ const ContactUs = () => {
           // viewport={{
           //   once: true,
           // }}
-          className="md:w-1/2 p-8 bg-white  relative shadow-lg rounded-none border md:mt-0 mt-8"
+          className="md:w-1/2 p-8 bg-white  relative shadow-lg rounded-none border md:mt-0 mt-4"
         >
           <h2 className="md:text-3xl text-2xl font-bold mb-6 text-black">
             Subscribe to Save Millions on Your Building Project!

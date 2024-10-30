@@ -1,6 +1,7 @@
 import Layout from "@/components/Layout";
 import AboutHeader from "@/screens/AboutScreen/AboutHeader";
 import FAQSection from "@/screens/FAQs/FAQs";
+import ContactUs from "@/screens/LandingPageScreen/Subscribe";
 import React from "react";
 
 const page = () => {
@@ -13,6 +14,7 @@ const page = () => {
         />
 
         <FAQSection />
+        <ContactUs />
       </Layout>
     </div>
   );

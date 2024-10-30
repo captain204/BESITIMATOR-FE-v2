@@ -317,7 +317,7 @@ const FAQSection = () => {
   ];
 
   return (
-    <div className="max-w-5xl mx-auto p-6 bg-white my-10 shadow-md">
+    <div className="max-w-5xl mx-auto p-6 bg-white mt-10 shadow-md border">
     <h2 className="text-3xl font-bold text-center text-gray-900 mb-8">
       Frequently Asked Questions
     </h2>
@@ -331,9 +331,9 @@ const FAQSection = () => {
             <span className="text-xl font-semibold text-gray-900">{faq.question}</span>
             <span>
               {activeIndex === index ? (
-                <FiMinus className="text-xl text-yellow-500" />
+                <FiMinus className="text-xl text-yellow-900" />
               ) : (
-                <FiPlus className="text-xl text-yellow-500" />
+                <FiPlus className="text-xl text-yellow-900" />
               )}
             </span>
           </button>
