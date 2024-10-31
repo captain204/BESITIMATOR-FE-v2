@@ -14,11 +14,19 @@ const page = () => {
             { label: "Advertise" },
           ]}
         />
-        <div className="mx-auto overflow-hidden">
-          <h1 className="text-black text-center md:text-4xl text-2xl mt-20 ">
-            Please send an email to <br />
-            <span className="text-blue-500">info@thebuildingestimator.com</span>
-          </h1>
+        <div
+          className="relative bg-cover bg-center overflow-hidden"
+          style={{ backgroundImage: 'url("/benifit.png")' }}
+        >
+          <div className="absolute inset-0 bg-white opacity-95"></div>
+          <div className="mx-auto overflow-hidden relative">
+            <h1 className="text-black text-center md:text-4xl text-2xl mt-20 ">
+              Please send an email to <br />
+              <span className="text-blue-500">
+                info@thebuildingestimator.com
+              </span>
+            </h1>
+          </div>
         </div>
 
         <ContactUs />

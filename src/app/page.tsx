@@ -1,41 +1,78 @@
 "use client";
-// import Header from "@/components";
-import About from "@/screens/LandingPageScreen/About";
-import WorkTogetherSection from "@/screens/LandingPageScreen/ContactInfo";
+
+import { useEffect, useState } from "react";
 import Experience from "@/screens/LandingPageScreen/Experience";
 import Footer from "@/components/Footer";
-// import MobileNavbile from "@/components/MobileNavbar";
-import Pricing from "@/screens/LandingPageScreen/Pricing";
-// import Services from "@/screens/LandingPageScreen/Services";
-import SlideSection from "@/screens/LandingPageScreen/SlideSection";
 import SubscriptionForm from "@/screens/LandingPageScreen/Subscribe";
-import Testimonia from "@/screens/LandingPageScreen/Testimonia";
 import NavbarWithMegaMenu from "@/screens/Navbar/Navbar";
 import HeroReal from "@/screens/LandingPageScreen/Herotwo";
 import Subservices from "@/screens/LandingPageScreen/SubServices";
 import BrandsSection from "@/screens/LandingPageScreen/Brands";
+import SplashScreen from "@/screens/SplashScreen";
+
 
 export default function Home() {
-  return (
-    <div className=" overflow-hidden">
-      {/* <div className="md:hidden">
-        <MobileNavbile />
-      </div> */}
-      {/* <NavbarWithMegaMenu /> */}
-      <NavbarWithMegaMenu/>
-      {/* <Header /> */}
-      <HeroReal />
-      <Subservices  />
-      <Experience />
-      {/* <About /> */}
-      {/* <SlideSection /> */}
-      {/* <Pricing /> */}
-      {/* <Testimonia /> */}
-      <SubscriptionForm />
-      < BrandsSection />
-      {/* <WorkTogetherSection /> */}
-      <Footer />
+  const [showSplash, setShowSplash] = useState(true);
 
+  useEffect(() => {
+    const hasSeenSplashScreen = localStorage.getItem("hasSeenSplashScreen");
+
+    if (hasSeenSplashScreen) {
+      setShowSplash(false); // If splash screen was shown before, skip it
+    } else {
+      setTimeout(() => {
+        setShowSplash(false); // Hide splash screen after delay
+        localStorage.setItem("hasSeenSplashScreen", "true"); // Mark splash screen as seen
+      }, 3000); // Set splash screen duration here
+    }
+  }, []);
+
+  return (
+    <div className="overflow-hidden">
+      {showSplash ? (
+        <SplashScreen /> // Show splash screen initially
+      ) : (
+        <>
+          <NavbarWithMegaMenu />
+          <HeroReal />
+          <Subservices />
+          <Experience />
+          <SubscriptionForm />
+          <BrandsSection />
+          <Footer />
+        </>
+      )}
     </div>
   );
 }
+
+
+
+
+
+// "use client";
+
+// import Experience from "@/screens/LandingPageScreen/Experience";
+// import Footer from "@/components/Footer";
+// import SubscriptionForm from "@/screens/LandingPageScreen/Subscribe";
+// import NavbarWithMegaMenu from "@/screens/Navbar/Navbar";
+// import HeroReal from "@/screens/LandingPageScreen/Herotwo";
+// import Subservices from "@/screens/LandingPageScreen/SubServices";
+// import BrandsSection from "@/screens/LandingPageScreen/Brands";
+
+// export default function Home() {
+//   return (
+//     <div className=" overflow-hidden">
+//       <NavbarWithMegaMenu />
+
+//       <HeroReal />
+//       <Subservices />
+//       <Experience />
+
+//       <SubscriptionForm />
+//       <BrandsSection />
+
+//       <Footer />
+//     </div>
+//   );
+// }
