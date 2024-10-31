@@ -191,7 +191,7 @@ function NavList() {
         <ListItem className="flex items-center gap-2 py-2 pr-4">Blog</ListItem>
       </Typography> */}
 
-      <Link href="/blog" passHref>
+      <Link href="/" passHref aria-disabled>
         <ListItem className="flex items-center gap-2 py-2 pr-4 font-medium text-sm text-gray-900">
           Blog
         </ListItem>

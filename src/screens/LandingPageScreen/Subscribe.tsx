@@ -3,8 +3,9 @@ import React, { useState } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { ToastContainer, toast } from "react-toastify";
+import { Flip, toast, Zoom } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { IoCheckmarkDoneCircleSharp } from "react-icons/io5";
 
 import {
   Dialog,
@@ -17,61 +18,150 @@ import {
 } from "@material-tailwind/react";
 
 type FormData = {
-  name: string;
+  // name: string;
   email: string;
   phone: string;
-  message: string;
+  // message: string;
+  firstName: string;
+  otherName: string;
 };
 
-const schema = yup.object().shape({
-  name: yup.string().required("Name is required"),
+type QuoteFormData = {
+  // email: string;
+  phone: string;
+  otherName: string;
+};
+
+type SubscribeFormData = {
+  firstName: string;
+  otherName: string;
+  email: string;
+  phone: string;
+};
+
+const quoteSchema = yup.object().shape({
+  // email: yup.string().email("Invalid email format").required("Email is required"),
+  phone: yup.string().required("Phone number is required"),
+  otherName: yup.string().required("Other Name is required"),
+});
+
+const subscribeSchema = yup.object().shape({
+  firstName: yup.string().required("First Name is required"),
+  otherName: yup.string().required("Other Name is required"),
   email: yup
     .string()
     .email("Invalid email format")
     .required("Email is required"),
   phone: yup.string().required("Phone number is required"),
-  message: yup.string().required("Message is required"),
+});
+
+const schema = yup.object().shape({
+  // name: yup.string().required("Name is required"),
+  email: yup
+    .string()
+    .email("Invalid email format")
+    .required("Email is required"),
+  phone: yup.string().required("Phone number is required"),
+  // message: yup.string().required("Message is required"),
+  firstName: yup.string().required("First Name is required"),
+  otherName: yup.string().required("Other Name is required"),
 });
 
 const ContactUs = () => {
   const [loading, setLoading] = useState(false);
   const [openDialog, setOpenDialog] = useState(false);
-
   const toggleDialog = () => setOpenDialog(!openDialog);
+  const [firstName, setFirstName] = useState("");
+  const [otherName, setOtherName] = useState("");
+  const [email, setEmail] = useState("");
+  const [phone, setPhone] = useState("");
+
+  // const {
+  //   register,
+  //   handleSubmit,
+  //   formState: { errors },
+  //   reset,
+  // } = useForm<FormData>({
+  //   resolver: yupResolver(schema),
+  // });
 
   const {
     register,
     handleSubmit,
     formState: { errors },
-    reset,
-  } = useForm<FormData>({
+    clearErrors,
+  } = useForm({
     resolver: yupResolver(schema),
   });
 
-  const onSubmit: SubmitHandler<FormData> = async (data: any) => {
+  const {
+    register: registerQuote,
+    handleSubmit: handleSubmitQuote,
+    formState: { errors: errorsQuote },
+  } = useForm<QuoteFormData>({
+    resolver: yupResolver(quoteSchema),
+  });
+
+  const {
+    register: registerSubscribe,
+    handleSubmit: handleSubmitSubscribe,
+    formState: { errors: errorsSubscribe },
+  } = useForm<SubscribeFormData>({
+    resolver: yupResolver(subscribeSchema),
+  });
+
+  const onSubmit = (data: any) => {
+    console.log("Form Data:", data);
+    // Add your submission logic here
+  };
+
+  // const onSubmitQuote: SubmitHandler<FormData> = async (data) => {
+  //   setLoading(true);
+  //   // Simulate an API call
+  //   setTimeout(() => {
+  //     toast.success("Quote requested successfully!");
+  //     // alert("done")
+  //     setLoading(false);
+  //     // resetQuote(); // Reset the form after submission
+  //     toggleDialog(); // Close the dialog
+  //   }, 1000);
+  // };
+
+  const onSubmitQuote: SubmitHandler<QuoteFormData> = async (data) => {
     setLoading(true);
-
-    try {
-      const response = await fetch("https://formspree.io/f/mdknakld", {
-        method: "POST",
-        body: JSON.stringify(data),
-        headers: {
-          "Content-Type": "application/json",
-          Accept: "application/json",
-        },
+    setTimeout(() => {
+      // toast.warning("Quote requested successfully!");
+      toast.warning("Quote requested successfully!", {
+        transition: Zoom,
+        position: "top-right",
+        icon: (
+          <IoCheckmarkDoneCircleSharp className="text-yellow-700" size={24} />
+        ),
       });
-
-      if (response.ok) {
-        reset();
-        toast.success("Message sent successfully!");
-      } else {
-        toast.error("Failed to send message.");
-      }
-    } catch (error) {
-      toast.error("An error occurred. Please try again.");
-    } finally {
       setLoading(false);
-    }
+      toggleDialog();
+    }, 1000);
+  };
+
+  // OnSubmit function for Subscribe
+  const onSubmitSubscribe: SubmitHandler<FormData> = async () => {
+    setLoading(true);
+    // Simulate an API call
+    // toast.success("Subscribed successfully!");
+    setTimeout(() => {
+      // toast.success("Subscribed successfully!");
+
+      toast.warning("Subscribed successfully!", {
+        transition: Zoom,
+        position: "top-right",
+        icon: (
+          <IoCheckmarkDoneCircleSharp className="text-yellow-700" size={24} />
+        ),
+      });
+      // alert("done")
+      setLoading(false);
+      // resetSubscribe(); // Reset the form after submission
+    }, 1000);
   };
 
   return (
@@ -80,26 +170,24 @@ const ContactUs = () => {
       style={{ backgroundImage: 'url("/benifit.png")' }}
     >
       <div className="absolute inset-0 bg-white opacity-95"></div>
-      <div className=" flex flex-col md:flex-row-reverse p-4 md:p-14 md:mt-0 mt-6 justify-center items-center text-black">
-        <ToastContainer />
-
+      <div className=" flex flex-col md:flex-row-reverse p-4 md:p-14  justify-center items-center text-black">
         <Dialog open={openDialog} handler={toggleDialog} size="md">
           <DialogHeader>
             <Typography variant="h5">Request a Quote</Typography>
           </DialogHeader>
-          <form onSubmit={handleSubmit(onSubmit)}>
+          <form onSubmit={handleSubmitQuote(onSubmitQuote)}>
             <DialogBody>
               <div className="space-y-4">
                 <div>
                   <Input
                     label="Your Name"
                     type="text"
-                    {...register("name")}
-                    error={errors.name?.message ? true : false}
+                    {...registerQuote("otherName")}
+                    error={errorsQuote.otherName?.message ? true : false}
                   />
-                  {errors.name && (
+                  {errorsQuote.otherName && (
                     <Typography variant="small" color="red">
-                      {errors.name.message}
+                      {errorsQuote.otherName.message}
                     </Typography>
                   )}
                 </div>
@@ -107,12 +195,12 @@ const ContactUs = () => {
                   <Input
                     label="Phone Number"
                     type="tel"
-                    {...register("phone")}
-                    error={errors.phone?.message ? true : false}
+                    {...registerQuote("phone")}
+                    error={errorsQuote.phone?.message ? true : false}
                   />
-                  {errors.phone && (
+                  {errorsQuote.phone && (
                     <Typography variant="small" color="red">
-                      {errors.phone.message}
+                      {errorsQuote.phone.message}
                     </Typography>
                   )}
                 </div>
@@ -177,7 +265,7 @@ const ContactUs = () => {
           // viewport={{
           //   once: true,
           // }}
-          className="md:w-1/2 p-8 bg-white  relative shadow-lg rounded-none border md:mt-0 mt-4"
+          className="md:w-1/2 p-8 bg-white  relative shadow-lg rounded-none border md:mt-0 mt-8"
         >
           <h2 className="md:text-3xl text-2xl font-bold mb-6 text-black">
             Subscribe to Save Millions on Your Building Project!
@@ -186,55 +274,65 @@ const ContactUs = () => {
             Get updates on construction trends, promotions on materials, and
             money-saving tips.
           </p>
-          <form className="space-y-6" onSubmit={handleSubmit(onSubmit)}>
+          <form
+            className="space-y-6"
+            onSubmit={handleSubmit(onSubmitSubscribe)}
+          >
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div>
-                <label
-                  htmlFor="name"
-                  className="block text-sm font-medium text-black"
-                >
+                <label className="block text-sm font-medium text-black">
                   First Name
                 </label>
                 <input
                   type="text"
-                  id="name"
-                  {...register("name")}
+                  id="firstName"
+                  {...register("firstName")}
+                  onChange={(e) => {
+                    setFirstName(e.target.value);
+                    clearErrors("firstName");
+                  }}
                   className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-3 text-black bg-white focus:outline-none focus:ring-yellow-700 focus:border-yellow-700"
                 />
-                {errors.name && (
-                  <p className="text-red-500 text-sm">{errors.name.message}</p>
+                {errors.firstName && (
+                  <p className="text-red-500 text-sm">
+                    {errors.firstName.message}
+                  </p>
                 )}
               </div>
 
               <div>
-                <label
-                  htmlFor="name"
-                  className="block text-sm font-medium text-black"
-                >
+                <label className="block text-sm font-medium text-black">
                   Other Name
                 </label>
                 <input
                   type="text"
-                  id="name"
-                  {...register("name")}
+                  id="othername"
+                  {...register("otherName")}
+                  onChange={(e) => {
+                    setOtherName(e.target.value);
+                    clearErrors("otherName");
+                  }}
                   className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-3 text-black bg-white focus:outline-none focus:ring-yellow-700 focus:border-yellow-700"
                 />
-                {errors.name && (
-                  <p className="text-red-500 text-sm">{errors.name.message}</p>
+                {errors.otherName && (
+                  <p className="text-red-500 text-sm">
+                    {errors.otherName.message}
+                  </p>
                 )}
               </div>
 
               <div>
-                <label
-                  htmlFor="email"
-                  className="block text-sm font-medium text-black"
-                >
+                <label className="block text-sm font-medium text-black">
                   Email
                 </label>
                 <input
                   type="email"
                   id="email"
                   {...register("email")}
+                  onChange={(e) => {
+                    setEmail(e.target.value);
+                    clearErrors("email");
+                  }}
                   className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-3 text-black bg-white focus:outline-none focus:ring-yellow-700 focus:border-yellow-700"
                 />
                 {errors.email && (
@@ -243,16 +341,17 @@ const ContactUs = () => {
               </div>
 
               <div>
-                <label
-                  htmlFor="phone"
-                  className="block text-sm font-medium text-black"
-                >
+                <label className="block text-sm font-medium text-black">
                   Phone Number
                 </label>
                 <input
                   type="number"
                   id="phone"
                   {...register("phone")}
+                  onChange={(e) => {
+                    setPhone(e.target.value);
+                    clearErrors("phone");
+                  }}
                   className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-3 text-black bg-white focus:outline-none focus:ring-yellow-700 focus:border-yellow-700"
                 />
                 {errors.phone && (
@@ -260,15 +359,27 @@ const ContactUs = () => {
                 )}
               </div>
 
-              <div className="">
+              {/* <div className=""> */}
+
+              {loading ? (
+                <button
+                  // type="submit"
+                  className="rounded-md hover:bg-black  py-3 px-6 shadow-sm text-lg font-medium text-white bg-yellow-700 hover:text-white  focus:outline-none focus:ring-2 focus:ring-offset-2 focus:yellow-500"
+                  disabled={loading}
+                >
+                  Loading...
+                </button>
+              ) : (
                 <button
                   type="submit"
                   className="rounded-md hover:bg-black  py-3 px-6 shadow-sm text-lg font-medium text-white bg-yellow-700 hover:text-white  focus:outline-none focus:ring-2 focus:ring-offset-2 focus:yellow-500"
                   disabled={loading}
                 >
-                  {loading ? "Loading..." : "Subscribe Now"}
+                  Subscribe Now
                 </button>
-              </div>
+              )}
+
+              {/* </div> */}
             </div>
           </form>
         </div>

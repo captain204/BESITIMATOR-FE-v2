@@ -18,7 +18,7 @@ import { loginUser } from "@/Globals/Slices/AuthSlices/LoginUserSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { Spinner } from "@material-tailwind/react";
 import { FiX } from "react-icons/fi";
-import { FaX } from "react-icons/fa6";
+import { FaX, FaXTwitter } from "react-icons/fa6";
 
 // Validation schema
 const schema = yup.object().shape({
@@ -73,9 +73,9 @@ const LoginScreen = () => {
 
       <section className=" md:my-20 relative">
         <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen">
-          <div className="w-full bg-white rounded-lg shadow border md:mt-0 sm:max-w-md md:max-w-lg xl:p-0 dark:bg-gray-800 dark:border-gray-700">
+          <div className="w-full bg-white  rounded-lg shadow border md:mt-0 sm:max-w-md md:max-w-lg xl:p-0 dark:bg-gray-800 dark:border-gray-700">
             <div className="p-6 space-y-4 md:space-y-6 sm:p-8 shadow-xl">
-              <h1 className="text-xl font-bold leading-tight tracking-tight text-black md:text-2xl">
+              <h1 className="text-xl font-bold text-center leading-tight tracking-tight text-black md:text-2xl">
                 Login
               </h1>
 
@@ -101,7 +101,7 @@ const LoginScreen = () => {
                     }}
                     className={`bg-transparent border ${
                       errors.email ? "border-red-500" : "border-gray-300"
-                    } text-white text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500`}
+                    } text-black text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500`}
                   />
                   {errors.email && (
                     <p className="text-red-500 text-sm">
@@ -152,10 +152,10 @@ const LoginScreen = () => {
 
                 <button
                   type="submit"
-                  className="w-full flex justify-center text-sm text-white bg-yellow-800 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
+                  className="w-full flex font-bold justify-center text-sm text-white bg-yellow-800 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 rounded-lg px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
                 >
                   {loading ? (
-                    <Spinner className="w-4 h-4 text-white " />
+                    <Spinner className="w-4 h-4 text-white f " />
                   ) : (
                     "Login"
                   )}
@@ -184,6 +184,16 @@ const LoginScreen = () => {
                   </Link>
                 </div>
 
+                <p className="text-sm font-light text-black text-center">
+                  Don't have an account?{" "}
+                  <Link
+                    href="/signup"
+                    className="font-medium italic text-primary-600 hover:underline"
+                  >
+                    SignUp here
+                  </Link>
+                </p>
+
                 {/* <p className="text-sm font-light text-black text-center">
                   You don't have an account?{" "}
                   <Link
@@ -196,7 +206,7 @@ const LoginScreen = () => {
 
                 <Typography
                   color="gray"
-                  className="mt-4 text-center font-normal text-black"
+                  className="mt-4 text-center text-sm font-normal text-black"
                 >
                   Or sign in with
                 </Typography>
@@ -216,9 +226,10 @@ const LoginScreen = () => {
                   </button>
                   <button
                     type="button"
-                    className="flex items-center justify-center w-full text-white bg-black hover:bg-blue-600 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 dark:bg-blue-500 dark:hover:bg-blue-600 dark:focus:ring-blue-800"
+                    className="flex items-center justify-center w-full text-white bg-black font-medium rounded-lg text-sm px-5 py-2.5"
                   >
-                    <FaX className="mr-2" /> Sign up with twitter
+                    <FaXTwitter className="mr-2" />
+                    Sign up with Twitter
                   </button>
                 </div>
               </form>

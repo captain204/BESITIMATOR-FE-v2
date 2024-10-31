@@ -317,7 +317,9 @@ const FAQSection = () => {
   ];
 
   return (
-    <div className="max-w-5xl mx-auto p-6 bg-white mt-10 shadow-md border">
+    <div className="relative bg-cover bg-center overflow-hidden" style={{ backgroundImage: 'url("/benifit.png")' }}>
+    <div className="absolute inset-0 bg-white opacity-95"></div>
+    <div className="max-w-5xl mx-auto p-6 bg-white mt-10 shadow-md border relative">
     <h2 className="text-3xl font-bold text-center text-gray-900 mb-8">
       Frequently Asked Questions
     </h2>
@@ -346,7 +348,7 @@ const FAQSection = () => {
       ))}
     </div>
   </div>
-  
+  </div>
   );
 };
 

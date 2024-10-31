@@ -35,6 +35,7 @@ export default function RootLayout({
         <Providers>
           <Layout showNavFooter={false}>{children}</Layout>
         </Providers>
+
         <ToastContainer />
       </body>
     </html>

@@ -37,7 +37,7 @@ export const signupUser = createAsyncThunk(
     try {
       const response = await axiosInstanceAuth.post("api/register", signupData);
       if (response.status >= 200 && response.status < 300) {
-        toast.success("Signup successful!!!");
+        toast.warning("Signup successful!!!");
         const token = response.data.access_token;
         localStorage.setItem("token", token);
         window.location.href = "/login";
@@ -48,7 +48,10 @@ export const signupUser = createAsyncThunk(
       if (error.response) {
         // Server responded with an error
         console.log(error.response);
-        const message = error.response.data.message || error.response.data.error || "An error occurred";
+        const message =
+          error.response.data.message ||
+          error.response.data.error ||
+          "An error occurred";
         toast.error(message); // Show a specific error message
         return rejectWithValue(message); // Return the specific message
       } else {
@@ -57,7 +60,6 @@ export const signupUser = createAsyncThunk(
         return rejectWithValue("An error occurred"); // Generic error
       }
     }
-    
   }
 );
 

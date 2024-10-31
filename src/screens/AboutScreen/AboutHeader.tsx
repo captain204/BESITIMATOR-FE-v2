@@ -21,13 +21,13 @@ const AboutHeader: React.FC<AboutHeaderProps> = ({ title, breadcrumbItems }) => 
       }}
     >
       <div className="absolute inset-0 bg-black opacity-90"></div>
-      <motion.div
-        className="text-center mb-10"
-        initial="hide"
-        whileInView="show"
-        exit="hide"
-        variants={bottomToTopVariants}
-        viewport={{ once: true }}
+      <div
+        className="text-center mb-10 relative"
+        // initial="hide"
+        // whileInView="show"
+        // exit="hide"
+        // variants={bottomToTopVariants}
+        // viewport={{ once: true }}
       >
         <Typography
           variant="h6"
@@ -59,7 +59,7 @@ const AboutHeader: React.FC<AboutHeaderProps> = ({ title, breadcrumbItems }) => 
             ))}
           </ol>
         </nav>
-      </motion.div>
+      </div>
     </div>
   );
 };

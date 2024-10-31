@@ -1,6 +1,7 @@
 import Layout from "@/components/Layout";
 import AboutHeader from "@/screens/AboutScreen/AboutHeader";
 import Pricing from "@/screens/LandingPageScreen/Pricing";
+import ContactUs from "@/screens/LandingPageScreen/Subscribe";
 import React from "react";
 
 const page = () => {
@@ -13,6 +14,7 @@ const page = () => {
         />
 
         <Pricing />
+        <ContactUs />
       </Layout>
     </div>
   );

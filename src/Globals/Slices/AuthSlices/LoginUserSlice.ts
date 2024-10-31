@@ -38,7 +38,7 @@ export const loginUser = createAsyncThunk(
         loginData
       );
       if (response.status >= 200 && response.status < 300) {
-        toast.success(response?.data?.message || "Login successful");
+        toast.warning(response?.data?.message || "Login successful");
         console.log(response);
         const token = response.data.access_token;
         localStorage.setItem("token", token);

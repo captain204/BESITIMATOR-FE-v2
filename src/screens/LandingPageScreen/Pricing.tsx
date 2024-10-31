@@ -143,7 +143,7 @@ const Pricing = () => {
   return (
     <div
       ref={ref}
-      className="flex justify-center gap-6 flex-wrap py-20 relative bg-cover bg-center overflow-hidden"
+      className="flex justify-center gap-6 flex-wrap pt-20 relative bg-cover bg-center overflow-hidden"
       style={{ backgroundImage: 'url("/benifit.png")' }}
     >
       <div className="absolute inset-0 bg-white opacity-95"></div>

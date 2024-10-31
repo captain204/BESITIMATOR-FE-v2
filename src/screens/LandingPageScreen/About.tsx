@@ -1,7 +1,6 @@
-"use client"
+"use client";
 import React from "react";
 import { motion } from "framer-motion";
-import { FaCircle } from "react-icons/fa6";
 import Abouttwo from "./Abouttwo";
 import Progress from "./Progress";
 import Aboutagain from "./Aboutagain";
@@ -19,7 +18,7 @@ const imageVariants = {
 
 const About = () => {
   return (
-    <div className="bg-tetiary">
+    <div>
       <section className="dark:bg-white">
         <div className="grid lg:mx-14 mx-6 lg:gap-10 xl:gap-0 lg:grid-cols-12 md:pt-24">
           {/* Animated Image */}
