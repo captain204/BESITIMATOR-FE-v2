@@ -1,0 +1,67 @@
+/* BrandsSection.module.css */
+
+.brandsContainer {
+    position: relative;
+    padding-bottom: 4rem; 
+    background-image: url("/benifit.png");
+    background-size: cover;
+    background-position: center;
+  }
+  
+  .overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(255, 255, 255, 0.95); 
+  }
+  
+  .title {
+    font-size: 2rem; 
+    font-weight: 800; 
+    color: #1f2937; 
+    margin-bottom: 2.5rem; 
+  }
+  
+  .scrollContainer {
+    overflow: hidden;
+  }
+  
+  .scrollWrapper {
+    display: flex;
+    animation: scroll 30s linear infinite;
+    white-space: nowrap;
+    gap: 2rem; /* Space between logos */
+  }
+  
+  .brand {
+    flex: none;
+    width: 25%; 
+    min-width: 200px;
+    border: 1px solid #e5e7eb; 
+    padding: 1rem;
+    background: white; 
+    border-radius: 0.5rem; 
+    box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s, box-shadow 0.3s; 
+  }
+  
+  .brand:hover {
+    transform: scale(1.05); 
+    box-shadow: 0 4px 25px rgba(0, 0, 0, 0.2); 
+  }
+  
+  .brandImage {
+    height: 8rem; 
+    width: auto; 
+    object-fit: contain; 
+    margin: 0 auto;
+  }
+  
+  @keyframes scroll {
+    0% {
+      transform: translateX(0);
+    }
+    100% {
+      transform: translateX(-100%);
+    }
+  }
+  
