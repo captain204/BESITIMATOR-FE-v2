@@ -6,13 +6,10 @@ import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 interface SignupData {
-  firstname: string;
-  lastname: string;
+  name: string;
   email: string;
   password: string;
   password_confirmation: string;
-  country: string;
-  builder_type: string;
 }
 
 interface SignupState {
@@ -40,7 +37,7 @@ export const signupUser = createAsyncThunk(
         toast.warning("Signup successful!!!");
         const token = response.data.access_token;
         localStorage.setItem("token", token);
-        window.location.href = "/login";
+        window.location.href = "/create-profile";
       }
       return response.data;
     } catch (error: any) {

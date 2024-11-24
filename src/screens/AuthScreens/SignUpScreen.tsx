@@ -2,8 +2,8 @@
 
 import { Typography } from "@material-tailwind/react";
 import Link from "next/link";
-import React, { useEffect, useState } from "react";
-import { FaFacebook, FaGoogle, FaTwitter } from "react-icons/fa";
+import React, { useState } from "react";
+import { FaFacebook, FaGoogle} from "react-icons/fa";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
@@ -12,7 +12,6 @@ import { Spinner } from "@material-tailwind/react";
 import { ThunkDispatch, UnknownAction } from "@reduxjs/toolkit";
 import { signupUser } from "@/Globals/Slices/AuthSlices/SignupSlice";
 import { useDispatch, useSelector } from "react-redux";
-import axios from "axios";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { FaXTwitter } from "react-icons/fa6";
 
@@ -22,8 +21,7 @@ type AppDispatch = ThunkDispatch<RootState, unknown, UnknownAction>;
 
 const SignUpScreen = () => {
   const schema = yup.object().shape({
-    firstName: yup.string().required("First Name is required"),
-    lastName: yup.string().required("Last Name is required"),
+    name: yup.string().required("First Name is required"),
     email: yup.string().email("Invalid email").required("Email is required"),
     password: yup
       .string()
@@ -33,16 +31,6 @@ const SignUpScreen = () => {
       .string()
       .oneOf([yup.ref("password"), undefined], "Passwords must match")
       .required("Confirm Password is required"),
-    country: yup
-      .string()
-      .notOneOf(["Choose a country"], "Please select a valid country")
-      .required("Country is required"),
-
-    // Validate that role selection is not 'Select your role'
-    role: yup
-      .string()
-      .notOneOf(["Select your role"], "Please select a valid role")
-      .required("Role is required"),
     terms: yup
       .boolean()
       .oneOf([true], "You must accept the terms and conditions"),
@@ -59,14 +47,10 @@ const SignUpScreen = () => {
   });
 
   const dispatch: AppDispatch = useDispatch();
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
+  const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
-  const [country, setCountry] = useState("");
-  const [role, setRole] = useState("");
-  const [countries, setCountries] = useState<string[]>([]); // State to hold country names
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
@@ -77,39 +61,14 @@ const SignUpScreen = () => {
   const onSubmit = () => {
     dispatch(
       signupUser({
-        firstname: firstName,
-        lastname: lastName,
+        name,
         email,
         password,
-        country,
-        builder_type: role,
         password_confirmation: confirmPassword,
       })
     );
   };
 
-  const fetchCountries = async () => {
-    try {
-      const response = await axios.get(
-        "https://restcountries.com/v3.1/all?fields=name"
-      );
-      const countryNames = response.data.map(
-        (country: any) => country.name.common
-      );
-      setCountries(countryNames); // Update the state with fetched country names
-    } catch (error) {
-      console.error("Error fetching countries:", error);
-      setCountries([]); // Set to empty array in case of an error
-    }
-  };
-
-  useEffect(() => {
-    fetchCountries();
-  }, []);
-
-  useEffect(() => {
-    fetchCountries();
-  }, []);
 
   return (
     <div
@@ -117,7 +76,7 @@ const SignUpScreen = () => {
       style={{ backgroundImage: 'url("/benifit.png")' }}
     >
       <div className="absolute inset-0 bg-white  opacity-95"></div>
-      <section className=" md:my-44 relative ">
+      <section className=" md:my-20 relative ">
         <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen">
           <div className="w-full  shadow-xl rounded-lg border bg-white md:mt-0 sm:max-w-md md:max-w-lg xl:p-0 dark:bg-gray-800 dark:border-gray-700">
             <div className="p-6 space-y-4 md:space-y-6 sm:p-8 ">
@@ -131,60 +90,41 @@ const SignUpScreen = () => {
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div>
                     <label className="block mb-2 text-sm font-medium text-black">
-                      First Name
+                      Name
                     </label>
                     <input
                       autoComplete="off"
-                      {...register("firstName")}
-                      value={firstName}
+                      {...register("name")}
+                      value={name}
                       onChange={(e) => {
-                        setFirstName(e.target.value);
-                        clearErrors("firstName");
+                        setName(e.target.value);
+                        clearErrors("name");
                       }}
                       className="bg-transparent border border-gray-300 text-black text-sm rounded-lg block w-full p-2.5"
                     />
                     <p className="text-red-500 text-sm">
-                      {errors.firstName?.message}
+                      {errors.name?.message}
                     </p>
                   </div>
 
                   <div>
                     <label className="block mb-2 text-sm font-medium text-black">
-                      Last Name
+                      Your Email
                     </label>
                     <input
-                      autoComplete="off"
-                      {...register("lastName")}
-                      value={lastName}
+                      type="email"
+                      autoComplete="nope"
+                      {...register("email")}
+                      value={email}
                       onChange={(e) => {
-                        setLastName(e.target.value);
-                        clearErrors("lastName");
+                        setEmail(e.target.value), clearErrors("email");
                       }}
                       className="bg-transparent border border-gray-300 text-black text-sm rounded-lg block w-full p-2.5"
                     />
-                    <p className="text-red-500 text-sm">
-                      {errors.lastName?.message}
+                    <p className="text-red-500 text-sm ">
+                      {errors.email?.message}
                     </p>
                   </div>
-                </div>
-
-                <div>
-                  <label className="block mb-2 text-sm font-medium text-black">
-                    Your Email
-                  </label>
-                  <input
-                    type="email"
-                    autoComplete="nope"
-                    {...register("email")}
-                    value={email}
-                    onChange={(e) => {
-                      setEmail(e.target.value), clearErrors("email");
-                    }}
-                    className="bg-transparent border border-gray-300 text-black text-sm rounded-lg block w-full p-2.5"
-                  />
-                  <p className="text-red-500 text-sm ">
-                    {errors.email?.message}
-                  </p>
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -255,87 +195,6 @@ const SignUpScreen = () => {
                       {errors.confirmPassword?.message}
                     </p>
                   </div>
-                </div>
-
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <div>
-                    <label className="block mb-2 text-sm font-medium text-black">
-                      Select a Country
-                    </label>
-                    <select
-                      {...register("country")}
-                      className="border bg-transparent border-gray-300 text-sm rounded-lg block w-full p-2.5 text-black"
-                      value={country}
-                      onChange={(e) => {
-                        setCountry(e.target.value);
-                        clearErrors("country");
-                      }}
-                    >
-                      <option className="bg-black">Choose a country</option>
-                      {countries.map((countryName) => (
-                        <option
-                          key={countryName}
-                          className="bg-black  text-white"
-                          value={countryName}
-                        >
-                          {countryName}
-                        </option>
-                      ))}
-                    </select>
-
-                    <p className="text-red-500 text-sm">
-                      {errors.country?.message}
-                    </p>
-                  </div>
-
-                  <div>
-                    <label className="block mb-2 text-sm font-medium text-black">
-                      Who are you?
-                    </label>
-                    <select
-                      {...register("role")}
-                      className="border bg-transparent border-gray-300 text-sm rounded-lg block w-full p-2.5 text-black"
-                      value={role}
-                      onChange={(e) => {
-                        setRole(e.target.value);
-                        clearErrors("role");
-                      }}
-                    >
-                      <option
-                        // selected
-                        className="bg-black text-white"
-                        value="self-builder"
-                      >
-                        Self Builder
-                      </option>
-                      <option className="bg-black text-white" value="Student">
-                        Student
-                      </option>
-                      <option className="bg-black text-white" value="Estimator">
-                        Estimator
-                      </option>
-                      <option
-                        className="bg-black text-white"
-                        value="Contractor"
-                      >
-                        Building Contractor
-                      </option>
-                      <option className="bg-black text-white" value="Academics">
-                        Academics/Teaching Institution
-                      </option>
-                      <option className="bg-black text-white" value="Designer">
-                        Architect/Designer
-                      </option>
-                      <option className="bg-black text-white" value="Other">
-                        Other
-                      </option>
-                    </select>
-                    <p className="text-red-500 text-sm">
-                      {errors.role?.message}
-                    </p>
-                  </div>
-
-                  <div></div>
                 </div>
 
                 <div className="flex items-start cursor-pointer">

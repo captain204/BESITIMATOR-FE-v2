@@ -1,6 +1,7 @@
 import Layout from "@/components/Layout";
 import AboutHeader from "@/screens/AboutScreen/AboutHeader";
 import Blog from "@/screens/Blog/Blog";
+import CreateProfileScreen from "@/screens/ProfileScreen/CreateProfileScreen";
 import React from "react";
 
 const page = () => {
@@ -8,11 +9,11 @@ const page = () => {
     <div className="">
       <Layout>
         <AboutHeader
-          title="Blog"
-          breadcrumbItems={[{ label: "Home", link: "/" }, { label: "Blog" }]}
+          title="Create Profile"
+          breadcrumbItems={[{ label: "Home", link: "/" }, { label: "Create Profile" }]}
         />
 
-        <Blog />
+        <CreateProfileScreen />
         {/* <ContactUs /> */}
       </Layout>
     </div>
