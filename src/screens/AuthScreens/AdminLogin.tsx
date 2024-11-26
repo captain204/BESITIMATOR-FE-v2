@@ -1,13 +1,7 @@
 "use client";
-import { Typography } from "@material-tailwind/react";
 import Link from "next/link";
 import React, { useState } from "react";
-import {
-  FaFacebook,
-  FaGoogle,
-  FaEye,
-  FaEyeSlash,
-} from "react-icons/fa";
+import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -16,7 +10,8 @@ import { RootState } from "@/Globals/store/store";
 import { loginUser } from "@/Globals/Slices/AuthSlices/LoginUserSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { Spinner } from "@material-tailwind/react";
-import {FaXTwitter } from "react-icons/fa6";
+import { adminLogin } from "@/Globals/Slices/AuthSlices/AdminLoginSlice";
+
 
 // Validation schema
 const schema = yup.object().shape({
@@ -29,7 +24,7 @@ const schema = yup.object().shape({
 
 type AppDispatch = ThunkDispatch<RootState, unknown, UnknownAction>;
 
-const LoginScreen = () => {
+const AdminLoginScreen = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
@@ -44,23 +39,17 @@ const LoginScreen = () => {
   });
 
   const dispatch: AppDispatch = useDispatch();
-  const loading = useSelector((state: RootState) => state.loginUser.loading);
-  // const success = useSelector((state: RootState) => state.loginUser.success);
+  const loading = useSelector((state: RootState) => state.adminlogin.loading);
+  
 
   const onSubmit = () => {
     dispatch(
-      loginUser({
+        adminLogin({
         email,
         password,
       })
     );
   };
-
-  // useEffect(() => {
-  //   if (success) {
-  //     dispatch(getUser());
-  //   }
-  // }, [success, dispatch]);
 
   return (
     <div
@@ -74,7 +63,7 @@ const LoginScreen = () => {
           <div className="w-full bg-white  rounded-lg shadow border md:mt-0 sm:max-w-md md:max-w-lg xl:p-0 dark:bg-gray-800 dark:border-gray-700">
             <div className="p-6 space-y-4 md:space-y-6 sm:p-8 shadow-xl">
               <h1 className="text-xl font-bold text-center leading-tight tracking-tight text-black md:text-2xl">
-                Login
+                Admin Login
               </h1>
 
               <form
@@ -93,7 +82,6 @@ const LoginScreen = () => {
                     autoComplete="off"
                     {...register("email")}
                     id="email"
-                    // onChange={(e) => setEmail(e.target.value)}
                     onChange={(e) => {
                       setEmail(e.target.value), clearErrors("email");
                     }}
@@ -121,7 +109,6 @@ const LoginScreen = () => {
                       type={showPassword ? "text" : "password"}
                       {...register("password")}
                       id="password"
-                      // onChange={(e) => setPassword(e.target.value)}
                       onChange={(e) => {
                         setPassword(e.target.value);
                         clearErrors("password");
@@ -181,55 +168,6 @@ const LoginScreen = () => {
                     </p>
                   </Link>
                 </div>
-
-                <p className="text-sm font-light text-black text-center">
-                  Don't have an account?{" "}
-                  <Link
-                    href="/signup"
-                    className="font-medium italic text-primary-600 hover:underline"
-                  >
-                    SignUp here
-                  </Link>
-                </p>
-
-                {/* <p className="text-sm font-light text-black text-center">
-                  You don't have an account?{" "}
-                  <Link
-                    href="/signup"
-                    className="font-medium text-primary-600 hover:underline"
-                  >
-                    Sign Up here
-                  </Link>
-                </p> */}
-
-                <Typography
-                  color="gray"
-                  className="mt-4 text-center text-sm font-normal text-black"
-                >
-                  Or sign in with
-                </Typography>
-
-                <div className="flex flex-col space-y-3 mt-6">
-                  <button
-                    type="button"
-                    className="flex items-center justify-center w-full text-white bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-                  >
-                    <FaFacebook className="mr-2" /> Sign up with Facebook
-                  </button>
-                  <button
-                    type="button"
-                    className="flex items-center justify-center w-full text-white bg-red-600 hover:bg-red-700 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800"
-                  >
-                    <FaGoogle className="mr-2" /> Sign up with Google
-                  </button>
-                  <button
-                    type="button"
-                    className="flex items-center justify-center w-full text-white bg-black font-medium rounded-lg text-sm px-5 py-2.5"
-                  >
-                    <FaXTwitter className="mr-2" />
-                    Sign up with Twitter
-                  </button>
-                </div>
               </form>
             </div>
           </div>
@@ -239,5 +177,4 @@ const LoginScreen = () => {
   );
 };
 
-export default LoginScreen;
-
+export default AdminLoginScreen;

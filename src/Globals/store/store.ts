@@ -4,6 +4,7 @@ import signupReducer from "../Slices/AuthSlices/SignupSlice";
 import loginUserReducer from "../Slices/AuthSlices/LoginUserSlice";
 import logoutReducer from "../Slices/AuthSlices/Logout";
 import getUserReducer from "../Slices/AuthSlices/GetUser"
+import adminLoginReducer from "../Slices/AuthSlices/AdminLoginSlice"
 // import emailVerificationReducer from "../Slices/AuthSlice/EmailVerificationSlice";
 
 const rootReducer = combineReducers({
@@ -23,6 +24,8 @@ const rootReducer = combineReducers({
   // userSubscription: userSubscriptionReducer,
   // charge: chargeReducer,
   logout: logoutReducer,
+
+  adminlogin: adminLoginReducer
   // updatePassword:  updatePasswordReducer
 });
 

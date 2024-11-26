@@ -11,11 +11,12 @@ import {
   FaListAlt,
   FaPlus,
   FaQuestion,
+  FaQuestionCircle,
   FaRegCreditCard,
   FaUser,
 } from "react-icons/fa";
 import { usePathname, useRouter } from "next/navigation";
-import { MdDashboard, MdEventNote } from "react-icons/md";
+import { MdCategory, MdDashboard, MdEventNote } from "react-icons/md";
 import { GrAnnounce, GrUserAdmin } from "react-icons/gr";
 import { FaCalculator, FaList, FaListCheck, FaNoteSticky, FaUsersRectangle } from "react-icons/fa6";
 import { BiNoEntry, BiSolidTrafficCone } from "react-icons/bi";
@@ -35,6 +36,7 @@ const Admin = ({ children }: any) => {
   const [isManageBlogOpen, setIsManageBlogOpen] = useState(false);
   const [isAddOpen, setIsAddOpen] = useState(false);
   const [isCategoryOpen, setIsCategoryOpen] = useState(false);
+  const [isUserOpen, setUserOpen] = useState(false)
   const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
   const pathname = usePathname();
 
@@ -61,6 +63,26 @@ const Admin = ({ children }: any) => {
       setIsManageBlogOpen(false);
     }
   }, [pathname]);
+
+
+
+
+  React.useEffect(() => {
+    if (
+      pathname?.startsWith("/admin/users/all") ||
+      pathname?.startsWith("/admin/users/all")
+    ) {
+      setUserOpen(true);
+    } else {
+      setUserOpen(false);
+    }
+  }, [pathname]);
+
+
+
+
+
+  
 
   return (
     <div>
@@ -123,7 +145,7 @@ const Admin = ({ children }: any) => {
       </nav>
 
       <aside
-        className={`fixed top-0 left-0 z-40 w-72 h-screen pt-20 shadow-md transition-transform ${
+        className={`fixed top-0 left-0 z-40 w-64 h-screen pt-20 shadow-md transition-transform ${
           isSidebarOpen ? "translate-x-0" : "-translate-x-full"
         } bg-white border-r border-gray-200 sm:translate-x-0 dark:bg-gray-800 dark:border-gray-700`}
         aria-label="Sidebar"
@@ -148,27 +170,71 @@ const Admin = ({ children }: any) => {
               </Link>
             </li>
 
+
+
+
+
+            <li>
+              <Link
+                href="/admin/categories"
+                className={`flex items-center p-3 text-gray-900     dark:text-white 
+                  
+                   ${
+                     pathname?.startsWith("/admin/categories")
+                       ? "bg-black text-white"
+                       : ""
+                   }
+                  
+                  `}
+              >
+                <MdCategory className="w-5 h-5 text-yellow-700" />
+                <span className="ms-3 font-normal">Categories</span>
+              </Link>
+            </li>
+
+
+            <li>
+              <Link
+                href="/admin/questions"
+                className={`flex items-center p-3 text-gray-900     dark:text-white 
+                  
+                   ${
+                     pathname?.startsWith("/admin/questions")
+                       ? "bg-black text-white"
+                       : ""
+                   }
+                  
+                  `}
+              >
+                <FaQuestionCircle className="w-5 h-5 text-yellow-700" />
+                <span className="ms-3 font-normal">Questions</span>
+              </Link>
+            </li>
+
+
+
+
             <li>
               <button
-                onClick={() => setIsManageBlogOpen(!isManageBlogOpen)}
+                onClick={() => setUserOpen(!isUserOpen)}
                 className="flex items-center justify-start w-full p-3 text-gray-900 dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700"
               >
                 <FaUsersRectangle className="w-5 h-5 text-yellow-700" />
                 <span className="flex-1 ms-3 text-left font-normal">Users</span>
                 <FaChevronDown
                   className={`w-4 h-4 ms-auto transition-transform ${
-                    isManageBlogOpen ? "rotate-180" : ""
+                    isUserOpen ? "rotate-180" : ""
                   }`}
                 />
               </button>
-              {isManageBlogOpen && (
+              {isUserOpen && (
                 <ul className="pl-10 space-y-1">
                   <li>
                     <Link
                       onClick={(e) => e.stopPropagation()}
-                      href="#"
+                      href="/admin/users/all"
                       className={`flex items-center justify-start p-2 font-normal mt-1 text-gray-700 dark:text-gray-400 ${
-                        pathname?.startsWith("/#")
+                        pathname?.startsWith("/admin/users/all")
                           ? "bg-black text-white"
                           : "hover:bg-gray-100 text-gray-900"
                       }`}
@@ -182,7 +248,7 @@ const Admin = ({ children }: any) => {
                       onClick={(e) => e.stopPropagation()}
                       href="/#"
                       className={`flex items-center justify-start p-2 font-normal text-gray-700 dark:text-gray-400 ${
-                        pathname?.startsWith("/#")
+                        pathname?.startsWith("#")
                           ? "bg-black text-white"
                           : "hover:bg-gray-100 text-gray-900"
                       }`}
