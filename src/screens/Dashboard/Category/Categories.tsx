@@ -3,7 +3,26 @@ import axiosInstance from "@/Globals/Interceptor";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
-import { FaEdit, FaTrashAlt } from "react-icons/fa";
+import {
+  FaEdit,
+  FaTrashAlt,
+  FaPlus,
+  FaSearch,
+  FaFileExport,
+  FaFilePdf,
+  FaFileExcel,
+  FaChevronDown,
+} from "react-icons/fa";
+import DataTable from "react-data-table-component";
+import "react-toastify/dist/ReactToastify.css";
+import {
+  Dialog,
+  DialogHeader,
+  DialogBody,
+  DialogFooter,
+} from "@material-tailwind/react";
+import * as XLSX from "xlsx";
+import { Tooltip } from "@material-tailwind/react";
 
 interface Category {
   id: number;
@@ -22,6 +41,48 @@ export default function Categories() {
   const [editCategory, setEditCategory] = useState<Category | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
   const [loadingg, setLoadingg] = useState<boolean>(false);
+  const [loadinggg, setLoadinggg] = useState<boolean>(false);
+  const [searchText, setSearchText] = useState("");
+  const [exportDropdownOpen, setExportDropdownOpen] = useState<boolean>(false);
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false); // Add delete modal state
+  const [categoryToDelete, setCategoryToDelete] = useState<Category | null>(null); // Add selected category to delete
+
+
+
+
+
+  const customStyles:any = {
+    title: {
+      style: {
+        fontColor: 'blue',
+        fontWeight: 'bold',
+      },
+    },
+    rows: {
+      style: {
+        minHeight: '50px',
+      },
+    },
+    headCells: {
+      style: {
+        fontSize: '13px',
+        fontWeight: 'bold',
+        textTransform: 'uppercase', 
+        paddingLeft: '10px',
+        backgroundColor:"#F6F9FC"
+      },
+    },
+    cells: {
+      style: {
+        fontSize: '14px',
+        paddingLeft: '10px',
+      },
+    },
+  };
+  
+
+
+
 
   const {
     register,
@@ -32,22 +93,35 @@ export default function Categories() {
     resolver: yupResolver(categorySchema),
   });
 
-  // Fetch categories
   useEffect(() => {
+    setLoadinggg(true);
     axiosInstance
       .get("/api/admin/categories")
       .then((response) => {
         setCategories(response.data.categories);
       })
       .catch((error) => console.error("Error fetching categories:", error));
+    setLoadinggg(false);
   }, []);
+
+  const handleExport = (format: "pdf" | "xlsx") => {
+    if (format === "xlsx") {
+      const worksheet = XLSX.utils.json_to_sheet(categories);
+      const workbook = XLSX.utils.book_new();
+      XLSX.utils.book_append_sheet(workbook, worksheet, "Categories");
+      XLSX.writeFile(workbook, "categories.xlsx");
+    } else if (format === "pdf") {
+      console.log("Exporting as PDF... (Implement PDF generation here)");
+    }
+  };
 
   const handleAddCategory = async (data: any): Promise<void> => {
     setLoading(true);
     try {
       const response = await axiosInstance.post("/api/admin/categories", data);
       setCategories([...categories, response.data]);
-      reset();
+      reset(); // Reset the form so the inputs are empty
+      setIsModalOpen(false);
     } catch (error) {
       console.error("Error adding category:", error);
     } finally {
@@ -58,7 +132,7 @@ export default function Categories() {
   const handleEdit = (category: Category): void => {
     setEditCategory(category);
     setIsModalOpen(true);
-    reset(category);
+    reset(category); // Set form with the current category's values
   };
 
   const handleUpdate = async (data: any): Promise<void> => {
@@ -81,180 +155,213 @@ export default function Categories() {
   };
 
   const handleDelete = async (id: number): Promise<void> => {
-    try {
-      await axiosInstance.delete(`/api/admin/categories/${id}`);
-      setCategories(categories.filter((category) => category.id !== id));
-    } catch (error) {
-      console.error("Error deleting category:", error);
+    if (categoryToDelete) {
+      try {
+        await axiosInstance.delete(`/api/admin/categories/${id}`);
+        setCategories(categories.filter((category) => category.id !== id));
+        setIsDeleteModalOpen(false); // Close delete modal after deletion
+      } catch (error) {
+        console.error("Error deleting category:", error);
+      }
     }
   };
 
-  return (
-    <div className="min-h-screen  p-4 sm:p-6">
-      <div className="max-w-6xl mx-auto shaddow-xl ">
-        {/* <h1 className="text-2xl sm:text-3xl font-bold text-gray-800 text-center mb-6 mt-16">
-          Manage Categories
-        </h1> */}
+  const filteredCategories = categories.filter((category) => {
+    const name = category.name?.toLowerCase() || "";
+    const description = category.description?.toLowerCase() || "";
+    return (
+      name.includes(searchText.toLowerCase()) ||
+      description.includes(searchText.toLowerCase())
+    );
+  });
 
-        {/* Add New Category Form */}
-
-        <div className="bg-white shadow rounded-lg p-4 sm:p-6 mb-6 border mt-16">
-          <h2 className="text-lg sm:text-xl font-semibold text-black mb-4">
-            Add New Category
-          </h2>
-          <form
-            onSubmit={handleSubmit(handleAddCategory)}
-            className="space-y-4"
-          >
-            <div>
-              <label className="block text-black font-medium mb-1 sm:mb-2">
-                Category Name
-              </label>
-              <input
-                type="text"
-                {...register("name")}
-                className="w-full px-3 py-2 border rounded-md focus:ring-yellow-500 text-black"
-                placeholder="Enter category name"
-              />
-              {errors.name && (
-                <p className="text-red-500 text-sm">{errors.name.message}</p>
-              )}
-            </div>
-            <div>
-              <label className="block text-black font-medium mb-1 sm:mb-2">
-                Description
-              </label>
-              <textarea
-                {...register("description")}
-                className="w-full px-3 py-2 border rounded-md focus:ring-blue-500 text-black"
-                placeholder="Enter description"
-              ></textarea>
-              {errors.description && (
-                <p className="text-red-500 text-sm">
-                  {errors.description.message}
-                </p>
-              )}
-            </div>
+  const columns = [
+    { name: "Name", selector: (row: Category) => row.name, sortable: true, className: "font-bold" }, // Add font-bold class
+    {
+      name: "Description",
+      selector: (row: Category) => row.description,
+      sortable: true,
+    },
+    {
+      name: "Actions",
+      cell: (row: Category) => (
+        <div className="flex space-x-4">
+          <Tooltip content="Edit Category">
             <button
-              type="submit"
-              className="bg-yellow-800 text-white py-2 px-4 rounded-md w-full sm:w-auto  flex justify-center items-center"
-              disabled={loading}
+              onClick={() => handleEdit(row)}
+              className="text-yellow-800 hover:text-yellow-600"
             >
-              {loading ? "Loading..." : "Add Category"}
+              <FaEdit size={20} />
             </button>
-          </form>
+          </Tooltip>
+          <Tooltip content="Delete Category">
+            <button
+              onClick={() => {
+                setCategoryToDelete(row);
+                setIsDeleteModalOpen(true);
+              }}
+              className="text-red-500 hover:text-red-600"
+            >
+              <FaTrashAlt size={20} />
+            </button>
+          </Tooltip>
+        </div>
+      ),
+      ignoreRowClick: true,
+      allowOverflow: true,
+      button: true,
+    },
+  ];
+
+  return (
+    <div className="min-h-screen p-4 md:p-6 mt-16">
+      <div className="max-w-6xl mx-auto border shadow-lg bg-white rounded-lg p-4 sm:p-6">
+        {/* Header */}
+        <div className="flex flex-col sm:flex-row items-center sm:justify-between gap-4 mb-6">
+          <div className="relative w-full sm:w-auto">
+            <FaSearch className="absolute top-2/4 left-3 transform -translate-y-2/4 text-gray-400" />
+            <input
+              type="text"
+              placeholder="Search categories..."
+              className="w-full pl-10 pr-4 py-2 border rounded-md text-gray-700"
+              value={searchText}
+              onChange={(e) => setSearchText(e.target.value)}
+            />
+          </div>
+          <div className="flex flex-col sm:flex-row w-full sm:w-auto gap-2">
+            <button
+              onClick={() => setIsModalOpen(true)}
+              className="bg-yellow-800 text-white flex items-center gap-2 py-2 px-4 rounded-md"
+            >
+              <FaPlus /> Add Category
+            </button>
+            <div
+              className="relative"
+              onMouseEnter={() => setExportDropdownOpen(true)}
+              onMouseLeave={() => setExportDropdownOpen(false)}
+            >
+              <button className="bg-black text-white flex items-center gap-2 py-2 px-4 rounded-md">
+                <FaFileExport /> Export <FaChevronDown />
+              </button>
+              {exportDropdownOpen && (
+                <div className="absolute z-50 right-0 bg-white border rounded shadow-md w-32">
+                  <button
+                    onClick={() => handleExport("pdf")}
+                    className="block px-4 py-2 text-gray-700 hover:bg-gray-100 w-full text-left"
+                  >
+                    <div className="flex">
+                      <FaFilePdf className="mr-2 text-red-500" />{" "}
+                      <span className="text-sm"> PDF </span>
+                    </div>
+                  </button>
+                  <button
+                    onClick={() => handleExport("xlsx")}
+                    className="block px-4 py-2 text-gray-700 hover:bg-gray-100 w-full text-left"
+                  >
+                    <div className="flex">
+                      <FaFileExcel className="mr-2 text-green-500" />{" "}
+                      <span className="text-sm"> XLSX </span>
+                    </div>
+                  </button>
+                </div>
+              )}
+            </div>
+
+
+            
+          </div>
         </div>
 
-        {/* Categories List */}
-        <div className="bg-white shadow rounded-lg p-4 sm:p-6 border mb-6">
-          <h2 className="text-lg sm:text-xl font-semibold text-black mb-4">
-            Manage Categories
-          </h2>
-          <div className="overflow-x-auto">
-            {categories.length === 0 ? (
-              <p className="text-black text-center">No categories available.</p>
-            ) : (
-              <table className="min-w-full border-collapse border border-gray-200">
-                <thead>
-                  <tr className="bg-gray-50 text-gray-700">
-                    <th className="border border-gray-200 px-4 py-2 text-left">
-                      Name
-                    </th>
-                    <th className="border border-gray-200 px-4 py-2 text-left">
-                      Description
-                    </th>
-                    <th className="border border-gray-200 px-4 py-2 text-center">
-                      Actions
-                    </th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {categories.map((category) => (
-                    <tr key={category.id} className="hover:bg-gray-100">
-                      <td className="border border-gray-200 px-4 py-2 text-black text-sm">
-                        {category.name}
-                      </td>
-                      <td className="border border-gray-200 px-4 py-2 text-black text-sm">
-                        {category.description}
-                      </td>
-                      <td className="border border-gray-200 px-4 py-2 text-center">
-                        <button
-                          onClick={() => handleEdit(category)}
-                          className="text-yellow-500 hover:text-yellow-600 mr-2"
-                        >
-                          <FaEdit />
-                        </button>
-                        <button
-                          onClick={() => handleDelete(category.id)}
-                          className="text-red-500 hover:text-red-600"
-                        >
-                          <FaTrashAlt />
-                        </button>
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            )}
-          </div>
+        {/* Table */}
+        <div className="overflow-x-auto">
+          <DataTable
+            columns={columns}
+            data={filteredCategories}
+            pagination
+            className="bg-white"
+            progressPending={loadinggg}
+            highlightOnHover
+            pointerOnHover
+            customStyles={customStyles}
+          />
         </div>
       </div>
 
-      {/* Edit Modal */}
-      {isModalOpen && editCategory && (
-        <div className="fixed inset-0 flex items-center justify-center bg-gray-800 bg-opacity-50 z-50 p-4">
-          <div className="bg-white rounded-lg shadow-lg w-full max-w-md p-6">
-            <h3 className="text-lg sm:text-xl font-semibold text-gray-700 mb-4">
-              Edit Category
-            </h3>
-            <form onSubmit={handleSubmit(handleUpdate)} className="space-y-4">
-              <div>
-                <label className="block text-gray-600 font-medium mb-1 sm:mb-2">
-                  Category Name
-                </label>
-                <input
-                  type="text"
-                  {...register("name")}
-                  className="w-full px-3 py-2 border rounded-md focus:ring-yellow-800"
-                />
-                {errors.name && (
-                  <p className="text-red-500 text-sm">{errors.name.message}</p>
-                )}
-              </div>
-              <div>
-                <label className="block text-gray-600 font-medium mb-1 sm:mb-2">
-                  Description
-                </label>
-                <textarea
-                  {...register("description")}
-                  className="w-full px-3 py-2 border rounded-md focus:ring-yellow-800"
-                ></textarea>
-                {errors.description && (
-                  <p className="text-red-500 text-sm">
-                    {errors.description.message}
-                  </p>
-                )}
-              </div>
-              <div className="flex justify-end space-x-4">
-                <button
-                  type="button"
-                  onClick={() => setIsModalOpen(false)}
-                  className="bg-gray-300 text-gray-700 py-2 px-4 rounded-md hover:bg-gray-400"
-                >
-                  Cancel
-                </button>
-                <button
-                  type="submit"
-                  className="bg-yellow-800 text-white py-2 px-4 rounded-md hover:bg-blue-600 flex justify-center items-center"
-                  disabled={loading}
-                >
-                  {loadingg ? "Updating..." : "Update"}
-                </button>
-              </div>
-            </form>
-          </div>
-        </div>
-      )}
+      {/* Add/Edit Category Modal */}
+      <Dialog open={isModalOpen} handler={() => setIsModalOpen(false)}>
+        <DialogHeader>{editCategory ? "Edit Category" : "Add Category"}</DialogHeader>
+        <DialogBody>
+          <form
+            onSubmit={handleSubmit(editCategory ? handleUpdate : handleAddCategory)}
+            className="space-y-4"
+          >
+            <div>
+              <label className="block text-sm font-medium text-gray-700">Category Name</label>
+              <input
+                type="text"
+                {...register("name")}
+                placeholder="Enter category name"
+                className="mt-2 block w-full border border-gray-300 rounded-md shadow-sm p-2"
+              />
+              <p className="text-red-500 text-xs">{errors.name?.message}</p>
+            </div>
+            <div>
+              <label className="block text-sm font-medium text-gray-700">Description</label>
+              <input
+                type="text"
+                {...register("description")}
+                placeholder="Enter category description"
+                className="mt-2 block w-full border border-gray-300 rounded-md shadow-sm p-2"
+              />
+              <p className="text-red-500 text-xs">{errors.description?.message}</p>
+            </div>
+            <div className="flex justify-end gap-2">
+              <button
+                type="button"
+                onClick={() => setIsModalOpen(false)}
+                className="bg-gray-200 text-gray-700 py-2 px-4 rounded-md"
+              >
+                Cancel
+              </button>
+              <button
+                type="submit"
+                disabled={loading}
+                className="bg-blue-600 text-white py-2 px-4 rounded-md"
+              >
+                {loading ? "Saving..." : editCategory ? "Update" : "Add"}
+              </button>
+            </div>
+          </form>
+        </DialogBody>
+      </Dialog>
+
+      {/* Delete Category Confirmation Modal */}
+      <Dialog open={isDeleteModalOpen} handler={() => setIsDeleteModalOpen(false)}>
+        <DialogHeader>Delete Category</DialogHeader>
+        <DialogBody>
+          <p>Are you sure you want to delete "{categoryToDelete?.name}"?</p>
+        </DialogBody>
+        <DialogFooter>
+          <button
+            onClick={() => setIsDeleteModalOpen(false)}
+            className="bg-gray-200 text-gray-700 py-2 px-4 rounded-md"
+          >
+            Cancel
+          </button>
+          <button
+            onClick={() => handleDelete(categoryToDelete?.id ?? 0)}
+            className="bg-red-600 text-white py-2 px-4 rounded-md"
+          >
+            Delete
+          </button>
+        </DialogFooter>
+      </Dialog>
     </div>
   );
 }
+
+
+
+
+
+

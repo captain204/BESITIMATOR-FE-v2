@@ -1,6 +1,6 @@
 "use client";
 import Link from "next/link";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   FaBan,
   FaBlog,
@@ -18,17 +18,26 @@ import {
 import { usePathname, useRouter } from "next/navigation";
 import { MdCategory, MdDashboard, MdEventNote } from "react-icons/md";
 import { GrAnnounce, GrUserAdmin } from "react-icons/gr";
-import { FaCalculator, FaList, FaListCheck, FaNoteSticky, FaUsersRectangle } from "react-icons/fa6";
+import {
+  FaCalculator,
+  FaList,
+  FaListCheck,
+  FaNoteSticky,
+  FaUsersRectangle,
+} from "react-icons/fa6";
 import { BiNoEntry, BiSolidTrafficCone } from "react-icons/bi";
 import { GiCheckMark } from "react-icons/gi";
-import { HiOutlineMailOpen } from "react-icons/hi";
-import { HiOutlineMail } from "react-icons/hi";
-import { FaPhoneSlash } from "react-icons/fa6"
-import { FaPhone } from "react-icons/fa6";
 import { GoIssueTrackedBy } from "react-icons/go";
-import { IoIosConstruct, IoIosNotifications, IoIosNotificationsOff } from "react-icons/io";
+import {
+  IoIosConstruct,
+  IoIosNotifications,
+  IoIosNotificationsOff,
+} from "react-icons/io";
 import { TbHeartRateMonitor } from "react-icons/tb";
 import { IoNewspaper } from "react-icons/io5";
+import { MdOutlineVerified } from "react-icons/md";
+import { VscUnverified } from "react-icons/vsc";
+import axiosInstance from "@/Globals/Interceptor";
 
 const Admin = ({ children }: any) => {
   const router = useRouter();
@@ -36,7 +45,7 @@ const Admin = ({ children }: any) => {
   const [isManageBlogOpen, setIsManageBlogOpen] = useState(false);
   const [isAddOpen, setIsAddOpen] = useState(false);
   const [isCategoryOpen, setIsCategoryOpen] = useState(false);
-  const [isUserOpen, setUserOpen] = useState(false)
+  const [isUserOpen, setUserOpen] = useState(false);
   const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
   const pathname = usePathname();
 
@@ -53,6 +62,60 @@ const Admin = ({ children }: any) => {
     router.push(path);
   };
 
+
+
+
+
+
+
+  const [counts, setCounts] = useState({
+    allUsers: 0,
+    verifiedUsers: 0,
+    bannedUsers: 0,
+    unverifiedUsers: 0,
+  });
+
+  useEffect(() => {
+    const fetchCounts = async () => {
+      try {
+        const [allUsers, verifiedUsers, bannedUsers, unverifiedUsers] =
+          await Promise.all([
+            axiosInstance.get("/api/admin/users/count"),
+            axiosInstance.get("/api/admin/verified-users/count"),
+            axiosInstance.get("/api/admin/banned-users/count"),
+            axiosInstance.get("/api/admin/unverified-users/count"),
+          ]);
+
+        setCounts({
+          allUsers: allUsers.data.total_users,
+          verifiedUsers: verifiedUsers.data.total_verified_users,
+          bannedUsers: bannedUsers.data.total_banned_users,
+          unverifiedUsers: unverifiedUsers.data.total_unverified_users,
+        });
+      } catch (error) {
+        console.error("Error fetching counts:", error);
+      }
+    };
+
+    fetchCounts();
+  }, []);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   React.useEffect(() => {
     if (
       pathname?.startsWith("/admin/allposts") ||
@@ -64,25 +127,18 @@ const Admin = ({ children }: any) => {
     }
   }, [pathname]);
 
-
-
-
   React.useEffect(() => {
     if (
       pathname?.startsWith("/admin/users/all") ||
-      pathname?.startsWith("/admin/users/all")
+      pathname?.startsWith("/admin/users/verified-users") ||
+      pathname?.startsWith("/admin/users/unverified-users") ||
+      pathname?.startsWith("/admin/users/banned-users")
     ) {
       setUserOpen(true);
     } else {
       setUserOpen(false);
     }
   }, [pathname]);
-
-
-
-
-
-  
 
   return (
     <div>
@@ -170,10 +226,6 @@ const Admin = ({ children }: any) => {
               </Link>
             </li>
 
-
-
-
-
             <li>
               <Link
                 href="/admin/categories"
@@ -191,7 +243,6 @@ const Admin = ({ children }: any) => {
                 <span className="ms-3 font-normal">Categories</span>
               </Link>
             </li>
-
 
             <li>
               <Link
@@ -213,140 +264,115 @@ const Admin = ({ children }: any) => {
 
 
 
-
             <li>
-              <button
-                onClick={() => setUserOpen(!isUserOpen)}
-                className="flex items-center justify-start w-full p-3 text-gray-900 dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700"
+              <Link
+                href="/admin/material-price-list"
+                className={`flex items-center p-3 text-gray-900     dark:text-white 
+                  
+                   ${
+                     pathname?.startsWith("/admin/material-price-list")
+                       ? "bg-black text-white"
+                       : ""
+                   }
+                  
+                  `}
               >
-                <FaUsersRectangle className="w-5 h-5 text-yellow-700" />
-                <span className="flex-1 ms-3 text-left font-normal">Users</span>
-                <FaChevronDown
-                  className={`w-4 h-4 ms-auto transition-transform ${
-                    isUserOpen ? "rotate-180" : ""
-                  }`}
-                />
-              </button>
-              {isUserOpen && (
-                <ul className="pl-10 space-y-1">
-                  <li>
-                    <Link
-                      onClick={(e) => e.stopPropagation()}
-                      href="/admin/users/all"
-                      className={`flex items-center justify-start p-2 font-normal mt-1 text-gray-700 dark:text-gray-400 ${
-                        pathname?.startsWith("/admin/users/all")
-                          ? "bg-black text-white"
-                          : "hover:bg-gray-100 text-gray-900"
-                      }`}
-                    >
-                      <FaListAlt className="w-4 h-4 me-2" />
-                      All
-                    </Link>
-                  </li>
-                  <li>
-                    <Link
-                      onClick={(e) => e.stopPropagation()}
-                      href="/#"
-                      className={`flex items-center justify-start p-2 font-normal text-gray-700 dark:text-gray-400 ${
-                        pathname?.startsWith("#")
-                          ? "bg-black text-white"
-                          : "hover:bg-gray-100 text-gray-900"
-                      }`}
-                    >
-                      <GiCheckMark className="w-5 h-5  me-2 text-green-700" />
-                      Active
-                    </Link>
-                  </li>
-
-                  <li>
-                    <Link
-                      onClick={(e) => e.stopPropagation()}
-                      href="/#"
-                      className={`flex items-center justify-start p-2 font-normal text-gray-700 dark:text-gray-400 ${
-                        pathname?.startsWith("/#")
-                          ? "bg-black text-white"
-                          : "hover:bg-gray-100 text-gray-900"
-                      }`}
-                    >
-                      <FaBan className="w-4 h-4 me-2 text-red-800" />
-                      Ban
-                    </Link>
-                  </li>
-
-                  <li>
-                    <Link
-                      onClick={(e) => e.stopPropagation()}
-                      href="/#"
-                      className={`flex items-center justify-start p-2 font-normal text-gray-700 dark:text-gray-400 ${
-                        pathname?.startsWith("/#")
-                          ? "bg-black text-white"
-                          : "hover:bg-gray-100 text-gray-900"
-                      }`}
-                    >
-                      <HiOutlineMailOpen className="w-4 h-4 me-2 text-green-800" />
-                      Email-Verify
-                    </Link>
-                  </li>
-
-                  <li>
-                    <Link
-                      onClick={(e) => e.stopPropagation()}
-                      href="/#"
-                      className={`flex items-center justify-start p-2 font-normal text-gray-700 dark:text-gray-400 ${
-                        pathname?.startsWith("/#")
-                          ? "bg-black text-white"
-                          : "hover:bg-gray-100 text-gray-900"
-                      }`}
-                    >
-                      <HiOutlineMail  className="w-4 h-4 me-2 text-red-900" />
-                      Email-UnVerify
-                    </Link>
-                  </li>
-
-
-
-
-                  <li>
-                    <Link
-                      onClick={(e) => e.stopPropagation()}
-                      href="/#"
-                      className={`flex items-center justify-start p-2 font-normal text-gray-700 dark:text-gray-400 ${
-                        pathname?.startsWith("/#")
-                          ? "bg-black text-white"
-                          : "hover:bg-gray-100 text-gray-900"
-                      }`}
-                    >
-                      <FaPhone  className="w-4 h-4 me-2 text-green-900" />
-                      Phone-verify
-                    </Link>
-                  </li>
-
-
-
-                  <li>
-                    <Link
-                      onClick={(e) => e.stopPropagation()}
-                      href="/#"
-                      className={`flex items-center justify-start p-2 font-normal text-gray-700 dark:text-gray-400 ${
-                        pathname?.startsWith("/#")
-                          ? "bg-black text-white"
-                          : "hover:bg-gray-100 text-gray-900"
-                      }`}
-                    >
-                      <FaPhoneSlash  className="w-4 h-4 me-2 text-red-900" />
-                      Phone-UnVerify
-                    </Link>
-                  </li>
-
-
-
-                </ul>
-              )}
+                <FaQuestionCircle className="w-5 h-5 text-yellow-700" />
+                <span className="ms-3 font-normal">Material Price List</span>
+              </Link>
             </li>
 
 
 
 
+
+
+            <li>
+      <button
+        onClick={() => setUserOpen(!isUserOpen)}
+        className="flex items-center justify-start w-full p-3 text-gray-900 dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700"
+      >
+        <FaUsersRectangle className="w-5 h-5 text-yellow-700" />
+        <span className="flex-1 ms-3 text-left font-normal">Users</span>
+        <FaChevronDown
+          className={`w-4 h-4 ms-auto transition-transform ${
+            isUserOpen ? "rotate-180" : ""
+          }`}
+        />
+      </button>
+      {isUserOpen && (
+        <ul className="pl-9 space-y-1">
+          <li>
+            <Link
+              onClick={(e) => e.stopPropagation()}
+              href="/admin/users/all"
+              className={`flex items-center justify-between p-2  font-normal mt-1 text-gray-700 dark:text-gray-400 ${
+                pathname?.startsWith("/admin/users/all")
+                  ? "bg-black text-white"
+                  : "hover:bg-gray-100 text-gray-900"
+              }`}
+            >
+              <div className="flex items-center">
+                <FaListAlt className="w-3 h-3 me-2" />
+                All
+              </div>
+              <span className="text-sm font-bold text-yellow-900">{counts.allUsers}</span>
+            </Link>
+          </li>
+          <li>
+            <Link
+              onClick={(e) => e.stopPropagation()}
+              href="/admin/users/verified-users"
+              className={`flex items-center justify-between p-2  font-normal mt-1 text-gray-700 dark:text-gray-400 ${
+                pathname?.startsWith("/admin/users/verified-users")
+                  ? "bg-black text-white"
+                  : "hover:bg-gray-100 text-gray-900"
+              }`}
+            >
+              <div className="flex items-center ">
+                <MdOutlineVerified className="w-4 h-4 me-2 text-green-800" />
+                Verified Users
+              </div>
+              <span className="text-sm font-bold text-yellow-900 ">{counts.verifiedUsers}</span>
+            </Link>
+          </li>
+          <li>
+            <Link
+              onClick={(e) => e.stopPropagation()}
+              href="/admin/users/unverified-users"
+              className={`flex items-center justify-between p-2 font-normal mt-1 text-gray-700 dark:text-gray-400 ${
+                pathname?.startsWith("/admin/users/unverified-users")
+                  ? "bg-black text-white"
+                  : "hover:bg-gray-100 text-gray-900"
+              }`}
+            >
+              <div className="flex items-center ">
+                <VscUnverified className="w-4 h-4 me-2 text-red-900" />
+                Unverified Users
+              </div>
+              <span className="text-sm text-yellow-900 font-bold">{counts.unverifiedUsers}</span>
+            </Link>
+          </li>
+          <li>
+            <Link
+              onClick={(e) => e.stopPropagation()}
+              href="/admin/users/banned-users"
+              className={`flex items-center justify-between p-2 font-normal mt-1 text-gray-700 dark:text-gray-400 ${
+                pathname?.startsWith("/admin/users/banned-users")
+                  ? "bg-black text-white"
+                  : "hover:bg-gray-100 text-gray-900"
+              }`}
+            >
+              <div className="flex items-center">
+                <FaBan className="w-3 h-3 me-2 text-red-800" />
+                Banned Users
+              </div>
+              <span className="text-sm text-yellow-900 font-bold">{counts.bannedUsers}</span>
+            </Link>
+          </li>
+        </ul>
+      )}
+    </li>
 
             <li>
               <button
@@ -397,7 +423,6 @@ const Admin = ({ children }: any) => {
               )}
             </li>
 
-
             <li>
               <a
                 href="#"
@@ -407,15 +432,6 @@ const Admin = ({ children }: any) => {
                 <span className="ms-3 font-normal">Cost tracker</span>
               </a>
             </li>
-
-
-
-
-
-
-
-
-
 
             <li>
               <button
@@ -466,11 +482,6 @@ const Admin = ({ children }: any) => {
               )}
             </li>
 
-
-
-
-
-
             <li>
               <button
                 onClick={() => setIsManageBlogOpen(!isManageBlogOpen)}
@@ -517,9 +528,6 @@ const Admin = ({ children }: any) => {
                     </Link>
                   </li>
 
-
-
-
                   <li>
                     <Link
                       onClick={(e) => e.stopPropagation()}
@@ -535,9 +543,6 @@ const Admin = ({ children }: any) => {
                     </Link>
                   </li>
 
-
-
-
                   <li>
                     <Link
                       onClick={(e) => e.stopPropagation()}
@@ -549,18 +554,12 @@ const Admin = ({ children }: any) => {
                       }`}
                     >
                       <IoNewspaper className="w-4 h-4 me-2" />
-                    Send Newletter
+                      Send Newletter
                     </Link>
                   </li>
                 </ul>
               )}
             </li>
-
-
-
-
-
-
 
             <li>
               <button
@@ -607,23 +606,9 @@ const Admin = ({ children }: any) => {
                       No Response
                     </Link>
                   </li>
-
-
-
-
-            
-
-
-
-
-            
                 </ul>
               )}
             </li>
-
-
-
-
 
             <li>
               <button
@@ -631,9 +616,7 @@ const Admin = ({ children }: any) => {
                 className="flex items-center justify-start w-full p-3 text-gray-900 dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700"
               >
                 <MdEventNote className="w-5 h-5 text-yellow-700" />
-                <span className="flex-1 ms-3 text-left font-normal">
-                  Event
-                </span>
+                <span className="flex-1 ms-3 text-left font-normal">Event</span>
                 <FaChevronDown
                   className={`w-4 h-4 ms-auto transition-transform ${
                     isManageBlogOpen ? "rotate-180" : ""
@@ -670,27 +653,9 @@ const Admin = ({ children }: any) => {
                       All Event
                     </Link>
                   </li>
-
-
-
-
-            
-
-
-
-
-            
                 </ul>
               )}
             </li>
-
-
-
-
-
-
-
-
 
             <li>
               <a
@@ -702,10 +667,6 @@ const Admin = ({ children }: any) => {
               </a>
             </li>
 
-
-
-
-
             <li>
               <a
                 href="#"
@@ -715,10 +676,6 @@ const Admin = ({ children }: any) => {
                 <span className="ms-3">Payment</span>
               </a>
             </li>
-
-
-
-
 
             <li>
               <a
@@ -730,22 +687,15 @@ const Admin = ({ children }: any) => {
               </a>
             </li>
 
-
             <li>
               <a
                 href="#"
                 className="flex items-center p-2 text-gray-900  dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700"
               >
-                <GrUserAdmin  className="w-5 h-5 text-yellow-700" />
+                <GrUserAdmin className="w-5 h-5 text-yellow-700" />
                 <span className="ms-3">Administrator</span>
               </a>
             </li>
-
-
-
-
-
-
 
             <li>
               <button
@@ -802,9 +752,7 @@ const Admin = ({ children }: any) => {
                 className="flex items-center w-full p-2 text-gray-900  dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700"
               >
                 <GrAnnounce className="w-5 h-5 text-yellow-700" />
-                <span className="flex-1 ms-3 text-left ">
-                  Advertisement
-                </span>
+                <span className="flex-1 ms-3 text-left ">Advertisement</span>
                 <FaChevronDown
                   className={`transition-transform ${
                     isAddOpen ? "rotate-180" : ""
@@ -839,9 +787,7 @@ const Admin = ({ children }: any) => {
                 className="flex items-center w-full p-2 text-gray-900  dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700"
               >
                 <FaCalculator className="w-5 h-5 text-yellow-700" />
-                <span className="flex-1 ms-3 text-left ">
-                  Estimates
-                </span>
+                <span className="flex-1 ms-3 text-left ">Estimates</span>
                 <FaChevronDown
                   className={`transition-transform ${
                     isCategoryOpen ? "rotate-180" : ""
@@ -927,3 +873,98 @@ const Admin = ({ children }: any) => {
 };
 
 export default Admin;
+
+
+
+
+
+
+
+// import { useEffect, useState } from "react";
+// import Link from "next/link";
+// import { FaQuestionCircle } from "react-icons/fa";
+// import axiosInstance from "../path/to/axiosInstance";
+
+// const AdminSidebar = ({ pathname }: { pathname: string }) => {
+//   const [counts, setCounts] = useState({
+//     allUsers: 0,
+//     verifiedUsers: 0,
+//     bannedUsers: 0,
+//     unverifiedUsers: 0,
+//   });
+
+//   useEffect(() => {
+//     const fetchCounts = async () => {
+//       try {
+//         const [allUsers, verifiedUsers, bannedUsers, unverifiedUsers] =
+//           await Promise.all([
+//             axiosInstance.get("/api/admin/users/count"),
+//             axiosInstance.get("/api/admin/verified-users/count"),
+//             axiosInstance.get("/api/admin/banned-users/count"),
+//             axiosInstance.get("/api/admin/unverified-users/count"),
+//           ]);
+
+//         setCounts({
+//           allUsers: allUsers.data.total_users,
+//           verifiedUsers: verifiedUsers.data.total_verified_users,
+//           bannedUsers: bannedUsers.data.total_banned_users,
+//           unverifiedUsers: unverifiedUsers.data.total_unverified_users,
+//         });
+//       } catch (error) {
+//         console.error("Error fetching counts:", error);
+//       }
+//     };
+
+//     fetchCounts();
+//   }, []);
+
+//   return (
+//     <ul className="space-y-4">
+//       <li>
+//         <Link
+//           href="/admin/questions"
+//           className={`flex items-center justify-between p-3 text-gray-900 dark:text-white ${
+//             pathname?.startsWith("/admin/questions")
+//               ? "bg-black text-white"
+//               : ""
+//           }`}
+//         >
+//           <div className="flex items-center">
+//             <FaQuestionCircle className="w-5 h-5 text-yellow-700" />
+//             <span className="ms-3 font-normal">Questions</span>
+//           </div>
+//           <span className="text-sm font-medium text-gray-500">
+//             {counts.allUsers}
+//           </span>
+//         </Link>
+//       </li>
+//       <li>
+//         <div className="flex justify-between items-center p-3">
+//           <span>Verified Users</span>
+//           <span className="text-sm font-medium text-gray-500">
+//             {counts.verifiedUsers}
+//           </span>
+//         </div>
+//       </li>
+//       <li>
+//         <div className="flex justify-between items-center p-3">
+//           <span>Unverified Users</span>
+//           <span className="text-sm font-medium text-gray-500">
+//             {counts.unverifiedUsers}
+//           </span>
+//         </div>
+//       </li>
+//       <li>
+//         <div className="flex justify-between items-center p-3">
+//           <span>Banned Users</span>
+//           <span className="text-sm font-medium text-gray-500">
+//             {counts.bannedUsers}
+//           </span>
+//         </div>
+//       </li>
+//     </ul>
+//   );
+// };
+
+// export default AdminSidebar;
+
