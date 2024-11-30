@@ -20,9 +20,12 @@ import {
   DialogHeader,
   DialogBody,
   DialogFooter,
+  Spinner,
 } from "@material-tailwind/react";
 import * as XLSX from "xlsx";
 import { Tooltip } from "@material-tailwind/react";
+import { toast, Zoom } from "react-toastify";
+import { IoCheckmarkDoneCircleSharp } from "react-icons/io5";
 
 interface Category {
   id: number;
@@ -35,9 +38,15 @@ const categorySchema = yup.object().shape({
   description: yup.string().required("Description is required"),
 });
 
+const categorySchemaAdd = yup.object().shape({
+  name: yup.string().required("Category name is required"),
+  description: yup.string().required("Description is required"),
+});
+
 export default function Categories() {
   const [categories, setCategories] = useState<Category[]>([]);
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+  const [isModalOpenn, setIsModalOpenn] = useState<boolean>(false);
   const [editCategory, setEditCategory] = useState<Category | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
   const [loadingg, setLoadingg] = useState<boolean>(false);
@@ -45,44 +54,39 @@ export default function Categories() {
   const [searchText, setSearchText] = useState("");
   const [exportDropdownOpen, setExportDropdownOpen] = useState<boolean>(false);
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false); // Add delete modal state
-  const [categoryToDelete, setCategoryToDelete] = useState<Category | null>(null); // Add selected category to delete
+  const [categoryToDelete, setCategoryToDelete] = useState<Category | null>(
+    null
+  ); // Add selected category to delete
+  const [loadingCategories, setLoadingCategories] = useState<boolean>(true);
 
-
-
-
-
-  const customStyles:any = {
+  const customStyles: any = {
     title: {
       style: {
-        fontColor: 'blue',
-        fontWeight: 'bold',
+        fontColor: "blue",
+        fontWeight: "bold",
       },
     },
     rows: {
       style: {
-        minHeight: '50px',
+        minHeight: "50px",
       },
     },
     headCells: {
       style: {
-        fontSize: '13px',
-        fontWeight: 'bold',
-        textTransform: 'uppercase', 
-        paddingLeft: '10px',
-        backgroundColor:"#F6F9FC"
+        fontSize: "13px",
+        fontWeight: "bold",
+        textTransform: "uppercase",
+        paddingLeft: "10px",
+        backgroundColor: "#F6F9FC",
       },
     },
     cells: {
       style: {
-        fontSize: '14px',
-        paddingLeft: '10px',
+        fontSize: "14px",
+        paddingLeft: "10px",
       },
     },
   };
-  
-
-
-
 
   const {
     register,
@@ -93,15 +97,40 @@ export default function Categories() {
     resolver: yupResolver(categorySchema),
   });
 
-  useEffect(() => {
+  const {
+    register: registerAdd,
+    handleSubmit: handleSubmitAdd,
+    formState: { errors: errorsAdd },
+    reset: resetAdd,
+  } = useForm({
+    resolver: yupResolver(categorySchemaAdd),
+  });
+
+  // useEffect(() => {
+  //   setLoadinggg(true);
+  //   axiosInstance
+  //     .get("/api/admin/categories")
+  //     .then((response) => {
+  //       setCategories(response.data.categories);
+  //     })
+  //     .catch((error) => console.error("Error fetching categories:", error));
+  //   setLoadinggg(false);
+  // }, []);
+
+  const fetchCategories = async () => {
     setLoadinggg(true);
-    axiosInstance
-      .get("/api/admin/categories")
-      .then((response) => {
-        setCategories(response.data.categories);
-      })
-      .catch((error) => console.error("Error fetching categories:", error));
-    setLoadinggg(false);
+    try {
+      const response = await axiosInstance.get("/api/admin/categories");
+      setCategories(response.data.categories);
+    } catch (error) {
+      console.error("Error fetching Category:", error);
+    } finally {
+      setLoadinggg(false);
+    }
+  };
+  // Fetch questions
+  useEffect(() => {
+    fetchCategories();
   }, []);
 
   const handleExport = (format: "pdf" | "xlsx") => {
@@ -120,8 +149,16 @@ export default function Categories() {
     try {
       const response = await axiosInstance.post("/api/admin/categories", data);
       setCategories([...categories, response.data]);
-      reset(); // Reset the form so the inputs are empty
-      setIsModalOpen(false);
+      resetAdd();
+      setIsModalOpenn(false);
+      fetchCategories();
+      toast.warning("Category added successfully!", {
+        transition: Zoom,
+        position: "top-right",
+        icon: (
+          <IoCheckmarkDoneCircleSharp className="text-yellow-700" size={24} />
+        ),
+      });
     } catch (error) {
       console.error("Error adding category:", error);
     } finally {
@@ -132,7 +169,7 @@ export default function Categories() {
   const handleEdit = (category: Category): void => {
     setEditCategory(category);
     setIsModalOpen(true);
-    reset(category); // Set form with the current category's values
+    reset(category);
   };
 
   const handleUpdate = async (data: any): Promise<void> => {
@@ -147,6 +184,14 @@ export default function Categories() {
       );
       setIsModalOpen(false);
       setEditCategory(null);
+      fetchCategories();
+      toast.warning("Category updated successfully!", {
+        transition: Zoom,
+        position: "top-right",
+        icon: (
+          <IoCheckmarkDoneCircleSharp className="text-yellow-700" size={24} />
+        ),
+      });
     } catch (error) {
       console.error("Error updating category:", error);
     } finally {
@@ -159,7 +204,14 @@ export default function Categories() {
       try {
         await axiosInstance.delete(`/api/admin/categories/${id}`);
         setCategories(categories.filter((category) => category.id !== id));
-        setIsDeleteModalOpen(false); // Close delete modal after deletion
+        setIsDeleteModalOpen(false);
+        toast.warning("Category deleted successfully!", {
+          transition: Zoom,
+          position: "top-right",
+          icon: (
+            <IoCheckmarkDoneCircleSharp className="text-yellow-700" size={24} />
+          ),
+        });
       } catch (error) {
         console.error("Error deleting category:", error);
       }
@@ -176,7 +228,12 @@ export default function Categories() {
   });
 
   const columns = [
-    { name: "Name", selector: (row: Category) => row.name, sortable: true, className: "font-bold" }, // Add font-bold class
+    {
+      name: "Name",
+      selector: (row: Category) => row.name,
+      sortable: true,
+      className: "font-bold",
+    }, // Add font-bold class
     {
       name: "Description",
       selector: (row: Category) => row.description,
@@ -230,7 +287,7 @@ export default function Categories() {
           </div>
           <div className="flex flex-col sm:flex-row w-full sm:w-auto gap-2">
             <button
-              onClick={() => setIsModalOpen(true)}
+              onClick={() => setIsModalOpenn(true)}
               className="bg-yellow-800 text-white flex items-center gap-2 py-2 px-4 rounded-md"
             >
               <FaPlus /> Add Category
@@ -266,9 +323,6 @@ export default function Categories() {
                 </div>
               )}
             </div>
-
-
-            
           </div>
         </div>
 
@@ -279,56 +333,118 @@ export default function Categories() {
             data={filteredCategories}
             pagination
             className="bg-white"
-            progressPending={loadinggg}
             highlightOnHover
             pointerOnHover
             customStyles={customStyles}
+            progressPending={loadinggg}
+            progressComponent={
+              <div className="flex justify-center items-center py-10">
+                <Spinner className="h-12 w-12 text-yellow-800" />
+              </div>
+            }
           />
         </div>
       </div>
 
-      {/* Add/Edit Category Modal */}
+      {/* Edit Category Modal */}
+
       <Dialog open={isModalOpen} handler={() => setIsModalOpen(false)}>
-        <DialogHeader>{editCategory ? "Edit Category" : "Add Category"}</DialogHeader>
+        <DialogHeader className="justify-center items-center">Edit Category</DialogHeader>
         <DialogBody>
-          <form
-            onSubmit={handleSubmit(editCategory ? handleUpdate : handleAddCategory)}
-            className="space-y-4"
-          >
+          <form onSubmit={handleSubmit(handleUpdate)} className="space-y-4">
             <div>
-              <label className="block text-sm font-medium text-gray-700">Category Name</label>
+              <label className="block text-sm font-medium text-black ">
+                Category Name
+              </label>
               <input
                 type="text"
                 {...register("name")}
                 placeholder="Enter category name"
-                className="mt-2 block w-full border border-gray-300 rounded-md shadow-sm p-2"
+                className="mt-2 block w-full border border-gray-300 rounded-md shadow-sm p-2 text-black"
               />
               <p className="text-red-500 text-xs">{errors.name?.message}</p>
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700">Description</label>
+              <label className="block text-sm font-medium text-black">
+                Description
+              </label>
               <input
                 type="text"
                 {...register("description")}
                 placeholder="Enter category description"
-                className="mt-2 block w-full border border-gray-300 rounded-md shadow-sm p-2"
+                className="mt-2 block w-full border border-gray-300 rounded-md shadow-sm p-2 text-black"
               />
-              <p className="text-red-500 text-xs">{errors.description?.message}</p>
+              <p className="text-red-500 text-xs">
+                {errors.description?.message}
+              </p>
             </div>
             <div className="flex justify-end gap-2">
               <button
                 type="button"
                 onClick={() => setIsModalOpen(false)}
-                className="bg-gray-200 text-gray-700 py-2 px-4 rounded-md"
+                className="bg-red-800 text-white py-2 px-4 rounded-md"
               >
                 Cancel
               </button>
               <button
                 type="submit"
                 disabled={loading}
-                className="bg-blue-600 text-white py-2 px-4 rounded-md"
+                className="bg-yellow-800 text-white py-2 px-4 rounded-md"
               >
-                {loading ? "Saving..." : editCategory ? "Update" : "Add"}
+                {loading ? "Saving..." : "Update"}
+              </button>
+            </div>
+          </form>
+        </DialogBody>
+      </Dialog>
+
+      <Dialog open={isModalOpenn} handler={() => setIsModalOpenn(false)}>
+        <DialogHeader>Add Category</DialogHeader>
+        <DialogBody>
+          <form
+            onSubmit={handleSubmitAdd(handleAddCategory)}
+            className="space-y-4"
+          >
+            <div>
+              <label className="block text-sm font-medium text-black">
+                Category Name
+              </label>
+              <input
+                type="text"
+                {...registerAdd("name")}
+                placeholder="Enter category name"
+                className="mt-2 block w-full border border-gray-300 rounded-md shadow-sm p-2 text-black"
+              />
+              <p className="text-red-500 text-xs">{errorsAdd.name?.message}</p>
+            </div>
+            <div>
+              <label className="block text-sm font-medium text-black">
+                Description
+              </label>
+              <input
+                type="text"
+                {...registerAdd("description")}
+                placeholder="Enter category description"
+                className="mt-2 block w-full border border-gray-300 rounded-md shadow-sm p-2 text-black"
+              />
+              <p className="text-red-500 text-xs">
+                {errorsAdd.description?.message}
+              </p>
+            </div>
+            <div className="flex justify-end gap-2">
+              <button
+                type="button"
+                onClick={() => setIsModalOpenn(false)}
+                className="bg-red-800 text-white py-2 px-4 rounded-md"
+              >
+                Cancel
+              </button>
+              <button
+                type="submit"
+                disabled={loading}
+                className="bg-yellow-800 text-white py-2 px-4 rounded-md"
+              >
+                {loading ? "Saving..." : "Add"}
               </button>
             </div>
           </form>
@@ -336,32 +452,33 @@ export default function Categories() {
       </Dialog>
 
       {/* Delete Category Confirmation Modal */}
-      <Dialog open={isDeleteModalOpen} handler={() => setIsDeleteModalOpen(false)}>
-        <DialogHeader>Delete Category</DialogHeader>
+      <Dialog
+        open={isDeleteModalOpen}
+        handler={() => setIsDeleteModalOpen(false)}
+      >
+        <DialogHeader className="text-black">Delete Category</DialogHeader>
         <DialogBody>
-          <p>Are you sure you want to delete "{categoryToDelete?.name}"?</p>
+          <p className="text-black">
+            Are you sure you want to delete "{categoryToDelete?.name}"?
+          </p>
         </DialogBody>
         <DialogFooter>
-          <button
-            onClick={() => setIsDeleteModalOpen(false)}
-            className="bg-gray-200 text-gray-700 py-2 px-4 rounded-md"
-          >
-            Cancel
-          </button>
-          <button
-            onClick={() => handleDelete(categoryToDelete?.id ?? 0)}
-            className="bg-red-600 text-white py-2 px-4 rounded-md"
-          >
-            Delete
-          </button>
+          <div className="space-x-2">
+            <button
+              onClick={() => setIsDeleteModalOpen(false)}
+              className="bg-gray-200 text-gray-700 py-2 px-4 rounded-md"
+            >
+              Cancel
+            </button>
+            <button
+              onClick={() => handleDelete(categoryToDelete?.id ?? 0)}
+              className="bg-red-600 text-white py-2 px-4 rounded-md"
+            >
+              Delete
+            </button>
+          </div>
         </DialogFooter>
       </Dialog>
     </div>
   );
 }
-
-
-
-
-
-

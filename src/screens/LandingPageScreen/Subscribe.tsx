@@ -102,18 +102,9 @@ const ContactUs = () => {
     resolver: yupResolver(quoteSchema),
   });
 
-  const {
-    register: registerSubscribe,
-    handleSubmit: handleSubmitSubscribe,
-    formState: { errors: errorsSubscribe },
-  } = useForm<SubscribeFormData>({
-    resolver: yupResolver(subscribeSchema),
-  });
+  
 
-  const onSubmit = (data: any) => {
-    console.log("Form Data:", data);
-    // Add your submission logic here
-  };
+
 
   // const onSubmitQuote: SubmitHandler<FormData> = async (data) => {
   //   setLoading(true);
