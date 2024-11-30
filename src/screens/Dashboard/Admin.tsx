@@ -286,6 +286,28 @@ const Admin = ({ children }: any) => {
 
 
 
+            <li>
+              <Link
+                href="/admin/labour-price-list"
+                className={`flex items-center p-3 text-gray-900     dark:text-white 
+                  
+                   ${
+                     pathname?.startsWith("/admin/labour-price-list")
+                       ? "bg-black text-white"
+                       : ""
+                   }
+                  
+                  `}
+              >
+                <FaQuestionCircle className="w-5 h-5 text-yellow-700" />
+                <span className="ms-3 font-normal">Labour Price List</span>
+              </Link>
+            </li>
+
+
+
+
+
 
             <li>
       <button

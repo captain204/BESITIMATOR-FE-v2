@@ -244,13 +244,6 @@ export default function MaterialPriceList() {
   };
 
   const filteredPriceLists = priceLists.filter((priceList: any) => {
-    //     { name: "Price Group", selector: (row:any) => row?.price_group || "N/A"},
-    //     { name: "Material", selector: (row:any) => row?.material || "N/A" },
-    //     { name: "Specification", selector: (row:any) => row?.specification || "N/A" },
-    //     { name: "Size", selector: (row:any) => row.size || "N/A" },
-    //     { name: "Low Price Point", selector: (row:any) => row?.low_price_point || "N/A" },
-    //     { name: "Higher Price Point", selector: (row:any) => row?.higher_price_point  || "N/A"},
-    //     { name: "Average Price Point", selector: (row:any) => row?.average_price_point|| "N/A" },
     const pricegroup = priceList?.price_group?.toLowerCase() || "";
     const material = priceList?.material?.toLowerCase() || "";
     const specification = priceList?.specification?.toLowerCase() || "";
