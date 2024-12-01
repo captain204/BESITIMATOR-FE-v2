@@ -16,7 +16,12 @@ import {
   FaUser,
 } from "react-icons/fa";
 import { usePathname, useRouter } from "next/navigation";
-import { MdCategory, MdDashboard, MdEventNote } from "react-icons/md";
+import {
+  MdCategory,
+  MdDashboard,
+  MdEventNote,
+  MdKeyboardOptionKey,
+} from "react-icons/md";
 import { GrAnnounce, GrUserAdmin } from "react-icons/gr";
 import {
   FaCalculator,
@@ -27,22 +32,28 @@ import {
 } from "react-icons/fa6";
 import { BiNoEntry, BiSolidTrafficCone } from "react-icons/bi";
 import { GiCheckMark } from "react-icons/gi";
-import { GoIssueTrackedBy } from "react-icons/go";
+import { GoIssueTrackedBy, GoTasklist } from "react-icons/go";
 import {
   IoIosConstruct,
   IoIosNotifications,
   IoIosNotificationsOff,
 } from "react-icons/io";
 import { TbHeartRateMonitor } from "react-icons/tb";
-import { IoNewspaper } from "react-icons/io5";
+import { IoNewspaper, IoOptions } from "react-icons/io5";
 import { MdOutlineVerified } from "react-icons/md";
 import { VscUnverified } from "react-icons/vsc";
 import axiosInstance from "@/Globals/Interceptor";
+import { BsFillQuestionSquareFill, BsQuestionSquare } from "react-icons/bs";
+import { LuListMusic } from "react-icons/lu";
 
 const Admin = ({ children }: any) => {
   const router = useRouter();
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  
+  const [isSubListOpen, setIsSubListOpen] = useState(false);
   const [isManageBlogOpen, setIsManageBlogOpen] = useState(false);
+  const [isManageListOpen, setIsManageListOpen] = useState(false);
+  const [isManageEstimateOpen, setManageEstimateOpen] = useState(false);
   const [isAddOpen, setIsAddOpen] = useState(false);
   const [isCategoryOpen, setIsCategoryOpen] = useState(false);
   const [isUserOpen, setUserOpen] = useState(false);
@@ -61,12 +72,6 @@ const Admin = ({ children }: any) => {
     setActiveDropdown(null);
     router.push(path);
   };
-
-
-
-
-
-
 
   const [counts, setCounts] = useState({
     allUsers: 0,
@@ -99,22 +104,6 @@ const Admin = ({ children }: any) => {
 
     fetchCounts();
   }, []);
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
   React.useEffect(() => {
     if (
@@ -227,174 +216,297 @@ const Admin = ({ children }: any) => {
             </li>
 
             <li>
-              <Link
-                href="/admin/categories"
-                className={`flex items-center p-3 text-gray-900     dark:text-white 
-                  
-                   ${
-                     pathname?.startsWith("/admin/categories")
-                       ? "bg-black text-white"
-                       : ""
-                   }
-                  
-                  `}
+              <button
+                onClick={() => setManageEstimateOpen(!isManageEstimateOpen)}
+                className="flex items-center justify-start w-full p-3 text-gray-900 dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700"
               >
-                <MdCategory className="w-5 h-5 text-yellow-700" />
-                <span className="ms-3 font-normal">Categories</span>
-              </Link>
+                <IoIosConstruct className="w-5 h-5 text-yellow-700" />
+                <span className="flex-1 ms-3 text-left font-normal">
+                  Estimate Builder
+                </span>
+                <FaChevronDown
+                  className={`w-4 h-4 ms-auto transition-transform ${
+                    isManageEstimateOpen ? "rotate-180" : ""
+                  }`}
+                />
+              </button>
+              {isManageEstimateOpen && (
+                <ul className="pl-10 space-y-1">
+                  <li>
+                    <Link
+                      onClick={(e) => e.stopPropagation()}
+                      href="/admin/questions"
+                      className={`flex items-center justify-start p-2 font-normal mt-1 text-gray-700 dark:text-gray-400 ${
+                        pathname?.startsWith("/admin/questions")
+                          ? "bg-black text-white"
+                          : "hover:bg-gray-100 text-gray-900"
+                      }`}
+                    >
+                      <BsFillQuestionSquareFill className="w-4 h-4 me-2 text-green-800" />
+                      Questions
+                    </Link>
+                  </li>
+                  <li>
+                    <Link
+                      onClick={(e) => e.stopPropagation()}
+                      href="/admin/categories"
+                      className={`flex items-center justify-start p-2 font-normal text-gray-700 dark:text-gray-400 ${
+                        pathname?.startsWith("/admin/categories")
+                          ? "bg-black text-white"
+                          : "hover:bg-gray-100 text-gray-900"
+                      }`}
+                    >
+                      <MdCategory className="w-4 h-4 me-2 text-" />
+                      Category
+                    </Link>
+                  </li>
+
+                  <li>
+                    <Link
+                      onClick={(e) => e.stopPropagation()}
+                      href="/admin/option"
+                      className={`flex items-center justify-start p-2 font-normal text-gray-700 dark:text-gray-400 ${
+                        pathname?.startsWith("/admin/option")
+                          ? "bg-black text-white"
+                          : "hover:bg-gray-100 text-gray-900"
+                      }`}
+                    >
+                      <IoOptions className="w-4 h-4 me-2 text-yellow-900" />
+                      Option
+                    </Link>
+                  </li>
+
+                  <li>
+                    <Link
+                      onClick={(e) => e.stopPropagation()}
+                      href="/admin/suboption"
+                      className={`flex items-center justify-start p-2 font-normal text-gray-700 dark:text-gray-400 ${
+                        pathname?.startsWith("/admin/suboption")
+                          ? "bg-black text-white"
+                          : "hover:bg-gray-100 text-gray-900"
+                      }`}
+                    >
+                      <MdKeyboardOptionKey className="w-4 h-4 me-2 text-purple-800" />
+                      Sub Option
+                    </Link>
+                  </li>
+                </ul>
+              )}
             </li>
 
+
+
+
+
+
+
+
             <li>
-              <Link
-                href="/admin/questions"
-                className={`flex items-center p-3 text-gray-900     dark:text-white 
-                  
-                   ${
-                     pathname?.startsWith("/admin/questions")
-                       ? "bg-black text-white"
-                       : ""
-                   }
-                  
-                  `}
+              <button
+                onClick={() => setIsManageListOpen(!isManageListOpen)}
+                className="flex items-center justify-start w-full p-3 text-gray-900 dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700"
               >
-                <FaQuestionCircle className="w-5 h-5 text-yellow-700" />
-                <span className="ms-3 font-normal">Questions</span>
-              </Link>
+                <FaList className="w-5 h-5 text-yellow-700" />
+                <span className="flex-1 ms-3 text-left font-normal">
+                  Price Lists
+                </span>
+                <FaChevronDown
+                  className={`w-4 h-4 ms-auto transition-transform ${
+                    isManageListOpen ? "rotate-180" : ""
+                  }`}
+                />
+              </button>
+              {isManageListOpen && (
+                <ul className="pl-10 space-y-1">
+                  <li>
+                    <Link
+                      onClick={(e) => e.stopPropagation()}
+                      href="/admin/material-price-list"
+                      className={`flex items-center justify-start p-2 font-normal mt-1 text-gray-700 dark:text-gray-400 ${
+                        pathname?.startsWith("/admin/material-price-list")
+                          ? "bg-black text-white"
+                          : "hover:bg-gray-100 text-gray-900"
+                      }`}
+                    >
+                      <GoTasklist className="w-4 h-4 me-2 bg-green-900" />
+                      Material Price List
+                    </Link>
+                  </li>
+                  <li>
+                    <Link
+                      onClick={(e) => e.stopPropagation()}
+                      href="/admin/labour-price-List"
+                      className={`flex items-center justify-start p-2 font-normal text-gray-700 dark:text-gray-400 ${
+                        pathname?.startsWith("/admin/labour-price-List")
+                          ? "bg-black text-white"
+                          : "hover:bg-gray-100 text-gray-900"
+                      }`}
+                    >
+                      <LuListMusic className="w-4 h-4 me-2 text-yellow-900" />
+                      Labour Price List
+                    </Link>
+                  </li>
+                </ul>
+              )}
             </li>
 
 
 
+
+
+
             <li>
-              <Link
-                href="/admin/material-price-list"
-                className={`flex items-center p-3 text-gray-900     dark:text-white 
-                  
-                   ${
-                     pathname?.startsWith("/admin/material-price-list")
-                       ? "bg-black text-white"
-                       : ""
-                   }
-                  
-                  `}
+              <button
+                onClick={() => setIsSubListOpen(!isSubListOpen)}
+                className="flex items-center justify-start w-full p-3 text-gray-900 dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700"
               >
-                <FaQuestionCircle className="w-5 h-5 text-yellow-700" />
-                <span className="ms-3 font-normal">Material Price List</span>
-              </Link>
+                <FaList className="w-5 h-5 text-yellow-700" />
+                <span className="flex-1 ms-3 text-left font-normal">
+                 Subscribers
+                </span>
+                <FaChevronDown
+                  className={`w-4 h-4 ms-auto transition-transform ${
+                    isSubListOpen ? "rotate-180" : ""
+                  }`}
+                />
+              </button>
+              {isSubListOpen && (
+                <ul className="pl-10 space-y-1">
+                  <li>
+                    <Link
+                      onClick={(e) => e.stopPropagation()}
+                      href="/admin/subscribers"
+                      className={`flex items-center justify-start p-2 font-normal mt-1 text-gray-700 dark:text-gray-400 ${
+                        pathname?.startsWith("/admin/material-price-list")
+                          ? "bg-black text-white"
+                          : "hover:bg-gray-100 text-gray-900"
+                      }`}
+                    >
+                      <GoTasklist className="w-4 h-4 me-2 bg-green-900" />
+                      Subscribers
+                    </Link>
+                  </li>
+                  <li>
+                    <Link
+                      onClick={(e) => e.stopPropagation()}
+                      href="/admin/unsubscribers"
+                      className={`flex items-center justify-start p-2 font-normal text-gray-700 dark:text-gray-400 ${
+                        pathname?.startsWith("/admin/unsubscribers")
+                          ? "bg-black text-white"
+                          : "hover:bg-gray-100 text-gray-900"
+                      }`}
+                    >
+                      <LuListMusic className="w-4 h-4 me-2 text-yellow-900" />
+                      UnSubscribers
+                    </Link>
+                  </li>
+                </ul>
+              )}
             </li>
 
 
 
 
 
+
+
+
+
+
             <li>
-              <Link
-                href="/admin/labour-price-list"
-                className={`flex items-center p-3 text-gray-900     dark:text-white 
-                  
-                   ${
-                     pathname?.startsWith("/admin/labour-price-list")
-                       ? "bg-black text-white"
-                       : ""
-                   }
-                  
-                  `}
+              <button
+                onClick={() => setUserOpen(!isUserOpen)}
+                className="flex items-center justify-start w-full p-3 text-gray-900 dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700"
               >
-                <FaQuestionCircle className="w-5 h-5 text-yellow-700" />
-                <span className="ms-3 font-normal">Labour Price List</span>
-              </Link>
+                <FaUsersRectangle className="w-5 h-5 text-yellow-700" />
+                <span className="flex-1 ms-3 text-left font-normal">Users</span>
+                <FaChevronDown
+                  className={`w-4 h-4 ms-auto transition-transform ${
+                    isUserOpen ? "rotate-180" : ""
+                  }`}
+                />
+              </button>
+              {isUserOpen && (
+                <ul className="pl-9 space-y-1">
+                  <li>
+                    <Link
+                      onClick={(e) => e.stopPropagation()}
+                      href="/admin/users/all"
+                      className={`flex items-center justify-between p-2  font-normal mt-1 text-gray-700 dark:text-gray-400 ${
+                        pathname?.startsWith("/admin/users/all")
+                          ? "bg-black text-white"
+                          : "hover:bg-gray-100 text-gray-900"
+                      }`}
+                    >
+                      <div className="flex items-center">
+                        <FaListAlt className="w-3 h-3 me-2" />
+                        All
+                      </div>
+                      <span className="text-sm font-bold text-yellow-900">
+                        {counts.allUsers}
+                      </span>
+                    </Link>
+                  </li>
+                  <li>
+                    <Link
+                      onClick={(e) => e.stopPropagation()}
+                      href="/admin/users/verified-users"
+                      className={`flex items-center justify-between p-2  font-normal mt-1 text-gray-700 dark:text-gray-400 ${
+                        pathname?.startsWith("/admin/users/verified-users")
+                          ? "bg-black text-white"
+                          : "hover:bg-gray-100 text-gray-900"
+                      }`}
+                    >
+                      <div className="flex items-center ">
+                        <MdOutlineVerified className="w-4 h-4 me-2 text-green-800" />
+                        Verified Users
+                      </div>
+                      <span className="text-sm font-bold text-yellow-900 ">
+                        {counts.verifiedUsers}
+                      </span>
+                    </Link>
+                  </li>
+                  <li>
+                    <Link
+                      onClick={(e) => e.stopPropagation()}
+                      href="/admin/users/unverified-users"
+                      className={`flex items-center justify-between p-2 font-normal mt-1 text-gray-700 dark:text-gray-400 ${
+                        pathname?.startsWith("/admin/users/unverified-users")
+                          ? "bg-black text-white"
+                          : "hover:bg-gray-100 text-gray-900"
+                      }`}
+                    >
+                      <div className="flex items-center ">
+                        <VscUnverified className="w-4 h-4 me-2 text-red-900" />
+                        Unverified Users
+                      </div>
+                      <span className="text-sm text-yellow-900 font-bold">
+                        {counts.unverifiedUsers}
+                      </span>
+                    </Link>
+                  </li>
+                  <li>
+                    <Link
+                      onClick={(e) => e.stopPropagation()}
+                      href="/admin/users/banned-users"
+                      className={`flex items-center justify-between p-2 font-normal mt-1 text-gray-700 dark:text-gray-400 ${
+                        pathname?.startsWith("/admin/users/banned-users")
+                          ? "bg-black text-white"
+                          : "hover:bg-gray-100 text-gray-900"
+                      }`}
+                    >
+                      <div className="flex items-center">
+                        <FaBan className="w-3 h-3 me-2 text-red-800" />
+                        Banned Users
+                      </div>
+                      <span className="text-sm text-yellow-900 font-bold">
+                        {counts.bannedUsers}
+                      </span>
+                    </Link>
+                  </li>
+                </ul>
+              )}
             </li>
-
-
-
-
-
-
-            <li>
-      <button
-        onClick={() => setUserOpen(!isUserOpen)}
-        className="flex items-center justify-start w-full p-3 text-gray-900 dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700"
-      >
-        <FaUsersRectangle className="w-5 h-5 text-yellow-700" />
-        <span className="flex-1 ms-3 text-left font-normal">Users</span>
-        <FaChevronDown
-          className={`w-4 h-4 ms-auto transition-transform ${
-            isUserOpen ? "rotate-180" : ""
-          }`}
-        />
-      </button>
-      {isUserOpen && (
-        <ul className="pl-9 space-y-1">
-          <li>
-            <Link
-              onClick={(e) => e.stopPropagation()}
-              href="/admin/users/all"
-              className={`flex items-center justify-between p-2  font-normal mt-1 text-gray-700 dark:text-gray-400 ${
-                pathname?.startsWith("/admin/users/all")
-                  ? "bg-black text-white"
-                  : "hover:bg-gray-100 text-gray-900"
-              }`}
-            >
-              <div className="flex items-center">
-                <FaListAlt className="w-3 h-3 me-2" />
-                All
-              </div>
-              <span className="text-sm font-bold text-yellow-900">{counts.allUsers}</span>
-            </Link>
-          </li>
-          <li>
-            <Link
-              onClick={(e) => e.stopPropagation()}
-              href="/admin/users/verified-users"
-              className={`flex items-center justify-between p-2  font-normal mt-1 text-gray-700 dark:text-gray-400 ${
-                pathname?.startsWith("/admin/users/verified-users")
-                  ? "bg-black text-white"
-                  : "hover:bg-gray-100 text-gray-900"
-              }`}
-            >
-              <div className="flex items-center ">
-                <MdOutlineVerified className="w-4 h-4 me-2 text-green-800" />
-                Verified Users
-              </div>
-              <span className="text-sm font-bold text-yellow-900 ">{counts.verifiedUsers}</span>
-            </Link>
-          </li>
-          <li>
-            <Link
-              onClick={(e) => e.stopPropagation()}
-              href="/admin/users/unverified-users"
-              className={`flex items-center justify-between p-2 font-normal mt-1 text-gray-700 dark:text-gray-400 ${
-                pathname?.startsWith("/admin/users/unverified-users")
-                  ? "bg-black text-white"
-                  : "hover:bg-gray-100 text-gray-900"
-              }`}
-            >
-              <div className="flex items-center ">
-                <VscUnverified className="w-4 h-4 me-2 text-red-900" />
-                Unverified Users
-              </div>
-              <span className="text-sm text-yellow-900 font-bold">{counts.unverifiedUsers}</span>
-            </Link>
-          </li>
-          <li>
-            <Link
-              onClick={(e) => e.stopPropagation()}
-              href="/admin/users/banned-users"
-              className={`flex items-center justify-between p-2 font-normal mt-1 text-gray-700 dark:text-gray-400 ${
-                pathname?.startsWith("/admin/users/banned-users")
-                  ? "bg-black text-white"
-                  : "hover:bg-gray-100 text-gray-900"
-              }`}
-            >
-              <div className="flex items-center">
-                <FaBan className="w-3 h-3 me-2 text-red-800" />
-                Banned Users
-              </div>
-              <span className="text-sm text-yellow-900 font-bold">{counts.bannedUsers}</span>
-            </Link>
-          </li>
-        </ul>
-      )}
-    </li>
 
             <li>
               <button
@@ -896,12 +1008,6 @@ const Admin = ({ children }: any) => {
 
 export default Admin;
 
-
-
-
-
-
-
 // import { useEffect, useState } from "react";
 // import Link from "next/link";
 // import { FaQuestionCircle } from "react-icons/fa";
@@ -989,4 +1095,3 @@ export default Admin;
 // };
 
 // export default AdminSidebar;
-
