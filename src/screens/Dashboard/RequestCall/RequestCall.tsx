@@ -13,8 +13,8 @@ import "react-toastify/dist/ReactToastify.css";
 import { Spinner } from "@material-tailwind/react";
 import * as XLSX from "xlsx";
 
-export default function Subscribers() {
-  const [subscribers, setSubscribers] = useState<any[]>([]);
+export default function CallRequest() {
+  const [response, setResponse] = useState<any[]>([]);
   const [isModalOpenn, setIsModalOpenn] = useState<boolean>(false);
   const [searchText, setSearchText] = useState("");
   const [exportDropdownOpen, setExportDropdownOpen] = useState<boolean>(false);
@@ -49,11 +49,11 @@ export default function Subscribers() {
     },
   };
 
-  const fetchSubscribers = async () => {
+  const fetchResponse = async () => {
     setLoadingQuestions(true);
     try {
-      const response = await axiosInstance.get("/api/admin/subscribers");
-      setSubscribers(response.data);
+      const response = await axiosInstance.get("/api/admin/callback-requests");
+      setResponse(response.data);
       console.log(response);
     } catch (error) {
       console.error("Error fetching questions:", error);
@@ -63,31 +63,23 @@ export default function Subscribers() {
   };
   // Fetch questions
   useEffect(() => {
-    fetchSubscribers();
+    fetchResponse();
   }, []);
 
   const handleExport = (format: "pdf" | "xlsx") => {
     if (format === "xlsx") {
-      const worksheet = XLSX.utils.json_to_sheet(subscribers);
+      const worksheet = XLSX.utils.json_to_sheet(response);
       const workbook = XLSX.utils.book_new();
-      XLSX.utils.book_append_sheet(workbook, worksheet, "Subscribers");
-      XLSX.writeFile(workbook, "subscribers.xlsx");
+      XLSX.utils.book_append_sheet(workbook, worksheet, "Questions");
+      XLSX.writeFile(workbook, "questions.xlsx");
     } else if (format === "pdf") {
       console.log("Exporting as PDF... (Implement PDF generation here)");
     }
   };
 
-  const filteredSubscribers = subscribers.filter((subscribers) => {
-    const firstname = subscribers.firstname?.toLowerCase() || "";
-    const lastname = subscribers.lastname?.toLowerCase() || "";
-    const phone = subscribers.phone?.toLowerCase() || "";
-    const email = subscribers.email?.toLowerCase() || "";
-    return (
-      lastname.includes(searchText.toLowerCase()) ||
-      firstname.includes(searchText.toLowerCase()) ||
-      email.includes(searchText.toLowerCase()) ||
-      phone.includes(searchText.toLowerCase())
-    );
+  const filteredQuestions = response.filter((response) => {
+    const text = response.text?.toLowerCase() || "";
+    return text.includes(searchText.toLowerCase());
   });
 
   const columns = [
@@ -176,7 +168,7 @@ export default function Subscribers() {
         <div className="overflow-x-auto">
           <DataTable
             columns={columns}
-            data={filteredSubscribers}
+            data={filteredQuestions}
             pagination
             className="bg-white"
             highlightOnHover

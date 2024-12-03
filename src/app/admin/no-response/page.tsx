@@ -1,6 +1,7 @@
 "use client";
 import Admin from "@/screens/Dashboard/Admin";
-import SubOptionAdmin from "@/screens/Dashboard/SubOption/SubOption";
+import CallRequest from "@/screens/Dashboard/RequestCall/RequestCall";
+
 
 
 import React from "react";
@@ -8,7 +9,7 @@ import React from "react";
 const Page = () => {
   return (
     <Admin>
-      <SubOptionAdmin />
+      <CallRequest />
     </Admin>
   );
 };

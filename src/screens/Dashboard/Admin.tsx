@@ -11,8 +11,8 @@ import {
   FaListAlt,
   FaPlus,
   FaQuestion,
-  FaQuestionCircle,
   FaRegCreditCard,
+  FaRegNewspaper,
   FaUser,
 } from "react-icons/fa";
 import { usePathname, useRouter } from "next/navigation";
@@ -37,41 +37,59 @@ import {
   IoIosConstruct,
   IoIosNotifications,
   IoIosNotificationsOff,
+  IoMdNotificationsOutline,
 } from "react-icons/io";
 import { TbHeartRateMonitor } from "react-icons/tb";
 import { IoNewspaper, IoOptions } from "react-icons/io5";
 import { MdOutlineVerified } from "react-icons/md";
 import { VscUnverified } from "react-icons/vsc";
 import axiosInstance from "@/Globals/Interceptor";
-import { BsFillQuestionSquareFill, BsQuestionSquare } from "react-icons/bs";
+import { BsFillQuestionSquareFill } from "react-icons/bs";
 import { LuListMusic } from "react-icons/lu";
+import { ThunkDispatch, UnknownAction } from "@reduxjs/toolkit";
+import { RootState } from "@/Globals/store/store";
+import { useDispatch, useSelector } from "react-redux";
+import { getUser } from "@/Globals/Slices/AuthSlices/GetUser";
+import { Badge } from "@material-tailwind/react";
+
+type AppDispatch = ThunkDispatch<RootState, unknown, UnknownAction>;
 
 const Admin = ({ children }: any) => {
+  const dispatch: AppDispatch = useDispatch();
+  const response = useSelector((state: RootState) => state.getUser.response);
   const router = useRouter();
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
-  
+
   const [isSubListOpen, setIsSubListOpen] = useState(false);
+
+  const [IsRequestOpen, setRequestOpen] = useState(false);
   const [isManageBlogOpen, setIsManageBlogOpen] = useState(false);
   const [isManageListOpen, setIsManageListOpen] = useState(false);
   const [isManageEstimateOpen, setManageEstimateOpen] = useState(false);
   const [isAddOpen, setIsAddOpen] = useState(false);
   const [isCategoryOpen, setIsCategoryOpen] = useState(false);
   const [isUserOpen, setUserOpen] = useState(false);
-  const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
+  // const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
   const pathname = usePathname();
 
   const toggleSidebar = () => {
     setIsSidebarOpen(!isSidebarOpen);
   };
 
-  const toggleDropdown = (dropdown: string) => {
-    setActiveDropdown((prev) => (prev === dropdown ? null : dropdown));
-  };
+  useEffect(() => {
+    {
+      dispatch(getUser());
+    }
+  }, [dispatch]);
 
-  const navigateTo = (path: string) => {
-    setActiveDropdown(null);
-    router.push(path);
-  };
+  // const toggleDropdown = (dropdown: string) => {
+  //   setActiveDropdown((prev) => (prev === dropdown ? null : dropdown));
+  // };
+
+  // const navigateTo = (path: string) => {
+  //   setActiveDropdown(null);
+  //   router.push(path);
+  // };
 
   const [counts, setCounts] = useState({
     allUsers: 0,
@@ -129,6 +147,44 @@ const Admin = ({ children }: any) => {
     }
   }, [pathname]);
 
+  React.useEffect(() => {
+    if (
+      pathname?.startsWith("/admin/estimate-builder/category") ||
+      pathname?.startsWith("/admin/estimate-builder/option") ||
+      pathname?.startsWith("/admin/estimate-builder/suboption") ||
+      pathname?.startsWith("/admin/estimate-builder/option")
+    ) {
+      setManageEstimateOpen(true);
+    } else {
+      setManageEstimateOpen(false);
+    }
+  }, [pathname]);
+
+  React.useEffect(() => {
+    if (
+      pathname?.startsWith("/admin/price-list/labour-price-list") ||
+      pathname?.startsWith("/admin/estimate-builder/option") ||
+      pathname?.startsWith("/admin/estimate-builder/suboption") ||
+      pathname?.startsWith("/admin/estimate-builder/option")
+    ) {
+      setIsManageListOpen(true);
+    } else {
+      setIsManageListOpen(false);
+    }
+  }, [pathname]);
+
+  React.useEffect(() => {
+    if (
+      pathname?.startsWith("/admin/subscribers/all-subscribers") ||
+      pathname?.startsWith("/admin/subscribers/unsubscribers") ||
+      pathname?.startsWith("/admin/subscribers/news-letter")
+    ) {
+      setIsSubListOpen(true);
+    } else {
+      setIsSubListOpen(false);
+    }
+  }, [pathname]);
+
   return (
     <div>
       <nav className="fixed shadow-sm      top-0 z-50 w-full bg-white border-b border-gray-200 dark:bg-gray-800 dark:border-gray-700">
@@ -141,7 +197,7 @@ const Admin = ({ children }: any) => {
                 data-drawer-toggle="logo-sidebar"
                 aria-controls="logo-sidebar"
                 type="button"
-                className="inline-flex items-center p-2 text-sm text-gray-500  sm:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
+                className="inline-flex items-center p-2 text-sm text-gray-500  sm:hidden hover:bg-gray-100 focus:outline-none"
               >
                 <span className="sr-only">Open sidebar</span>
                 <svg
@@ -158,30 +214,36 @@ const Admin = ({ children }: any) => {
                   />
                 </svg>
               </button>
-              <a href="/" className="flex ms-2 md:me-24">
+              <Link href="/" className=" md:block hidden">
                 <img
                   src="/logo.png"
                   className="h-10 me-3"
-                  alt="FlowBite Logo"
+                  alt="buildingextimateBite Logo"
                 />
-              </a>
+              </Link>
             </div>
             <div>
               <div>
                 <div>
-                  <button
-                    type="button"
-                    className="flex text-sm bg-gray-800 rounded-full focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600"
-                    aria-expanded="false"
-                    data-dropdown-toggle="dropdown-user"
-                  >
-                    <span className="sr-only">Open user menu</span>
-                    <img
-                      className="w-8 h-8 rounded-full "
+                  <div className="flex text-sm justify-space items-center  rounded-full focus:ring-4">
+                    <div className="mr-3">
+                      <Badge
+                        placement="top-start"
+                        content="5"
+                        className="flex justify-center items-center"
+                      >
+                        <IoMdNotificationsOutline size={24} color="black" />
+                      </Badge>
+                    </div>
+                    <span className="text-black font-bold">
+                      {response?.name}
+                    </span>
+                    {/* <img
+                      className="w-8 h-8 rounded-full"
                       src="https://flowbite.com/docs/images/people/profile-picture-5.jpg"
                       alt="user photo"
-                    />
-                  </button>
+                    /> */}
+                  </div>
                 </div>
               </div>
             </div>
@@ -235,9 +297,11 @@ const Admin = ({ children }: any) => {
                   <li>
                     <Link
                       onClick={(e) => e.stopPropagation()}
-                      href="/admin/questions"
+                      href="/admin/estimate-builder/questions"
                       className={`flex items-center justify-start p-2 font-normal mt-1 text-gray-700 dark:text-gray-400 ${
-                        pathname?.startsWith("/admin/questions")
+                        pathname?.startsWith(
+                          "/admin/estimate-builder/questions"
+                        )
                           ? "bg-black text-white"
                           : "hover:bg-gray-100 text-gray-900"
                       }`}
@@ -249,9 +313,9 @@ const Admin = ({ children }: any) => {
                   <li>
                     <Link
                       onClick={(e) => e.stopPropagation()}
-                      href="/admin/categories"
+                      href="/admin/estimate-builder/category"
                       className={`flex items-center justify-start p-2 font-normal text-gray-700 dark:text-gray-400 ${
-                        pathname?.startsWith("/admin/categories")
+                        pathname?.startsWith("/admin/estimate-builder/category")
                           ? "bg-black text-white"
                           : "hover:bg-gray-100 text-gray-900"
                       }`}
@@ -264,9 +328,9 @@ const Admin = ({ children }: any) => {
                   <li>
                     <Link
                       onClick={(e) => e.stopPropagation()}
-                      href="/admin/option"
+                      href="/admin/estimate-builder/option"
                       className={`flex items-center justify-start p-2 font-normal text-gray-700 dark:text-gray-400 ${
-                        pathname?.startsWith("/admin/option")
+                        pathname?.startsWith("/admin/estimate-builder/option")
                           ? "bg-black text-white"
                           : "hover:bg-gray-100 text-gray-900"
                       }`}
@@ -279,9 +343,11 @@ const Admin = ({ children }: any) => {
                   <li>
                     <Link
                       onClick={(e) => e.stopPropagation()}
-                      href="/admin/suboption"
+                      href="/admin/estimate-builder/suboption"
                       className={`flex items-center justify-start p-2 font-normal text-gray-700 dark:text-gray-400 ${
-                        pathname?.startsWith("/admin/suboption")
+                        pathname?.startsWith(
+                          "/admin/estimate-builder/suboption"
+                        )
                           ? "bg-black text-white"
                           : "hover:bg-gray-100 text-gray-900"
                       }`}
@@ -293,13 +359,6 @@ const Admin = ({ children }: any) => {
                 </ul>
               )}
             </li>
-
-
-
-
-
-
-
 
             <li>
               <button
@@ -321,9 +380,11 @@ const Admin = ({ children }: any) => {
                   <li>
                     <Link
                       onClick={(e) => e.stopPropagation()}
-                      href="/admin/material-price-list"
+                      href="/admin/price-list/material-price-list"
                       className={`flex items-center justify-start p-2 font-normal mt-1 text-gray-700 dark:text-gray-400 ${
-                        pathname?.startsWith("/admin/material-price-list")
+                        pathname?.startsWith(
+                          "/admin/price-list/material-price-list"
+                        )
                           ? "bg-black text-white"
                           : "hover:bg-gray-100 text-gray-900"
                       }`}
@@ -335,9 +396,11 @@ const Admin = ({ children }: any) => {
                   <li>
                     <Link
                       onClick={(e) => e.stopPropagation()}
-                      href="/admin/labour-price-List"
+                      href="/admin/price-list/labour-price-List"
                       className={`flex items-center justify-start p-2 font-normal text-gray-700 dark:text-gray-400 ${
-                        pathname?.startsWith("/admin/labour-price-List")
+                        pathname?.startsWith(
+                          "/admin/price-list/labour-price-List"
+                        )
                           ? "bg-black text-white"
                           : "hover:bg-gray-100 text-gray-900"
                       }`}
@@ -350,11 +413,6 @@ const Admin = ({ children }: any) => {
               )}
             </li>
 
-
-
-
-
-
             <li>
               <button
                 onClick={() => setIsSubListOpen(!isSubListOpen)}
@@ -362,7 +420,7 @@ const Admin = ({ children }: any) => {
               >
                 <FaList className="w-5 h-5 text-yellow-700" />
                 <span className="flex-1 ms-3 text-left font-normal">
-                 Subscribers
+                  Subscribers
                 </span>
                 <FaChevronDown
                   className={`w-4 h-4 ms-auto transition-transform ${
@@ -375,9 +433,11 @@ const Admin = ({ children }: any) => {
                   <li>
                     <Link
                       onClick={(e) => e.stopPropagation()}
-                      href="/admin/subscribers"
+                      href="/admin/subscribers/all-subscribers"
                       className={`flex items-center justify-start p-2 font-normal mt-1 text-gray-700 dark:text-gray-400 ${
-                        pathname?.startsWith("/admin/material-price-list")
+                        pathname?.startsWith(
+                          "/admin/subscribers/all-subscribers"
+                        )
                           ? "bg-black text-white"
                           : "hover:bg-gray-100 text-gray-900"
                       }`}
@@ -389,9 +449,9 @@ const Admin = ({ children }: any) => {
                   <li>
                     <Link
                       onClick={(e) => e.stopPropagation()}
-                      href="/admin/unsubscribers"
+                      href="/admin/subscribers/unsubscribers"
                       className={`flex items-center justify-start p-2 font-normal text-gray-700 dark:text-gray-400 ${
-                        pathname?.startsWith("/admin/unsubscribers")
+                        pathname?.startsWith("/admin/subscribers/unsubscribers")
                           ? "bg-black text-white"
                           : "hover:bg-gray-100 text-gray-900"
                       }`}
@@ -400,18 +460,89 @@ const Admin = ({ children }: any) => {
                       UnSubscribers
                     </Link>
                   </li>
+
+                  <li>
+                    <Link
+                      onClick={(e) => e.stopPropagation()}
+                      href="/admin/newsletter"
+                      className={`flex items-center justify-start p-2 font-normal text-gray-700 dark:text-gray-400 ${
+                        pathname?.startsWith("/admin/subscribers/newsletter")
+                          ? "bg-black text-white"
+                          : "hover:bg-gray-100 text-gray-900"
+                      }`}
+                    >
+                      <FaRegNewspaper className="w-4 h-4 me-2 text-yellow-900" />
+                      News Letter
+                    </Link>
+                  </li>
                 </ul>
               )}
             </li>
 
+            <li>
+              <button
+                onClick={() => setRequestOpen(!IsRequestOpen)}
+                className="flex items-center justify-start w-full p-3 text-gray-900 dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700"
+              >
+                <FaList className="w-5 h-5 text-yellow-700" />
+                <span className="flex-1 ms-3 text-left font-normal">
+                  Call Request
+                </span>
+                <FaChevronDown
+                  className={`w-4 h-4 ms-auto transition-transform ${
+                    IsRequestOpen ? "rotate-180" : ""
+                  }`}
+                />
+              </button>
+              {IsRequestOpen && (
+                <ul className="pl-10 space-y-1">
+                  <li>
+                    <Link
+                      onClick={(e) => e.stopPropagation()}
+                      href="/admin/response"
+                      className={`flex items-center justify-start p-2 font-normal mt-1 text-gray-700 dark:text-gray-400 ${
+                        pathname?.startsWith("/admin/response")
+                          ? "bg-black text-white"
+                          : "hover:bg-gray-100 text-gray-900"
+                      }`}
+                    >
+                      <GoTasklist className="w-4 h-4 me-2 bg-green-900" />
+                      Response
+                    </Link>
+                  </li>
 
+                  <li>
+                    <Link
+                      onClick={(e) => e.stopPropagation()}
+                      href="/admin/unresponse"
+                      className={`flex items-center justify-start p-2 font-normal text-gray-700 dark:text-gray-400 ${
+                        pathname?.startsWith("/admin/unresponse")
+                          ? "bg-black text-white"
+                          : "hover:bg-gray-100 text-gray-900"
+                      }`}
+                    >
+                      <LuListMusic className="w-4 h-4 me-2 text-yellow-900" />
+                      No Resonse
+                    </Link>
+                  </li>
 
-
-
-
-
-
-
+                  <li>
+                    <Link
+                      onClick={(e) => e.stopPropagation()}
+                      href="/admin/newsletter"
+                      className={`flex items-center justify-start p-2 font-normal text-gray-700 dark:text-gray-400 ${
+                        pathname?.startsWith("/admin/newsletter")
+                          ? "bg-black text-white"
+                          : "hover:bg-gray-100 text-gray-900"
+                      }`}
+                    >
+                      <FaRegNewspaper className="w-4 h-4 me-2 text-yellow-900" />
+                      News Letter
+                    </Link>
+                  </li>
+                </ul>
+              )}
+            </li>
 
             <li>
               <button
@@ -744,25 +875,46 @@ const Admin = ({ children }: any) => {
               )}
             </li>
 
+
+
+
             <li>
+              <Link
+                href="/admin/event"
+                className={`flex items-center p-3 text-gray-900     dark:text-white 
+                  
+                   ${
+                     pathname?.startsWith("/admin/event")
+                       ? "bg-black text-white"
+                       : ""
+                   }
+                  
+                  `}
+              >
+                <MdDashboard className="w-5 h-5 text-yellow-700" />
+                <span className="ms-3 font-normal">Create Event</span>
+              </Link>
+            </li>
+
+            {/* <li>
               <button
-                onClick={() => setIsManageBlogOpen(!isManageBlogOpen)}
+                onClick={() => setEventOpen(!isEventOpen)}
                 className="flex items-center justify-start w-full p-3 text-gray-900 dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700"
               >
                 <MdEventNote className="w-5 h-5 text-yellow-700" />
                 <span className="flex-1 ms-3 text-left font-normal">Event</span>
                 <FaChevronDown
                   className={`w-4 h-4 ms-auto transition-transform ${
-                    isManageBlogOpen ? "rotate-180" : ""
+                    isEventOpen ? "rotate-180" : ""
                   }`}
                 />
               </button>
-              {isManageBlogOpen && (
+              {isEventOpen && (
                 <ul className="pl-10 space-y-1">
                   <li>
                     <Link
                       onClick={(e) => e.stopPropagation()}
-                      href="/admin/allposts"
+                      href="/admin/event/create-event"
                       className={`flex items-center justify-start p-2 font-normal mt-1 text-gray-700 dark:text-gray-400 ${
                         pathname?.startsWith("/admin/allposts")
                           ? "bg-black text-white"
@@ -789,7 +941,9 @@ const Admin = ({ children }: any) => {
                   </li>
                 </ul>
               )}
-            </li>
+            </li> */}
+
+
 
             <li>
               <a
@@ -800,6 +954,10 @@ const Admin = ({ children }: any) => {
                 <span className="ms-3">Manage Plan</span>
               </a>
             </li>
+
+
+
+
 
             <li>
               <a
@@ -1001,7 +1159,7 @@ const Admin = ({ children }: any) => {
         </div>
       </aside>
 
-      <div className="p-4 sm:ml-64">{children}</div>
+      <div className="p-4 sm:ml-64"> {children}</div>
     </div>
   );
 };

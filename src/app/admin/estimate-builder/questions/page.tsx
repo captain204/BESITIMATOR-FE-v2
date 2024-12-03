@@ -1,7 +1,7 @@
 "use client";
 
+import BreadcrumbsWithIcon from "@/components/BreadCrumb";
 import Admin from "@/screens/Dashboard/Admin";
-import DashboardCards from "@/screens/Dashboard/Dashboard";
 import QuestionsManager from "@/screens/Dashboard/Questions/Questions";
 
 import React from "react";
@@ -9,6 +9,7 @@ import React from "react";
 const Page = () => {
   return (
     <Admin>
+      <BreadcrumbsWithIcon route="Estimate Builder" root="Questions" />
       <QuestionsManager />
     </Admin>
   );
