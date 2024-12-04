@@ -36,33 +36,30 @@ interface Question {
 }
 
 const questionSchema = yup.object().shape({
-  category_id: yup.string().required("Category is required"),
-  text: yup.string().required("Text is required"),
-  type: yup.string().oneOf(["form", "dropdown"]).required("Type is required"),
-  step: yup.string().required("Step is required"),
+  name: yup.string().required("Name is required"),
+  details: yup.string().required("Details is required"),
+  quantity: yup.string().required("Quantity is required"),
+  price: yup.string().required("Price is required"),
 });
 
 const addQuestionSchema = yup.object().shape({
-  category_id: yup.string().required("Category is required"),
-  text: yup.string().required("Text is required"),
-  type: yup.string().oneOf(["form", "dropdown"]).required("Type is required"),
-  step: yup.string().required("Step is required"),
+    name: yup.string().required("Name is required"),
+    details: yup.string().required("Details is required"),
+    quantity: yup.string().required("Quantity is required"),
+    price: yup.string().required("Price is required"),
 });
 
-export default function Categories() {
-  const [questions, setQuestions] = useState<Question[]>([]);
-  const [categories, setCategories] = useState<string[]>([]);
+export default function Plans() {
+  const [plans, setPlans] = useState<Question[]>([]);
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const [isModalOpenn, setIsModalOpenn] = useState<boolean>(false);
-  const [editQuestion, setEditQuestion] = useState<Question | null>(null);
+  const [editPlan, setEditPlan] = useState<Question | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
   const [searchText, setSearchText] = useState("");
   const [exportDropdownOpen, setExportDropdownOpen] = useState<boolean>(false);
-  const [loadingQuestions, setLoadingQuestions] = useState<boolean>(true);
+  const [loadingPlans, setLoadingPlans] = useState<boolean>(true);
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState<any>(false);
-  const [questionToDelete, setQuestionToDelete] = useState<Question | null>(
-    null
-  );
+  const [planToDelete, setPlanToDelete] = useState<Question | null>(null);
 
   const customStyles: any = {
     title: {
@@ -94,7 +91,7 @@ export default function Categories() {
   };
 
   const {
-    register: rigisterAdd,
+    register: registerAdd,
     handleSubmit: handleSubmitAdd,
     formState: { errors: errorsAdd },
     reset: resetAdd,
@@ -111,58 +108,45 @@ export default function Categories() {
     resolver: yupResolver(questionSchema),
   });
 
-  const fetchQuestions = async () => {
-    setLoadingQuestions(true);
+  const fetchPlans = async () => {
+    setLoadingPlans(true);
     try {
-      const response = await axiosInstance.get("/api/admin/questions");
-      setQuestions(response.data);
+      const response = await axiosInstance.get("/api/admin/cost-trackers");
+      setPlans(response.data.data);
     } catch (error) {
-      console.error("Error fetching questions:", error);
+      console.error("Error fetching plans:", error);
     } finally {
-      setLoadingQuestions(false);
+      setLoadingPlans(false);
     }
   };
   // Fetch questions
   useEffect(() => {
-    fetchQuestions();
+    fetchPlans();
   }, []);
 
-  useEffect(() => {
-    const fetchCategories = async () => {
-      try {
-        const response = await axiosInstance.get("/api/admin/categories");
-        console.log("Categories API response:", response.data.categories);
-        const data = Array.isArray(response.data.categories)
-          ? response.data.categories
-          : [];
-        setCategories(data);
-      } catch (error) {
-        console.error("Error fetching categories:", error);
-        setCategories([]);
-      }
-    };
-    fetchCategories();
-  }, []);
   const handleExport = (format: "pdf" | "xlsx") => {
     if (format === "xlsx") {
-      const worksheet = XLSX.utils.json_to_sheet(questions);
+      const worksheet = XLSX.utils.json_to_sheet(plans);
       const workbook = XLSX.utils.book_new();
-      XLSX.utils.book_append_sheet(workbook, worksheet, "Questions");
-      XLSX.writeFile(workbook, "questions.xlsx");
+      XLSX.utils.book_append_sheet(workbook, worksheet, "Plans");
+      XLSX.writeFile(workbook, "plans.xlsx");
     } else if (format === "pdf") {
       console.log("Exporting as PDF... (Implement PDF generation here)");
     }
   };
 
-  const handleAddQuestion = async (data: any): Promise<void> => {
+  const handleAddPlan = async (data: any): Promise<void> => {
     setLoading(true);
     try {
-      const response = await axiosInstance.post("/api/admin/questions", data);
-      setQuestions([...questions, response.data]);
+      const response = await axiosInstance.post(
+        "/api/admin/cost-trackers",
+        data
+      );
+      setPlans([...plans, response.data]);
       resetAdd();
       setIsModalOpenn(false);
-      fetchQuestions();
-      toast.warning("Question added successfully!", {
+      fetchPlans();
+      toast.warning("Plan added successfully!", {
         transition: Zoom,
         position: "top-right",
         icon: (
@@ -170,34 +154,32 @@ export default function Categories() {
         ),
       });
     } catch (error) {
-      console.error("Error adding Question:", error);
+      console.error("Error adding Plan:", error);
     } finally {
       setLoading(false);
     }
   };
 
-  const handleEdit = (question: any): void => {
-    setEditQuestion(question);
+  const handleEdit = (plan: any): void => {
+    setEditPlan(plan);
     setIsModalOpen(true);
-    reset(question);
+    reset(plan);
   };
 
   const handleUpdate = async (data: any): Promise<void> => {
-    if (!editQuestion) return;
+    if (!editPlan) return;
     setLoading(true);
     try {
-      await axiosInstance.put(`/api/admin/questions/${editQuestion.id}`, data);
-      setQuestions((prev) =>
-        prev.map((question) =>
-          question.id === editQuestion.id
-            ? { ...editQuestion, ...data }
-            : question
+      await axiosInstance.put(`/api/admin/cost-tracker/${editPlan.id}`, data);
+      setPlans((prev) =>
+        prev.map((plan) =>
+          plan.id === editPlan.id ? { ...editPlan, ...data } : plan
         )
       );
       setIsModalOpen(false);
-      setEditQuestion(null);
-      fetchQuestions();
-      toast.warning("Category updated successfully!", {
+      setEditPlan(null);
+      fetchPlans();
+      toast.warning("Plan updated successfully!", {
         transition: Zoom,
         position: "top-right",
         icon: (
@@ -211,9 +193,9 @@ export default function Categories() {
     }
   };
 
-  const filteredQuestions = questions.filter((question) => {
-    const text = question.text?.toLowerCase() || "";
-    const type = question.type?.toLowerCase() || "";
+  const filteredQuestions = plans.filter((plan) => {
+    const text = plan.text?.toLowerCase() || "";
+    const type = plan.type?.toLowerCase() || "";
     return (
       text.includes(searchText.toLowerCase()) ||
       type.includes(searchText.toLowerCase())
@@ -234,15 +216,13 @@ export default function Categories() {
   // };
 
   const handleDelete = async (): Promise<void> => {
-    if (!questionToDelete) return;
+    if (!planToDelete) return;
     try {
-      await axiosInstance.delete(`/api/admin/questions/${questionToDelete.id}`);
+      await axiosInstance.delete(`/api/admin/cost-trackers/${planToDelete.id}`);
 
-      setQuestions((prev) =>
-        prev.filter((question) => question.id !== questionToDelete.id)
-      );
+      setPlans((prev) => prev.filter((plan) => plan.id !== planToDelete.id));
       setIsDeleteModalOpen(false);
-      setQuestionToDelete(null);
+      setPlanToDelete(null);
       toast.warning("Question deleted successfully!", {
         transition: Zoom,
         position: "top-right",
@@ -288,7 +268,7 @@ export default function Categories() {
             <button
               onClick={() => {
                 setIsDeleteModalOpen(true);
-                setQuestionToDelete(row);
+                setPlanToDelete(row);
               }}
               className="text-red-500 hover:text-red-600"
             >
@@ -371,7 +351,7 @@ export default function Categories() {
             highlightOnHover
             pointerOnHover
             customStyles={customStyles}
-            progressPending={loadingQuestions}
+            progressPending={loadingPlans}
             progressComponent={
               <div className="flex justify-center items-center py-10">
                 <Spinner className="h-12 w-12 text-yellow-800" />
@@ -390,62 +370,51 @@ export default function Categories() {
           <form onSubmit={handleSubmit(handleUpdate)} className="space-y-4">
             <div>
               <label className="block text-sm font-medium text-black">
-                Category
-              </label>
-              <select
-                {...register("category_id")}
-                className="mt-2 block w-full border border-gray-300 rounded-md shadow-sm p-2 bg-white text-black"
-              >
-                <option value="">Select Category</option>
-
-                {categories.map((category: any) => (
-                  <option key={category.id} value={category.id}>
-                    {category.name}
-                  </option>
-                ))}
-              </select>
-              <p className="text-red-500 text-xs">
-                {errors.category_id?.message}
-              </p>
-            </div>
-            <div>
-              <label className="block text-sm font-medium text-black">
                 Text
               </label>
               <input
                 type="text"
-                {...register("text")}
+                {...register("name")}
                 placeholder="Enter question text"
                 className="mt-2 block w-full border border-gray-300 rounded-md shadow-sm p-2 text-black"
               />
-              <p className="text-red-500 text-xs">{errors.text?.message}</p>
+              <p className="text-red-500 text-xs">{errors.name?.message}</p>
             </div>
+
+
+
+
+
+          
             <div>
               <label className="block text-sm font-medium text-black">
-                Type
-              </label>
-              <select
-                {...register("type")}
-                className="mt-2 block w-full border border-gray-300 rounded-md shadow-sm p-2 bg-white text-black"
-              >
-                <option value="">Select Type</option>
-                <option value="form">Form</option>
-                <option value="dropdown">Dropdown</option>
-              </select>
-              <p className="text-red-500 text-xs">{errors.type?.message}</p>
-            </div>
-            <div>
-              <label className="block text-sm font-medium text-black">
-                Step
+             Quantity
               </label>
               <input
                 type="text"
-                {...register("step")}
+                {...register("quantity")}
                 placeholder="Enter step"
                 className="mt-2 block w-full border border-gray-300 rounded-md shadow-sm p-2 text-black"
               />
-              <p className="text-red-500 text-xs">{errors.step?.message}</p>
+              <p className="text-red-500 text-xs">{errors.quantity?.message}</p>
             </div>
+
+
+            <div>
+              <label className="block text-sm font-medium text-black">
+              Details
+              </label>
+              <textarea
+                {...register("details")}
+                placeholder="Enter step"
+                className="mt-2 block w-full border border-gray-300 rounded-md shadow-sm p-2 text-black"
+              />
+              <p className="text-red-500 text-xs">{errors.details?.message}</p>
+            </div>
+
+
+
+
 
             <DialogFooter>
               <div className="space-x-2">
@@ -475,67 +444,53 @@ export default function Categories() {
         </DialogHeader>
         <DialogBody>
           <form
-            onSubmit={handleSubmitAdd(handleAddQuestion)}
+            onSubmit={handleSubmitAdd(handleAddPlan)}
             className="space-y-4"
           >
-            <div>
+             <div>
               <label className="block text-sm font-medium text-black">
-                Category
-              </label>
-              <select
-                {...rigisterAdd("category_id")}
-                className="mt-2 block w-full border bg-white  border-gray-300 rounded-md shadow-sm p-2 text-black"
-              >
-                <option value="">Select Category</option>
-
-                {categories.map((category: any) => (
-                  <option key={category.id} value={category.id}>
-                    {category.name}
-                  </option>
-                ))}
-              </select>
-              <p className="text-red-500 text-xs">
-                {errorsAdd.category_id?.message}
-              </p>
-            </div>
-            <div>
-              <label className="block text-sm font-medium text-black">
-                Text
+                Name
               </label>
               <input
                 type="text"
-                {...rigisterAdd("text")}
+                {...registerAdd("name")}
                 placeholder="Enter question text"
-                className="mt-2 block w-full border border-gray-300 rounded-md shadow-sm p-2"
+                className="mt-2 block w-full border border-gray-300 rounded-md shadow-sm p-2 text-black"
               />
-              <p className="text-red-500 text-xs">{errorsAdd.text?.message}</p>
+              <p className="text-red-500 text-xs">{errors.name?.message}</p>
             </div>
+
+
+
+
+
+          
             <div>
               <label className="block text-sm font-medium text-black">
-                Type
-              </label>
-              <select
-                {...rigisterAdd("type")}
-                className="mt-2 block w-full border bg-white border-gray-300 rounded-md shadow-sm p-2 text-black"
-              >
-                <option value="">Select Type</option>
-                <option value="form">Form</option>
-                <option value="dropdown">Dropdown</option>
-              </select>
-              <p className="text-red-500 text-xs">{errorsAdd.type?.message}</p>
-            </div>
-            <div>
-              <label className="block text-sm font-medium text-black">
-                Step
+             Quantity
               </label>
               <input
                 type="text"
-                {...rigisterAdd("step")}
+                {...registerAdd("quantity")}
                 placeholder="Enter step"
-                className="mt-2 block w-full border border-gray-300 rounded-md shadow-sm p-2"
+                className="mt-2 block w-full border border-gray-300 rounded-md shadow-sm p-2 text-black"
               />
-              <p className="text-red-500 text-xs">{errorsAdd.step?.message}</p>
+              <p className="text-red-500 text-xs">{errorsAdd.quantity?.message}</p>
             </div>
+
+
+            <div>
+              <label className="block text-sm font-medium text-black">
+              Details
+              </label>
+              <textarea
+                {...registerAdd("details")}
+                placeholder="Enter step"
+                className="mt-2 block w-full border border-gray-300 rounded-md shadow-sm p-2 text-black"
+              />
+              <p className="text-red-500 text-xs">{errorsAdd.details?.message}</p>
+            </div>
+
 
             <DialogFooter>
               <div className="space-x-2">
@@ -568,7 +523,7 @@ export default function Categories() {
         <DialogBody>
           Are you sure you want to delete the question:{" "}
           <span className="font-semibold">
-            {questionToDelete?.text || "this question"}
+            {planToDelete?.text || "this question"}
           </span>
           ?
         </DialogBody>

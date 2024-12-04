@@ -53,7 +53,7 @@ export default function Subscribers() {
     setLoadingQuestions(true);
     try {
       const response = await axiosInstance.get("/api/admin/subscribers");
-      setSubscribers(response.data);
+      setSubscribers(response.data.subscribers || []);
       console.log(response);
     } catch (error) {
       console.error("Error fetching questions:", error);

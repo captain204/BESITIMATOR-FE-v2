@@ -19,6 +19,7 @@ import { usePathname, useRouter } from "next/navigation";
 import {
   MdCategory,
   MdDashboard,
+  MdEvent,
   MdEventNote,
   MdKeyboardOptionKey,
 } from "react-icons/md";
@@ -28,6 +29,7 @@ import {
   FaList,
   FaListCheck,
   FaNoteSticky,
+  FaPeopleRoof,
   FaUsersRectangle,
 } from "react-icons/fa6";
 import { BiNoEntry, BiSolidTrafficCone } from "react-icons/bi";
@@ -37,6 +39,7 @@ import {
   IoIosConstruct,
   IoIosNotifications,
   IoIosNotificationsOff,
+  IoIosPricetags,
   IoMdNotificationsOutline,
 } from "react-icons/io";
 import { TbHeartRateMonitor } from "react-icons/tb";
@@ -51,6 +54,7 @@ import { RootState } from "@/Globals/store/store";
 import { useDispatch, useSelector } from "react-redux";
 import { getUser } from "@/Globals/Slices/AuthSlices/GetUser";
 import { Badge } from "@material-tailwind/react";
+import { PiMapPinSimpleLineFill } from "react-icons/pi";
 
 type AppDispatch = ThunkDispatch<RootState, unknown, UnknownAction>;
 
@@ -365,7 +369,7 @@ const Admin = ({ children }: any) => {
                 onClick={() => setIsManageListOpen(!isManageListOpen)}
                 className="flex items-center justify-start w-full p-3 text-gray-900 dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700"
               >
-                <FaList className="w-5 h-5 text-yellow-700" />
+                <IoIosPricetags className="w-5 h-5 text-yellow-700" />
                 <span className="flex-1 ms-3 text-left font-normal">
                   Price Lists
                 </span>
@@ -414,134 +418,39 @@ const Admin = ({ children }: any) => {
             </li>
 
             <li>
-              <button
-                onClick={() => setIsSubListOpen(!isSubListOpen)}
-                className="flex items-center justify-start w-full p-3 text-gray-900 dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700"
+              <Link
+                href="/admin/manage-plan"
+                className={`flex items-center p-3 text-gray-900 dark:text-white 
+                  
+                   ${
+                     pathname?.startsWith("/admin/manage-plan")
+                       ? "bg-black text-white"
+                       : ""
+                   }
+                  
+                  `}
               >
-                <FaList className="w-5 h-5 text-yellow-700" />
-                <span className="flex-1 ms-3 text-left font-normal">
-                  Subscribers
-                </span>
-                <FaChevronDown
-                  className={`w-4 h-4 ms-auto transition-transform ${
-                    isSubListOpen ? "rotate-180" : ""
-                  }`}
-                />
-              </button>
-              {isSubListOpen && (
-                <ul className="pl-10 space-y-1">
-                  <li>
-                    <Link
-                      onClick={(e) => e.stopPropagation()}
-                      href="/admin/subscribers/all-subscribers"
-                      className={`flex items-center justify-start p-2 font-normal mt-1 text-gray-700 dark:text-gray-400 ${
-                        pathname?.startsWith(
-                          "/admin/subscribers/all-subscribers"
-                        )
-                          ? "bg-black text-white"
-                          : "hover:bg-gray-100 text-gray-900"
-                      }`}
-                    >
-                      <GoTasklist className="w-4 h-4 me-2 bg-green-900" />
-                      Subscribers
-                    </Link>
-                  </li>
-                  <li>
-                    <Link
-                      onClick={(e) => e.stopPropagation()}
-                      href="/admin/subscribers/unsubscribers"
-                      className={`flex items-center justify-start p-2 font-normal text-gray-700 dark:text-gray-400 ${
-                        pathname?.startsWith("/admin/subscribers/unsubscribers")
-                          ? "bg-black text-white"
-                          : "hover:bg-gray-100 text-gray-900"
-                      }`}
-                    >
-                      <LuListMusic className="w-4 h-4 me-2 text-yellow-900" />
-                      UnSubscribers
-                    </Link>
-                  </li>
-
-                  <li>
-                    <Link
-                      onClick={(e) => e.stopPropagation()}
-                      href="/admin/newsletter"
-                      className={`flex items-center justify-start p-2 font-normal text-gray-700 dark:text-gray-400 ${
-                        pathname?.startsWith("/admin/subscribers/newsletter")
-                          ? "bg-black text-white"
-                          : "hover:bg-gray-100 text-gray-900"
-                      }`}
-                    >
-                      <FaRegNewspaper className="w-4 h-4 me-2 text-yellow-900" />
-                      News Letter
-                    </Link>
-                  </li>
-                </ul>
-              )}
+                <PiMapPinSimpleLineFill className="w-5 h-5 text-yellow-700" />
+                <span className="ms-3 font-normal">Manage Plan</span>
+              </Link>
             </li>
 
             <li>
-              <button
-                onClick={() => setRequestOpen(!IsRequestOpen)}
-                className="flex items-center justify-start w-full p-3 text-gray-900 dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700"
+              <Link
+                href="/admin/event"
+                className={`flex items-center p-3 text-gray-900     dark:text-white 
+                  
+                   ${
+                     pathname?.startsWith("/admin/event")
+                       ? "bg-black text-white"
+                       : ""
+                   }
+                  
+                  `}
               >
-                <FaList className="w-5 h-5 text-yellow-700" />
-                <span className="flex-1 ms-3 text-left font-normal">
-                  Call Request
-                </span>
-                <FaChevronDown
-                  className={`w-4 h-4 ms-auto transition-transform ${
-                    IsRequestOpen ? "rotate-180" : ""
-                  }`}
-                />
-              </button>
-              {IsRequestOpen && (
-                <ul className="pl-10 space-y-1">
-                  <li>
-                    <Link
-                      onClick={(e) => e.stopPropagation()}
-                      href="/admin/response"
-                      className={`flex items-center justify-start p-2 font-normal mt-1 text-gray-700 dark:text-gray-400 ${
-                        pathname?.startsWith("/admin/response")
-                          ? "bg-black text-white"
-                          : "hover:bg-gray-100 text-gray-900"
-                      }`}
-                    >
-                      <GoTasklist className="w-4 h-4 me-2 bg-green-900" />
-                      Response
-                    </Link>
-                  </li>
-
-                  <li>
-                    <Link
-                      onClick={(e) => e.stopPropagation()}
-                      href="/admin/unresponse"
-                      className={`flex items-center justify-start p-2 font-normal text-gray-700 dark:text-gray-400 ${
-                        pathname?.startsWith("/admin/unresponse")
-                          ? "bg-black text-white"
-                          : "hover:bg-gray-100 text-gray-900"
-                      }`}
-                    >
-                      <LuListMusic className="w-4 h-4 me-2 text-yellow-900" />
-                      No Resonse
-                    </Link>
-                  </li>
-
-                  <li>
-                    <Link
-                      onClick={(e) => e.stopPropagation()}
-                      href="/admin/newsletter"
-                      className={`flex items-center justify-start p-2 font-normal text-gray-700 dark:text-gray-400 ${
-                        pathname?.startsWith("/admin/newsletter")
-                          ? "bg-black text-white"
-                          : "hover:bg-gray-100 text-gray-900"
-                      }`}
-                    >
-                      <FaRegNewspaper className="w-4 h-4 me-2 text-yellow-900" />
-                      News Letter
-                    </Link>
-                  </li>
-                </ul>
-              )}
+                <MdEvent className="w-5 h-5 text-yellow-700" />
+                <span className="ms-3 font-normal"> Event</span>
+              </Link>
             </li>
 
             <li>
@@ -644,6 +553,301 @@ const Admin = ({ children }: any) => {
                 onClick={() => setIsManageBlogOpen(!isManageBlogOpen)}
                 className="flex items-center justify-start w-full p-3 text-gray-900 dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700"
               >
+                <FaBlog className="w-5 h-5 text-yellow-700" />
+                <span className="flex-1 ms-3 text-left font-normal">
+                  Manage Blog
+                </span>
+                <FaChevronDown
+                  className={`w-4 h-4 ms-auto transition-transform ${
+                    isManageBlogOpen ? "rotate-180" : ""
+                  }`}
+                />
+              </button>
+              {isManageBlogOpen && (
+                <ul className="pl-10 space-y-1">
+                  <li>
+                    <Link
+                      onClick={(e) => e.stopPropagation()}
+                      href="/admin/allposts"
+                      className={`flex items-center justify-start p-2 font-normal mt-1 text-gray-700 dark:text-gray-400 ${
+                        pathname?.startsWith("/admin/allposts")
+                          ? "bg-black text-white"
+                          : "hover:bg-gray-100 text-gray-900"
+                      }`}
+                    >
+                      <FaListAlt className="w-4 h-4 me-2" />
+                      All Posts
+                    </Link>
+                  </li>
+                  <li>
+                    <Link
+                      onClick={(e) => e.stopPropagation()}
+                      href="/admin/addblog"
+                      className={`flex items-center justify-start p-2 font-normal text-gray-700 dark:text-gray-400 ${
+                        pathname?.startsWith("/admin/addblog")
+                          ? "bg-black text-white"
+                          : "hover:bg-gray-100 text-gray-900"
+                      }`}
+                    >
+                      <FaPlus className="w-4 h-4 me-2" />
+                      Add Post
+                    </Link>
+                  </li>
+                </ul>
+              )}
+            </li>
+
+            <li>
+              <button
+                onClick={() => setIsSubListOpen(!isSubListOpen)}
+                className="flex items-center justify-start w-full p-3 text-gray-900 dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700"
+              >
+                <FaPeopleRoof className="w-5 h-5 text-yellow-700" />
+                <span className="flex-1 ms-3 text-left font-normal">
+                  Subscriber
+                </span>
+                <FaChevronDown
+                  className={`w-4 h-4 ms-auto transition-transform ${
+                    isSubListOpen ? "rotate-180" : ""
+                  }`}
+                />
+              </button>
+              {isSubListOpen && (
+                <ul className="pl-10 space-y-1">
+                  <li>
+                    <Link
+                      onClick={(e) => e.stopPropagation()}
+                      href="/admin/subscribers/all-subscribers"
+                      className={`flex items-center justify-start p-2 font-normal mt-1 text-gray-700 dark:text-gray-400 ${
+                        pathname?.startsWith(
+                          "/admin/subscribers/all-subscribers"
+                        )
+                          ? "bg-black text-white"
+                          : "hover:bg-gray-100 text-gray-900"
+                      }`}
+                    >
+                      <FaListCheck className="w-4 h-4 me-2" />
+                      All
+                    </Link>
+                  </li>
+                  <li>
+                    <Link
+                      onClick={(e) => e.stopPropagation()}
+                      href="#"
+                      className={`flex items-center justify-start p-2 font-normal text-gray-700 dark:text-gray-400 ${
+                        pathname?.startsWith("#")
+                          ? "bg-black text-white"
+                          : "hover:bg-gray-100 text-gray-900"
+                      }`}
+                    >
+                      <IoIosNotifications className="w-5 h-5 me-2 text-green-900" />
+                      Subscribe
+                    </Link>
+                  </li>
+
+                  <li>
+                    <Link
+                      onClick={(e) => e.stopPropagation()}
+                      href="#"
+                      className={`flex items-center justify-start p-2 font-normal text-gray-700 dark:text-gray-400 ${
+                        pathname?.startsWith("#")
+                          ? "bg-black text-white"
+                          : "hover:bg-gray-100 text-gray-900"
+                      }`}
+                    >
+                      <IoIosNotificationsOff className="w-5 h-5 me-2 text-red-900" />
+                      Unubscribe
+                    </Link>
+                  </li>
+
+                  <li>
+                    <Link
+                      onClick={(e) => e.stopPropagation()}
+                      href="/admin/subscribers/news-letter"
+                      className={`flex items-center justify-start p-2 font-normal text-gray-700 dark:text-gray-400 ${
+                        pathname?.startsWith("/admin/subscribers/news-letter")
+                          ? "bg-black text-white"
+                          : "hover:bg-gray-100 text-gray-900"
+                      }`}
+                    >
+                      <IoNewspaper className="w-4 h-4 me-2" />
+                      Send Newletter
+                    </Link>
+                  </li>
+                </ul>
+              )}
+            </li>
+
+            {/* <li>
+              <button
+                onClick={() => setIsSubListOpen(!isSubListOpen)}
+                className="flex items-center justify-start w-full p-3 text-gray-900 dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700"
+              >
+                <FaList className="w-5 h-5 text-yellow-700" />
+                <span className="flex-1 ms-3 text-left font-normal">
+                  Subscribers
+                </span>
+                <FaChevronDown
+                  className={`w-4 h-4 ms-auto transition-transform ${
+                    isSubListOpen ? "rotate-180" : ""
+                  }`}
+                />
+              </button>
+              {isSubListOpen && (
+                <ul className="pl-10 space-y-1">
+                  <li>
+                    <Link
+                      onClick={(e) => e.stopPropagation()}
+                      href="/admin/subscribers/all-subscribers"
+                      className={`flex items-center justify-start p-2 font-normal mt-1 text-gray-700 dark:text-gray-400 ${
+                        pathname?.startsWith(
+                          "/admin/subscribers/all-subscribers"
+                        )
+                          ? "bg-black text-white"
+                          : "hover:bg-gray-100 text-gray-900"
+                      }`}
+                    >
+                      <GoTasklist className="w-4 h-4 me-2 bg-green-900" />
+                      Subscribers
+                    </Link>
+                  </li>
+                  <li>
+                    <Link
+                      onClick={(e) => e.stopPropagation()}
+                      href="/admin/subscribers/unsubscribers"
+                      className={`flex items-center justify-start p-2 font-normal text-gray-700 dark:text-gray-400 ${
+                        pathname?.startsWith("/admin/subscribers/unsubscribers")
+                          ? "bg-black text-white"
+                          : "hover:bg-gray-100 text-gray-900"
+                      }`}
+                    >
+                      <LuListMusic className="w-4 h-4 me-2 text-yellow-900" />
+                      UnSubscribers
+                    </Link>
+                  </li>
+
+                  <li>
+                    <Link
+                      onClick={(e) => e.stopPropagation()}
+                      href="/admin/newsletter"
+                      className={`flex items-center justify-start p-2 font-normal text-gray-700 dark:text-gray-400 ${
+                        pathname?.startsWith("/admin/subscribers/newsletter")
+                          ? "bg-black text-white"
+                          : "hover:bg-gray-100 text-gray-900"
+                      }`}
+                    >
+                      <FaRegNewspaper className="w-4 h-4 me-2 text-yellow-900" />
+                      News Letter
+                    </Link>
+                  </li>
+                </ul>
+              )}
+            </li> */}
+
+            {/* <li>
+              <button
+                onClick={() => setRequestOpen(!IsRequestOpen)}
+                className="flex items-center justify-start w-full p-3 text-gray-900 dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700"
+              >
+                <FaList className="w-5 h-5 text-yellow-700" />
+                <span className="flex-1 ms-3 text-left font-normal">
+                  Call Request
+                </span>
+                <FaChevronDown
+                  className={`w-4 h-4 ms-auto transition-transform ${
+                    IsRequestOpen ? "rotate-180" : ""
+                  }`}
+                />
+              </button>
+              {IsRequestOpen && (
+                <ul className="pl-10 space-y-1">
+                  <li>
+                    <Link
+                      onClick={(e) => e.stopPropagation()}
+                      href="/admin/response"
+                      className={`flex items-center justify-start p-2 font-normal mt-1 text-gray-700 dark:text-gray-400 ${
+                        pathname?.startsWith("/admin/response")
+                          ? "bg-black text-white"
+                          : "hover:bg-gray-100 text-gray-900"
+                      }`}
+                    >
+                      <GoTasklist className="w-4 h-4 me-2 bg-green-900" />
+                      Response
+                    </Link>
+                  </li>
+
+                  <li>
+                    <Link
+                      onClick={(e) => e.stopPropagation()}
+                      href="/admin/unresponse"
+                      className={`flex items-center justify-start p-2 font-normal text-gray-700 dark:text-gray-400 ${
+                        pathname?.startsWith("/admin/unresponse")
+                          ? "bg-black text-white"
+                          : "hover:bg-gray-100 text-gray-900"
+                      }`}
+                    >
+                      <LuListMusic className="w-4 h-4 me-2 text-yellow-900" />
+                      No Resonse
+                    </Link>
+                  </li>
+                </ul>
+              )}
+            </li> */}
+
+            <li>
+              <button
+                onClick={() => setRequestOpen(!IsRequestOpen)}
+                className="flex items-center justify-start w-full p-3 text-gray-900 dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700"
+              >
+                <FaQuestion className="w-5 h-5 text-yellow-700" />
+                <span className="flex-1 ms-3 text-left font-normal">
+                  Call Request
+                </span>
+                <FaChevronDown
+                  className={`w-4 h-4 ms-auto transition-transform ${
+                    IsRequestOpen ? "rotate-180" : ""
+                  }`}
+                />
+              </button>
+              {IsRequestOpen && (
+                <ul className="pl-10 space-y-1">
+                  <li>
+                    <Link
+                      onClick={(e) => e.stopPropagation()}
+                      href="/admin/call-request/response"
+                      className={`flex items-center justify-start p-2 font-normal mt-1 text-gray-700 dark:text-gray-400 ${
+                        pathname?.startsWith("/admin/call-request/response")
+                          ? "bg-black text-white"
+                          : "hover:bg-gray-100 text-gray-900"
+                      }`}
+                    >
+                      <GiCheckMark className="w-4 h-4 me-2 text-green-500" />
+                      Response
+                    </Link>
+                  </li>
+                  <li>
+                    <Link
+                      onClick={(e) => e.stopPropagation()}
+                      href="/admin/call-request/unresponse"
+                      className={`flex items-center justify-start p-2 font-normal text-gray-700 dark:text-gray-400 ${
+                        pathname?.startsWith("/admin/call-request/unresponse")
+                          ? "bg-black text-white"
+                          : "hover:bg-gray-100 text-gray-900"
+                      }`}
+                    >
+                      <FaQuestion className="w-4 h-4 me-2 text-red-900" />
+                      No Response
+                    </Link>
+                  </li>
+                </ul>
+              )}
+            </li>
+
+            <li>
+              <button
+                onClick={() => setIsManageBlogOpen(!isManageBlogOpen)}
+                className="flex items-center justify-start w-full p-3 text-gray-900 dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700"
+              >
                 <IoIosConstruct className="w-5 h-5 text-yellow-700" />
                 <span className="flex-1 ms-3 text-left font-normal">
                   Constructor
@@ -698,204 +902,6 @@ const Admin = ({ children }: any) => {
               </a>
             </li>
 
-            <li>
-              <button
-                onClick={() => setIsManageBlogOpen(!isManageBlogOpen)}
-                className="flex items-center justify-start w-full p-3 text-gray-900 dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700"
-              >
-                <FaList className="w-5 h-5 text-yellow-700" />
-                <span className="flex-1 ms-3 text-left font-normal">
-                  Price List
-                </span>
-                <FaChevronDown
-                  className={`w-4 h-4 ms-auto transition-transform ${
-                    isManageBlogOpen ? "rotate-180" : ""
-                  }`}
-                />
-              </button>
-              {isManageBlogOpen && (
-                <ul className="pl-10 space-y-1">
-                  <li>
-                    <Link
-                      onClick={(e) => e.stopPropagation()}
-                      href="/admin/allposts"
-                      className={`flex items-center justify-start p-2 font-normal mt-1 text-gray-700 dark:text-gray-400 ${
-                        pathname?.startsWith("/admin/allposts")
-                          ? "bg-black text-white"
-                          : "hover:bg-gray-100 text-gray-900"
-                      }`}
-                    >
-                      <FaListCheck className="w-4 h-4 me-2" />
-                      Material Price List
-                    </Link>
-                  </li>
-                  <li>
-                    <Link
-                      onClick={(e) => e.stopPropagation()}
-                      href="/admin/addblog"
-                      className={`flex items-center justify-start p-2 font-normal text-gray-700 dark:text-gray-400 ${
-                        pathname?.startsWith("/admin/addblog")
-                          ? "bg-black text-white"
-                          : "hover:bg-gray-100 text-gray-900"
-                      }`}
-                    >
-                      <TbHeartRateMonitor className="w-4 h-4 me-2" />
-                      Labour rates
-                    </Link>
-                  </li>
-                </ul>
-              )}
-            </li>
-
-            <li>
-              <button
-                onClick={() => setIsManageBlogOpen(!isManageBlogOpen)}
-                className="flex items-center justify-start w-full p-3 text-gray-900 dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700"
-              >
-                <FaList className="w-5 h-5 text-yellow-700" />
-                <span className="flex-1 ms-3 text-left font-normal">
-                  Subscriber
-                </span>
-                <FaChevronDown
-                  className={`w-4 h-4 ms-auto transition-transform ${
-                    isManageBlogOpen ? "rotate-180" : ""
-                  }`}
-                />
-              </button>
-              {isManageBlogOpen && (
-                <ul className="pl-10 space-y-1">
-                  <li>
-                    <Link
-                      onClick={(e) => e.stopPropagation()}
-                      href="/admin/allposts"
-                      className={`flex items-center justify-start p-2 font-normal mt-1 text-gray-700 dark:text-gray-400 ${
-                        pathname?.startsWith("/admin/allposts")
-                          ? "bg-black text-white"
-                          : "hover:bg-gray-100 text-gray-900"
-                      }`}
-                    >
-                      <FaListCheck className="w-4 h-4 me-2" />
-                      All
-                    </Link>
-                  </li>
-                  <li>
-                    <Link
-                      onClick={(e) => e.stopPropagation()}
-                      href="/admin/addblog"
-                      className={`flex items-center justify-start p-2 font-normal text-gray-700 dark:text-gray-400 ${
-                        pathname?.startsWith("/admin/addblog")
-                          ? "bg-black text-white"
-                          : "hover:bg-gray-100 text-gray-900"
-                      }`}
-                    >
-                      <IoIosNotifications className="w-5 h-5 me-2 text-green-900" />
-                      Subscribe
-                    </Link>
-                  </li>
-
-                  <li>
-                    <Link
-                      onClick={(e) => e.stopPropagation()}
-                      href="/admin/addblog"
-                      className={`flex items-center justify-start p-2 font-normal text-gray-700 dark:text-gray-400 ${
-                        pathname?.startsWith("/admin/addblog")
-                          ? "bg-black text-white"
-                          : "hover:bg-gray-100 text-gray-900"
-                      }`}
-                    >
-                      <IoIosNotificationsOff className="w-5 h-5 me-2 text-red-900" />
-                      Unubscribe
-                    </Link>
-                  </li>
-
-                  <li>
-                    <Link
-                      onClick={(e) => e.stopPropagation()}
-                      href="/admin/addblog"
-                      className={`flex items-center justify-start p-2 font-normal text-gray-700 dark:text-gray-400 ${
-                        pathname?.startsWith("/admin/addblog")
-                          ? "bg-black text-white"
-                          : "hover:bg-gray-100 text-gray-900"
-                      }`}
-                    >
-                      <IoNewspaper className="w-4 h-4 me-2" />
-                      Send Newletter
-                    </Link>
-                  </li>
-                </ul>
-              )}
-            </li>
-
-            <li>
-              <button
-                onClick={() => setIsManageBlogOpen(!isManageBlogOpen)}
-                className="flex items-center justify-start w-full p-3 text-gray-900 dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700"
-              >
-                <FaQuestion className="w-5 h-5 text-yellow-700" />
-                <span className="flex-1 ms-3 text-left font-normal">
-                  Call Request
-                </span>
-                <FaChevronDown
-                  className={`w-4 h-4 ms-auto transition-transform ${
-                    isManageBlogOpen ? "rotate-180" : ""
-                  }`}
-                />
-              </button>
-              {isManageBlogOpen && (
-                <ul className="pl-10 space-y-1">
-                  <li>
-                    <Link
-                      onClick={(e) => e.stopPropagation()}
-                      href="/admin/allposts"
-                      className={`flex items-center justify-start p-2 font-normal mt-1 text-gray-700 dark:text-gray-400 ${
-                        pathname?.startsWith("/admin/allposts")
-                          ? "bg-black text-white"
-                          : "hover:bg-gray-100 text-gray-900"
-                      }`}
-                    >
-                      <GiCheckMark className="w-4 h-4 me-2 text-green-500" />
-                      Response
-                    </Link>
-                  </li>
-                  <li>
-                    <Link
-                      onClick={(e) => e.stopPropagation()}
-                      href="/admin/addblog"
-                      className={`flex items-center justify-start p-2 font-normal text-gray-700 dark:text-gray-400 ${
-                        pathname?.startsWith("/admin/addblog")
-                          ? "bg-black text-white"
-                          : "hover:bg-gray-100 text-gray-900"
-                      }`}
-                    >
-                      <FaQuestion className="w-4 h-4 me-2 text-red-900" />
-                      No Response
-                    </Link>
-                  </li>
-                </ul>
-              )}
-            </li>
-
-
-
-
-            <li>
-              <Link
-                href="/admin/event"
-                className={`flex items-center p-3 text-gray-900     dark:text-white 
-                  
-                   ${
-                     pathname?.startsWith("/admin/event")
-                       ? "bg-black text-white"
-                       : ""
-                   }
-                  
-                  `}
-              >
-                <MdDashboard className="w-5 h-5 text-yellow-700" />
-                <span className="ms-3 font-normal">Create Event</span>
-              </Link>
-            </li>
-
             {/* <li>
               <button
                 onClick={() => setEventOpen(!isEventOpen)}
@@ -943,22 +949,6 @@ const Admin = ({ children }: any) => {
               )}
             </li> */}
 
-
-
-            <li>
-              <a
-                href="#"
-                className="flex items-center p-2 text-gray-900  dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700"
-              >
-                <FaNoteSticky className="w-5 h-5 text-yellow-700" />
-                <span className="ms-3">Manage Plan</span>
-              </a>
-            </li>
-
-
-
-
-
             <li>
               <a
                 href="#"
@@ -991,55 +981,6 @@ const Admin = ({ children }: any) => {
 
             <li>
               <button
-                onClick={() => setIsManageBlogOpen(!isManageBlogOpen)}
-                className="flex items-center justify-start w-full p-3 text-gray-900 dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700"
-              >
-                <FaBlog className="w-5 h-5 text-yellow-700" />
-                <span className="flex-1 ms-3 text-left font-normal">
-                  Manage Blog
-                </span>
-                <FaChevronDown
-                  className={`w-4 h-4 ms-auto transition-transform ${
-                    isManageBlogOpen ? "rotate-180" : ""
-                  }`}
-                />
-              </button>
-              {isManageBlogOpen && (
-                <ul className="pl-10 space-y-1">
-                  <li>
-                    <Link
-                      onClick={(e) => e.stopPropagation()}
-                      href="/admin/allposts"
-                      className={`flex items-center justify-start p-2 font-normal mt-1 text-gray-700 dark:text-gray-400 ${
-                        pathname?.startsWith("/admin/allposts")
-                          ? "bg-black text-white"
-                          : "hover:bg-gray-100 text-gray-900"
-                      }`}
-                    >
-                      <FaListAlt className="w-4 h-4 me-2" />
-                      All Posts
-                    </Link>
-                  </li>
-                  <li>
-                    <Link
-                      onClick={(e) => e.stopPropagation()}
-                      href="/admin/addblog"
-                      className={`flex items-center justify-start p-2 font-normal text-gray-700 dark:text-gray-400 ${
-                        pathname?.startsWith("/admin/addblog")
-                          ? "bg-black text-white"
-                          : "hover:bg-gray-100 text-gray-900"
-                      }`}
-                    >
-                      <FaPlus className="w-4 h-4 me-2" />
-                      Add Post
-                    </Link>
-                  </li>
-                </ul>
-              )}
-            </li>
-
-            <li>
-              <button
                 onClick={() => setIsAddOpen(!isAddOpen)}
                 className="flex items-center w-full p-2 text-gray-900  dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700"
               >
@@ -1067,41 +1008,6 @@ const Admin = ({ children }: any) => {
                       className="flex items-center p-2 text-sm text-gray-700  dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700"
                     >
                       Delete Ad
-                    </a>
-                  </li>
-                </ul>
-              )}
-            </li>
-
-            <li>
-              <button
-                onClick={() => setIsCategoryOpen(!isCategoryOpen)}
-                className="flex items-center w-full p-2 text-gray-900  dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700"
-              >
-                <FaCalculator className="w-5 h-5 text-yellow-700" />
-                <span className="flex-1 ms-3 text-left ">Estimates</span>
-                <FaChevronDown
-                  className={`transition-transform ${
-                    isCategoryOpen ? "rotate-180" : ""
-                  }`}
-                />
-              </button>
-              {isCategoryOpen && (
-                <ul className="pl-10 space-y-1">
-                  <li>
-                    <a
-                      href="#"
-                      className="flex items-center p-2 text-sm text-gray-700  dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700"
-                    >
-                      Categories
-                    </a>
-                  </li>
-                  <li>
-                    <a
-                      href="#"
-                      className="flex items-center p-2 text-sm text-gray-700  dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700"
-                    >
-                      Category Options
                     </a>
                   </li>
                 </ul>

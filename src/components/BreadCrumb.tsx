@@ -3,7 +3,7 @@ import Link from "next/link";
  
 const BreadcrumbsWithIcon = ({ root, route }:any) => {
   return (
-    <div className="pt-16 pl-6">
+    <div className="pt-16 md:pl-6 pl-5">
     <Breadcrumbs>
       <Link href="/" className="opacity-60 hover:text-yellow-800">
         <svg
