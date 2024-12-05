@@ -7,10 +7,7 @@ import React from "react";
 const page = () => {
   return (
     <Layout>
-      <AboutHeader
-        title="Login"
-        breadcrumbItems={[{ label: "Home", link: "/" }, { label: "Login" }]}
-      />
+    c
       <LoginScreen />
     </Layout>
   );

@@ -45,7 +45,7 @@ export const loginUser = createAsyncThunk(
         // const oneHour = 1 / 24;
         Cookies.set("token", token);
         console.log(token);
-        window.location.href = "/dashboard";
+        window.location.href = "/admin/dashboard";
       }
       return response.data;
     } catch (error: any) {

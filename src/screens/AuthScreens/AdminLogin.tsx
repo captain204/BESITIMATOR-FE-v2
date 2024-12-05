@@ -58,7 +58,7 @@ const AdminLoginScreen = () => {
     >
       <div className="absolute inset-0 bg-white opacity-95"></div>
 
-      <section className=" md:my-20 relative">
+      <section className="  relative">
         <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen">
           <div className="w-full bg-white  rounded-lg shadow border md:mt-0 sm:max-w-md md:max-w-lg xl:p-0 dark:bg-gray-800 dark:border-gray-700">
             <div className="p-6 space-y-4 md:space-y-6 sm:p-8 shadow-xl">
@@ -146,28 +146,7 @@ const AdminLoginScreen = () => {
                   )}
                 </button>
 
-                <div className="flex justify-between">
-                  <div className="flex items-start ">
-                    <div className="flex items-center h-5">
-                      <input
-                        id="terms"
-                        aria-describedby="terms"
-                        type="checkbox"
-                        className="w-4 h-4 border cursor-pointer border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-primary-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-primary-600 dark:ring-offset-gray-800"
-                      />
-                    </div>
-                    <div className="md:ml-3 ml-1 text-sm ">
-                      <label htmlFor="terms" className="font-light text-black">
-                        Remember me
-                      </label>
-                    </div>
-                  </div>
-                  <Link href="/reset-password">
-                    <p className="text-sm font-light text-black hover:underline">
-                      Forgot Password?
-                    </p>
-                  </Link>
-                </div>
+             
               </form>
             </div>
           </div>
