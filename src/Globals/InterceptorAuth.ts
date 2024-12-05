@@ -2,7 +2,7 @@
 import axios from "axios";
 
 const axiosInstanceAuth = axios.create({
-  baseURL: process.env.NEXT_PUBLIC_BASE_URL,
+  baseURL: "http://13.60.208.160",
   headers: {
     "Content-Type": "application/json",
    
