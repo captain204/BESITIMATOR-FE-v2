@@ -21,7 +21,6 @@ const UnverifiedUsers = () => {
   const [loadingUsers, setLoadingUsers] = useState<boolean>(true);
   const [response, setResponse] = useState<any[]>([]);
   const [searchText, setSearchText] = useState("");
-  const [isModalOpenn, setIsModalOpenn] = useState<boolean>(false);
   const [exportDropdownOpen, setExportDropdownOpen] = useState<boolean>(false);
 
   const customStyles: any = {

@@ -8,7 +8,7 @@ import React from "react";
 const Page = () => {
   return (
     <Admin>
-      <BreadcrumbsWithIcon route="Estimate Builder" root="Suboption" />
+      <BreadcrumbsWithIcon route="Sub Option" root="Estimate Builder" />
       <SubOptionAdmin />
     </Admin>
   );

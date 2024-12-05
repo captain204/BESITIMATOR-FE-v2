@@ -57,7 +57,7 @@ export default function Categories() {
   const [categoryToDelete, setCategoryToDelete] = useState<Category | null>(
     null
   ); // Add selected category to delete
-  const [loadingCategories, setLoadingCategories] = useState<boolean>(true);
+  // const [loadingCategories, setLoadingCategories] = useState<boolean>(true);
 
   const customStyles: any = {
     title: {
@@ -238,6 +238,7 @@ export default function Categories() {
       name: "Description",
       selector: (row: Category) => row.description,
       sortable: true,
+      width: "200px"
     },
     {
       name: "Actions",
@@ -271,7 +272,7 @@ export default function Categories() {
   ];
 
   return (
-    <div className="min-h-screen p-4 md:p-6 mt-16">
+    <div className="min-h-screen p-4 md:p-6">
       <div className="max-w-6xl mx-auto border shadow-lg bg-white rounded-lg p-4 sm:p-6">
         {/* Header */}
         <div className="flex flex-col sm:flex-row items-center sm:justify-between gap-4 mb-6">
@@ -364,6 +365,7 @@ export default function Categories() {
               />
               <p className="text-red-500 text-xs">{errors.name?.message}</p>
             </div>
+
             <div>
               <label className="block text-sm font-medium text-black">
                 Description

@@ -9,7 +9,7 @@ import React from "react";
 const Page = () => {
   return (
     <Admin>
-      <BreadcrumbsWithIcon route="Labour Price List" root="Price List"/>
+      <BreadcrumbsWithIcon route="New Letter" root="Subscribers"/>
       <NewsletterForm  />
     </Admin>
   );

@@ -170,7 +170,7 @@ export default function Plans() {
     if (!editPlan) return;
     setLoading(true);
     try {
-      await axiosInstance.put(`/api/admin/cost-tracker/${editPlan.id}`, data);
+      await axiosInstance.put(`/api/admin/cost-trackers/${editPlan.id}`, data);
       setPlans((prev) =>
         prev.map((plan) =>
           plan.id === editPlan.id ? { ...editPlan, ...data } : plan
@@ -238,18 +238,26 @@ export default function Plans() {
 
   const columns = [
     {
-      name: "Text",
-      selector: (row: Question) => row.text,
+      name: "name",
+      selector: (row: any) => row?.name,
       sortable: true,
     },
     {
-      name: "Type",
-      selector: (row: Question) => row.type,
+      name: "Details",
+      selector: (row: any) => row?.details,
       sortable: true,
+      width: "400px"
     },
     {
-      name: "Step",
-      selector: (row: Question) => row.step,
+      name: "Quantity",
+      selector: (row: any) => row?.quantity,
+      sortable: true,
+    },
+
+
+    {
+      name: "Price",
+      selector: (row: any) => row?.price,
       sortable: true,
     },
     {
@@ -284,7 +292,7 @@ export default function Plans() {
   ];
 
   return (
-    <div className="min-h-screen p-4 md:p-6 mt-16">
+    <div className="min-h-screen p-4 md:p-6">
       <div className="max-w-6xl mx-auto border shadow-lg bg-white rounded-lg p-4 sm:p-6">
         {/* Header */}
         <div className="flex flex-col sm:flex-row items-center sm:justify-between gap-4 mb-6">
@@ -304,7 +312,7 @@ export default function Plans() {
               onClick={() => setIsModalOpenn(true)}
               className="bg-yellow-800 text-white flex items-center gap-2 py-2 px-4 rounded-md"
             >
-              <FaPlus /> Add Question
+              <FaPlus /> Add Plan
             </button>
 
             <div
@@ -414,8 +422,6 @@ export default function Plans() {
 
 
 
-
-
             <DialogFooter>
               <div className="space-x-2">
                 <button
@@ -434,13 +440,15 @@ export default function Plans() {
                 </button>
               </div>
             </DialogFooter>
+
+
           </form>
         </DialogBody>
       </Dialog>
 
       <Dialog open={isModalOpenn} handler={() => setIsModalOpenn(false)}>
         <DialogHeader className="flex justify-center items-center">
-          Add Question
+          Add Plan
         </DialogHeader>
         <DialogBody>
           <form

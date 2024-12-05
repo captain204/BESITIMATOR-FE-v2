@@ -344,7 +344,7 @@ export default function LabourPriceList() {
   ];
 
   return (
-    <div className="min-h-screen p-4 md:p-6 mt-16">
+    <div className="min-h-screen p-4 md:p-6">
       <div className="max-w-6xl mx-auto border shadow-lg bg-white rounded-lg p-4 sm:p-6">
         {/* Header */}
         <div className="flex flex-col sm:flex-row items-center sm:justify-between gap-4 mb-6">

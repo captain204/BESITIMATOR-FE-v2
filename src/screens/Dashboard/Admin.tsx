@@ -12,7 +12,6 @@ import {
   FaPlus,
   FaQuestion,
   FaRegCreditCard,
-  FaRegNewspaper,
   FaUser,
 } from "react-icons/fa";
 import { usePathname, useRouter } from "next/navigation";
@@ -42,7 +41,6 @@ import {
   IoIosPricetags,
   IoMdNotificationsOutline,
 } from "react-icons/io";
-import { TbHeartRateMonitor } from "react-icons/tb";
 import { IoNewspaper, IoOptions } from "react-icons/io5";
 import { MdOutlineVerified } from "react-icons/md";
 import { VscUnverified } from "react-icons/vsc";
@@ -55,6 +53,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { getUser } from "@/Globals/Slices/AuthSlices/GetUser";
 import { Badge } from "@material-tailwind/react";
 import { PiMapPinSimpleLineFill } from "react-icons/pi";
+import { IoMdMenu, IoMdClose } from 'react-icons/io'; 
 
 type AppDispatch = ThunkDispatch<RootState, unknown, UnknownAction>;
 
@@ -69,7 +68,7 @@ const Admin = ({ children }: any) => {
   const [IsRequestOpen, setRequestOpen] = useState(false);
   const [isManageBlogOpen, setIsManageBlogOpen] = useState(false);
   const [isManageListOpen, setIsManageListOpen] = useState(false);
-  const [isManageEstimateOpen, setManageEstimateOpen] = useState(false);
+  const [isManageEstimateOpen, setManageEstimateOpen] = useState<any>(false);
   const [isAddOpen, setIsAddOpen] = useState(false);
   const [isCategoryOpen, setIsCategoryOpen] = useState(false);
   const [isUserOpen, setUserOpen] = useState(false);
@@ -128,66 +127,89 @@ const Admin = ({ children }: any) => {
   }, []);
 
   React.useEffect(() => {
+    if (!pathname) return;
+  
     if (
-      pathname?.startsWith("/admin/allposts") ||
-      pathname?.startsWith("/admin/addblog")
+      pathname.startsWith("/admin/allposts") ||
+      pathname.startsWith("/admin/addblog") ||
+      pathname.startsWith("/admin/blog/add-blog") ||
+      pathname.startsWith("/admin/blog/all-posts")
     ) {
       setIsManageBlogOpen(true);
     } else {
       setIsManageBlogOpen(false);
     }
-  }, [pathname]);
-
-  React.useEffect(() => {
+  
     if (
-      pathname?.startsWith("/admin/users/all") ||
-      pathname?.startsWith("/admin/users/verified-users") ||
-      pathname?.startsWith("/admin/users/unverified-users") ||
-      pathname?.startsWith("/admin/users/banned-users")
+      pathname.startsWith("/admin/users/all") ||
+      pathname.startsWith("/admin/users/verified-users") ||
+      pathname.startsWith("/admin/users/unverified-users") ||
+      pathname.startsWith("/admin/users/banned-users")
     ) {
       setUserOpen(true);
     } else {
       setUserOpen(false);
     }
-  }, [pathname]);
-
-  React.useEffect(() => {
+  
     if (
-      pathname?.startsWith("/admin/estimate-builder/category") ||
-      pathname?.startsWith("/admin/estimate-builder/option") ||
-      pathname?.startsWith("/admin/estimate-builder/suboption") ||
-      pathname?.startsWith("/admin/estimate-builder/option")
+      pathname.startsWith("/admin/estimate-builder/category") ||
+      pathname.startsWith("/admin/estimate-builder/option") ||
+      pathname.startsWith("/admin/estimate-builder/suboption") ||
+      pathname.startsWith("/admin/estimate-builder/questions")
     ) {
       setManageEstimateOpen(true);
     } else {
       setManageEstimateOpen(false);
     }
-  }, [pathname]);
-
-  React.useEffect(() => {
+  
     if (
-      pathname?.startsWith("/admin/price-list/labour-price-list") ||
-      pathname?.startsWith("/admin/estimate-builder/option") ||
-      pathname?.startsWith("/admin/estimate-builder/suboption") ||
-      pathname?.startsWith("/admin/estimate-builder/option")
+      pathname.startsWith("/admin/price-list/labour-price-list") ||
+      pathname.startsWith("/admin/estimate-builder/option") ||
+      pathname.startsWith("/admin/estimate-builder/suboption")
+    ) {
+      setIsManageListOpen(true);
+    } else {
+      setIsManageListOpen(false);
+    }
+  
+    if (
+      pathname.startsWith("/admin/subscribers/all-subscribers") ||
+      pathname.startsWith("/admin/subscribers/unsubscribers") ||
+      pathname.startsWith("/admin/subscribers/news-letter")
+    ) {
+      setIsSubListOpen(true);
+    } else {
+      setIsSubListOpen(false);
+    }
+
+    isManageListOpen 
+  
+    if (
+      pathname.startsWith("/admin/call-request/no-response") ||
+      pathname.startsWith("/admin/call-request/response")
+    ) {
+      setRequestOpen(true);
+    } else {
+      setRequestOpen(false);
+    }
+
+
+
+    if (
+      pathname.startsWith("/admin/price-list/labour-price-list") ||
+      pathname.startsWith("/admin/price-list/material-price-list")
     ) {
       setIsManageListOpen(true);
     } else {
       setIsManageListOpen(false);
     }
   }, [pathname]);
+  
 
-  React.useEffect(() => {
-    if (
-      pathname?.startsWith("/admin/subscribers/all-subscribers") ||
-      pathname?.startsWith("/admin/subscribers/unsubscribers") ||
-      pathname?.startsWith("/admin/subscribers/news-letter")
-    ) {
-      setIsSubListOpen(true);
-    } else {
-      setIsSubListOpen(false);
-    }
-  }, [pathname]);
+
+  // isManageEstimateOpen 
+
+  // IsRequestOpen
 
   return (
     <div>
@@ -203,7 +225,6 @@ const Admin = ({ children }: any) => {
                 type="button"
                 className="inline-flex items-center p-2 text-sm text-gray-500  sm:hidden hover:bg-gray-100 focus:outline-none"
               >
-                <span className="sr-only">Open sidebar</span>
                 <svg
                   className="w-6 h-6"
                   aria-hidden="true"
@@ -242,11 +263,6 @@ const Admin = ({ children }: any) => {
                     <span className="text-black font-bold">
                       {response?.name}
                     </span>
-                    {/* <img
-                      className="w-8 h-8 rounded-full"
-                      src="https://flowbite.com/docs/images/people/profile-picture-5.jpg"
-                      alt="user photo"
-                    /> */}
                   </div>
                 </div>
               </div>
@@ -254,6 +270,10 @@ const Admin = ({ children }: any) => {
           </div>
         </div>
       </nav>
+
+
+
+
 
       <aside
         className={`fixed top-0 left-0 z-40 w-64 h-screen pt-20 shadow-md transition-transform ${
@@ -400,10 +420,10 @@ const Admin = ({ children }: any) => {
                   <li>
                     <Link
                       onClick={(e) => e.stopPropagation()}
-                      href="/admin/price-list/labour-price-List"
+                      href="/admin/price-list/labour-price-list"
                       className={`flex items-center justify-start p-2 font-normal text-gray-700 dark:text-gray-400 ${
                         pathname?.startsWith(
-                          "/admin/price-list/labour-price-List"
+                          "/admin/price-list/labour-price-list"
                         )
                           ? "bg-black text-white"
                           : "hover:bg-gray-100 text-gray-900"
@@ -568,9 +588,9 @@ const Admin = ({ children }: any) => {
                   <li>
                     <Link
                       onClick={(e) => e.stopPropagation()}
-                      href="/admin/allposts"
+                      href="/admin/blog/all-posts"
                       className={`flex items-center justify-start p-2 font-normal mt-1 text-gray-700 dark:text-gray-400 ${
-                        pathname?.startsWith("/admin/allposts")
+                        pathname?.startsWith("/admin/blog/all-posts")
                           ? "bg-black text-white"
                           : "hover:bg-gray-100 text-gray-900"
                       }`}
@@ -582,9 +602,9 @@ const Admin = ({ children }: any) => {
                   <li>
                     <Link
                       onClick={(e) => e.stopPropagation()}
-                      href="/admin/addblog"
+                      href="/admin/blog/add-blog"
                       className={`flex items-center justify-start p-2 font-normal text-gray-700 dark:text-gray-400 ${
-                        pathname?.startsWith("/admin/addblog")
+                        pathname?.startsWith("/admin/blog/add-blog")
                           ? "bg-black text-white"
                           : "hover:bg-gray-100 text-gray-900"
                       }`}
@@ -678,122 +698,6 @@ const Admin = ({ children }: any) => {
               )}
             </li>
 
-            {/* <li>
-              <button
-                onClick={() => setIsSubListOpen(!isSubListOpen)}
-                className="flex items-center justify-start w-full p-3 text-gray-900 dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700"
-              >
-                <FaList className="w-5 h-5 text-yellow-700" />
-                <span className="flex-1 ms-3 text-left font-normal">
-                  Subscribers
-                </span>
-                <FaChevronDown
-                  className={`w-4 h-4 ms-auto transition-transform ${
-                    isSubListOpen ? "rotate-180" : ""
-                  }`}
-                />
-              </button>
-              {isSubListOpen && (
-                <ul className="pl-10 space-y-1">
-                  <li>
-                    <Link
-                      onClick={(e) => e.stopPropagation()}
-                      href="/admin/subscribers/all-subscribers"
-                      className={`flex items-center justify-start p-2 font-normal mt-1 text-gray-700 dark:text-gray-400 ${
-                        pathname?.startsWith(
-                          "/admin/subscribers/all-subscribers"
-                        )
-                          ? "bg-black text-white"
-                          : "hover:bg-gray-100 text-gray-900"
-                      }`}
-                    >
-                      <GoTasklist className="w-4 h-4 me-2 bg-green-900" />
-                      Subscribers
-                    </Link>
-                  </li>
-                  <li>
-                    <Link
-                      onClick={(e) => e.stopPropagation()}
-                      href="/admin/subscribers/unsubscribers"
-                      className={`flex items-center justify-start p-2 font-normal text-gray-700 dark:text-gray-400 ${
-                        pathname?.startsWith("/admin/subscribers/unsubscribers")
-                          ? "bg-black text-white"
-                          : "hover:bg-gray-100 text-gray-900"
-                      }`}
-                    >
-                      <LuListMusic className="w-4 h-4 me-2 text-yellow-900" />
-                      UnSubscribers
-                    </Link>
-                  </li>
-
-                  <li>
-                    <Link
-                      onClick={(e) => e.stopPropagation()}
-                      href="/admin/newsletter"
-                      className={`flex items-center justify-start p-2 font-normal text-gray-700 dark:text-gray-400 ${
-                        pathname?.startsWith("/admin/subscribers/newsletter")
-                          ? "bg-black text-white"
-                          : "hover:bg-gray-100 text-gray-900"
-                      }`}
-                    >
-                      <FaRegNewspaper className="w-4 h-4 me-2 text-yellow-900" />
-                      News Letter
-                    </Link>
-                  </li>
-                </ul>
-              )}
-            </li> */}
-
-            {/* <li>
-              <button
-                onClick={() => setRequestOpen(!IsRequestOpen)}
-                className="flex items-center justify-start w-full p-3 text-gray-900 dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700"
-              >
-                <FaList className="w-5 h-5 text-yellow-700" />
-                <span className="flex-1 ms-3 text-left font-normal">
-                  Call Request
-                </span>
-                <FaChevronDown
-                  className={`w-4 h-4 ms-auto transition-transform ${
-                    IsRequestOpen ? "rotate-180" : ""
-                  }`}
-                />
-              </button>
-              {IsRequestOpen && (
-                <ul className="pl-10 space-y-1">
-                  <li>
-                    <Link
-                      onClick={(e) => e.stopPropagation()}
-                      href="/admin/response"
-                      className={`flex items-center justify-start p-2 font-normal mt-1 text-gray-700 dark:text-gray-400 ${
-                        pathname?.startsWith("/admin/response")
-                          ? "bg-black text-white"
-                          : "hover:bg-gray-100 text-gray-900"
-                      }`}
-                    >
-                      <GoTasklist className="w-4 h-4 me-2 bg-green-900" />
-                      Response
-                    </Link>
-                  </li>
-
-                  <li>
-                    <Link
-                      onClick={(e) => e.stopPropagation()}
-                      href="/admin/unresponse"
-                      className={`flex items-center justify-start p-2 font-normal text-gray-700 dark:text-gray-400 ${
-                        pathname?.startsWith("/admin/unresponse")
-                          ? "bg-black text-white"
-                          : "hover:bg-gray-100 text-gray-900"
-                      }`}
-                    >
-                      <LuListMusic className="w-4 h-4 me-2 text-yellow-900" />
-                      No Resonse
-                    </Link>
-                  </li>
-                </ul>
-              )}
-            </li> */}
-
             <li>
               <button
                 onClick={() => setRequestOpen(!IsRequestOpen)}
@@ -863,9 +767,9 @@ const Admin = ({ children }: any) => {
                   <li>
                     <Link
                       onClick={(e) => e.stopPropagation()}
-                      href="/admin/allposts"
+                      href="#"
                       className={`flex items-center justify-start p-2 font-normal mt-1 text-gray-700 dark:text-gray-400 ${
-                        pathname?.startsWith("/admin/allposts")
+                        pathname?.startsWith("#")
                           ? "bg-black text-white"
                           : "hover:bg-gray-100 text-gray-900"
                       }`}
@@ -877,9 +781,9 @@ const Admin = ({ children }: any) => {
                   <li>
                     <Link
                       onClick={(e) => e.stopPropagation()}
-                      href="/admin/addblog"
+                      href="#"
                       className={`flex items-center justify-start p-2 font-normal text-gray-700 dark:text-gray-400 ${
-                        pathname?.startsWith("/admin/addblog")
+                        pathname?.startsWith("#")
                           ? "bg-black text-white"
                           : "hover:bg-gray-100 text-gray-900"
                       }`}
@@ -1071,91 +975,3 @@ const Admin = ({ children }: any) => {
 };
 
 export default Admin;
-
-// import { useEffect, useState } from "react";
-// import Link from "next/link";
-// import { FaQuestionCircle } from "react-icons/fa";
-// import axiosInstance from "../path/to/axiosInstance";
-
-// const AdminSidebar = ({ pathname }: { pathname: string }) => {
-//   const [counts, setCounts] = useState({
-//     allUsers: 0,
-//     verifiedUsers: 0,
-//     bannedUsers: 0,
-//     unverifiedUsers: 0,
-//   });
-
-//   useEffect(() => {
-//     const fetchCounts = async () => {
-//       try {
-//         const [allUsers, verifiedUsers, bannedUsers, unverifiedUsers] =
-//           await Promise.all([
-//             axiosInstance.get("/api/admin/users/count"),
-//             axiosInstance.get("/api/admin/verified-users/count"),
-//             axiosInstance.get("/api/admin/banned-users/count"),
-//             axiosInstance.get("/api/admin/unverified-users/count"),
-//           ]);
-
-//         setCounts({
-//           allUsers: allUsers.data.total_users,
-//           verifiedUsers: verifiedUsers.data.total_verified_users,
-//           bannedUsers: bannedUsers.data.total_banned_users,
-//           unverifiedUsers: unverifiedUsers.data.total_unverified_users,
-//         });
-//       } catch (error) {
-//         console.error("Error fetching counts:", error);
-//       }
-//     };
-
-//     fetchCounts();
-//   }, []);
-
-//   return (
-//     <ul className="space-y-4">
-//       <li>
-//         <Link
-//           href="/admin/questions"
-//           className={`flex items-center justify-between p-3 text-gray-900 dark:text-white ${
-//             pathname?.startsWith("/admin/questions")
-//               ? "bg-black text-white"
-//               : ""
-//           }`}
-//         >
-//           <div className="flex items-center">
-//             <FaQuestionCircle className="w-5 h-5 text-yellow-700" />
-//             <span className="ms-3 font-normal">Questions</span>
-//           </div>
-//           <span className="text-sm font-medium text-gray-500">
-//             {counts.allUsers}
-//           </span>
-//         </Link>
-//       </li>
-//       <li>
-//         <div className="flex justify-between items-center p-3">
-//           <span>Verified Users</span>
-//           <span className="text-sm font-medium text-gray-500">
-//             {counts.verifiedUsers}
-//           </span>
-//         </div>
-//       </li>
-//       <li>
-//         <div className="flex justify-between items-center p-3">
-//           <span>Unverified Users</span>
-//           <span className="text-sm font-medium text-gray-500">
-//             {counts.unverifiedUsers}
-//           </span>
-//         </div>
-//       </li>
-//       <li>
-//         <div className="flex justify-between items-center p-3">
-//           <span>Banned Users</span>
-//           <span className="text-sm font-medium text-gray-500">
-//             {counts.bannedUsers}
-//           </span>
-//         </div>
-//       </li>
-//     </ul>
-//   );
-// };
-
-// export default AdminSidebar;

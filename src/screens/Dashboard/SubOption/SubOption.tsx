@@ -345,7 +345,7 @@ export default function SubOptionAdmin() {
   ];
 
   return (
-    <div className="min-h-screen p-4 md:p-6 mt-16">
+    <div className="min-h-screen p-4 md:p-6 ">
       <div className="max-w-6xl mx-auto border shadow-lg bg-white rounded-lg p-4 sm:p-6">
         {/* Header */}
         <div className="flex flex-col sm:flex-row items-center sm:justify-between gap-4 mb-6">
@@ -365,7 +365,7 @@ export default function SubOptionAdmin() {
               onClick={() => setIsModalOpenn(true)}
               className="bg-yellow-800 text-white flex items-center gap-2 py-2 px-4 rounded-md"
             >
-              <FaPlus /> Add SubOption
+              <FaPlus /> Add Sub Option
             </button>
 
             <div
@@ -427,7 +427,7 @@ export default function SubOptionAdmin() {
         <DialogHeader className="flex justify-center items-center">
           Edit SubOption
         </DialogHeader>
-        <DialogBody>
+        <DialogBody className="h-[70vh]  overflow-y-auto">
           <form onSubmit={handleSubmit(handleUpdate)} className="space-y-4">
             <div>
               <label className="block text-sm font-medium text-black">
@@ -547,7 +547,7 @@ export default function SubOptionAdmin() {
         <DialogHeader className="flex justify-center items-center">
           Add Sub Option
         </DialogHeader>
-        <DialogBody>
+        <DialogBody className="h-[70vh]  overflow-y-auto">
           <form
             onSubmit={handleSubmitAdd(handleAddSubOption)}
             className="space-y-4"
@@ -661,7 +661,7 @@ export default function SubOptionAdmin() {
                   className="bg-yellow-800 text-white rounded-md py-2 px-4"
                   disabled={loading}
                 >
-                  {loading ? "Saving..." : "Add Question"}
+                  {loading ? "Saving..." : "Add"}
                 </button>
               </div>
             </DialogFooter>

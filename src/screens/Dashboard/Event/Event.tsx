@@ -3,6 +3,8 @@ import axiosInstance from "@/Globals/Interceptor";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
+import { jsPDF } from "jspdf";
+
 import {
   FaEdit,
   FaTrashAlt,
@@ -35,8 +37,8 @@ const eventSchema = yup.object().shape({
   image: yup
     .mixed()
     .test("fileType", "Only images are allowed", (value: any) =>
-      value
-        ? ["image/jpeg", "image/png", "image/jpg"].includes(value.type)
+      value && value[0]
+        ? ["image/jpeg", "image/png", "image/jpg"].includes(value[0].type)
         : false
     )
     .required("Image is required"),
@@ -50,8 +52,8 @@ const addEventSchema = yup.object().shape({
   image: yup
     .mixed()
     .test("fileType", "Only images are allowed", (value: any) =>
-      value
-        ? ["image/jpeg", "image/png", "image/jpg"].includes(value.type)
+      value && value[0]
+        ? ["image/jpeg", "image/png", "image/jpg"].includes(value[0].type)
         : false
     )
     .required("Image is required"),
@@ -68,6 +70,7 @@ export default function Events() {
   const [loadingEvents, setLoadingEvents] = useState<boolean>(true);
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState<any>(false);
   const [eventToDelete, setEventToDelete] = useState<any | null>(null);
+  const [imageName, setImageName] = useState<string>("");
 
   const {
     register: registerAdd,
@@ -93,13 +96,14 @@ export default function Events() {
     event.preventDefault();
   };
 
-  const onDrop = (event: React.DragEvent) => {
-    event.preventDefault();
-    const files = event.dataTransfer.files;
-    if (files && files[0]) {
-      setvalueAdd("image", files, { shouldValidate: true });
-    }
-  };
+  // const onDrop = (event: React.DragEvent) => {
+  //   event.preventDefault();
+  //   const file = event.dataTransfer.files?.[0];
+  //   if (file) {
+  //     setValue("image", [file], { shouldValidate: true }); // Wrap theg bdcbgdgtekl gives me that  file in an array for yup validation
+  //     setImageName(file.name); // Update the file name
+  //   }
+  // };
 
   const onDropEdit = (event: React.DragEvent) => {
     event.preventDefault();
@@ -203,7 +207,11 @@ export default function Events() {
       // Append fields to FormData
       formData.append("title", data.title);
       formData.append("description", data.description);
-      formData.append("event_date", data.event_date);
+      // formData.append("event_date", data.event_date);
+      formData.append(
+        "event_date",
+        new Date(data.event_date).toISOString().split("T")[0]
+      );
       formData.append("location", data.location);
 
       // Handle image file (assuming it's in `data.image`)
@@ -212,20 +220,16 @@ export default function Events() {
       }
 
       // Make an API call to add the new question
-      const response = await axiosInstance.post(
-        `/api/admin/questions`,
-        formData,
-        {
-          headers: { "Content-Type": "multipart/form-data" },
-        }
-      );
+      const response = await axiosInstance.post(`/api/admin/events`, formData, {
+        headers: { "Content-Type": "multipart/form-data" },
+      });
 
       // Update the state with the newly added question
       setEvents((prev) => [...prev, response.data]);
 
       // Close the modal and reset state
       setIsModalOpen(false);
-      toast.success("Question added successfully!", {
+      toast.success("Event added successfully!", {
         transition: Zoom,
         position: "top-right",
         icon: (
@@ -233,7 +237,7 @@ export default function Events() {
         ),
       });
     } catch (error) {
-      console.error("Error adding question:", error);
+      console.error("Error adding Event:", error);
       toast.error("Failed to add the question.");
     } finally {
       setLoading(false);
@@ -251,7 +255,10 @@ export default function Events() {
       // Append fields to FormData
       formData.append("title", data.title);
       formData.append("description", data.description);
-      formData.append("event_date", data.event_date);
+      formData.append(
+        "event_date",
+        new Date(data.event_date).toISOString().split("T")[0]
+      );
       formData.append("location", data.location);
 
       // Handle image file (assuming it's in `data.image`)
@@ -277,7 +284,7 @@ export default function Events() {
       fetchEvents();
 
       // Show success toast
-      toast.success("Question updated successfully!", {
+      toast.success("Event updated successfully!", {
         transition: Zoom,
         position: "top-right",
         icon: (
@@ -305,19 +312,6 @@ export default function Events() {
       location.includes(searchText.toLowerCase())
     );
   });
-
-  // const handleDelete = async (id:any) => {
-  //    if (confirm("Are you sure you want to delete this question?")) {
-  //     try {
-  //      await axiosInstance.delete(`/api/admin/questions/${id}`);
-  //      toast.success("Question deleted successfully!");
-  //      const response = await axiosInstance.get("/api/admin/questions");
-  //       setQuestions(response.data);
-  //     } catch (error) {
-  //       console.error("Error deleting question:", error);
-  //     }
-  //   }
-  // };
 
   const handleDelete = async (): Promise<void> => {
     if (!eventToDelete) return;
@@ -395,7 +389,7 @@ export default function Events() {
   ];
 
   return (
-    <div className="min-h-screen p-4 md:p-6 mt-16">
+    <div className="min-h-screen p-4 md:p-6">
       <div className="max-w-6xl mx-auto border shadow-lg bg-white rounded-lg p-4 sm:p-6">
         {/* Header */}
         <div className="flex flex-col sm:flex-row items-center sm:justify-between gap-4 mb-6">
@@ -476,7 +470,7 @@ export default function Events() {
         <DialogHeader className="flex justify-center items-center">
           Edit Event
         </DialogHeader>
-        <DialogBody>
+        <DialogBody className="h-[70vh] overflow-y-auto">
           <form
             onSubmit={handleSubmit(handleUpdate)}
             className="space-y-4 overflow-y-scroll"
@@ -580,9 +574,9 @@ export default function Events() {
 
       <Dialog open={isModalOpenn} handler={() => setIsModalOpenn(false)}>
         <DialogHeader className="flex justify-center items-center">
-          Add Question
+          Add Event
         </DialogHeader>
-        <DialogBody>
+        <DialogBody className="h-[70vh] overflow-y-auto">
           <form
             onSubmit={handleSubmitAdd(handleAddQuestion)}
             className="space-y-4 l"
@@ -642,7 +636,7 @@ export default function Events() {
 
             <div
               onDragOver={onDragOver}
-              onDrop={onDrop}
+              onDrop={onDropEdit}
               className="w-full p-4 border-2 border-dashed rounded-lg flex justify-center items-center"
             >
               <input

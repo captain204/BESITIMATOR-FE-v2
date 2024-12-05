@@ -3,6 +3,7 @@ import { useState } from "react";
 import axios from "axios";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import axiosInstance from "@/Globals/Interceptor";
 
 // toast.configure();
 
@@ -37,11 +38,14 @@ const PostBlog = () => {
     }
 
     try {
-      const response = await axios.post("http://13.60.208.160/api/admin/blog", {
-        title,
-        content,
-        image_url,
-      });
+      const response = await axiosInstance.post(
+        "http://13.60.208.160/api/admin/blog",
+        {
+          title,
+          content,
+          image_url,
+        }
+      );
       toast.success("Blog post added successfully!", {
         position: "top-center",
       });
@@ -57,12 +61,8 @@ const PostBlog = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-100 flex items-center justify-center p-6">
+    <div className="min-h-screen flex items-center justify-center p-6">
       <div className="bg-white shadow-lg rounded-lg w-full max-w-3xl p-8 mt-4">
-        <h1 className="text-2xl font-bold text-gray-800 mb-6 text-center">
-          Add Blog
-        </h1>
-
         <form onSubmit={handleSubmit}>
           {/* Blog Image */}
           <div className="mb-6">
@@ -140,12 +140,3 @@ const PostBlog = () => {
 };
 
 export default PostBlog;
-
-
-
-
-
-
-
-
-
