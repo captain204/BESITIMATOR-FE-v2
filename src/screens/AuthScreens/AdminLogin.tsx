@@ -39,7 +39,7 @@ const AdminLoginScreen = () => {
     setErrorMessage("");
 
     try {
-      const response = await axios.post("http://13.60.208.160/api/login", {
+      const response = await axios.post("https://13.60.208.160/api/login", {
         email,
         password,
       });
