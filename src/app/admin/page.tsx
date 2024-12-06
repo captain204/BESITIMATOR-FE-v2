@@ -7,7 +7,7 @@ const page = () => {
   return (
     <Layout>
        <AboutHeader
-        title="AdminLogin"
+        title="Admin Login"
         breadcrumbItems={[{ label: "Home", link: "/" }, { label: "Admin Login" }]}
       />
       <AdminLoginScreen />
