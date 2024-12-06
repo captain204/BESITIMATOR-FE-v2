@@ -39,7 +39,7 @@ const AdminLoginScreen = () => {
     setErrorMessage("");
 
     try {
-      const response = await axios.post("https://13.60.208.160/api/login", {
+      const response = await axios.post("http://13.60.208.160/api/login", {
         email,
         password,
       });
@@ -48,7 +48,7 @@ const AdminLoginScreen = () => {
         console.log(response);
         const token = response.data.access_token;
         localStorage.setItem("token", token);
-        // const oneHour = 1 / 24;
+       
         Cookies.set("token", token);
         console.log(token);
         window.location.href = "/admin/dashboard";
