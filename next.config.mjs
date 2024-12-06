@@ -6,15 +6,15 @@ export default {
           headers: [
             {
               key: "Content-Security-Policy",
-              value: "default-src 'self' http: https: data: blob:; script-src 'self' 'unsafe-inline' 'unsafe-eval';",
+              value: "default-src 'self' http: https: data: blob:; script-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline';",
             },
             {
               key: "Strict-Transport-Security",
-              value: "", // Disable HSTS to allow HTTP
+              value: "max-age=0; includeSubDomains; preload", // Properly disable HSTS with `max-age=0`
             },
             {
               key: "Access-Control-Allow-Origin",
-              value: "*", // Allow all origins
+              value: "*", // Allow all origins (use cautiously in production)
             },
           ],
         },
@@ -29,6 +29,7 @@ export default {
       ];
     },
   };
+  
   
   
 
