@@ -1,20 +1,22 @@
 import { useState } from "react";
-import ClearWorks from "./FirstOptionSuboptions/Clearworks/ClearWork";
+import ClearWorks from "./FirstOptionSuboptions/Clearworks/Option";
+import SettingOut from "./SettingOut/SettingOut";
+import Excavation from "./Excavation/Excavation";
 
 const options = [
   {
     label: "Clearing Works",
-    value: "manual",
+    value: "clearing",
     component: (
        <ClearWorks />
     ),
   },
   {
     label: "Setting out",
-    value: "mwchanical",
+    value: "setting",
     component: (
-      <div className="p-4 bg-green-100 rounded-md">
-        This is Option 2 content.
+      <div>
+         <SettingOut  />
       </div>
     ),
   },
@@ -22,8 +24,8 @@ const options = [
     label: "Excavation",
     value: "Excavation",
     component: (
-      <div className="p-4 bg-yellow-100 rounded-md">
-        Option 3 is rendered here!
+      <div>
+        <Excavation />
       </div>
     ),
   },
@@ -115,8 +117,7 @@ const options = [
 ];
 
 export default function DynamicSelect() {
-  const [selectedOption, setSelectedOption] = useState("");
-
+  const [selectedOption, setSelectedOption] = useState("clearing");
   const handleSelectChange = (event: any) => {
     setSelectedOption(event.target.value);
   };
@@ -126,8 +127,8 @@ export default function DynamicSelect() {
   )?.component;
 
   return (
-    <div className="flex flex-col items-center gap-6 p-6 bg-gradient-to-r min-h-auto mx-20">
-      <h1 className="text-2xl font-bold text-black text-center">
+    <div className="flex flex-col items-center gap-3 pt-6">
+      <h1 className="text-lg text-black text-center">
         Which item of work do you need an approximate estimate for?
       </h1>
       <select

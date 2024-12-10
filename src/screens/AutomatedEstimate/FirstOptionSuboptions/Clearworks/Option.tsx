@@ -1,26 +1,30 @@
 import { useState } from "react";
+import SelectInput from "./Suboption";
+import SelectInputtwo from "./Suboptiontwo";
 
 const options = [
   {
-    label: "Manual",
-    value: "clearing works",
+    label: "No",
+    value: "no",
     component: (
-      <div className="p-4 bg-blue-100 rounded-md">You selected Option 1!</div>
+      <div>
+        <SelectInput />
+      </div>
     ),
   },
   {
-    label: "Mechanical",
-    value: "Setting Out",
+    label: "Yes",
+    value: "yes",
     component: (
-      <div className="p-4 bg-green-100 rounded-md">
-        This is Option 2 content.
+      <div className="">
+        <SelectInputtwo />
       </div>
     ),
   },
 ];
 
 export default function ClearWorks() {
-  const [selectedOption, setSelectedOption] = useState("");
+  const [selectedOption, setSelectedOption] = useState("no");
 
   const handleSelectChange = (event: any) => {
     setSelectedOption(event.target.value);
@@ -31,10 +35,9 @@ export default function ClearWorks() {
   )?.component;
 
   return (
-    <div className="flex flex-col items-center gap-6 p-6 bg-gradient-to-r min-h-auto mx-20">
-      <h1 className="text-2xl font-bold text-black text-center">
-      (a) Clearing works:
-      </h1>
+    <div className="flex flex-col items-center gap-3   mx-20">
+      <h1 className="text-sm text-black w-full max-w-2xl text-center">(a) Clearing works:</h1>
+      
       <select
         onChange={handleSelectChange}
         value={selectedOption}
