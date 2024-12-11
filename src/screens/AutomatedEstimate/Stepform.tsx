@@ -7,6 +7,7 @@ import {
   BuildingLibraryIcon,
 } from "@heroicons/react/24/outline";
 import DynamicSelect from "./DynamicSelect";
+import { FaUserAlt, FaCogs, FaCheckCircle } from "react-icons/fa";
 
 const Stepform = () => {
   const [activeStep, setActiveStep] = React.useState(0);
@@ -44,7 +45,7 @@ const Stepform = () => {
   };
 
   return (
-    <div className="w-full min-h-screen md:px-24 px-8 py-8 bg-gray-50">
+    <div className="w-full min-h-screen md:px-24 px-8 py-8 bg-gray-50 rounded-2xl mb-20 shadow-xl">
       <Stepper
         activeStep={activeStep}
         isLastStep={(value) => setIsLastStep(value)}

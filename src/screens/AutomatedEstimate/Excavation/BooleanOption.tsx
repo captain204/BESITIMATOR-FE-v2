@@ -1,30 +1,26 @@
 import { useState } from "react";
-import SelectInput from "./Suboption";
-import SelectInputtwo from "./Suboptiontwo";
+import SelectInput from "./Boleansuboption";
 
 const options = [
   {
-    label: "Manual",
-    value: "manual",
-    component: (
-      <div>
-        <SelectInput />
-      </div>
-    ),
+    label: "No",
+    value: "no",
+    component: <div></div>,
   },
   {
-    label: "Mechanical",
-    value: "mechanical",
+    label: "Yes",
+    value: "yes",
     component: (
-      <div className="">
-        <SelectInputtwo />
+      <div>
+        {" "}
+        <SelectInput />{" "}
       </div>
     ),
   },
 ];
 
-export default function ClearWorks() {
-  const [selectedOption, setSelectedOption] = useState("manual");
+export default function BooleanOption() {
+  const [selectedOption, setSelectedOption] = useState("no");
 
   const handleSelectChange = (event: any) => {
     setSelectedOption(event.target.value);
@@ -35,7 +31,7 @@ export default function ClearWorks() {
   )?.component;
 
   return (
-    <div className="flex flex-col items-center gap-3  md:w-full md:max-w-lg md:ml-20">
+    <div className="flex flex-col items-center gap-3  md:w-full md:max-w-lg md:ml-20 mt-10">
       {/* <h1 className="text-sm text-black w-full text-center">(a) Clearing works:</h1> */}
 
       <div className="w-full">
@@ -43,7 +39,7 @@ export default function ClearWorks() {
           htmlFor="select-option"
           className="block text-black text-sm font-medium mb-2"
         >
-          (a) Clearing works:
+          (c) Would your excavation require shoring ?
         </label>
         <select
           id="select-option"

@@ -8,7 +8,7 @@ const SelectInputtwo = () => {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center w-full  gap-3 ">
+    <div className="flex flex-col items-center justify-center w-full  gap-3">
      <h1 className="text-sm text-black w-full max-w-2xl text-center">
         (i) Is the land area:
       </h1>

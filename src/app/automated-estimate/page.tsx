@@ -9,7 +9,7 @@ const page = () => {
     <div className=" overflow-hidden">
       <Layout>
         <AboutHeader
-          title="About"
+          title="Automated Estimate"
           breadcrumbItems={[
             { label: "Home", link: "/" },
             { label: "Automated Estimate" },

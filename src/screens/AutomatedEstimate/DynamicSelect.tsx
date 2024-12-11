@@ -125,12 +125,8 @@ export default function DynamicSelect() {
   )?.component;
 
   return (
-    <div className="flex flex-col items-center gap-3 mx-20 md:w-full md:max-w-lg">
-      {/* <h1 className="text-lg text-black text-center">
-        Which item of work do you need an approximate estimate for?
-      </h1> */}
-
-      <div className="md:w-full">
+    <div className="flex flex-col justify-center items-center mt-10  w-80  md:max-w-lg ">
+      <div className="w-full">
         <label
           htmlFor="select-option"
           className="block text-black text-sm font-medium mb-2"
@@ -140,7 +136,7 @@ export default function DynamicSelect() {
         <select
           onChange={handleSelectChange}
           value={selectedOption}
-          className="py-4  md:w-96 p-1 bg-white border text-black border-gray-300 rounded-lg shadow-md focus:ring-2 focus:ring-yellow-400 focus:outline-none"
+          className="py-4 w-full md:w-96 p-1 bg-white border text-black border-gray-300 rounded-lg shadow-md focus:ring-2 focus:ring-yellow-400 focus:outline-none"
         >
           {options.map((option) => (
             <option key={option.value} value={option.value}>
@@ -149,7 +145,7 @@ export default function DynamicSelect() {
           ))}
         </select>
       </div>
-      <div className="md:w-full">
+      <div className="md:w-full w-80">
         {selectedComponent ? (
           <div className="mt-4">{selectedComponent}</div>
         ) : (
@@ -161,3 +157,4 @@ export default function DynamicSelect() {
     </div>
   );
 }
+

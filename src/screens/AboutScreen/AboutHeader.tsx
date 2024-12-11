@@ -37,7 +37,7 @@ const AboutHeader: React.FC<AboutHeaderProps> = ({ title, breadcrumbItems }) => 
           {title}
         </Typography>
 
-        <nav className="text-white text-xl mb-4 flex justify-center mt-5">
+        <nav className="text-white text-lg mb-4 flex justify-center mt-5">
           <ol className="flex flex-wrap items-center space-x-3">
             {breadcrumbItems.map((item, index) => (
               <React.Fragment key={index}>
