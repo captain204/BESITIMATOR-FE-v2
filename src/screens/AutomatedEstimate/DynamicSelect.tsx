@@ -7,16 +7,14 @@ const options = [
   {
     label: "Clearing Works",
     value: "clearing",
-    component: (
-       <ClearWorks />
-    ),
+    component: <ClearWorks />,
   },
   {
     label: "Setting out",
     value: "setting",
     component: (
       <div>
-         <SettingOut  />
+        <SettingOut />
       </div>
     ),
   },
@@ -127,22 +125,31 @@ export default function DynamicSelect() {
   )?.component;
 
   return (
-    <div className="flex flex-col items-center gap-3 pt-6">
-      <h1 className="text-lg text-black text-center">
+    <div className="flex flex-col items-center gap-3 mx-20 md:w-full md:max-w-lg">
+      {/* <h1 className="text-lg text-black text-center">
         Which item of work do you need an approximate estimate for?
-      </h1>
-      <select
-        onChange={handleSelectChange}
-        value={selectedOption}
-        className=" py-4 w-96 p-1  bg-white border text-black border-gray-300 rounded-lg shadow-md focus:ring-2 focus:ring-yellow-400 focus:outline-none"
-      >
-        {options.map((option) => (
-          <option key={option.value} value={option.value}>
-            {option.label}
-          </option>
-        ))}
-      </select>
-      <div className="w-full max-w-md">
+      </h1> */}
+
+      <div className="md:w-full">
+        <label
+          htmlFor="select-option"
+          className="block text-black text-sm font-medium mb-2"
+        >
+          Which item of work do you need an approximate estimate for?
+        </label>
+        <select
+          onChange={handleSelectChange}
+          value={selectedOption}
+          className="py-4  md:w-96 p-1 bg-white border text-black border-gray-300 rounded-lg shadow-md focus:ring-2 focus:ring-yellow-400 focus:outline-none"
+        >
+          {options.map((option) => (
+            <option key={option.value} value={option.value}>
+              {option.label}
+            </option>
+          ))}
+        </select>
+      </div>
+      <div className="md:w-full">
         {selectedComponent ? (
           <div className="mt-4">{selectedComponent}</div>
         ) : (

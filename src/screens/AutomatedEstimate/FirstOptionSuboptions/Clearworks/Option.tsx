@@ -4,8 +4,8 @@ import SelectInputtwo from "./Suboptiontwo";
 
 const options = [
   {
-    label: "No",
-    value: "no",
+    label: "Manual",
+    value: "manual",
     component: (
       <div>
         <SelectInput />
@@ -13,8 +13,8 @@ const options = [
     ),
   },
   {
-    label: "Yes",
-    value: "yes",
+    label: "Mechanical",
+    value: "mechanical",
     component: (
       <div className="">
         <SelectInputtwo />
@@ -24,7 +24,7 @@ const options = [
 ];
 
 export default function ClearWorks() {
-  const [selectedOption, setSelectedOption] = useState("no");
+  const [selectedOption, setSelectedOption] = useState("manual");
 
   const handleSelectChange = (event: any) => {
     setSelectedOption(event.target.value);
@@ -35,21 +35,31 @@ export default function ClearWorks() {
   )?.component;
 
   return (
-    <div className="flex flex-col items-center gap-3   mx-20">
-      <h1 className="text-sm text-black w-full max-w-2xl text-center">(a) Clearing works:</h1>
+    <div className="flex flex-col items-center gap-3 mx-20 md:w-full md:max-w-lg">
+      {/* <h1 className="text-sm text-black w-full text-center">(a) Clearing works:</h1> */}
       
-      <select
-        onChange={handleSelectChange}
-        value={selectedOption}
-        className=" py-4 w-96 p-1  bg-white border text-black border-gray-300 rounded-lg shadow-md focus:ring-2 focus:ring-yellow-400 focus:outline-none"
-      >
-        {options.map((option) => (
-          <option key={option.value} value={option.value}>
-            {option.label}
-          </option>
-        ))}
-      </select>
-      <div className="w-full max-w-md">
+      <div className="w-full">
+        <label
+          htmlFor="select-option"
+          className="block text-black text-sm font-medium mb-2"
+        >
+          (a) Clearing works:
+        </label>
+        <select
+          id="select-option"
+          onChange={handleSelectChange}
+          value={selectedOption}
+          className="py-4 w-full md:w-96 p-1 bg-white border text-black border-gray-300 rounded-lg shadow-md focus:ring-2 focus:ring-yellow-400 focus:outline-none"
+        >
+          {options.map((option) => (
+            <option key={option.value} value={option.value}>
+              {option.label}
+            </option>
+          ))}
+        </select>
+      </div>
+
+      <div className="md:w-full w-80">
         {selectedComponent ? (
           <div className="mt-4">{selectedComponent}</div>
         ) : (
