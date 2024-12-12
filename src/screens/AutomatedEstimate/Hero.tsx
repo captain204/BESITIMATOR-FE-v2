@@ -16,9 +16,9 @@ const HeroSection = () => {
             works, Reinforcement works, Damp proof courses, Filling works,
             Excavation works, Blockwork, Plastering works, Screeding works.
           </p>
-          <button className="mt-6 px-6 py-3 bg-yellow-800 text-white rounded-lg shadow-md transition">
+          {/* <button className="mt-6 px-6 py-3 bg-yellow-800 text-white rounded-lg shadow-md transition">
             Get Started
-          </button>
+          </button> */}
         </div>
 
         {/* Right Image */}

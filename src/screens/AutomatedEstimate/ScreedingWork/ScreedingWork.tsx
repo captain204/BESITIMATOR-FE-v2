@@ -1,26 +1,32 @@
 import { useState } from "react";
-import SelectInput from "./Boleansuboption";
+import SelectInput from "./Suboption";
+import SelectInputtwo from "./Suboptiontwo";
 
 const options = [
   {
-    label: "No",
-    value: "no",
-    component: <div></div>,
-  },
-  {
-    label: "Yes",
-    value: "yes",
+    label: "Wall Screeding (To receive paint)",
+    value: "Wall Screeding (To receive paint)",
     component: (
       <div>
-        {" "}
-        <SelectInput />{" "}
+        <SelectInput />
+      </div>
+    ),
+  },
+  {
+    label: "Floor Screeding (To receive Tiles)",
+    value: "Floor Screeding (To receive Tiles)",
+    component: (
+      <div className="">
+        <SelectInputtwo />
       </div>
     ),
   },
 ];
 
-export default function BooleanOption() {
-  const [selectedOption, setSelectedOption] = useState("no");
+export default function Screeding() {
+  const [selectedOption, setSelectedOption] = useState(
+    "Wall Screeding (To receive paint)"
+  );
 
   const handleSelectChange = (event: any) => {
     setSelectedOption(event.target.value);
@@ -31,7 +37,7 @@ export default function BooleanOption() {
   )?.component;
 
   return (
-    <div className="flex flex-col items-center gap-3  md:w-full md:max-w-lg md:ml-20 mt-10">
+    <div className="flex flex-col items-center gap-3  md:w-full md:max-w-lg md:ml-20">
       {/* <h1 className="text-sm text-black w-full text-center">(a) Clearing works:</h1> */}
 
       <div className="w-full">
@@ -39,7 +45,7 @@ export default function BooleanOption() {
           htmlFor="select-option"
           className="block text-black text-lg font-medium mb-2"
         >
-          (c) Would your excavation require shoring ?
+          (a) Screeding Works:
         </label>
         <select
           id="select-option"

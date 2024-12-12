@@ -1,13 +1,8 @@
 "use client";
 import React from "react";
 import { Stepper, Step, Button, Typography } from "@material-tailwind/react";
-import {
-  CogIcon,
-  UserIcon,
-  BuildingLibraryIcon,
-} from "@heroicons/react/24/outline";
 import DynamicSelect from "./DynamicSelect";
-import { FaUserAlt, FaCogs, FaCheckCircle } from "react-icons/fa";
+
 
 const Stepform = () => {
   const [activeStep, setActiveStep] = React.useState(0);
@@ -45,14 +40,15 @@ const Stepform = () => {
   };
 
   return (
-    <div className="w-full min-h-screen md:px-24 px-8 py-8 bg-gray-50 rounded-2xl mb-20 shadow-xl">
+    <div className="w-full  md:px-24 px-8 py-8 bg-white rounded-2xl mb-20 shadow-xl">
       <Stepper
         activeStep={activeStep}
         isLastStep={(value) => setIsLastStep(value)}
         isFirstStep={(value) => setIsFirstStep(value)}
       >
         <Step onClick={() => setActiveStep(0)}>
-          <UserIcon className="h-5 w-5" />
+          {/* <UserIcon className="h-5 w-5" /> */}
+          <h1>1</h1>
           <div className="absolute -bottom-[4.5rem] w-max text-center">
             <Typography
               variant="h6"
@@ -63,7 +59,8 @@ const Stepform = () => {
           </div>
         </Step>
         <Step onClick={() => setActiveStep(1)}>
-          <CogIcon className="h-5 w-5" />
+          {/* <CogIcon className="h-5 w-5" /> */}
+          <h1>2</h1>
           <div className="absolute -bottom-[4.5rem] w-max text-center">
             <Typography
               variant="h6"
@@ -74,7 +71,8 @@ const Stepform = () => {
           </div>
         </Step>
         <Step onClick={() => setActiveStep(2)}>
-          <BuildingLibraryIcon className="h-5 w-5" />
+          {/* <BuildingLibraryIcon className="h-5 w-5" /> */}
+          <h1>3</h1>
           <div className="absolute -bottom-[4.5rem] w-max text-center">
             <Typography
               variant="h6"
@@ -96,7 +94,7 @@ const Stepform = () => {
         <Button onClick={handlePrev} disabled={isFirstStep}>
           Prev
         </Button>
-        <Button onClick={handleNext} disabled={isLastStep}>
+        <Button onClick={handleNext} disabled={isLastStep} className="bg-yellow-800">
           Next
         </Button>
       </div>

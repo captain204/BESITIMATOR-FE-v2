@@ -12,7 +12,7 @@ const SelectInput = () => {
       <div className="w-full md:max-w-2xl">
         <label
           htmlFor="length-input"
-          className="block text-black text-sm font-medium mb-2"
+          className="block text-black text-lg font-medium mb-2"
         >
           Length to be shored (m):
         </label>
@@ -22,7 +22,7 @@ const SelectInput = () => {
           value={value}
           onChange={handleInputChange}
           placeholder="Enter length in meters"
-          className="py-4 w-full md:w-96 px-3 bg-white border text-black border-gray-300 rounded-lg shadow-md focus:ring-2 focus:ring-yellow-400 focus:outline-none"
+          className="py-3 w-full md:w-96 px-3 bg-white border text-black border-gray-300 rounded-lg shadow-md focus:ring-2 focus:ring-yellow-400 focus:outline-none"
         />
       </div>
     </div>

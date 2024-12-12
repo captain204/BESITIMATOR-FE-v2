@@ -2,6 +2,13 @@ import { useState } from "react";
 import ClearWorks from "./FirstOptionSuboptions/Clearworks/Option";
 import SettingOut from "./SettingOut/SettingOut";
 import Excavation from "./Excavation/Excavation";
+import Fillings from "./Fillings/Fillings";
+import Concrete from "./Concrete/Concrete";
+import DampProving from "./DampProving/DampProving";
+import Blockwork from "./Blockwork/Blockwork";
+import RoofingWorks from "./RoofingWorks/RoofingWorks";
+import PlateringWorks from "./PlateringWorks/PlateringWorks";
+import Screeding from "./ScreedingWork/ScreedingWork";
 
 const options = [
   {
@@ -28,24 +35,24 @@ const options = [
     ),
   },
   {
-    label: "filling works",
-    value: "option4",
+    label: "Filling works",
+    value: "Filling works",
     component: (
-      <div className="p-4 bg-red-100 rounded-md">Here comes Option 4!</div>
+      <div><Fillings /></div>
     ),
   },
   {
     label: "Concrete/Binding Works",
-    value: "option5",
+    value: "Concrete/Binding Works",
     component: (
-      <div className="p-4 bg-purple-100 rounded-md">Content for Option 5.</div>
+      <div><Concrete /></div>
     ),
   },
   {
     label: "Damp proofing works",
-    value: "option6",
+    value: "Damp proofing works",
     component: (
-      <div className="p-4 bg-teal-100 rounded-md">Option 6 in action!</div>
+      <div><DampProving /></div>
     ),
   },
   {
@@ -68,32 +75,32 @@ const options = [
   },
   {
     label: "Blockwork and Brickwork",
-    value: "option9",
+    value: "Blockwork and Brickwork",
     component: (
-      <div className="p-4 bg-indigo-100 rounded-md">Rendering Option 9.</div>
+      <div><Blockwork/></div>
     ),
   },
   {
     label: "Roofing works",
-    value: "option10",
+    value: "Roofing works",
     component: (
-      <div className="p-4 bg-orange-100 rounded-md">And here is Option 10!</div>
+      <div><RoofingWorks /> </div>
     ),
   },
 
   {
     label: "platering works",
-    value: "option10",
+    value: "platering works",
     component: (
-      <div className="p-4 bg-orange-100 rounded-md">And here is Option 11!</div>
+      <div><PlateringWorks/></div>
     ),
   },
 
   {
-    label: "Seeding works",
-    value: "option10",
+    label: "Screeding works",
+    value: "Screeding works",
     component: (
-      <div className="p-4 bg-orange-100 rounded-md">And here is Option 12!</div>
+      <div><Screeding/></div>
     ),
   },
 
@@ -126,10 +133,12 @@ export default function DynamicSelect() {
 
   return (
     <div className="flex flex-col justify-center items-center mt-10  w-80  md:max-w-lg ">
+
+
       <div className="w-full">
         <label
           htmlFor="select-option"
-          className="block text-black text-sm font-medium mb-2"
+          className="block text-black text-lg font-medium mb-2"
         >
           Which item of work do you need an approximate estimate for?
         </label>

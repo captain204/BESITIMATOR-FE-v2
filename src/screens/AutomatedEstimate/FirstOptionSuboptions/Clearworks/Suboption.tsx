@@ -15,7 +15,7 @@ const SelectInput = () => {
       <div className="w-full  md:max-w-2xl">
         <label
           htmlFor="select-option"
-          className="block text-black text-sm font-medium mb-2"
+          className="block text-black text-lg font-medium mb-2"
         >
         (i) What is the land area mainly composed of?
         </label>

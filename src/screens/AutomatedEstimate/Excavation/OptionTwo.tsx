@@ -12,7 +12,7 @@ const EOptionTwo = () => {
       <div className="w-full">
         <label
           htmlFor="select-option"
-          className="block text-black text-sm font-medium mb-2"
+          className="block text-black text-lg font-medium mb-2"
         >
           (b) Disposal of Excavated Materials:
         </label>

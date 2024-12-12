@@ -1,7 +1,7 @@
 import Layout from "@/components/Layout";
 import AboutHeader from "@/screens/AboutScreen/AboutHeader";
 import AutomatedEstimate from "@/screens/AutomatedEstimate/AutomatedEstimate";
-import Stepform from "@/screens/AutomatedEstimate/Stepform";
+
 import React from "react";
 
 const page = () => {
@@ -15,10 +15,12 @@ const page = () => {
             { label: "Automated Estimate" },
           ]}
         />
-
-        <AutomatedEstimate />
-
-     
+        <div className="bg-cover relative bg-center overflow-hidden" style={{ backgroundImage: 'url("/benifit.png")' }}>
+        <div className="absolute inset-0 bg-white opacity-95"></div> 
+        <div className="relative">
+          <AutomatedEstimate />
+        </div>
+        </div>
       </Layout>
     </div>
   );

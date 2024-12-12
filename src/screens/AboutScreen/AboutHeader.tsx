@@ -2,8 +2,6 @@
 
 import React from "react";
 import { Typography } from "@material-tailwind/react";
-import { motion } from "framer-motion";
-import { bottomToTopVariants } from "@/components/constants/Framer";
 import Link from "next/link";
 import { FaChevronRight } from "react-icons/fa";
 
@@ -32,7 +30,7 @@ const AboutHeader: React.FC<AboutHeaderProps> = ({ title, breadcrumbItems }) => 
         <Typography
           variant="h6"
           color="white"
-          className="text-5xl font-bold mx-auto  mt-28 md:mt-0"
+          className="md:text-5xl text-3xl font-bold mx-auto  mt-28 md:mt-0"
         >
           {title}
         </Typography>
