@@ -100,7 +100,7 @@ function ProfileMenu() {
 // nav list menu (for Pages)
 const navListMenuItems = [
   {
-    title: "Automated Building Extimator",
+    title: "Automated Building Estimator",
   },
   {
     title: "Custom Building Estimator and Building Budget Calculator",

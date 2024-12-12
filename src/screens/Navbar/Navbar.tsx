@@ -30,7 +30,7 @@ import { useRouter } from "next/navigation";
 
 const navListMenuItems = [
   {
-    title: "Automated Building Extimator",
+    title: "Automated Building Estimator",
 
     icon: SquaresPlusIcon,
   },

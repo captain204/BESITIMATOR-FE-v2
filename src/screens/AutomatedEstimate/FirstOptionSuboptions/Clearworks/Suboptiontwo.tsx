@@ -23,7 +23,7 @@ const SelectInputtwo = () => {
         <select
           value={selected}
           onChange={handleSelectChange}
-          className="py-4 w-full md:w-96 p-1 bg-white border text-black border-gray-300 rounded-lg shadow-md focus:ring-2 focus:ring-yellow-400 focus:outline-none"
+          className="py-3 w-full md:w-96 p-1 bg-white border text-black border-gray-300 rounded-lg  focus:ring-1 focus:ring-yellow-400 focus:outline-none"
         >
           <option value="option1">Non-water logged/stable</option>
           <option value="option2">
