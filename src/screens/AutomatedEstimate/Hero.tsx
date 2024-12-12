@@ -2,11 +2,11 @@ import React from "react";
 
 const HeroSection = () => {
   return (
-    <section className=" min-h-screen flex items-center justify-center">
-      <div className="container mx-auto px-4 flex flex-col lg:flex-row items-center lg:items-start gap-10">
+    <section className=" md:min-h-screen md:mt-0 mt-10 flex items-center justify-center">
+      <div className="container mx-auto px-4  justify-center flex flex-col lg:flex-row items-center lg:items-start gap-10">
         {/* Left Content */}
-        <div className="text-left flex-1 justify-center items-center">
-          <h1 className="text-4xl md:text-5xl font-bold text-gray-800">
+        <div className="text-left flex-1 justify-center items-center my-auto">
+          <h1 className="text-3xl md:text-5xl font-bold text-gray-800">
             Automated Building Estimator
           </h1>
           <p className="mt-4 text-gray-600 leading-relaxed">
@@ -16,9 +16,9 @@ const HeroSection = () => {
             works, Reinforcement works, Damp proof courses, Filling works,
             Excavation works, Blockwork, Plastering works, Screeding works.
           </p>
-          {/* <button className="mt-6 px-6 py-3 bg-yellow-800 text-white rounded-lg shadow-md transition">
+          <button className="mt-6 px-6 py-3 bg-yellow-800 text-white rounded-lg shadow-md transition">
             Get Started
-          </button> */}
+          </button>
         </div>
 
         {/* Right Image */}
@@ -26,7 +26,7 @@ const HeroSection = () => {
           <img
             src="/autohero.png"
             alt="Building Estimator Illustration"
-            className="rounded-lg shadow-lg"
+            className=""
           />
         </div>
       </div>
