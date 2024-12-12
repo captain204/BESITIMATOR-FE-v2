@@ -9,7 +9,7 @@ const SelectInput = () => {
 
   return (
     <div className="flex flex-col items-center gap-3 justify-center w-full md:ml-20">
-      <div className="w-full md:max-w-2xl">
+      <div>
         <label
           htmlFor="length-input"
           className="block text-black text-lg font-medium mb-2"

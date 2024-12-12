@@ -9,7 +9,7 @@ const EOptionOne = () => {
 
   return (
     <div className="flex flex-col items-center justify-center  gap-3  w-full mb-6 md:ml-20">
-      <div className="w-full">
+      <div className="">
         <label
           htmlFor="select-option"
           className="block text-black text-lg font-medium mb-2"
@@ -19,7 +19,7 @@ const EOptionOne = () => {
         <select
           value={selected}
           onChange={handleSelectChange}
-          className="py-4 w-full md:w-96 p-1 bg-white border text-black border-gray-300 rounded-lg shadow-md focus:ring-2 focus:ring-yellow-400 focus:outline-none"
+          className="py-3 w-full md:w-96 p-1 bg-white border text-black border-gray-300 rounded-lg  focus:ring-1 focus:ring-yellow-400 focus:outline-none"
         >
           <option value="To receive concrete">To receive concrete</option>
           <option value="To make good working surface">

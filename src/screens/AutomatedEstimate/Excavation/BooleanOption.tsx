@@ -45,7 +45,7 @@ export default function BooleanOption() {
           id="select-option"
           onChange={handleSelectChange}
           value={selectedOption}
-          className="py-4 w-full md:w-96 p-1 bg-white border text-black border-gray-300 rounded-lg shadow-md focus:ring-2 focus:ring-yellow-400 focus:outline-none"
+          className="py-3 w-full md:w-96 p-1 bg-white border text-black border-gray-300 rounded-lg  focus:ring-1 focus:ring-yellow-400 focus:outline-none"
         >
           {options.map((option) => (
             <option key={option.value} value={option.value}>
