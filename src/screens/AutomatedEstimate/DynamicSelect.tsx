@@ -10,6 +10,7 @@ import RoofingWorks from "./RoofingWorks/RoofingWorks";
 import PlateringWorks from "./PlateringWorks/PlateringWorks";
 import Screeding from "./ScreedingWork/ScreedingWork";
 import CeilingWork from "./CeilingWork/CeilingWork";
+import PaintingWorks from "./Paintings/PaintingWorks";
 
 const options = [
   {
@@ -117,7 +118,7 @@ const options = [
     label: "Painting works",
     value: "option10",
     component: (
-      <div className="p-4 bg-orange-100 rounded-md">And here is Option 13!</div>
+      <div><PaintingWorks/></div>
     ),
   },
 ];

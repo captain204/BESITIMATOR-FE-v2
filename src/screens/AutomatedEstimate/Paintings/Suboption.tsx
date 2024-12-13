@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-const SelectInput = () => {
+const SelectSilk = () => {
   const [selected, setSelected] = useState<string>("option2");
 
   const handleSelectChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
@@ -17,16 +17,16 @@ const SelectInput = () => {
           htmlFor="select-option"
           className="block text-black text-lg font-medium mb-2"
         >
-        (i) POP Suspended ceiling with Gypsum board:
+        (i) Satin/ Silk paint:
         </label>
       <select
         value={selected}
         onChange={handleSelectChange}
         className="py-3 w-full md:w-96 p-1 bg-white border text-black border-gray-300 rounded-lg  focus:ring-1 focus:ring-yellow-400 focus:outline-none"
       >
-        <option value="3m x 1.2m x 12mm or 10mm">3m x 1.2m x 12mm or 10mm</option>
-        <option value="2.4m x 1.2m x 12mm or 10mm">2.4m x 1.2m x 12mm or 10mm</option>
-        <option value="2.5m x 1.2m x 12mm or 10mm">2.5m x 1.2m x 12mm or 10mm</option>
+        <option value="One coat">One coat</option>
+        <option value="Two coats">Two coats</option>
+        <option value="Three coats">Three coats</option>
       </select>
 
       </div>
@@ -34,4 +34,4 @@ const SelectInput = () => {
   );
 };
 
-export default SelectInput;
+export default SelectSilk;

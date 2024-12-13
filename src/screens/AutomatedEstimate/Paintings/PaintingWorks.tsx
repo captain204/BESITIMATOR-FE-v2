@@ -1,33 +1,44 @@
 import { useState } from "react";
 import SelectInput from "./Suboption";
-
+import SelectSilk from "./Suboption";
 
 const options = [
   {
-    label: "Suspended Ceiling (Plaster Board)",
-    value: "Suspended Ceiling (Plaster Board)",
+    label: "primer",
+    value: "primer",
     component: (
       <div>
-        <SelectInput />
+      
       </div>
     ),
   },
   {
-    label: "Suspended Ceiling (60 X 60mm) with steal runners",
-    value: "Suspended Ceiling (60 X 60mm) with steal runners",
-    component: <div> </div>,
+    label: "satin/ silk paint",
+    value: "satin/ silk paint",
+    component: <div><SelectSilk /></div>,
+  },
+  {
+    label: "Emulsion",
+    value: "Emulsion",
+    component: <div></div>,
   },
 
   {
-    label: "Suspended Ceiling (casting)",
-    value: "Suspended Ceiling (casting)",
+    label: "Text coat paint",
+    value: "Text coat paint",
+    component: <div></div>,
+  },
+
+  {
+    label: "Gloss paint",
+    value: "Gloss paint",
     component: <div></div>,
   },
 ];
 
-export default function CeilingWork() {
+export default function PaintingWorks() {
   const [selectedOption, setSelectedOption] = useState(
-    "Suspended Ceiling (Plaster Board)"
+    "primer"
   );
 
   const handleSelectChange = (event: any) => {
@@ -47,7 +58,7 @@ export default function CeilingWork() {
           htmlFor="select-option"
           className="block text-black text-lg font-medium mb-2"
         >
-          (a) Screeding Works:
+         (a) Which type of paint do you propose to be used for your building work?
         </label>
         <select
           id="select-option"
