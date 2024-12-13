@@ -11,6 +11,7 @@ import PlateringWorks from "./PlateringWorks/PlateringWorks";
 import Screeding from "./ScreedingWork/ScreedingWork";
 import CeilingWork from "./CeilingWork/CeilingWork";
 import PaintingWorks from "./Paintings/PaintingWorks";
+import Tillings from "./Tiling/Tilings";
 
 const options = [
   {
@@ -116,11 +117,30 @@ const options = [
 
   {
     label: "Painting works",
-    value: "option10",
+    value: "Painting works",
     component: (
       <div><PaintingWorks/></div>
     ),
   },
+
+
+  {
+    label: "Tiling/Granite Slap/Facing Brick works",
+    value: "Tiling/Granite Slap/Facing Brick works",
+    component: (
+      <div><Tillings /></div>
+    ),
+  },
+
+  {
+    label: "Paving stone Works",
+    value: "Paving stone Works",
+    component: (
+      <div></div>
+    ),
+  },
+
+
 ];
 
 export default function DynamicSelect() {
