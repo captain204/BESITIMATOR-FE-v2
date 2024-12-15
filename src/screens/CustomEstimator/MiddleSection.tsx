@@ -5,48 +5,46 @@ import { FiArrowRight } from "react-icons/fi"; // Import arrow icon
 const EstimatorProcess = () => {
   return (
     <section className="bg-gray-50 py-12 px-6 mb-20">
-      <h2 className="text-center text-3xl font-bold mb-12 text-gray-800">
-        Automated Building Estimator Process
+      <h2 className="text-center md:text-3xl text-2xl font-bold mb-12 text-gray-800">
+        Custom Building Estimator and Building Budget Calculator process
       </h2>
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-8 items-start">
         {/* Step 1 */}
         <div className="flex flex-col items-center text-center">
           <div className="flex justify-center items-center w-20 h-20 mb-4">
-            <img src="/p1.svg" alt="Work Item" className="w-16 h-16" />
+            <img src="/p5.svg" alt="Work Item" className="w-16 h-16" />
           </div>
           <h3 className="text-lg font-semibold text-gray-800 mb-2">
-            Work Item
+            Select project type
           </h3>
           <p className="text-gray-600">
-            Select the work item you need estimates for.
+            Select which and what type of project you want to explore its
+            costing option.
           </p>
         </div>
 
         {/* Step 2 */}
         <div className="flex flex-col items-center text-center">
           <div className="flex justify-center items-center w-20 h-20 mb-4">
-            <img src="/p2.svg" alt="Specifications" className="w-16 h-16" />
+            <img src="/p6.svg" alt="Specifications" className="w-16 h-16" />
           </div>
           <h3 className="text-lg font-semibold text-gray-800 mb-2">
-            Specifications
+            More detail
           </h3>
           <p className="text-gray-600">
-            Input the total length, area, or cubic meter for the work item you
-            need an estimate for.
+            Put in some little more details of the project.
           </p>
         </div>
 
         {/* Step 3 */}
         <div className="flex flex-col items-center text-center">
           <div className="flex justify-center items-center w-20 h-20 mb-4">
-            <img src="/p3.svg" alt="About You" className="w-16 h-16" />
+            <img src="/p7.svg" alt="About You" className="w-16 h-16" />
           </div>
           <h3 className="text-lg font-semibold text-gray-800 mb-2">
             About You
           </h3>
-          <p className="text-gray-600">
-            Input basic information about yourself.
-          </p>
+          <p className="text-gray-600">Tell us a little about yourself.</p>
         </div>
 
         {/* Step 4 */}
@@ -56,7 +54,7 @@ const EstimatorProcess = () => {
           </div>
           <h3 className="text-lg font-semibold text-gray-800 mb-2">Results</h3>
           <p className="text-gray-600">
-            Get estimated material and labor requirements for your work item.
+          Get instant, free and approximate cost estimate for the project.
           </p>
         </div>
       </div>

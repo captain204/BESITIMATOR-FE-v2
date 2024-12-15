@@ -3,18 +3,18 @@ import HeroSection from "./Hero";
 import Stepform from "./Stepform";
 import EstimatorProcess from "./MiddleSection";
 
-const AutomatedEstimate = () => {
+const CustomEstimate = () => {
   return (
     <div className=" lg:mx-20">
       <HeroSection />
       <div className="">
-      <EstimatorProcess />
+        <EstimatorProcess />
       </div>
       <div>
-      <Stepform />
+        <Stepform />
       </div>
     </div>
   );
 };
 
-export default AutomatedEstimate;
+export default CustomEstimate;

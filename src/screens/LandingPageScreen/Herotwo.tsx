@@ -8,6 +8,11 @@ const HeroReal = () => {
   const handleNavigation = () => {
     router.push("/automated-estimate");
   };
+
+
+  const handleNavigationTwo = () => {
+    router.push("/custom-estimate");
+  };
   return (
     <div className="relative overflow-hidden">
       <motion.div
@@ -71,7 +76,7 @@ const HeroReal = () => {
               Automated
             </button>
 
-            <button className="text-white md:text-2sm text-sm md:px-6 px-3 mt-5 md:mt-7 md:py-3 py-2 font-bold rounded-lg border border-gray-500 hover:border-yellow-800 hover:bg-yellow-800 transform hover:scale-105 duration-300">
+            <button   onClick={handleNavigationTwo} className="text-white md:text-2sm text-sm md:px-6 px-3 mt-5 md:mt-7 md:py-3 py-2 font-bold rounded-lg border border-gray-500 hover:border-yellow-800 hover:bg-yellow-800 transform hover:scale-105 duration-300">
               Custom & Budget Calculator
             </button>
           </motion.div>
