@@ -1,36 +1,28 @@
 import { useState } from "react";
-import Residential from "./Residential/Residential";
-import Commercial from "./Commercial/Commercial";
-import Fencing from "./Fencing/Fencing";
+import SelectInput from "./Boleansuboption";
+import BoleansuboptionTwo from "./BoleanSuboptiontwo";
 
 const options = [
   {
-    label: "Residential Project",
-    value: "Residential Project",
-    component: <Residential />,
+    label: "No",
+    value: "no",
+    component: <div> <BoleansuboptionTwo /></div>,
   },
   {
-    label: "Commercial Project",
-    value: "Commercial Project",
+    label: "Yes",
+    value: "yes",
     component: (
       <div>
-        <Commercial />
-      </div>
-    ),
-  },
-  {
-    label: "Fencing Project",
-    value: "Fencing Project",
-    component: (
-      <div>
-        <Fencing />
+        {" "}
+        <SelectInput />{" "}
       </div>
     ),
   },
 ];
 
-export default function DynamicSelect() {
-  const [selectedOption, setSelectedOption] = useState("Residential Project");
+export default function BooleanOption() {
+  const [selectedOption, setSelectedOption] = useState("no");
+
   const handleSelectChange = (event: any) => {
     setSelectedOption(event.target.value);
   };
@@ -40,16 +32,18 @@ export default function DynamicSelect() {
   )?.component;
 
   return (
-    <div className="flex flex-col justify-center items-center mt-10  w-80  md:max-w-lg ">
+    <div className="flex flex-col items-center   md:w-full md:max-w-lg md:ml-20 ">
+      {/* <h1 className="text-sm text-black w-full text-center">(a) Clearing works:</h1> */}
+
       <div className="w-full">
         <label
           htmlFor="select-option"
-          className="block text-black text-lg font-medium mb-2 md:w-96"
+          className="block text-black text-lg  font-medium mb-2"
         >
-          What type of project do you want to explore its construction costing
-          option?
+        01. Do you know the G.F.A (Gross Floor Area) of the propsed Building?
         </label>
         <select
+          id="select-option"
           onChange={handleSelectChange}
           value={selectedOption}
           className="py-3 w-full md:w-96 p-1 bg-white border text-black border-gray-300 rounded-lg  focus:ring-1 focus:ring-yellow-400 focus:outline-none"
@@ -61,6 +55,7 @@ export default function DynamicSelect() {
           ))}
         </select>
       </div>
+
       <div className="md:w-full w-80">
         {selectedComponent ? (
           <div className="mt-4">{selectedComponent}</div>

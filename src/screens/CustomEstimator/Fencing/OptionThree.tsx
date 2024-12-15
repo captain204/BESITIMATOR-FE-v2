@@ -13,25 +13,25 @@ const ROptionTwo = () => {
       <div className="w-full">
         <label
           htmlFor="select-option"
-          className="block text-black text-lg font-medium mb-2"
+          className="block text-black text-lg font-medium mb-2 md:w-96"
         >
-          04. Level of Finishing?
+          03. What type of foundation is likely to be used for this fence work?
         </label>
         <select
           value={selected}
           onChange={handleSelectChange}
           className="py-3 w-full md:w-96 p-1 bg-white border text-black border-gray-300 rounded-lg  focus:ring-1 focus:ring-yellow-400 focus:outline-none"
         >
-          <option value="option1">Low-end Finishing</option>
-          <option value="option2">Medium/Moderate Finishing</option>
-          <option value="option1">High-end Finishing</option>
+          <option value="Raft Foundation (Aprox 1m High)">
+            Raft Foundation (Aprox 1m High)
+          </option>
+          <option value="option2">Strip Foundation (Aprox 1m High)</option>
         </select>
       </div>
       <div className="w-full">
         {" "}
-        <h1 className="text-black md:w-96 md:text-lg">
-          05. How Much percentage will you like to provide to cater for
-          preliminaries:
+        <h1 className="text-black md:w-96 text-lg">
+        04. How Much percentage will you like to provide to cater for preliminaries
         </h1>
         <ProgressSlider />
       </div>
