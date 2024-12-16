@@ -1,10 +1,9 @@
 // components/EstimatorProcess.js
 import React from "react";
-import { FiArrowRight } from "react-icons/fi"; // Import arrow icon
 
 const EstimatorProcess = () => {
   return (
-    <section className="bg-gray-50 py-12 px-6 mb-10">
+    <section className="bg-gray-50 py-12 px-6 md:mb-10">
       <h2 className="text-center md:text-3xl text-2xl font-bold mb-12 text-gray-800">
         Custom Building Estimator and Building Budget Calculator process
       </h2>
@@ -54,7 +53,7 @@ const EstimatorProcess = () => {
           </div>
           <h3 className="text-lg font-semibold text-gray-800 mb-2">Results</h3>
           <p className="text-gray-600">
-          Get instant, free and approximate cost estimate for the project.
+            Get instant, free and approximate cost estimate for the project.
           </p>
         </div>
       </div>
