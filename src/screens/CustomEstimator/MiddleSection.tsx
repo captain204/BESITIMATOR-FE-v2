@@ -4,7 +4,7 @@ import { FiArrowRight } from "react-icons/fi"; // Import arrow icon
 
 const EstimatorProcess = () => {
   return (
-    <section className="bg-gray-50 py-12 px-6 mb-20">
+    <section className="bg-gray-50 py-12 px-6 mb-10">
       <h2 className="text-center md:text-3xl text-2xl font-bold mb-12 text-gray-800">
         Custom Building Estimator and Building Budget Calculator process
       </h2>

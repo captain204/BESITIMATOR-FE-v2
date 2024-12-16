@@ -67,7 +67,7 @@ const Stepform = () => {
               variant="h6"
               color={activeStep === 1 ? "blue-gray" : "gray"}
             >
-              Specifications
+              Personal Details
             </Typography>
           </div>
         </Step>
