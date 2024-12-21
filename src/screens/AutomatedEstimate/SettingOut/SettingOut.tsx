@@ -1,10 +1,25 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 const SettingOut = () => {
-  const [selected, setSelected] = useState<string>("option1");
+  const [selected, setSelected] = useState<string>("Three sided shaped");
+
+  useEffect(() => {
+    const storedOption = localStorage.getItem("ShapeOfBuilding");
+    if (storedOption) {
+      setSelected(storedOption);
+    } else {
+      localStorage.setItem("ShapeOfBuilding", "Grasses and Shrubs");
+    }
+  }, []);
+
+  // const handleSelectChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+  //   setSelected(event.target.value);
+  // };
 
   const handleSelectChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    setSelected(event.target.value);
+    const newOption = event.target.value;
+    setSelected(newOption);
+    localStorage.setItem("ShapeOfBuilding", newOption);
   };
 
   return (
@@ -12,7 +27,7 @@ const SettingOut = () => {
       <div className="">
         <label
           htmlFor="select-option"
-          className="block text-black text-lg font-medium mb-2"
+          className="block text-black text-lg font-medium mb-2 md:w-96"
         >
           (a) What do you generally conclude is the shape of your building?
         </label>
@@ -21,9 +36,9 @@ const SettingOut = () => {
           onChange={handleSelectChange}
           className="py-3 w-full md:w-96 p-1 bg-white border text-black border-gray-300 rounded-lg  focus:ring-2 focus:ring-yellow-400 focus:outline-none"
         >
-          <option value="option1">Three sided shaped</option>
-          <option value="option2">Four sided shaped</option>
-          <option value="option3">Circular shaped</option>
+          <option value="Three sided shaped">Three sided shaped</option>
+          <option value="Four sided shaped">Four sided shaped</option>
+          <option value="Circular shaped">Circular shaped</option>
         </select>
       </div>
     </div>

@@ -51,7 +51,7 @@ const ProgressSection = () => {
 
   return (
     <section className="">
-      <div className="  lg:gap-10 xl:gap-0  md:pb-20">
+      <div className="  md:gap-10 xl:gap-0  md:pb-20">
 
         <motion.div
           className="lg:mt-0 lg:col-span-7 justify-center items-center"

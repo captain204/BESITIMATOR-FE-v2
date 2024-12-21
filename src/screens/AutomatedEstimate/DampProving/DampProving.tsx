@@ -1,11 +1,22 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 const DampProving = () => {
-  const [selected, setSelected] = useState<string>("option1");
+  const [selected, setSelected] = useState<string>("Damp prove course");
 
-  const handleSelectChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+ const handleSelectChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     setSelected(event.target.value);
   };
+
+  useEffect(() => {
+    const storedOption = localStorage.getItem("Damp-proofing-works:");
+    if (storedOption) {
+      setSelected(storedOption);
+    } else {
+      localStorage.setItem("Damp-proofing-works:", "Damp prove course");
+    }
+  }, []);
+
+
 
   return (
     <div className="flex flex-col items-center justify-center  gap-3  w-full max-w-2xl md:ml-20">

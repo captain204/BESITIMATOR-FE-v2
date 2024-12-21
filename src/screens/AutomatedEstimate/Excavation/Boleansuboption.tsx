@@ -1,11 +1,17 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 const SelectInput = () => {
-  const [value, setValue] = useState<string>("");
+  const [value, setValue] = useState<string>(
+    localStorage.getItem("length-to-be-shored") || ""
+  );
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setValue(event.target.value);
   };
+
+  useEffect(() => {
+    localStorage.setItem("length-to-be-shored", value);
+  }, [value]);
 
   return (
     <div className="flex flex-col items-center gap-3 justify-center w-full md:ml-20">

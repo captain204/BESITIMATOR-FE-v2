@@ -1,65 +1,56 @@
 import { useEffect, useState } from "react";
-import SelectInput from "./Boleansuboption";
+import SelectInput from "./Groundbeams";
+
 
 const options = [
   {
-    label: "No",
-    value: "no",
-    component: <div></div>,
-  },
-  {
-    label: "Yes",
-    value: "yes",
+    label: "Reinforcement",
+    value: "Reinforcement",
     component: (
       <div>
-        {" "}
-        <SelectInput />{" "}
+        <SelectInput />
       </div>
     ),
   },
+  {
+    label: "Angle Iron",
+    value: "Angle Iron",
+    component: <div className=""></div>,
+  },
 ];
 
-export default function BooleanOption() {
-  const [selectedOption, setSelectedOption] = useState("no");
+export default function Lintels() {
+  const [selectedOption, setSelectedOption] = useState("Reinforcement");
 
-  // const handleSelectChange = (event: any) => {
-  //   setSelectedOption(event.target.value);
-  // };
-
-  // const selectedComponent = options.find(
-  //   (opt) => opt.value === selectedOption
-  // )?.component;
-
-  useEffect(() => {
-    const storedOption = localStorage.getItem(
-      "Would-your-excavation-require-shoring"
-    );
-    if (storedOption) {
-      setSelectedOption(storedOption);
-    } else {
-      localStorage.setItem("Would-your-excavation-require-shoring", "no");
-    }
-  }, []);
-
-  // Update the selected option and store it in localStorage
   const handleSelectChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     const newOption = event.target.value;
     setSelectedOption(newOption);
-    localStorage.setItem("Would-your-excavation-require-shoring", newOption);
+    localStorage.setItem("material-used-for-your-lintel", newOption);
   };
+
+  useEffect(() => {
+    const storedOption = localStorage.getItem("material-used-for-your-lintel");
+    if (storedOption) {
+      setSelectedOption(storedOption);
+    } else {
+      localStorage.setItem("material-used-for-your-lintel", "Reinforcement");
+    }
+  }, []);
 
   const selectedComponent = options.find(
     (opt) => opt.value === selectedOption
   )?.component;
 
   return (
-    <div className="flex flex-col items-center gap-3  md:w-full md:max-w-lg md:ml-20 mt-10">
+    <div className="flex flex-col items-center gap-3  md:w-full md:max-w-lg md:ml-20">
+      {/* <h1 className="text-sm text-black w-full text-center">(a) Clearing works:</h1> */}
+
       <div className="w-full">
         <label
           htmlFor="select-option"
-          className="block text-black text-lg font-medium mb-2"
+          className="block text-black text-lg font-medium mb-2 md:w-96"
         >
-          (c) Would your excavation require shoring?
+          (i) What material is used for your lintel?
         </label>
         <select
           id="select-option"

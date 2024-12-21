@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import ClearWorks from "./FirstOptionSuboptions/Clearworks/Option";
 import SettingOut from "./SettingOut/SettingOut";
 import Excavation from "./Excavation/Excavation";
@@ -12,16 +12,18 @@ import Screeding from "./ScreedingWork/ScreedingWork";
 import CeilingWork from "./CeilingWork/CeilingWork";
 import PaintingWorks from "./Paintings/PaintingWorks";
 import Tillings from "./Tiling/Tilings";
+import Reinforcement from "./ReinforceMent/Reinforcement";
+import Formwork from "./Formwork/Formwork";
 
 const options = [
   {
     label: "Clearing Works",
-    value: "clearing",
+    value: "Clearing Works",
     component: <ClearWorks />,
   },
   {
     label: "Setting out",
-    value: "setting",
+    value: "Setting out",
     component: (
       <div>
         <SettingOut />
@@ -41,38 +43,44 @@ const options = [
     label: "Filling works",
     value: "Filling works",
     component: (
-      <div><Fillings /></div>
+      <div>
+        <Fillings />
+      </div>
     ),
   },
   {
     label: "Concrete/Binding Works",
     value: "Concrete/Binding Works",
     component: (
-      <div><Concrete /></div>
+      <div>
+        <Concrete />
+      </div>
     ),
   },
   {
     label: "Damp proofing works",
     value: "Damp proofing works",
     component: (
-      <div><DampProving /></div>
+      <div>
+        <DampProving />
+      </div>
     ),
   },
   {
     label: "Reinforcement/Iron bending works",
-    value: "option7",
+    value: "Reinforcement/Iron bending works",
     component: (
-      <div className="p-4 bg-pink-100 rounded-md">
-        Option 7 displayed below.
+      <div>
+        <Reinforcement />
       </div>
     ),
   },
   {
     label: "Formwork/Capentry works",
-    value: "option8",
+    value: "Formwork/Capentry works",
     component: (
-      <div className="p-4 bg-gray-100 rounded-md">
-        Dynamic content for Option 8.
+      <div>
+        <Formwork />
       </div>
     ),
   },
@@ -80,14 +88,18 @@ const options = [
     label: "Blockwork and Brickwork",
     value: "Blockwork and Brickwork",
     component: (
-      <div><Blockwork/></div>
+      <div>
+        <Blockwork />
+      </div>
     ),
   },
   {
     label: "Roofing works",
     value: "Roofing works",
     component: (
-      <div><RoofingWorks /> </div>
+      <div>
+        <RoofingWorks />{" "}
+      </div>
     ),
   },
 
@@ -95,7 +107,9 @@ const options = [
     label: "platering works",
     value: "platering works",
     component: (
-      <div><PlateringWorks/></div>
+      <div>
+        <PlateringWorks />
+      </div>
     ),
   },
 
@@ -103,7 +117,9 @@ const options = [
     label: "Screeding works",
     value: "Screeding works",
     component: (
-      <div><Screeding/></div>
+      <div>
+        <Screeding />
+      </div>
     ),
   },
 
@@ -111,7 +127,9 @@ const options = [
     label: "Ceiling works",
     value: "Ceiling works",
     component: (
-      <div><CeilingWork/></div>
+      <div>
+        <CeilingWork />
+      </div>
     ),
   },
 
@@ -119,44 +137,59 @@ const options = [
     label: "Painting works",
     value: "Painting works",
     component: (
-      <div><PaintingWorks/></div>
+      <div>
+        <PaintingWorks />
+      </div>
     ),
   },
-
 
   {
     label: "Tiling/Granite Slap/Facing Brick works",
     value: "Tiling/Granite Slap/Facing Brick works",
     component: (
-      <div><Tillings /></div>
+      <div>
+        <Tillings />
+      </div>
     ),
   },
 
   {
     label: "Paving stone Works",
     value: "Paving stone Works",
-    component: (
-      <div></div>
-    ),
+    component: <div></div>,
   },
-
-
 ];
 
 export default function DynamicSelect() {
-  const [selectedOption, setSelectedOption] = useState("clearing");
-  const handleSelectChange = (event: any) => {
-    setSelectedOption(event.target.value);
+  // const [selectedOption, setSelectedOption] = useState("clearing");
+  const [selected, setSelected] = useState<string>("clearing");
+  // const handleSelectChange = (event: any) => {
+  //   setSelectedOption(event.target.value);
+  // };
+
+  // const selectedComponent = options.find(
+  //   (opt) => opt.value === selectedOption
+  // )?.component;
+
+  const handleSelectChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    const newOption = event.target.value;
+    setSelected(newOption);
+    localStorage.setItem("ItemOfWork", newOption);
   };
 
-  const selectedComponent = options.find(
-    (opt) => opt.value === selectedOption
-  )?.component;
+  useEffect(() => {
+    const storedOption = localStorage.getItem("ItemOfWork");
+    if (storedOption) {
+      setSelected(storedOption);
+    } else {
+      localStorage.setItem("ItemOfWork", "clearing");
+    }
+  }, []);
+
+  const selectedComponent = options.find((opt) => opt.value === selected)?.component;
 
   return (
     <div className="flex flex-col justify-center items-center mt-10  w-80  md:max-w-lg ">
-
-
       <div className="w-full">
         <label
           htmlFor="select-option"
@@ -165,8 +198,8 @@ export default function DynamicSelect() {
           Which item of work do you need an approximate estimate for?
         </label>
         <select
+          value={selected}
           onChange={handleSelectChange}
-          value={selectedOption}
           className="py-3 w-full md:w-96 p-1 bg-white border text-black border-gray-300 rounded-lg  focus:ring-1 focus:ring-yellow-400 focus:outline-none"
         >
           {options.map((option) => (
@@ -188,4 +221,3 @@ export default function DynamicSelect() {
     </div>
   );
 }
-

@@ -14,23 +14,15 @@ import {
   FaRegCreditCard,
   FaUser,
 } from "react-icons/fa";
-import { usePathname, useRouter } from "next/navigation";
+import { usePathname} from "next/navigation";
 import {
   MdCategory,
   MdDashboard,
   MdEvent,
-  MdEventNote,
   MdKeyboardOptionKey,
 } from "react-icons/md";
 import { GrAnnounce, GrUserAdmin } from "react-icons/gr";
-import {
-  FaCalculator,
-  FaList,
-  FaListCheck,
-  FaNoteSticky,
-  FaPeopleRoof,
-  FaUsersRectangle,
-} from "react-icons/fa6";
+import { FaListCheck, FaPeopleRoof, FaUsersRectangle } from "react-icons/fa6";
 import { BiNoEntry, BiSolidTrafficCone } from "react-icons/bi";
 import { GiCheckMark } from "react-icons/gi";
 import { GoIssueTrackedBy, GoTasklist } from "react-icons/go";
@@ -53,24 +45,20 @@ import { useDispatch, useSelector } from "react-redux";
 import { getUser } from "@/Globals/Slices/AuthSlices/GetUser";
 import { Badge } from "@material-tailwind/react";
 import { PiMapPinSimpleLineFill } from "react-icons/pi";
-import { IoMdMenu, IoMdClose } from 'react-icons/io'; 
+
 
 type AppDispatch = ThunkDispatch<RootState, unknown, UnknownAction>;
 
 const Admin = ({ children }: any) => {
   const dispatch: AppDispatch = useDispatch();
   const response = useSelector((state: RootState) => state.getUser.response);
-  const router = useRouter();
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
-
   const [isSubListOpen, setIsSubListOpen] = useState(false);
-
   const [IsRequestOpen, setRequestOpen] = useState(false);
   const [isManageBlogOpen, setIsManageBlogOpen] = useState(false);
   const [isManageListOpen, setIsManageListOpen] = useState(false);
   const [isManageEstimateOpen, setManageEstimateOpen] = useState<any>(false);
   const [isAddOpen, setIsAddOpen] = useState(false);
-  const [isCategoryOpen, setIsCategoryOpen] = useState(false);
   const [isUserOpen, setUserOpen] = useState(false);
   // const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
   const pathname = usePathname();
@@ -128,7 +116,7 @@ const Admin = ({ children }: any) => {
 
   React.useEffect(() => {
     if (!pathname) return;
-  
+
     if (
       pathname.startsWith("/admin/allposts") ||
       pathname.startsWith("/admin/addblog") ||
@@ -139,7 +127,7 @@ const Admin = ({ children }: any) => {
     } else {
       setIsManageBlogOpen(false);
     }
-  
+
     if (
       pathname.startsWith("/admin/users/all") ||
       pathname.startsWith("/admin/users/verified-users") ||
@@ -150,7 +138,7 @@ const Admin = ({ children }: any) => {
     } else {
       setUserOpen(false);
     }
-  
+
     if (
       pathname.startsWith("/admin/estimate-builder/category") ||
       pathname.startsWith("/admin/estimate-builder/option") ||
@@ -161,7 +149,7 @@ const Admin = ({ children }: any) => {
     } else {
       setManageEstimateOpen(false);
     }
-  
+
     if (
       pathname.startsWith("/admin/price-list/labour-price-list") ||
       pathname.startsWith("/admin/estimate-builder/option") ||
@@ -171,7 +159,7 @@ const Admin = ({ children }: any) => {
     } else {
       setIsManageListOpen(false);
     }
-  
+
     if (
       pathname.startsWith("/admin/subscribers/all-subscribers") ||
       pathname.startsWith("/admin/subscribers/unsubscribers") ||
@@ -182,8 +170,8 @@ const Admin = ({ children }: any) => {
       setIsSubListOpen(false);
     }
 
-    isManageListOpen 
-  
+    isManageListOpen;
+
     if (
       pathname.startsWith("/admin/call-request/no-response") ||
       pathname.startsWith("/admin/call-request/response")
@@ -192,8 +180,6 @@ const Admin = ({ children }: any) => {
     } else {
       setRequestOpen(false);
     }
-
-
 
     if (
       pathname.startsWith("/admin/price-list/labour-price-list") ||
@@ -204,10 +190,8 @@ const Admin = ({ children }: any) => {
       setIsManageListOpen(false);
     }
   }, [pathname]);
-  
 
-
-  // isManageEstimateOpen 
+  // isManageEstimateOpen
 
   // IsRequestOpen
 
@@ -270,10 +254,6 @@ const Admin = ({ children }: any) => {
           </div>
         </div>
       </nav>
-
-
-
-
 
       <aside
         className={`fixed top-0 left-0 z-40 w-64 h-screen pt-20 shadow-md transition-transform ${

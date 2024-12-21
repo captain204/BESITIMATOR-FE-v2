@@ -10,7 +10,6 @@ import Subservices from "@/screens/LandingPageScreen/SubServices";
 import BrandsSection from "@/screens/LandingPageScreen/Brands";
 import SplashScreen from "@/screens/SplashScreen";
 
-
 export default function Home() {
   const [showSplash, setShowSplash] = useState(true);
 
@@ -45,10 +44,6 @@ export default function Home() {
     </div>
   );
 }
-
-
-
-
 
 // "use client";
 

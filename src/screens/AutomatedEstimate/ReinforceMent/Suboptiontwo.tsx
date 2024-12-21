@@ -7,20 +7,25 @@ const SelectInputtwo = () => {
   //   setSelected(event.target.value);
   // };
 
+  
+  
+    useEffect(() => {
+      const storedOption = localStorage.getItem("is-the-land-area");
+      if (storedOption) {
+        setSelected(storedOption);
+      } else {
+        localStorage.setItem("is-the-land-area", "Non-water logged/stable");
+      }
+    }, []);
+
+
     const handleSelectChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
       const newOption = event.target.value;
       setSelected(newOption);
-      localStorage.setItem("IsTheLandArea", newOption);
+      localStorage.setItem("is-the-land-area", newOption);
     };
 
-  useEffect(() => {
-    const storedOption = localStorage.getItem("IsTheLandArea");
-    if (storedOption) {
-      setSelected(storedOption);
-    } else {
-      localStorage.setItem("IsTheLandArea", "Non-water logged/stable");
-    }
-  }, []);
+
 
   return (
     <div className="flex flex-col items-center justify-center  gap-3  w-full mb-6 md:ml-20">

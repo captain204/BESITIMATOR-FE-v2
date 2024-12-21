@@ -1,10 +1,27 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 const EOptionOne = () => {
-  const [selected, setSelected] = useState<string>("option2");
+  const [selected, setSelected] = useState<string>("To receive concrete");
 
+  useEffect(() => {
+    const storedOption = localStorage.getItem(
+      "What-area-do-you-require-concrete-for"
+    );
+    if (storedOption) {
+      setSelected(storedOption);
+    } else {
+      localStorage.setItem(
+        "What-area-do-you-require-concrete-for",
+        "To receive concrete"
+      );
+    }
+  }, []);
+
+  // Update the selected option and store it in localStorage
   const handleSelectChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    setSelected(event.target.value);
+    const newOption = event.target.value;
+    setSelected(newOption);
+    localStorage.setItem("What-area-do-you-require-concrete-for", newOption);
   };
 
   return (

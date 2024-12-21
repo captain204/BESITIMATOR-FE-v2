@@ -1,11 +1,27 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 const Fillings = () => {
-  const [selected, setSelected] = useState<string>("option1");
+  const [selected, setSelected] = useState<string>("Filling with Sharp sand");
 
-  const handleSelectChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    setSelected(event.target.value);
-  };
+  // const handleSelectChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+  //   setSelected(event.target.value);
+  // };
+
+    useEffect(() => {
+      const storedOption = localStorage.getItem("Filling-works");
+      if (storedOption) {
+        setSelected(storedOption);
+      } else {
+        localStorage.setItem("Filling-works", "Filling with Sharp sand");
+      }
+    }, []);
+  
+    // Update the selected option and store it in localStorage
+    const handleSelectChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+      const newOption = event.target.value;
+      setSelected(newOption);
+      localStorage.setItem("Filling-works", newOption);
+    };
 
   return (
     <div className="flex flex-col items-center justify-center  gap-3  w-full max-w-2xl md:ml-20">

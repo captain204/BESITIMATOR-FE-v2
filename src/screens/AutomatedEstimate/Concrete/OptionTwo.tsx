@@ -1,11 +1,20 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 const EOptionTwo = () => {
-  const [selected, setSelected] = useState<string>("option2");
+  const [selected, setSelected] = useState<string>("Grade M7.5(1:4:8)");
 
   const handleSelectChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     setSelected(event.target.value);
   };
+
+  useEffect(() => {
+    const storedOption = localStorage.getItem("What-type-of-concrete-mix");
+    if (storedOption) {
+      setSelected(storedOption);
+    } else {
+      localStorage.setItem("What-type-of-concrete-mix", "Grade M7.5(1:4:8)");
+    }
+  }, []);
 
   return (
     <div className="flex flex-col items-center justify-center  gap-3  w-full md:ml-20">

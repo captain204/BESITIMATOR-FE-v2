@@ -45,7 +45,7 @@ export const loginUser = createAsyncThunk(
         // const oneHour = 1 / 24;
         Cookies.set("token", token);
         console.log(token);
-        window.location.href = "/admin/dashboard";
+        window.location.href = "/automated-estimate";
       }
       return response.data;
     } catch (error: any) {
