@@ -8,11 +8,11 @@ const DampProving = () => {
   };
 
   useEffect(() => {
-    const storedOption = localStorage.getItem("Damp-proofing-works:");
+    const storedOption = localStorage.getItem("Damp-proofing-works");
     if (storedOption) {
       setSelected(storedOption);
     } else {
-      localStorage.setItem("Damp-proofing-works:", "Damp prove course");
+      localStorage.setItem("Damp-proofing-works", "Damp prove course");
     }
   }, []);
 

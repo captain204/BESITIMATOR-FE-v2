@@ -1,10 +1,24 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 const Slabs = () => {
-  const [selected, setSelected] = useState<string>("option2");
+  const [selected, setSelected] = useState<string>("Slab with average thickness of 150mm");
+
+ useEffect(() => {
+    const storedOption = localStorage.getItem("Slabstwo");
+    if (storedOption) {
+      setSelected(storedOption);
+    } else {
+      localStorage.setItem(
+        "Slabstwo",
+        "Slab with average thickness of 150mm"
+      );
+    }
+  }, []);
 
   const handleSelectChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    setSelected(event.target.value);
+    const newOption = event.target.value;
+    setSelected(newOption);
+    localStorage.setItem("Slabstwo", newOption);
   };
 
   return (

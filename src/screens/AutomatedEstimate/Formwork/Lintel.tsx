@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import SelectInput from "./Groundbeams";
 
 
@@ -20,14 +20,25 @@ const options = [
 ];
 
 export default function Lintels() {
-  const [selectedOption, setSelectedOption] = useState("Reinforcement");
+  const [selected, setSelected] = useState("Reinforcement");
 
-  const handleSelectChange = (event: any) => {
-    setSelectedOption(event.target.value);
-  };
+   useEffect(() => {
+     const storedOption = localStorage.getItem("Where-do-you-need-your-reinforcement-for");
+     if (storedOption) {
+       setSelected(storedOption);
+     } else {
+       localStorage.setItem("Where-do-you-need-your-reinforcement-for", "Reinforcement");
+     }
+   }, []);
+ 
+   const handleSelectChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+     const newOption = event.target.value;
+     setSelected(newOption);
+     localStorage.setItem("Where-do-you-need-your-reinforcement-for", newOption);
+   };
 
   const selectedComponent = options.find(
-    (opt) => opt.value === selectedOption
+    (opt) => opt.value === selected
   )?.component;
 
   return (
@@ -44,7 +55,7 @@ export default function Lintels() {
         <select
           id="select-option"
           onChange={handleSelectChange}
-          value={selectedOption}
+          value={selected}
           className="py-3 w-full md:w-96 p-1 bg-white border text-black border-gray-300 rounded-lg  focus:ring-1 focus:ring-yellow-400 focus:outline-none"
         >
           {options.map((option) => (

@@ -1,10 +1,26 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 const Suspendedbeams = () => {
-  const [selected, setSelected] = useState<string>("option2");
+  const [selected, setSelected] = useState<string>(
+    "framed structure av. Height 300mm"
+  );
+
+  useEffect(() => {
+    const storedOption = localStorage.getItem("Suspended-beams");
+    if (storedOption) {
+      setSelected(storedOption);
+    } else {
+      localStorage.setItem(
+        "Suspended-beams",
+        "framed structure av. Height 300mm"
+      );
+    }
+  }, []);
 
   const handleSelectChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    setSelected(event.target.value);
+    const newOption = event.target.value;
+    setSelected(newOption);
+    localStorage.setItem("Suspended-beams", newOption);
   };
 
   return (
@@ -25,7 +41,7 @@ const Suspendedbeams = () => {
             framed structure av. Height 300mm
           </option>
           <option value="unframed structure av. Height 300mm">
-          framed structure av. Height 300mm
+            framed structure av. Height 300mm
           </option>
         </select>
       </div>

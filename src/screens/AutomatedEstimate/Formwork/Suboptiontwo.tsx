@@ -1,10 +1,24 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 const SelectInputtwo = () => {
-  const [selected, setSelected] = useState<string>("option2");
+  const [selected, setSelected] = useState<string>("Non-water logged/stable");
+
+  useEffect(() => {
+    const storedOption = localStorage.getItem("Is-the-land-area");
+    if (storedOption) {
+      setSelected(storedOption);
+    } else {
+      localStorage.setItem(
+        "Is-the-land-area",
+        "Non-water logged/stable"
+      );
+    }
+  }, []);
 
   const handleSelectChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    setSelected(event.target.value);
+    const newOption = event.target.value;
+    setSelected(newOption);
+    localStorage.setItem("Is-the-land-area", newOption);
   };
 
   return (
@@ -25,11 +39,11 @@ const SelectInputtwo = () => {
           onChange={handleSelectChange}
           className="py-3 w-full md:w-96 p-1 bg-white border text-black border-gray-300 rounded-lg  focus:ring-1 focus:ring-yellow-400 focus:outline-none"
         >
-          <option value="option1">Non-water logged/stable</option>
-          <option value="option2">
+          <option value="Non-water logged/stable">Non-water logged/stable</option>
+          <option value=" Unstable ground / slightly water logged">
             Unstable ground / slightly water logged
           </option>
-          <option value="option3">Swampy/highly water logged land</option>
+          <option value="Swampy/highly water logged land">Swampy/highly water logged land</option>
         </select>
       </div>
     </div>

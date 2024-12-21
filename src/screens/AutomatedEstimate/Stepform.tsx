@@ -31,6 +31,47 @@ const Stepform = () => {
   const material8 =
     localStorage.getItem("Disposal-of-Excavated-Materials") || "";
   const material9 = localStorage.getItem("Filling-works") || "";
+  const material10 =
+    localStorage.getItem("What-area-do-you-require-concrete-for") || "";
+  const material11 = localStorage.getItem("What-type-of-concrete-mix") || "";
+  const material12 = localStorage.getItem("Damp-proofing-works") || "";
+
+  //reforcement
+  const material13 = localStorage.getItem("is-the-land-area") || "";
+
+  const material14 = localStorage.getItem("Slabs") || "";
+
+  const material15 =
+    localStorage.getItem("Where-you-need-your-reinforcement-for") || "";
+
+  const material16 =
+    localStorage.getItem("material-used-for-your-lintel") || "";
+
+  const material17 = localStorage.getItem("Suspended-beams") || "";
+
+  //formwork
+  const material19 = localStorage.getItem("Is-the-land-area") || "";
+  const material20 = localStorage.getItem("Slabstwo") || "";
+  const material21 = localStorage.getItem("Reinforcement") || "";
+  const material22 =
+    localStorage.getItem("Where-do-you-need-your-reinforcement-for") || "";
+  const material23 = localStorage.getItem("(a)Ground Beams") || "";
+  const material24 = localStorage.getItem("Formwork/Carpentry-works") || "";
+  const material25 = localStorage.getItem("(a)Ground Beams") || "";
+
+  const material26 = localStorage.getItem("(a)Ground Beams") || "";
+
+  //blockwork
+
+  const material27 = localStorage.getItem("Blockwork-and-Brickwork") || "";
+
+  const material28 = localStorage.getItem("What-type-of-roof") || "";
+
+  //platering
+  const material29 =
+    localStorage.getItem("What-is-the-thickness-of-your-plastering") || "";
+  const material30 =
+    localStorage.getItem("What-is-your-plastering-mix-ratio") || "";
 
   const [formData, setFormData] = useState({
     type: "automated",
@@ -58,6 +99,37 @@ const Stepform = () => {
       materials = [ItemOfWork, material5, material6, material7, material8];
     } else if (ItemOfWork === "Filling works") {
       materials = [ItemOfWork, material9];
+    } else if (ItemOfWork === "Concrete/Binding Works") {
+      materials = [ItemOfWork, material10, material11];
+    } else if (ItemOfWork === "Damp proofing works") {
+      materials = [ItemOfWork, material12];
+    } else if (ItemOfWork === "Reinforcement/Iron bending works") {
+      materials = [
+        ItemOfWork,
+        material13,
+        material14,
+        material15,
+        material16,
+        material17,
+      ];
+    } else if (ItemOfWork === "Formwork/Capentry works") {
+      materials = [
+        ItemOfWork,
+        material19,
+        material20,
+        material21,
+        material22,
+        material23,
+        material24,
+        material25,
+        material26,
+      ];
+    } else if (ItemOfWork === "Blockwork and Brickwork") {
+      materials = [ItemOfWork, material27];
+    } else if (ItemOfWork === "Roofing works") {
+      materials = [ItemOfWork, material28];
+    } else if (ItemOfWork === "platering works") {
+      materials = [ItemOfWork, material29, material30];
     }
 
     // Update formData with the new materials array

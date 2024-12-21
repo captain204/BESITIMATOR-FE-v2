@@ -1,10 +1,22 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 const RoofingWorks = () => {
-  const [selected, setSelected] = useState<string>("option1");
+  const [selected, setSelected] = useState<string>("Gable roof");
 
+  useEffect(() => {
+    const storedOption = localStorage.getItem("What-type-of-roof");
+    if (storedOption) {
+      setSelected(storedOption);
+    } else {
+      localStorage.setItem("What-type-of-roof", "Gable roof");
+    }
+  }, []);
+
+  // Update the selected option and store it in localStorage
   const handleSelectChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    setSelected(event.target.value);
+    const newOption = event.target.value;
+    setSelected(newOption);
+    localStorage.setItem("What-type-of-roof", newOption);
   };
 
   return (
@@ -14,7 +26,7 @@ const RoofingWorks = () => {
           htmlFor="select-option"
           className="block text-black text-lg font-medium mb-2"
         >
-         (a) What type of roof is to be used in your building ?
+          (a) What type of roof is to be used in your building ?
         </label>
         <select
           value={selected}

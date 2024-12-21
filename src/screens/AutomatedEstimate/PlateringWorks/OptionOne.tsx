@@ -1,10 +1,22 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 const OptionOne = () => {
-  const [selected, setSelected] = useState<string>("option1");
+  const [selected, setSelected] = useState<string>("1:3");
 
+  useEffect(() => {
+    const storedOption = localStorage.getItem("1:3");
+    if (storedOption) {
+      setSelected(storedOption);
+    } else {
+      localStorage.setItem("What-is-your-plastering-mix-ratio", "1:3");
+    }
+  }, []);
+
+  // Update the selected option and store it in localStorage
   const handleSelectChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    setSelected(event.target.value);
+    const newOption = event.target.value;
+    setSelected(newOption);
+    localStorage.setItem("What-is-your-plastering-mix-ratio", newOption);
   };
 
   return (

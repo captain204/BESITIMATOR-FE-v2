@@ -1,25 +1,23 @@
 import React, { useState, useEffect } from "react";
 
 const Blockwork = () => {
-  const defaultOption = '225mm Blockwork(9")'; // Default option
-  const [blockworkAndBrickwork, setBlockworkAndBrickwork] = useState<string>(defaultOption);
+  const [selected, setSelected] = useState<string>('225mm Blockwork(9")');
 
   // Store default value in localStorage on page load
   useEffect(() => {
-    const storedData = localStorage.getItem("automated");
-    if (!storedData) {
-      const automated = { blockworkAndBrickwork: defaultOption };
-      localStorage.setItem("automated", JSON.stringify(automated));
+    const storedOption = localStorage.getItem("Blockwork-and-Brickwork");
+    if (storedOption) {
+      setSelected(storedOption);
+    } else {
+      localStorage.setItem("Blockwork-and-Brickwork", '225mm Blockwork(9")');
     }
-  }, [defaultOption]);
+  }, []);
 
+  // Update the selected option and store it in localStorage
   const handleSelectChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    const newValue = event.target.value;
-    setBlockworkAndBrickwork(newValue);
-
-    // Update localStorage
-    const automated = { blockworkAndBrickwork: newValue };
-    localStorage.setItem("Blockwork and Brickwork", JSON.stringify(automated));
+    const newOption = event.target.value;
+    setSelected(newOption);
+    localStorage.setItem("Blockwork-and-Brickwork", newOption);
   };
 
   return (
@@ -42,7 +40,7 @@ const Blockwork = () => {
             (a) Blockwork and Brickwork:
           </label>
           <select
-            value={blockworkAndBrickwork}
+            value={selected}
             onChange={handleSelectChange}
             className="py-3 w-full md:w-96 p-1 bg-white border text-black border-gray-300 rounded-lg focus:ring-1 focus:ring-yellow-400 focus:outline-none"
           >
@@ -59,7 +57,6 @@ const Blockwork = () => {
 };
 
 export default Blockwork;
-
 
 // import React, { useState } from "react";
 

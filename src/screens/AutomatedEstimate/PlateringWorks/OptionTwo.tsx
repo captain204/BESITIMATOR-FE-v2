@@ -1,10 +1,22 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 const OptionTwo = () => {
-  const [selected, setSelected] = useState<string>("option1");
+  const [selected, setSelected] = useState<string>("12mm");
 
+  useEffect(() => {
+    const storedOption = localStorage.getItem("What-is-the-thickness-of-your-plastering");
+    if (storedOption) {
+      setSelected(storedOption);
+    } else {
+      localStorage.setItem("What-is-the-thickness-of-your-plastering", "12mm");
+    }
+  }, []);
+
+  // Update the selected option and store it in localStorage
   const handleSelectChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    setSelected(event.target.value);
+    const newOption = event.target.value;
+    setSelected(newOption);
+    localStorage.setItem("What-is-the-thickness-of-your-plastering", newOption);
   };
 
   return (

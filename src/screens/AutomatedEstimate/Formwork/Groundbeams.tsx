@@ -1,11 +1,22 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 const Groundbeams = () => {
-  const [selected, setSelected] = useState<string>("option2");
+  const [selected, setSelected] = useState<string>("Ground Beams Upstands");
 
-  const handleSelectChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    setSelected(event.target.value);
-  };
+ useEffect(() => {
+     const storedOption = localStorage.getItem("(a)Ground Beams");
+     if (storedOption) {
+       setSelected(storedOption);
+     } else {
+       localStorage.setItem("(a)Ground Beams", "Ground Beams Upstands");
+     }
+   }, []);
+ 
+   const handleSelectChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+     const newOption = event.target.value;
+     setSelected(newOption);
+     localStorage.setItem("(a)Ground Beams", newOption);
+   };
 
   return (
     <div className="flex flex-col items-center gap-3  justify-center w-full md:ml-20">

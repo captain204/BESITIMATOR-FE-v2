@@ -1,10 +1,23 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 const LintelOption = () => {
-  const [selected, setSelected] = useState<string>("option2");
+  const [selected, setSelected] = useState<string>(
+    "in situ casted (width 225mm"
+  );
+
+  useEffect(() => {
+    const storedOption = localStorage.getItem("Reinforcement");
+    if (storedOption) {
+      setSelected(storedOption);
+    } else {
+      localStorage.setItem("Reinforcement", "in situ casted (width 225mm");
+    }
+  }, []);
 
   const handleSelectChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    setSelected(event.target.value);
+    const newOption = event.target.value;
+    setSelected(newOption);
+    localStorage.setItem("Reinforcement", newOption);
   };
 
   return (
