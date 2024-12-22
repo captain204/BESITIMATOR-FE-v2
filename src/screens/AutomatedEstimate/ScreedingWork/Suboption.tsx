@@ -1,10 +1,23 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 const SelectInput = () => {
-  const [selected, setSelected] = useState<string>("option2");
+  const [selected, setSelected] = useState<string>("Smooth wall");
+  
 
+  useEffect(() => {
+    const storedOption = localStorage.getItem("Wall-screeding");
+    if (storedOption) {
+      setSelected(storedOption);
+    } else {
+      localStorage.setItem("Wall-screeding", "Smooth wall");
+    }
+  }, []);
+
+  // Update the selected option and store it in localStorage
   const handleSelectChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    setSelected(event.target.value);
+    const newOption = event.target.value;
+    setSelected(newOption);
+    localStorage.setItem("Wall-screeding", newOption);
   };
 
   return (

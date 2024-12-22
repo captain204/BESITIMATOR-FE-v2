@@ -104,8 +104,8 @@ const options = [
   },
 
   {
-    label: "platering works",
-    value: "platering works",
+    label: "plastering works",
+    value: "plastering works",
     component: (
       <div>
         <PlateringWorks />

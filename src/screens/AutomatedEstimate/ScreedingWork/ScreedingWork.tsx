@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import SelectInput from "./Suboption";
 import SelectInputtwo from "./Suboptiontwo";
 
@@ -24,16 +24,26 @@ const options = [
 ];
 
 export default function Screeding() {
-  const [selectedOption, setSelectedOption] = useState(
-    "Wall Screeding (To receive paint)"
-  );
+  const [selected, setSelected] = useState("Wall Screeding (To receive paint)");
 
-  const handleSelectChange = (event: any) => {
-    setSelectedOption(event.target.value);
+  useEffect(() => {
+    const storedOption = localStorage.getItem("Wall-screeding");
+    if (storedOption) {
+      setSelected(storedOption);
+    } else {
+      localStorage.setItem("Wall-screeding", "Smooth wall");
+    }
+  }, []);
+
+  // Update the selected option and store it in localStorage
+  const handleSelectChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    const newOption = event.target.value;
+    setSelected(newOption);
+    localStorage.setItem("Wall-screeding", newOption);
   };
 
   const selectedComponent = options.find(
-    (opt) => opt.value === selectedOption
+    (opt) => opt.value === selected
   )?.component;
 
   return (
@@ -50,7 +60,7 @@ export default function Screeding() {
         <select
           id="select-option"
           onChange={handleSelectChange}
-          value={selectedOption}
+          value={selected}
           className="py-3 w-full md:w-96 p-1 bg-white border text-black border-gray-300 rounded-lg focus:ring-1 focus:ring-yellow-400 focus:outline-none"
         >
           {options.map((option) => (

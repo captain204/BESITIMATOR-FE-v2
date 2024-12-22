@@ -24,7 +24,7 @@ const OptionTwo = () => {
       <div className="w-full">
         <label
           htmlFor="select-option"
-          className="block text-black text-lg font-medium mb-2"
+          className="block text-black text-lg font-medium mb-2 md:w-96"
         >
           (a) What is the thickness of your plastering?
         </label>
