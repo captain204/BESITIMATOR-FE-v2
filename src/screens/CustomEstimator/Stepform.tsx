@@ -17,20 +17,42 @@ const Stepform = () => {
   const [isLastStep, setIsLastStep] = useState(false);
   const [isFirstStep, setIsFirstStep] = useState(true);
   const [loading, setLoading] = useState(false);
-
-  const ItemOfWork = localStorage.getItem("ItemOfWork") || "";
-  const material0 = localStorage.getItem("material0") || "";
-  const material1 = localStorage.getItem("clearing works") || "";
-  const material2 = localStorage.getItem("landAreaComposition") || "";
-  const material3 = localStorage.getItem("IsTheLandArea") || "";
-  const material4 = localStorage.getItem("ShapeOfBuilding") || "";
+  const ItemOfWork =
+    typeof window !== "undefined"
+      ? localStorage.getItem("ItemOfWork") || ""
+      : "";
+  const material1 =
+    typeof window !== "undefined"
+      ? localStorage.getItem("clearing works") || ""
+      : "";
+  const material2 =
+    typeof window !== "undefined"
+      ? localStorage.getItem("landAreaComposition") || ""
+      : "";
+  const material3 =
+    typeof window !== "undefined"
+      ? localStorage.getItem("IsTheLandArea") || ""
+      : "";
+  const material4 =
+    typeof window !== "undefined"
+      ? localStorage.getItem("ShapeOfBuilding") || ""
+      : "";
   const material5 =
-    localStorage.getItem("Disposal-of-Excavated-Materials") || "";
+    typeof window !== "undefined"
+      ? localStorage.getItem("Disposal-of-Excavated-Materials") || ""
+      : "";
   const material6 =
-    localStorage.getItem("Would-your-excavation-require-shoring") || "";
-  const material7 = localStorage.getItem("length-to-be-shored") || "";
+    typeof window !== "undefined"
+      ? localStorage.getItem("Would-your-excavation-require-shoring") || ""
+      : "";
+  const material7 =
+    typeof window !== "undefined"
+      ? localStorage.getItem("length-to-be-shored") || ""
+      : "";
   const material8 =
-    localStorage.getItem("Disposal-of-Excavated-Materials") || "";
+    typeof window !== "undefined"
+      ? localStorage.getItem("Disposal-of-Excavated-Materials") || ""
+      : "";
 
   const [formData, setFormData] = useState({
     type: "automated",
@@ -51,11 +73,11 @@ const Stepform = () => {
     // Dynamically set the materials array based on ItemOfWork
     let materials: any = [];
     if (ItemOfWork === "Clearing Works") {
-      materials = [material0, material1, material2, material3, material4];
+      materials = [material1, material2, material3, material4];
     } else if (ItemOfWork === "Setting out") {
-      materials = [material0, material5];
+      materials = [material5];
     } else if (ItemOfWork === "Excavation") {
-      materials = [material0, material6, material7, material8];
+      materials = [material6, material7, material8];
     }
 
     // Update formData with the new materials array
@@ -65,17 +87,18 @@ const Stepform = () => {
     }));
   }, [ItemOfWork]); // Trigger when ItemOfWork changes
 
-
-
-
   const handleNext = async () => {
-    console.log('Current Step:', activeStep); // Debug log
-    if (activeStep === 1) { // If on Step 2
-      console.log('Submitting form on Step 2...');
+    console.log("Current Step:", activeStep); // Debug log
+    if (activeStep === 1) {
+      // If on Step 2
+      console.log("Submitting form on Step 2...");
       setLoading(true); // Show loading spinner
-  
+
       try {
-        const response = await axiosInstance.post("/api/users/estimator", formData);
+        const response = await axiosInstance.post(
+          "/api/users/estimator",
+          formData
+        );
         console.log("Form submitted successfully:", response.data);
         toast.success("Automated Form submitted successfully!");
       } catch (error) {
@@ -84,10 +107,14 @@ const Stepform = () => {
       } finally {
         setLoading(false); // Hide loading spinner
       }
-    } else if (isLastStep) { // If on the last step (Step 3)
+    } else if (isLastStep) {
+      // If on the last step (Step 3)
       setLoading(true); // Show loading spinner
       try {
-        const response = await axiosInstance.post("/api/users/estimator", formData);
+        const response = await axiosInstance.post(
+          "/api/users/estimator",
+          formData
+        );
         console.log("Form submitted successfully:", response.data);
         toast.success("Automated Form submitted successfully!");
       } catch (error) {
@@ -101,8 +128,6 @@ const Stepform = () => {
       setActiveStep((cur) => cur + 1);
     }
   };
-  
-
 
   // const handleNext = async () => {
   //   if (activeStep === 1) { // If we're on Step 2 (index 1)
@@ -135,7 +160,6 @@ const Stepform = () => {
   //     setActiveStep((cur) => cur + 1);
   //   }
   // };
-  
 
   // const handleNext = async () => {
   //   if (isLastStep) {
