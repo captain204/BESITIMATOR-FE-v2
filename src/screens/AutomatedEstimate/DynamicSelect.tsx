@@ -182,7 +182,7 @@ export default function DynamicSelect() {
     if (storedOption) {
       setSelected(storedOption);
     } else {
-      localStorage.setItem("ItemOfWork", "clearing");
+      localStorage.setItem("ItemOfWork", "Clearing Works");
     }
   }, []);
 
