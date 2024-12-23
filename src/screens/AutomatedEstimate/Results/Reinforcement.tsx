@@ -1,6 +1,11 @@
+import { getUser } from "@/Globals/Slices/AuthSlices/GetUser";
+import { AppDispatch, RootState } from "@/Globals/store/store";
+import Link from "next/link";
 import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 
 const Reinforcement: React.FC = () => {
+ 
   const [settings, setSettings] = useState<any>({
     area: "Ground beam (average height of 1m and width 0.23m)",
     girthLength: "100",
@@ -10,6 +15,16 @@ const Reinforcement: React.FC = () => {
     bindingWireRolls: "10",
     labourTons: "10",
   });
+
+  const dispatch: AppDispatch = useDispatch();
+
+  const response = useSelector((state: RootState) => state.getUser.response);
+
+  useEffect(() => {
+    {
+      dispatch(getUser());
+    }
+  }, [dispatch]);
 
   useEffect(() => {
     if (typeof window !== "undefined" && window.localStorage) {
@@ -37,15 +52,15 @@ const Reinforcement: React.FC = () => {
     labourTons,
   } = settings;
 
-  const userName = "User Name";
+  // const userName = "User Name";
 
   return (
     <div>
       <h1 className="text-2xl font-bold text-black mb-4">
         Reinforcement Result
       </h1>
-      <p className="text-black">
-        Hi <strong>{userName}</strong>,
+      <p className="text-black font-bold">
+        Hi <strong className="font-bold"> {response?.name}</strong>,
       </p>
       <p className="text-black mb-4">
         Reinforcement requirement for a Ground beam of an average height of 1m
@@ -85,12 +100,12 @@ const Reinforcement: React.FC = () => {
           <li>1 construction day = 9 Hours</li>
         </ul>
         You can check our{" "}
-        <a
-          href="/material-and-labor-price-list"
+        <Link
+          href="/pricing"
           className="text-blue-900 underline"
         >
           material and labour price list/rates
-        </a>{" "}
+        </Link>{" "}
         for applicable rates for your project.
       </p>
     </div>

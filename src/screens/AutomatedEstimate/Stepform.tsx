@@ -12,8 +12,10 @@ import StepTwo from "./StepTwo";
 import { toast } from "react-toastify";
 import axiosInstance from "@/Globals/Interceptor";
 import ResultPage from "./Results/StepThree";
+import { useRouter } from "next/navigation";
 
 const Stepform = () => {
+  const router = useRouter();
   const [activeStep, setActiveStep] = useState(0);
   const [isLastStep, setIsLastStep] = useState(false);
   const [isFirstStep, setIsFirstStep] = useState(true);
@@ -131,7 +133,11 @@ const Stepform = () => {
   }, [storedMaterials]);
 
   const handleNext = async () => {
-    if (activeStep === 1 || isLastStep) {
+    if (isLastStep) {
+      router.push("/"); // Navigate to the home route
+      return;
+    }
+    if (activeStep === 1) {
       const isValid = await validateStepTwo?.(); // Optional chaining for safety
       if (!isValid) {
         toast.error("Please correct the errors before proceeding.");
@@ -287,7 +293,7 @@ const Stepform = () => {
               loading...
             </div>
           ) : isLastStep ? (
-            "Submit"
+            "go back to home"
           ) : (
             "Next"
           )}

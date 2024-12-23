@@ -1,7 +1,20 @@
+import { getUser } from "@/Globals/Slices/AuthSlices/GetUser";
+import { AppDispatch, RootState } from "@/Globals/store/store";
 import Link from "next/link";
-import React from "react";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 
 const ClearWorkResult: React.FC = () => {
+  const dispatch: AppDispatch = useDispatch();
+
+  const response = useSelector((state: RootState) => state.getUser.response);
+
+  useEffect(() => {
+    {
+      dispatch(getUser());
+    }
+  }, [dispatch]);
+
   const ItemOfWork = localStorage.getItem("ItemOfWork");
   const userName = "User Name";
   const areaToBeCleared = 1;
@@ -17,7 +30,7 @@ const ClearWorkResult: React.FC = () => {
         {ItemOfWork} Result
       </h1>
       <p>
-        Hi <strong>{userName}</strong>,
+        Hi <strong className="font-bold">{response?.name}</strong>,
       </p>
       <p className="text-black">
         For <strong>{areaToBeCleared} m²</strong> adopting{" "}

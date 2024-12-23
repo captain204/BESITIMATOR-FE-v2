@@ -1,4 +1,8 @@
+import { getUser } from "@/Globals/Slices/AuthSlices/GetUser";
+import { AppDispatch, RootState } from "@/Globals/store/store";
+import Link from "next/link";
 import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 
 const DampProofing: React.FC = () => {
   const [settings, setSettings] = useState<any>({
@@ -8,6 +12,17 @@ const DampProofing: React.FC = () => {
     bituminousFeltArea: "50",
     labourDaysFelt: "3",
   });
+
+  const dispatch: AppDispatch = useDispatch();
+
+  const response = useSelector((state: RootState) => state.getUser.response);
+
+  useEffect(() => {
+    {
+      dispatch(getUser());
+    }
+  }, [dispatch]);
+
 
   useEffect(() => {
     if (typeof window !== "undefined" && window.localStorage) {
@@ -37,7 +52,7 @@ const DampProofing: React.FC = () => {
         Damp Proofing/Felting Work Details
       </h1>
       <p className="text-black">
-        Hi <strong>{userName}</strong>,
+        Hi <strong className="font-bold">{response?.name}</strong>,
       </p>
       <p className="text-black mb-4">
         For <strong>{area} m2</strong> of Damp proofing/Felting works, you will
@@ -66,12 +81,12 @@ const DampProofing: React.FC = () => {
           <li>1 construction day = 9 Hours</li>
         </ul>
         You can check our{" "}
-        <a
-          href="/material-and-labor-price-list"
+        <Link
+          href="/pricing"
           className="text-blue-900 underline"
         >
           material and labour price list/rates
-        </a>{" "}
+        </Link>{" "}
         for applicable rates for your project.
       </p>
     </div>

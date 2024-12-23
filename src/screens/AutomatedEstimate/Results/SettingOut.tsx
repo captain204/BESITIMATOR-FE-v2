@@ -1,4 +1,8 @@
+import { getUser } from "@/Globals/Slices/AuthSlices/GetUser";
+import { AppDispatch, RootState } from "@/Globals/store/store";
+import Link from "next/link";
 import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 
 const SettingOut: React.FC = () => {
   const [settings, setSettings] = useState<any>({
@@ -10,10 +14,21 @@ const SettingOut: React.FC = () => {
     ItemOfWork: null,
   });
 
+  const dispatch: AppDispatch = useDispatch();
+
+  const response = useSelector((state: RootState) => state.getUser.response);
+
+  useEffect(() => {
+    {
+      dispatch(getUser());
+    }
+  }, [dispatch]);
+
   useEffect(() => {
     if (typeof window !== "undefined" && window.localStorage) {
       setSettings({
-        perimeterOfStructure: localStorage.getItem("perimeterOfStructure") || "100",
+        perimeterOfStructure:
+          localStorage.getItem("perimeterOfStructure") || "100",
         pegBundles: localStorage.getItem("pegBundles") || "2",
         tieRodCount: localStorage.getItem("tieRodCount") || "31",
         nailKg: localStorage.getItem("nailKg") || "4.0",
@@ -23,15 +38,21 @@ const SettingOut: React.FC = () => {
     }
   }, []);
 
-  const { perimeterOfStructure, pegBundles, tieRodCount, nailKg, ropeQuantity } = settings;
+  const {
+    perimeterOfStructure,
+    pegBundles,
+    tieRodCount,
+    nailKg,
+    ropeQuantity,
+  } = settings;
 
-  const userName = "User Name";
+  // const userName = "User Name";
 
   return (
     <div>
       <h1 className="text-2xl font-bold text-black mb-4">Setting Out Result</h1>
       <p className="text-black">
-        Hi <strong>{userName}</strong>,
+        Hi <strong>{response?.name}</strong>,
       </p>
       <p className="text-black mb-4">
         Setting out involves marking out the area based on the project plan. It
@@ -78,12 +99,9 @@ const SettingOut: React.FC = () => {
       </p>
       <p className="text-black mb-6">
         1 construction day = 9 hours. You can check our{" "}
-        <a
-          href="/material-and-labor-price-list"
-          className="text-blue-900 underline"
-        >
+        <Link href="/pricing" className="text-blue-900 underline">
           material and labor price list/rates
-        </a>{" "}
+        </Link>{" "}
         for applicable rates for your project.
       </p>
     </div>
@@ -91,10 +109,6 @@ const SettingOut: React.FC = () => {
 };
 
 export default SettingOut;
-
-
-
-
 
 // import React from "react";
 

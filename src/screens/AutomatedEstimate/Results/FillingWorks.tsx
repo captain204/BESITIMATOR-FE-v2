@@ -1,4 +1,8 @@
+import { getUser } from "@/Globals/Slices/AuthSlices/GetUser";
+import { AppDispatch, RootState } from "@/Globals/store/store";
+import Link from "next/link";
 import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 
 const FillingWorks: React.FC = () => {
   const [settings, setSettings] = useState<any>({
@@ -11,6 +15,17 @@ const FillingWorks: React.FC = () => {
     areaToCompact: "100",
     labourOutputForCompacting: "1",
   });
+
+  const dispatch: AppDispatch = useDispatch();
+
+  const response = useSelector((state: RootState) => state.getUser.response);
+
+  useEffect(() => {
+    {
+      dispatch(getUser());
+    }
+  }, [dispatch]);
+
 
   useEffect(() => {
     if (typeof window !== "undefined" && window.localStorage) {
@@ -40,7 +55,7 @@ const FillingWorks: React.FC = () => {
     labourOutputForCompacting,
   } = settings;
 
-  const userName = "User Name";
+  // const userName = "User Name";
 
   return (
     <div>
@@ -48,7 +63,7 @@ const FillingWorks: React.FC = () => {
         Filling Work Result
       </h1>
       <p className="text-black mb-4">
-        Hi <strong>{userName}</strong>,
+        Hi <strong>{response?.name}</strong>,
       </p>
       <div className="text-black mb-4  ">
         <p className="font-bold">Filling Works </p>
@@ -89,12 +104,12 @@ const FillingWorks: React.FC = () => {
       </div>
       <p className="text-black mb-6">
         Note: 1 construction day = 9 hours. You can check our{" "}
-        <a
-          href="/material-and-labor-price-list"
+        <Link
+          href="/pricing"
           className="text-blue-900 underline"
         >
           material and labour price list/rates
-        </a>{" "}
+        </Link>{" "}
         for applicable rates for your project.
       </p>
 

@@ -1,4 +1,8 @@
+import { getUser } from "@/Globals/Slices/AuthSlices/GetUser";
+import { AppDispatch, RootState } from "@/Globals/store/store";
+import Link from "next/link";
 import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 
 const Formwork: React.FC = () => {
   const [settings, setSettings] = useState<any>({
@@ -13,6 +17,18 @@ const Formwork: React.FC = () => {
     labourArea: "200",
     carpenterDays: "5",
   });
+
+
+  const dispatch: AppDispatch = useDispatch();
+
+  const response = useSelector((state: RootState) => state.getUser.response);
+
+  useEffect(() => {
+    {
+      dispatch(getUser());
+    }
+  }, [dispatch]);
+
 
   useEffect(() => {
     if (typeof window !== "undefined" && window.localStorage) {
@@ -50,7 +66,7 @@ const Formwork: React.FC = () => {
     <div>
       <h1 className="text-2xl font-bold text-black mb-4">Formwork Requirement</h1>
       <p className="text-black">
-        Hi <strong>{userName}</strong>,
+        Hi <strong className="font-bold">{response?.name}</strong>,
       </p>
       <p className="text-black mb-4">
         Formwork requirement for <strong>{areaOfWork}</strong> of an area of <strong>{formworkArea} m2</strong>, you will require an estimated amount of:
@@ -76,12 +92,12 @@ const Formwork: React.FC = () => {
         <ul className="list-disc ml-6">
           <li>1 construction day = 9 Hours</li>
         </ul>
-        You can check our <a
-          href="/material-and-labor-price-list"
+        You can check our <Link
+          href="/pricing"
           className="text-blue-900 underline"
         >
           material and labour price list/rates
-        </a> for applicable rates for your project.
+        </Link> for applicable rates for your project.
       </p>
     </div>
   );

@@ -1,6 +1,21 @@
+import { getUser } from "@/Globals/Slices/AuthSlices/GetUser";
+import { AppDispatch, RootState } from "@/Globals/store/store";
+import Link from "next/link";
 import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 
 const ConcreteAndBlinding: React.FC = () => {
+
+  const dispatch: AppDispatch = useDispatch();
+
+  const response = useSelector((state: RootState) => state.getUser.response);
+
+  useEffect(() => {
+    {
+      dispatch(getUser());
+    }
+  }, [dispatch]);
+
   const [settings, setSettings] = useState<any>({
     volumeOfConcrete: "1",
     areaForConcrete: "Floor",
@@ -40,7 +55,7 @@ const ConcreteAndBlinding: React.FC = () => {
     labourOutputPerM3,
   } = settings;
 
-  const userName = "User Name";
+  // const userName = "User Name";
 
   return (
     <div>
@@ -48,7 +63,7 @@ const ConcreteAndBlinding: React.FC = () => {
         Concrete and Blinding Work Result
       </h1>
       <p className="text-black">
-        Hi <strong>{userName}</strong>,
+        Hi <strong className="font-bold">{response?.name}</strong>,
       </p>
       <p className="text-black mb-4">
         To cast a concrete/blinding work of{" "}
@@ -87,12 +102,12 @@ const ConcreteAndBlinding: React.FC = () => {
           <li>1 concrete mixer will cast = 40-50m3 in 1 construction day.</li>
         </ul>
         You can check our{" "}
-        <a
-          href="/material-and-labor-price-list"
+        <Link
+          href="/pricing"
           className="text-blue-900 underline"
         >
           material and labour price list/rates
-        </a>{" "}
+        </Link>{" "}
         for applicable rates for your project.
       </p>
     </div>

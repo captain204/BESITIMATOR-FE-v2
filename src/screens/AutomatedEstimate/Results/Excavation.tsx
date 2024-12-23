@@ -1,4 +1,8 @@
+import { getUser } from "@/Globals/Slices/AuthSlices/GetUser";
+import { AppDispatch, RootState } from "@/Globals/store/store";
+import Link from "next/link";
 import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 
 const Excavation: React.FC = () => {
   const [settings, setSettings] = useState<any>({
@@ -14,6 +18,17 @@ const Excavation: React.FC = () => {
     labourRequired: "2",
     labourOutputPerDay: "1",
   });
+
+  const dispatch: AppDispatch = useDispatch();
+
+  const response = useSelector((state: RootState) => state.getUser.response);
+
+  useEffect(() => {
+    {
+      dispatch(getUser());
+    }
+  }, [dispatch]);
+
 
   useEffect(() => {
     if (typeof window !== "undefined" && window.localStorage) {
@@ -53,7 +68,7 @@ const Excavation: React.FC = () => {
     <div>
       <h1 className="text-2xl font-bold text-black mb-4">Excavation Result</h1>
       <p className="text-black">
-        Hi <strong>{userName}</strong>,
+        Hi <strong>{response?.name}</strong>,
       </p>
       <p className="text-black mb-4">
         Excavation:
@@ -76,12 +91,12 @@ const Excavation: React.FC = () => {
         </p>
       </div>
       <p className="text-black mb-6">
-        Note: 1 construction day = 9 hours. You can check our <a
-          href="/material-and-labor-price-list"
+        Note: 1 construction day = 9 hours. You can check our <Link
+          href="/pricing"
           className="text-blue-900 underline"
         >
           material and labour price list/rates
-        </a> for applicable rates for your project.
+        </Link> for applicable rates for your project.
       </p>
     </div>
   );
