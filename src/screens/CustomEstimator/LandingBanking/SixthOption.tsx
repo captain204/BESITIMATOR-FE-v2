@@ -7,17 +7,12 @@ import YestwoOption from "./Yestwo";
 const options = [
   {
     label: "No",
-    value: "no",
-    component: (
-      <div>
-        {" "}
-        {/* <BoleansuboptionTwo /> */}
-      </div>
-    ),
+    value: "No",
+    component: <div> {/* <BoleansuboptionTwo /> */}</div>,
   },
   {
     label: "Yes",
-    value: "yes",
+    value: "Yes",
     component: (
       <div>
         {" "}
@@ -28,7 +23,7 @@ const options = [
 ];
 
 export default function SixthOption() {
-  const [selectedOption, setSelectedOption] = useState("yes");
+  const [selectedOption, setSelectedOption] = useState("No");
 
   const handleSelectChange = (event: any) => {
     setSelectedOption(event.target.value);
@@ -45,7 +40,7 @@ export default function SixthOption() {
       <div className="w-full">
         <label
           htmlFor="select-option"
-          className="block text-black text-lg  font-medium mb-2 w-96 pt-2"
+          className="block text-black text-lg  font-medium mb-2 md:w-96 pt-2"
         >
           06. Do you know the total area of the road to be constructed?
         </label>

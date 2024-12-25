@@ -13,7 +13,7 @@ const ROptionTwo = () => {
       <div className="w-full">
         <label
           htmlFor="select-option"
-          className="block text-black text-lg font-medium mb-2 w-96"
+          className="block text-black text-lg font-medium mb-2 md:w-96"
         >
           05. Do you know the length of the drainage Line ?
         </label>

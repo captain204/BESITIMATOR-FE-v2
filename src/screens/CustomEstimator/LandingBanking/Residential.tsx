@@ -7,6 +7,7 @@ import SizeGate from "./SizeOfGateOption";
 import SixthOption from "./SixthOption";
 // import Sixth from "./Fifth";
 import Fifth from "./Fifth";
+import ProgressSlider from "../Commercial/Slidder";
 
 const Residential = () => {
   return (
@@ -18,9 +19,9 @@ const Residential = () => {
       <EOptionTwo />
       <Fifth />
       <SixthOption />
-      {/* <SliderComponent /> */}
+      {/* <SliderComponent />  */}
 
-      {/* <ProgressSlider /> */}
+      <ProgressSlider />
     </div>
   );
 };

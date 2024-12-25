@@ -6,7 +6,7 @@ import YesOption from "./Yes";
 const options = [
   {
     label: "No",
-    value: "no",
+    value: "No",
     component: (
       <div>
         {" "}
@@ -16,7 +16,7 @@ const options = [
   },
   {
     label: "Yes",
-    value: "yes",
+    value: "Yes",
     component: (
       <div>
         {" "}
@@ -27,7 +27,7 @@ const options = [
 ];
 
 export default function BooleanOption() {
-  const [selectedOption, setSelectedOption] = useState("yes");
+  const [selectedOption, setSelectedOption] = useState("No");
 
   const handleSelectChange = (event: any) => {
     setSelectedOption(event.target.value);
@@ -44,7 +44,7 @@ export default function BooleanOption() {
       <div className="w-full">
         <label
           htmlFor="select-option"
-          className="block text-black text-lg  font-medium mb-2 w-96"
+          className="block text-black text-lg  font-medium mb-2 md:w-96"
         >
           02. Do you need to Clear out the Land Area?
         </label>

@@ -12,7 +12,7 @@ const SizeGate = () => {
       <div className="w-full">
         <label
           htmlFor="select-option"
-          className="block text-black text-lg font-medium mb-2 w-96"
+          className="block text-black text-lg font-medium mb-2 md:w-96"
         >
           03. What size of gate house are you looking to construct?
         </label>

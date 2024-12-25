@@ -12,7 +12,7 @@ const InputOptionOne = () => {
       <div className="w-full">
         <label
           htmlFor="length-input"
-          className="block text-black text-lg font-medium mb-2 w-96"
+          className="block text-black text-lg font-medium mb-2 md:w-96"
         >
           {/* (a). Please input area (m<sup>2</sup>) */}
           01. Input the total size of your land (m<sup>2</sup>) Cost of land per

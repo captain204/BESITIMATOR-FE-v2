@@ -8,12 +8,12 @@ import YesThreeOption from "./YesThree";
 const options = [
   {
     label: "No",
-    value: "no",
+    value: "No",
     component: <div> {/* <BoleansuboptionTwo /> */}</div>,
   },
   {
     label: "Yes",
-    value: "yes",
+    value: "Yes",
     component: (
       <div>
         {" "}
@@ -24,7 +24,7 @@ const options = [
 ];
 
 export default function Fifth() {
-  const [selectedOption, setSelectedOption] = useState("yes");
+  const [selectedOption, setSelectedOption] = useState("No");
 
   const handleSelectChange = (event: any) => {
     setSelectedOption(event.target.value);
@@ -41,7 +41,7 @@ export default function Fifth() {
       <div className="w-full">
         <label
           htmlFor="select-option"
-          className="block text-black text-lg  font-medium mb-2 w-96 pt-2"
+          className="block text-black text-lg  font-medium mb-2 md:w-96 pt-2"
         >
           05.Do you know the length of the drainage Line ?
         </label>
