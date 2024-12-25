@@ -1,39 +1,36 @@
 import { useState } from "react";
-import Residential from "./LandingBanking/Residential";
+import Residential from "./Residential/Residential";
 import Commercial from "./Commercial/Commercial";
 import Fencing from "./Fencing/Fencing";
-import LandingBanking from "./LandingBanking/LandingBanking";
 
 const options = [
   {
-    label: "Land Banking Development",
-    value: "Land Banking Development",
-    component: <LandingBanking />,
+    label: "Residential Project",
+    value: "Residential Project",
+    component: <Residential />,
   },
   {
-    label: "Residential/Commercial Development",
-    value: "Residential/Commercial Development",
+    label: "Commercial Project",
+    value: "Commercial Project",
     component: (
       <div>
         <Commercial />
       </div>
     ),
   },
-  // {
-  //   label: "Residential/Commercial Development",
-  //   value: "Residential/Commercial Development",
-  //   component: (
-  //     <div>
-  //       <Fencing />
-  //     </div>
-  //   ),
-  // },
+  {
+    label: "Fencing Project",
+    value: "Fencing Project",
+    component: (
+      <div>
+        <Fencing />
+      </div>
+    ),
+  },
 ];
 
 export default function DynamicSelect() {
-  const [selectedOption, setSelectedOption] = useState(
-    "Land Banking Development"
-  );
+  const [selectedOption, setSelectedOption] = useState("Residential Project");
   const handleSelectChange = (event: any) => {
     setSelectedOption(event.target.value);
   };
@@ -44,12 +41,13 @@ export default function DynamicSelect() {
 
   return (
     <div className="flex flex-col justify-center items-center mt-10  w-80  md:max-w-lg ">
-      <div className="">
+      <div className="w-full">
         <label
           htmlFor="select-option"
           className="block text-black text-lg font-medium mb-2 md:w-96"
         >
-          What type of development are you looking to do out ?
+          What type of project do you want to explore its construction costing
+          option?
         </label>
         <select
           onChange={handleSelectChange}

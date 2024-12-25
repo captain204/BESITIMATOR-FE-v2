@@ -1,39 +1,31 @@
 import { useState } from "react";
-import Residential from "./LandingBanking/Residential";
-import Commercial from "./Commercial/Commercial";
-import Fencing from "./Fencing/Fencing";
-import LandingBanking from "./LandingBanking/LandingBanking";
+// import SelectInput from "../Residential/Boleansuboption";
+// import BoleansuboptionTwo from "../Residential/BoleanSuboptiontwo";
+// import YesOption from "./Yes";
+// import YestwoOption from "./Yestwo";
+import YesThreeOption from "./YesThree";
 
 const options = [
   {
-    label: "Land Banking Development",
-    value: "Land Banking Development",
-    component: <LandingBanking />,
+    label: "No",
+    value: "no",
+    component: <div> {/* <BoleansuboptionTwo /> */}</div>,
   },
   {
-    label: "Residential/Commercial Development",
-    value: "Residential/Commercial Development",
+    label: "Yes",
+    value: "yes",
     component: (
       <div>
-        <Commercial />
+        {" "}
+        <YesThreeOption />{" "}
       </div>
     ),
   },
-  // {
-  //   label: "Residential/Commercial Development",
-  //   value: "Residential/Commercial Development",
-  //   component: (
-  //     <div>
-  //       <Fencing />
-  //     </div>
-  //   ),
-  // },
 ];
 
-export default function DynamicSelect() {
-  const [selectedOption, setSelectedOption] = useState(
-    "Land Banking Development"
-  );
+export default function Fifth() {
+  const [selectedOption, setSelectedOption] = useState("yes");
+
   const handleSelectChange = (event: any) => {
     setSelectedOption(event.target.value);
   };
@@ -43,15 +35,18 @@ export default function DynamicSelect() {
   )?.component;
 
   return (
-    <div className="flex flex-col justify-center items-center mt-10  w-80  md:max-w-lg ">
-      <div className="">
+    <div className="flex flex-col items-center   md:w-full md:max-w-lg md:ml-20  ">
+      {/* <h1 className="text-sm text-black w-full text-center">(a) Clearing works:</h1> */}
+
+      <div className="w-full">
         <label
           htmlFor="select-option"
-          className="block text-black text-lg font-medium mb-2 md:w-96"
+          className="block text-black text-lg  font-medium mb-2 w-96 pt-2"
         >
-          What type of development are you looking to do out ?
+          05.Do you know the length of the drainage Line ?
         </label>
         <select
+          id="select-option"
           onChange={handleSelectChange}
           value={selectedOption}
           className="py-3 w-full md:w-96 p-1 bg-white border text-black border-gray-300 rounded-lg  focus:ring-1 focus:ring-yellow-400 focus:outline-none"
@@ -63,6 +58,7 @@ export default function DynamicSelect() {
           ))}
         </select>
       </div>
+
       <div className="md:w-full w-80">
         {selectedComponent ? (
           <div className="mt-4">{selectedComponent}</div>
