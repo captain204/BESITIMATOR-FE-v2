@@ -11,6 +11,7 @@ import DynamicSelect from "./DynamicSelect";
 import StepTwo from "./StepTwo";
 import { toast } from "react-toastify";
 import axiosInstance from "@/Globals/Interceptor";
+import ResultSent from "./Result/Result";
 
 const Stepform = () => {
   const [activeStep, setActiveStep] = useState(0);
@@ -199,13 +200,12 @@ const Stepform = () => {
     switch (activeStep) {
       case 0:
         return <DynamicSelect />;
+      // case 1:
+      //   return <StepTwo />;
       case 1:
-        return <StepTwo />;
-      case 2:
         return (
           <div>
-            <Typography variant="h4">Final Step 3</Typography>
-            <Typography>Click "Submit" to send the form.</Typography>
+               <ResultSent/>
           </div>
         );
       default:
@@ -234,11 +234,11 @@ const Stepform = () => {
               variant="h6"
               color={activeStep === 1 ? "blue-gray" : "gray"}
             >
-              Specifications
+              Result
             </Typography>
           </div>
         </Step>
-        <Step onClick={() => setActiveStep(2)}>
+        {/* <Step onClick={() => setActiveStep(2)}>
           <h1>3</h1>
           <div className="absolute -bottom-[4.5rem] w-max text-center">
             <Typography
@@ -248,7 +248,7 @@ const Stepform = () => {
               Results
             </Typography>
           </div>
-        </Step>
+        </Step> */}
       </Stepper>
 
       <div className="mt-16 flex justify-center items-center">

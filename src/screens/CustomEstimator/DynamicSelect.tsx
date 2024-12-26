@@ -1,7 +1,7 @@
 import { useState } from "react";
-import Residential from "./LandingBanking/Residential";
-import Commercial from "./Commercial/Commercial";
-import Fencing from "./Fencing/Fencing";
+// import Residential from "./LandingBanking/Residential";
+// import Commercial from "./Commercial/Commercial";
+// import Fencing from "./Fencing/Fencing";
 import LandingBanking from "./LandingBanking/LandingBanking";
 
 const options = [
@@ -13,11 +13,7 @@ const options = [
   {
     label: "Residential/Commercial Development",
     value: "Residential/Commercial Development",
-    component: (
-      <div>
-        <Commercial />
-      </div>
-    ),
+    component: <div>{/* <Commercial /> */}</div>,
   },
   // {
   //   label: "Residential/Commercial Development",
