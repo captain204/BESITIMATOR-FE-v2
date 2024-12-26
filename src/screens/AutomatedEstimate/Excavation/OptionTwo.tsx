@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 
 const EOptionTwo = () => {
-  const [selected, setSelected] = useState<string>("Within 10-20m to Disposal");
+  const [selected, setSelected] = useState<string>("Within 10m to Disposal");
 
   // const handleSelectChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
   //   setSelected(event.target.value);
@@ -14,7 +14,7 @@ const EOptionTwo = () => {
     if (storedOption) {
       setSelected(storedOption);
     } else {
-      localStorage.setItem("Disposal-of-Excavated-Materials", "Rocky areas");
+      localStorage.setItem("Disposal-of-Excavated-Materials", "Within 10m to Disposal");
     }
   }, []);
 
@@ -39,10 +39,11 @@ const EOptionTwo = () => {
           onChange={handleSelectChange}
           className="py-3 w-full md:w-96 p-1 bg-white border text-black border-gray-300 rounded-lg  focus:ring-1 focus:ring-yellow-400 focus:outline-none"
         >
+          <option value="Within 10m to Disposal">Within 10m to Disposal</option>
           <option value="Within 10-20m to Disposal">
             Within 10-20m to Disposal
           </option>
-          <option value="Within 10m to Disposal">Within 10m to Disposal</option>
+          
         </select>
       </div>
     </div>

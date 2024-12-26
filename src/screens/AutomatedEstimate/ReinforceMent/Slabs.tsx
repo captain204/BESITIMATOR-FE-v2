@@ -37,8 +37,8 @@ const Slabs = () => {
           <option value="Slab with average thickness of 150mm">
             Slab with average thickness of 150mm
           </option>
-          <option value="Slab with average thickness of 150mm">
-            Slab with average thickness of 150mm
+          <option value="Slab with average thickness of 200mm">
+            Slab with average thickness of 200mm
           </option>
         </select>
       </div>

@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import SelectInput from "./Groundbeams";
+import LintelOption from "./LintelOption";
 
 
 const options = [
@@ -8,7 +9,7 @@ const options = [
     value: "Reinforcement",
     component: (
       <div>
-        <SelectInput />
+        <LintelOption />
       </div>
     ),
   },
@@ -50,7 +51,7 @@ export default function Lintels() {
           htmlFor="select-option"
           className="block text-black text-lg font-medium mb-2 md:w-96"
         >
-          (i) What material is used for your lintel?
+          What Material is being used for your reinforcement?
         </label>
         <select
           id="select-option"

@@ -32,7 +32,7 @@ const DampProving = () => {
           onChange={handleSelectChange}
           className="py-3 w-full md:w-96 p-1 bg-white border text-black border-gray-300 rounded-lg  focus:ring-1 focus:ring-yellow-400 focus:outline-none"
         >
-          <option value="Filling with Sharp sand">Damp prove course</option>
+          <option value="Damp prove course">Damp prove course</option>
           <option value="Damp prove membrane">Damp prove membrane</option>
         </select>
       </div>

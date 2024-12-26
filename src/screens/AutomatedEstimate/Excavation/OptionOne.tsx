@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 
 const EOptionOne = () => {
-  const [selected, setSelected] = useState<string>("Rocky areas");
+  const [selected, setSelected] = useState<string>("Excavation in Rocky areas");
 
   // const handleSelectChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
   //   setSelected(event.target.value);
@@ -12,7 +12,7 @@ const EOptionOne = () => {
     if (storedOption) {
       setSelected(storedOption);
     } else {
-      localStorage.setItem("excavation-in", "Rocky areas");
+      localStorage.setItem("excavation-in", "Excavation in Rocky areas");
     }
   }, []);
 
@@ -37,9 +37,16 @@ const EOptionOne = () => {
           onChange={handleSelectChange}
           className="py-3 w-full md:w-96 p-1 bg-white border text-black border-gray-300 rounded-lg focus:ring-1 focus:ring-yellow-400 focus:outline-none"
         >
-          <option value="Rocky areas">Rocky areas</option>
-          <option value="Moderate rocky areas">Moderate rocky areas</option>
-          <option value="Non-Rocky areas ">Non-Rocky areas </option>
+          <option value="Excavation in Rocky areas">
+            Excavation in Rocky areas
+          </option>
+          <option value="Excavation in Moderately rocky Areas ( hard ground: Mix of Stones and sandy matter)">
+            Excavation in Moderately rocky Areas ( hard ground: Mix of Stones
+            and sandy matter){" "}
+          </option>
+          <option value="Excavation in Non- Rocky Areas (loose Ground)">
+            Excavation in Non- Rocky Areas (loose Ground)
+          </option>
         </select>
       </div>
     </div>

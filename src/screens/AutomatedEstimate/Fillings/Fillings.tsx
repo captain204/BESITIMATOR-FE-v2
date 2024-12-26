@@ -7,21 +7,21 @@ const Fillings = () => {
   //   setSelected(event.target.value);
   // };
 
-    useEffect(() => {
-      const storedOption = localStorage.getItem("Filling-works");
-      if (storedOption) {
-        setSelected(storedOption);
-      } else {
-        localStorage.setItem("Filling-works", "Filling with Sharp sand");
-      }
-    }, []);
-  
-    // Update the selected option and store it in localStorage
-    const handleSelectChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-      const newOption = event.target.value;
-      setSelected(newOption);
-      localStorage.setItem("Filling-works", newOption);
-    };
+  useEffect(() => {
+    const storedOption = localStorage.getItem("Filling-works");
+    if (storedOption) {
+      setSelected(storedOption);
+    } else {
+      localStorage.setItem("Filling-works", "Filling with Sharp sand");
+    }
+  }, []);
+
+  // Update the selected option and store it in localStorage
+  const handleSelectChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    const newOption = event.target.value;
+    setSelected(newOption);
+    localStorage.setItem("Filling-works", newOption);
+  };
 
   return (
     <div className="flex flex-col items-center justify-center  gap-3  w-full max-w-2xl md:ml-20">
@@ -40,16 +40,18 @@ const Fillings = () => {
           <option value="Filling with Sharp sand">
             Filling with Sharp sand
           </option>
-          <option value="Filling with Sharp sand">
-            Filling with Sharp sand
+          <option value="Filling with filling sand">
+            Filling with filling sand
           </option>
-          <option value="Filling with Laterite filling sand">
-            Filling with Laterite filling sand
+          <option value="Filling with laterite filling sand">
+            Filling with laterite filling sand
           </option>
           <option value="Filling with Hardcore">Filling with Hardcore</option>
-          <option value="Filling with Rubbles">Filling with Rubbles</option>
-          <option value="Filling with Stone base">
-            Filling with Stone base
+          <option value="Filling with stone base">
+            Filling with stone base
+          </option>
+          <option value="Filling with stone dust filling">
+            Filling with stone dust filling
           </option>
           <option value="Levelling and compacting">
             Levelling and compacting

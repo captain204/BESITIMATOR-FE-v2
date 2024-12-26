@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 
 const Blockwork = () => {
-  const [selected, setSelected] = useState<string>("option1");
+  const [selected, setSelected] = useState<string>('225mm Blockwork(9")');
 
   const handleSelectChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     setSelected(event.target.value);

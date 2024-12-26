@@ -3,11 +3,11 @@ import React, { useEffect, useState } from "react";
 const Column = () => {
   const [selected, setSelected] = useState<string>("0.23x0.23m");
 
-    const handleSelectChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-      const newOption = event.target.value;
-      setSelected(newOption);
-      localStorage.setItem("Status-of-construction-area", newOption);
-    };
+  const handleSelectChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    const newOption = event.target.value;
+    setSelected(newOption);
+    localStorage.setItem("Status-of-construction-area", newOption);
+  };
 
   useEffect(() => {
     const storedOption = localStorage.getItem("Status-of-construction-area");
@@ -32,9 +32,13 @@ const Column = () => {
           onChange={handleSelectChange}
           className="py-3 w-full md:w-96 p-1 bg-white border text-black border-gray-300 rounded-lg  focus:ring-1 focus:ring-yellow-400 focus:outline-none"
         >
-          <option value="0.23x0.23m">0.23x0.23m</option>
-          <option value="0.45x0.45m">0.45x0.45m</option>
-          <option value="0.23x0.45m">0.23x0.45m</option>
+          <option value="225mm x225mm column sizes">
+            225mm x 225mm column sizes
+          </option>
+          <option value="225mm x 450mm column sizes">
+            225mm x 450mm column sizes
+          </option>
+          <option value="450mm x 450mm column sizes">450mm x 450mm column sizes</option>
         </select>
       </div>
     </div>

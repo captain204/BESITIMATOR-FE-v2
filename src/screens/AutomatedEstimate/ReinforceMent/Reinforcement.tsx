@@ -3,6 +3,7 @@ import SelectInput from "./Groundbeams";
 import Column from "./Column";
 import Slabs from "./Slabs";
 import Lintels from "./Lintel";
+import { Checkbox } from "@material-tailwind/react";
 
 const options = [
   {
@@ -83,6 +84,23 @@ export default function Reinforcement() {
       {/* <h1 className="text-sm text-black w-full text-center">(a) Clearing works:</h1> */}
 
       <div className="w-full">
+        <div
+          className="p-4  text-sm text-yellow-900  rounded-lg bg-yellow-100 dark:bg-gray-800 dark:text-blue-400 md:w-96"
+          role="alert"
+        >
+          <span className="font-bold">Disclaimer:</span> we cannot give an
+          accurate quantity of reinforcement you need, but we can on our bespoke
+          subscription. Usually you need a structural engineer for your
+          reinforcement requirements
+        </div>
+
+        <div className="flex items-center justify-start mt-2 md:w-96">
+          <Checkbox color="amber" defaultChecked crossOrigin="anonymous" />
+          <label htmlFor="agree" className="   text-gray-700">
+            Do you understand and agree to go ahead?
+          </label>
+        </div>
+
         <label
           htmlFor="select-option"
           className="block text-black text-lg font-medium mb-2 md:w-96"

@@ -14,7 +14,7 @@ const LintelOption = () => {
           htmlFor="select-option"
           className="block text-black text-lg font-medium mb-2"
         >
-          i(a) Reinforcement:
+          Reinforcement:
         </label>
         <select
           value={selected}

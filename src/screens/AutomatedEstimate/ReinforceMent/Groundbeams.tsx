@@ -9,9 +9,6 @@ const Groundbeams = () => {
   //   setSelected(event.target.value);
   // };
 
-
-
-
   const handleSelectChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     const newOption = event.target.value;
     setSelected(newOption);
@@ -23,7 +20,10 @@ const Groundbeams = () => {
     if (storedOption) {
       setSelected(storedOption);
     } else {
-      localStorage.setItem("Status-of-construction-area", "Moderately Swampy without footing");
+      localStorage.setItem(
+        "Status-of-construction-area",
+        "Moderately Swampy without footing"
+      );
     }
   }, []);
 
@@ -45,8 +45,8 @@ const Groundbeams = () => {
             Moderately Swampy without footing
           </option>
           <option value="Non-Swampy">Non-Swampy</option>
-          <option value="Moderately Swampy with footing">
-            Moderately Swampy with footing
+          <option value="Moderately Swampy with Footing (500mm Width) area">
+            Moderately Swampy with Footing (500mm Width) area
           </option>
         </select>
       </div>
