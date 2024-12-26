@@ -1,21 +1,16 @@
 import React, { useEffect, useState } from "react";
 
 const SelectInput = () => {
-  const [selected, setSelected] = useState<string>("Grasses and Shrubs");
-
-  
+  const [selected, setSelected] = useState<string>("Grasses");
 
   useEffect(() => {
     const storedOption = localStorage.getItem("landAreaComposition");
     if (storedOption) {
       setSelected(storedOption);
     } else {
-      localStorage.setItem("landAreaComposition", "Grasses and Shrubs");
+      localStorage.setItem("landAreaComposition", "Grasses");
     }
   }, []);
-
-
-
 
   // Update selected option and store it in localStorage
   const handleSelectChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
@@ -38,9 +33,11 @@ const SelectInput = () => {
           onChange={handleSelectChange}
           className="py-3 w-full md:w-96 p-1 bg-white border text-black border-gray-300 rounded-lg focus:ring-1 focus:ring-yellow-400 focus:outline-none"
         >
-          <option value="Grasses and Shrubs">Grasses and Shrubs</option>
-          <option value="Grasses, Shrubs and trees">
-            Grasses, Shrubs and trees
+          <option value="Grasses">Grasses</option>
+          <option value="Shrubs">Shrubs</option>
+          <option value="Trees">Trees</option>
+          <option value="Grasses and shrubs and trees">
+          Grasses and shrubs and trees
           </option>
         </select>
       </div>

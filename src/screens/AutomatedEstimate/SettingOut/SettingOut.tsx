@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from "react";
 
 const SettingOut = () => {
-  const [selected, setSelected] = useState<string>("Three sided shaped");
+  const [selected, setSelected] = useState<string>("Three sided shaped like triangle, scalene etc");
 
   useEffect(() => {
     const storedOption = localStorage.getItem("ShapeOfBuilding");
     if (storedOption) {
       setSelected(storedOption);
     } else {
-      localStorage.setItem("ShapeOfBuilding", "Grasses and Shrubs");
+      localStorage.setItem("ShapeOfBuilding", "Three sided shaped like triangle, scalene etc");
     }
   }, []);
 
@@ -36,8 +36,8 @@ const SettingOut = () => {
           onChange={handleSelectChange}
           className="py-3 w-full md:w-96 p-1 bg-white border text-black border-gray-300 rounded-lg  focus:ring-2 focus:ring-yellow-400 focus:outline-none"
         >
-          <option value="Three sided shaped">Three sided shaped</option>
-          <option value="Four sided shaped">Four sided shaped</option>
+          <option value="Three sided shaped like triangle, scalene etc">Three sided shaped like triangle, scalene etc</option>
+          <option value="Four sided shaped like square, rectangle etc">Four sided shaped like square, rectangle etc</option>
           <option value="Circular shaped">Circular shaped</option>
         </select>
       </div>
