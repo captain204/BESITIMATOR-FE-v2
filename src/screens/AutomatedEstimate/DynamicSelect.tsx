@@ -14,6 +14,7 @@ import PaintingWorks from "./Paintings/PaintingWorks";
 import Tillings from "./Tiling/Tilings";
 import Reinforcement from "./ReinforceMent/Reinforcement";
 import Formwork from "./Formwork/Formwork";
+import Paving from "./Paving/Paving";
 
 const options = [
   {
@@ -156,20 +157,12 @@ const options = [
   {
     label: "Paving stone Works",
     value: "Paving stone Works",
-    component: <div></div>,
+    component: <div><Paving /> </div>,
   },
 ];
 
 export default function DynamicSelect() {
-  // const [selectedOption, setSelectedOption] = useState("clearing");
   const [selected, setSelected] = useState<string>("clearing");
-  // const handleSelectChange = (event: any) => {
-  //   setSelectedOption(event.target.value);
-  // };
-
-  // const selectedComponent = options.find(
-  //   (opt) => opt.value === selectedOption
-  // )?.component;
 
   const handleSelectChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     const newOption = event.target.value;
@@ -186,14 +179,16 @@ export default function DynamicSelect() {
     }
   }, []);
 
-  const selectedComponent = options.find((opt) => opt.value === selected)?.component;
+  const selectedComponent = options.find(
+    (opt) => opt.value === selected
+  )?.component;
 
   return (
     <div className="flex flex-col justify-center items-center mt-10  w-80  md:max-w-lg ">
       <div className="w-full">
         <label
           htmlFor="select-option"
-          className="block text-black text-lg font-medium mb-2"
+          className="block text-black text-lg font-medium mb-2 md:w-96"
         >
           Which item of work do you need an approximate estimate for?
         </label>
