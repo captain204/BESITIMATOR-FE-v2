@@ -175,53 +175,14 @@ const navListItems = [
   },
 ];
 
-// nav list component with Signup button replacing "Pages"
-// function NavList() {
-//   return (
-//     <ul className="mt-2 mb-4 flex flex-col md:gap-10 lg:mb-0 lg:mt-0 lg:flex-row md:items-center ">
-//       <li>
-//         <Link
-//           style={{ border: "1px solid white" }}
-//           href="/signup"
-//           className="flex  justify-end  py-2  text-yellow-500 font-bold rounded-lg shadow-sm px-6   transition-colors duration-300"
-//         >
-//           Sign Up
-//         </Link>
-//       </li>
-//       {/* {navListItems.map(({ label, icon }) => (
-//         <NavListMenu key={label} label={label} icon={icon} />
-//       ))} */}
-//     </ul>
-//   );
-// }
-
-
-
-
-
 function NavList() {
   // const dispatch: AppDispatch = useDispatch();
   const response = useSelector((state: RootState) => state.getUser.response);
-  // const success = useSelector((state: RootState) => state.logout.success);
-  // const handleLogout = () => {
-  //   dispatch(logoutUser());
-  // };
-
-  // useEffect(() => {
-  //   if (success) {
-  //     dispatch(getUser());
-  //   }
-  // }, [success, dispatch]);
-
-
-  // Check if the response is null, undefined, or an empty object
-  // const isLoggedIn =
-  //   response && Object.keys(response).length !== 0 && response.constructor === Object;
 
   return (
     <ul className="mt-2 mb-4 flex flex-col md:gap-10 lg:mb-0 lg:mt-0 lg:flex-row md:items-center ">
-    <li>
-      {/* {!isLoggedIn ? ( */}
+      <li>
+        {/* {!isLoggedIn ? ( */}
         <Link
           style={{ border: "1px solid white" }}
           href="/signup"
@@ -229,7 +190,7 @@ function NavList() {
         >
           Sign Up
         </Link>
-      {/* ) : (
+        {/* ) : (
         <button
           onClick={handleLogout}
           style={{ border: "1px solid white" }}
@@ -238,11 +199,10 @@ function NavList() {
           Logout
         </button>
       )} */}
-    </li>
-  </ul>
+      </li>
+    </ul>
   );
 }
-
 
 const ComplexNavbar = () => {
   const [isNavOpen, setIsNavOpen] = React.useState(false);

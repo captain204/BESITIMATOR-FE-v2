@@ -6,7 +6,7 @@ const HeroSection = () => {
       <div className="container mx-auto md:px-4 px-6  justify-center flex flex-col lg:flex-row items-center lg:items-start gap-10">
         {/* Left Content */}
         <div className="text-left flex-1 justify-center items-center my-auto">
-          <h1 className="text-3xl md:text-5xl font-bold text-gray-800">
+          <h1 className="text-3xl md:text-4xl font-bold text-gray-800">
             Automated Building Estimator
           </h1>
           <p className="mt-4 text-gray-600 leading-relaxed">
