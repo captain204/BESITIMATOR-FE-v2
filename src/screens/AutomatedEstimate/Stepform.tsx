@@ -237,7 +237,7 @@ const Stepform = () => {
   };
 
   return (
-    <div className="w-full md:px-24 px-8 py-8 bg-white border rounded-2xl mb-10 shadow-xl">
+    <div className="w-full md:px-24 px-12 py-8 bg-white border rounded-2xl mb-10 shadow-xl">
       <Stepper activeStep={activeStep}>
         <Step onClick={() => setActiveStep(0)}>
           <h1>1</h1>

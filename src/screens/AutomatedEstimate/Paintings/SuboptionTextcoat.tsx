@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-const SelectSilk = () => {
+const SelectTextcoatpaint = () => {
   const [selected, setSelected] = useState<string>("option2");
 
   const handleSelectChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
@@ -17,7 +17,7 @@ const SelectSilk = () => {
           htmlFor="select-option"
           className="block text-black text-lg font-medium mb-2"
         >
-        (i) Satin/Silk paint:
+        (i) Text coat paint:
         </label>
       <select
         value={selected}
@@ -34,4 +34,4 @@ const SelectSilk = () => {
   );
 };
 
-export default SelectSilk;
+export default SelectTextcoatpaint ;

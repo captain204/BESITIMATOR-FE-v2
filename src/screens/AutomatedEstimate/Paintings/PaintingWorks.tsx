@@ -1,45 +1,45 @@
 import { useState } from "react";
-import SelectInput from "./Suboption";
 import SelectSilk from "./Suboption";
+import SelectEmulsionpaint from "./SelectEmulsionpaint";
+import SelectTextcoatpaint from "./SuboptionTextcoat";
+import SelectGlosspaint from "./Selecglosspaint ";
 
 const options = [
   {
     label: "primer",
     value: "primer",
-    component: (
-      <div>
-      
-      </div>
-    ),
+    component: <div></div>,
   },
   {
     label: "satin/ silk paint",
     value: "satin/ silk paint",
-    component: <div><SelectSilk /></div>,
+    component: (
+      <div>
+        <SelectSilk />
+      </div>
+    ),
   },
   {
     label: "Emulsion",
     value: "Emulsion",
-    component: <div></div>,
+    component: <div><SelectEmulsionpaint/></div>,
   },
 
   {
     label: "Text coat paint",
     value: "Text coat paint",
-    component: <div></div>,
+    component: <div><SelectTextcoatpaint /></div>,
   },
 
   {
     label: "Gloss paint",
     value: "Gloss paint",
-    component: <div></div>,
+    component: <div><SelectGlosspaint/></div>,
   },
 ];
 
 export default function PaintingWorks() {
-  const [selectedOption, setSelectedOption] = useState(
-    "primer"
-  );
+  const [selectedOption, setSelectedOption] = useState("primer");
 
   const handleSelectChange = (event: any) => {
     setSelectedOption(event.target.value);
@@ -58,7 +58,8 @@ export default function PaintingWorks() {
           htmlFor="select-option"
           className="block text-black text-lg font-medium mb-2"
         >
-         (a) Which type of paint do you propose to be used for your building work?
+          (a) Which type of paint do you propose to be used for your building
+          work?
         </label>
         <select
           id="select-option"

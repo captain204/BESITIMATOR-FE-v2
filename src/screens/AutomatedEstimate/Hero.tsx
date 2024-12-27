@@ -2,8 +2,8 @@ import React from "react";
 
 const HeroSection = () => {
   return (
-    <section className=" md:min-h-screen md:mt-0 mt-10 flex items-center justify-center">
-      <div className="container mx-auto px-4  justify-center flex flex-col lg:flex-row items-center lg:items-start gap-10">
+    <section className="md:my-20 mt-10 flex items-center justify-center">
+      <div className="container mx-auto md:px-4 px-6  justify-center flex flex-col lg:flex-row items-center lg:items-start gap-10">
         {/* Left Content */}
         <div className="text-left flex-1 justify-center items-center my-auto">
           <h1 className="text-3xl md:text-5xl font-bold text-gray-800">

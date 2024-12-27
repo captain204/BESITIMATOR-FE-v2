@@ -1,11 +1,10 @@
 import { useState } from "react";
 import SelectInput from "./Suboption";
 
-
 const options = [
   {
-    label: "Suspended Ceiling (Plaster Board)",
-    value: "Suspended Ceiling (Plaster Board)",
+    label: "POP Suspended ceiling with Gypsum board",
+    value: "POP Suspended ceiling with Gypsum board",
     component: (
       <div>
         <SelectInput />
@@ -13,21 +12,29 @@ const options = [
     ),
   },
   {
-    label: "Suspended Ceiling (60 X 60mm) with steal runners",
-    value: "Suspended Ceiling (60 X 60mm) with steal runners",
+    label: "Suspended Ceiling with Aluminum grid ",
+    value: "Suspended Ceiling with Aluminum grid ",
     component: <div> </div>,
   },
 
   {
-    label: "Suspended Ceiling (casting)",
-    value: "Suspended Ceiling (casting)",
+    label: "POP Suspended Ceiling – Casting",
+    value: "POP Suspended Ceiling – Casting",
+    component: <div></div>,
+  },
+
+
+
+  {
+    label: "PVC Stripped suspended ceiling",
+    value: "PVC Stripped suspended ceiling",
     component: <div></div>,
   },
 ];
 
 export default function CeilingWork() {
   const [selectedOption, setSelectedOption] = useState(
-    "Suspended Ceiling (Plaster Board)"
+    "POP Suspended ceiling with Gypsum board"
   );
 
   const handleSelectChange = (event: any) => {
@@ -47,7 +54,7 @@ export default function CeilingWork() {
           htmlFor="select-option"
           className="block text-black text-lg font-medium mb-2"
         >
-          (a) Screeding Works:
+          (a) Ceiling Works:
         </label>
         <select
           id="select-option"

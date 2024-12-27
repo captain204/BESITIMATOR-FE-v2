@@ -31,7 +31,10 @@ export default function Screeding() {
     if (storedOption) {
       setSelected(storedOption);
     } else {
-      localStorage.setItem("Wall-screeding", "Smooth wall");
+      localStorage.setItem(
+        "Wall-screeding",
+        "Wall Screeding (To receive paint)"
+      );
     }
   }, []);
 
