@@ -39,14 +39,17 @@ const OptionTwo = () => {
         </select>
       </div>
 
-      <div
+
+    
+
+      {/* <div
         className="md:ml-16  mt-5  p-4 mb-4 text-sm text-blue-800 md:  rounded-lg bg-blue-50 dark:bg-gray-800 dark:text-blue-400 md:w-96"
         role="alert"
       >
         <span className="font-bold">Disclaimer:</span> It is important to deduct
         all openings ( like windows, doors etc.) before inputting the area of
         the blockwork/Claypot material and labour schedule required.
-      </div>
+      </div> */}
     </div>
   );
 };

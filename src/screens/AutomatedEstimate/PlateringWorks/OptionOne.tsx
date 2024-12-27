@@ -22,6 +22,17 @@ const OptionOne = () => {
   return (
     <div className="flex flex-col items-center justify-center  gap-3  w-full max-w-2xl md:ml-20">
       <div className="w-full">
+        <div
+          className="p-4 mb-3  text-sm text-yellow-900  rounded-lg bg-yellow-100 dark:bg-gray-800 dark:text-blue-400 md:w-96"
+          role="alert"
+        >
+          <span className="font-bold">Disclaimer:</span> When plastering, its
+          generally great to add sharp sand to your plaster sand if the plaster
+          sand is not of good quality to avoid cracks ( say 30% of quantity of
+          entire plaster sand to be replaced by sharp sand and 70% to be actual
+          plastersand)
+        </div>
+
         <label
           htmlFor="select-option"
           className="block text-black text-lg font-medium mb-2"
