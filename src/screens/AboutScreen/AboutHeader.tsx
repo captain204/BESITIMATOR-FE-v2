@@ -13,14 +13,14 @@ interface AboutHeaderProps {
 const AboutHeader: React.FC<AboutHeaderProps> = ({ title, breadcrumbItems }) => {
   return (
     <div
-      className="relative w-full md:h-[20rem] h-[15rem] bg-cover flex flex-col items-center justify-center text-white md:mt-20"
+      className="relative w-full  h-[15rem] bg-cover flex flex-col items-center justify-center text-white md:mt-20"
       style={{
         backgroundImage: `url('/bgimage.jpeg')`,
       }}
     >
       <div className="absolute inset-0 bg-black opacity-90"></div>
       <div
-        className="text-center mb-10 relative"
+        className="text-center  relative"
         // initial="hide"
         // whileInView="show"
         // exit="hide"
