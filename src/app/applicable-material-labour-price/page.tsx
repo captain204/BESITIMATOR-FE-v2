@@ -1,6 +1,6 @@
 import Layout from "@/components/Layout";
 import AboutHeader from "@/screens/AboutScreen/AboutHeader";
-import LabourPriceList from "@/screens/LabourPriceList/LabourPriceList";
+import LabourPriceList from "@/screens/PriceList/PriceList";
 
 import React from "react";
 
