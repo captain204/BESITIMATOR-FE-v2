@@ -68,7 +68,7 @@ export default function PriceTable() {
     <div className="p-4">
       {/* Search Input */}
       <div className="mb-4 flex justify-center md:justify-end">
-        <div className="flex items-center space-x-2">
+        <div className="flex items-center justify-end space-x-2">
           <input
             type="text"
             value={searchTerm}
@@ -76,14 +76,14 @@ export default function PriceTable() {
             placeholder="Search..."
             className="w-64 p-2 border border-gray-300 rounded-l-lg focus:outline-none focus:ring-2 focus:ring-black"
           />
-          <button
+          {/* <button
             onClick={() =>
               handleSearch({ target: { value: searchTerm } } as any)
             }
             className="p-2 bg-black text-white rounded-r-lg hover:bg-blue-600 focus:ring-2 focus:ring-blue-500"
           >
             Search
-          </button>
+          </button> */}
         </div>
       </div>
 

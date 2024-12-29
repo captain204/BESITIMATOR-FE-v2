@@ -4,7 +4,7 @@ import MaterialPriceTap from "./MaterialpriceTap";
 
 const PriceList = () => {
   return (
-    <div className="lg:mx-20">
+    <div className="">
       <HeroSection />
 
       <MaterialPriceTap />
