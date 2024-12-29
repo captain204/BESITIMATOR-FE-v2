@@ -31,17 +31,17 @@ const PricingTable = () => {
   );
 
   return (
-    <div className="p-4">
+    <><div className="p-4">
       {/* Search Input */}
       {/* <div className="flex justify-end mb-4">
-        <input
-          type="text"
-          placeholder="Search..."
-          className="w-64 p-2 border border-gray-300 rounded-md"
-          value={searchTerm}
-          onChange={(e) => setSearchTerm(e.target.value)}
-        />
-      </div> */}
+      <input
+        type="text"
+        placeholder="Search..."
+        className="w-64 p-2 border border-gray-300 rounded-md"
+        value={searchTerm}
+        onChange={(e) => setSearchTerm(e.target.value)}
+      />
+    </div> */}
 
       <div className="mb-4 flex justify-center md:justify-end">
         <div className="flex items-center justify-end space-x-2">
@@ -50,8 +50,7 @@ const PricingTable = () => {
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
             placeholder="Search..."
-            className="w-64 p-2 border border-gray-300 rounded-l-lg focus:outline-none focus:ring-2 focus:ring-black"
-          />
+            className="w-64 p-2 border border-gray-300 rounded-l-lg focus:outline-none focus:ring-2 focus:ring-black" />
         </div>
       </div>
 
@@ -153,7 +152,39 @@ const PricingTable = () => {
 
       {loading && <p className="text-center mt-4">Loading...</p>}
       {error && <p className="text-center mt-4 text-red-500">{error}</p>}
-    </div>
+    </div><div className="flex flex-col gap-4 p-4 md:flex-row">
+        {/* Lower Price Points Card */}
+        <div className="flex-1 bg-yellow-100 p-4 rounded-lg shadow-md">
+          <h3 className="text-lg font-bold text-yellow-900">
+            Daily Rates - Lower Price Points:
+          </h3>
+          <p className="text-sm text-gray-700">
+            Because construction tradesmen differ from geo-location to
+            geo-location, the lowest possible cost you may get a tradesman to
+            carry out your item of work.
+          </p>
+        </div>
+
+        {/* Higher Price Points Card */}
+        <div className="flex-1 bg-yellow-100 p-4 rounded-lg shadow-md">
+          <h3 className="text-lg font-bold text-yellow-900">
+            Daily Rates - Higher Price Points:
+          </h3>
+          <p className="text-sm text-gray-700">
+            Because construction tradesmen differ from geo-location to
+            geo-location, the highest possible cost you should pay a tradesman to
+            carry out your item of work.
+          </p>
+        </div>
+
+        {/* Note Section */}
+        <div className="flex-1 bg-yellow-100 p-4 rounded-lg shadow-md mt-4 md:mt-0">
+          <p className="text-sm text-gray-700">
+            Same applies to when paying labour/a tradesman based on work achieved
+            (per lin.m, per square meter or per cubic meter)
+          </p>
+        </div>
+      </div></>
   );
 };
 
