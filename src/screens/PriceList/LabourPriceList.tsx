@@ -50,7 +50,7 @@ const PricingTable = () => {
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
             placeholder="Search..."
-            className="w-64 p-2 border border-gray-300 rounded-l-lg focus:outline-none focus:ring-2 focus:ring-black" />
+            className="w-64 p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-black" />
         </div>
       </div>
 

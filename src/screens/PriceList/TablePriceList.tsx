@@ -74,7 +74,7 @@ export default function PriceTable() {
             value={searchTerm}
             onChange={handleSearch}
             placeholder="Search..."
-            className="w-64 p-2 border border-gray-300 rounded-l-lg focus:outline-none focus:ring-2 focus:ring-black"
+            className="w-64 p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-black"
           />
           {/* <button
             onClick={() =>

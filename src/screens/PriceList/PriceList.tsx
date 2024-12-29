@@ -17,7 +17,7 @@ const PriceList = () => {
     <div className="relative">
       {showModal && (
         <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
-          <div className="bg-yellow-100 p-8 rounded-lg shadow-2xl max-w-2xl w-full relative">
+          <div className="bg-yellow-100 p-8 rounded-lg shadow-2xl max-w-2xl w-full mx-4 relative">
             {/* Cancel Icon */}
             <button
               onClick={() => setShowModal(false)}
@@ -28,17 +28,12 @@ const PriceList = () => {
 
             {/* Modal Content */}
             <div className="flex flex-col items-center">
-              <div className="flex items-center mb-6">
-                {/* <img
-                  src="/building-estimator-logo.png"
-                  alt="The Building Estimator"
-                  className="w-14 h-14"
-                /> */}
-                <h2 className="text-2xl font-bold ml-3 text-black">
-                Applicable Material-Labour Price
+              <div className="flex items-center mb-6 text-center">
+                <h2 className="text-2xl  font-bold ml-3 text-black">
+                  Applicable Material-Labour Price
                 </h2>
               </div>
-              <p className="text-black  mb-6 leading-relaxed font-extrabold text-lg">
+              <p className="text-black mb-6 leading-relaxed font-extrabold text-sm md:text-lg md:text-center">
                 These material price lists and labour rates are applicable for
                 whatever project you are handling. Although, it is always
                 advised to re-negotiate below the applicable suggested price in
@@ -46,7 +41,7 @@ const PriceList = () => {
               </p>
               <button
                 onClick={() => setShowModal(false)}
-                className="bg-yellow-800 text-white px-20 py-2 rounded-md shadow  focus:outline-none"
+                className="bg-yellow-800 text-white px-16 md:px-20 py-2 rounded-md shadow focus:outline-none text-sm md:text-base"
               >
                 Continue
               </button>

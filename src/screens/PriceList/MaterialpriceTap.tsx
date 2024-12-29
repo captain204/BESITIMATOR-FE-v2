@@ -20,7 +20,7 @@ const MaterialPriceTap = () => {
       desc: <PriceTable />,
     },
     {
-      label: "Construction Labour rate",
+      label: "Construction Labour Rates",
       value: "labour",
       icon: UserCircleIcon,
       desc: <LabourPriceList />,
@@ -33,9 +33,9 @@ const MaterialPriceTap = () => {
           <Tab
             key={value}
             value={value}
-            className="group flex items-center justify-center gap-2 md:font-bold md:text-lg text-sm"
+            className="group flex items-center justify-center  font-bold text-lg "
           >
-            <div className="group-[state=active]:bg-yellow-500 group-[state=active]:text-white px-4 py-2 rounded-md">
+            <div className=" md:px-4 py-2 rounded-md">
               {label}
             </div>
           </Tab>
