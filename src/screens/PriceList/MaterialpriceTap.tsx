@@ -14,7 +14,7 @@ import LabourPriceList from "./LabourPriceList";
 const MaterialPriceTap = () => {
   const data = [
     {
-      label: "Construction Material Price List",
+      label: "Material Price List",
       value: "material",
       icon: Square3Stack3DIcon,
       desc: <PriceTable />,
