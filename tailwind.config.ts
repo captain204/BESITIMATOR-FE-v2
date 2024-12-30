@@ -11,7 +11,7 @@ const config: Config = withMT({
   theme: {
     extend: {
       fontFamily: {
-        sans: ['"Montserrat"', "sans-serif"], // Set Century Gothic as the default sans-serif font
+        sans: ['"Century Gothic"', "sans-serif"], // Set Century Gothic as the default sans-serif font
       },
       colors: {
         primary: "#315aac",
