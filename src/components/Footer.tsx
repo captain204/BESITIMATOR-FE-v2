@@ -42,8 +42,8 @@ const Footer = () => {
         <div className="grid grid-cols-1 justify-between  md:grid-cols-2 mt-8">
           <div className="">
             <img src="/footerlogo.png" alt="Logo" className="h-16 w-auto  relative md:-left-3 -left-2" />
-            <Typography className="text-sm">
-              Your reliable construction solution which gives you    estimated <br/>
+            <Typography className="">
+              Your reliable construction solution which gives you    estimated <br className="md:block hidden"/>
            
               quantities of your material and labour requirements.
             </Typography>

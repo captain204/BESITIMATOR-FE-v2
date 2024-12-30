@@ -231,7 +231,7 @@ const ContactUs = () => {
             <h2 className="md:text-3xl text-2xl font-bold text-white mb-6">
               Do you want to talk to us about your building construction?
             </h2>
-            <h2 className="text-white mb-6 font-bold">
+            <h2 className="text-white mb-6">
               Need clarifications with your construction process/approach or
               generally about your construction work? You can request a call
               back, and you will receive a call from our team within 24 hours.

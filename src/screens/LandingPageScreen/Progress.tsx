@@ -74,7 +74,7 @@ const ProgressSection = () => {
                 <h2 className="text-4xl md:text-5xl font-bold text-yellow-700">
                   {startCount && <CountUp end={780} duration={2.5} />}
                 </h2>
-                <p className="text-base md:text-[12px] font-semibold">
+                <p className="text-base md:text-[12px]">
                   Automated Calculations
                 </p>
               </div>
@@ -84,7 +84,7 @@ const ProgressSection = () => {
                 <h2 className="text-4xl md:text-5xl font-bold text-yellow-700">
                   {startCount && <CountUp end={39} duration={2.5} />}
                 </h2>
-                <p className="text-base md:text-[12px] font-semibold">
+                <p className="text-base md:text-[12px]">
                   Custom Calculations
                 </p>
               </div>
@@ -94,7 +94,7 @@ const ProgressSection = () => {
                 <h2 className="text-4xl md:text-5xl font-bold text-yellow-700">
                   {startCount && <CountUp end={835} duration={2.5} />}
                 </h2>
-                <p className="text-base md:text-[12px] font-semibold">
+                <p className="text-base md:text-[12px]">
                   Budget Calculations
                 </p>
               </div>
@@ -103,7 +103,7 @@ const ProgressSection = () => {
                 <h2 className="text-4xl md:text-5xl font-bold text-yellow-700">
                   {startCount && <CountUp end={97} duration={2.5} />}
                 </h2>
-                <p className="text-base md:text-[12px] font-semibold">
+                <p className="text-base md:text-[12px]">
                   Cost Tracker
                 </p>
               </div>

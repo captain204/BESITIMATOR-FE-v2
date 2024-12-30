@@ -28,7 +28,7 @@ const Experience = () => {
 
           <hr className="w-16 border-b-2 border-yellow-500 mb-4" />
 
-          <ul className="space-y-4 text-white font-medium  list-disc list-inside   marker:text-yellow-500">
+          <ul className="space-y-4 text-white list-disc list-inside   marker:text-yellow-500">
             <li className="items-center">
             Helps automates material and labour requirements
             </li>
@@ -55,7 +55,7 @@ const Experience = () => {
           // viewport={{ once: true, amount: 0.2 }}
           // variants={textVariant}
         >
-          <p className="text-white font-medium">
+          <p className="text-white">
             Find out reliable information regarding your construction like
             approximate estimates for your construction project using our
             construction budget calculator, construction inventory and cost
