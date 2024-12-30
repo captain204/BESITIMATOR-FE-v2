@@ -10,7 +10,7 @@ const page = () => {
           title="Events-and-workshops"
           breadcrumbItems={[
             { label: "Home", link: "/" },
-            { label: "construction-events-and-workshops" },
+            { label: "events-and-workshops" },
           ]}
         />
         {/* <div
