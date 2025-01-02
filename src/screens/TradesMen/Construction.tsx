@@ -1,27 +1,12 @@
+
 import React from "react";
+import Header from "./Header";
 
 const ConstructionComponent = () => {
   return (
     <div className="min-h-screen bg-gray flex flex-col items-center p-6">
       {/* Header Section */}
-      <div className="w-full max-w-4xl bg-white shadow-xl rounded-lg p-8 text-start border-t-4 border-black">
-        <h1 className="md:text-3xl text-2xl font-extrabold text-gray-800 mb-4 tracking-tight">
-          Construction Tradesmen/Construction Vendors
-        </h1>
-        <p className="text-gray-600 text-lg">
-          You can either register as a construction tradesmen or a construction
-          vendor OR Search for a construction tradesmen or construction vendor.
-          Choose an option below.
-        </p>
-        <div className="mt-6 flex justify-start space-x-6">
-          <button className="px-8 py-2 bg-white text-gray-700 font-semibold rounded-lg shadow-md hover:shadow-lg hover:bg-yellow-800 border border-gray-500 hover:border-yellow-800 hover:text-white">
-            Register
-          </button>
-          <button className="px-8 py-2 bg-white text-gray-700 border  border-gray-500 font-semibold rounded-lg shadow-md hover:shadow-lg hover:bg-yellow-800 hover:border-yellow-800 hover:text-white transition">
-            Search
-          </button>
-        </div>
-      </div>
+      <Header />
 
       {/* Cards Section */}
       <div className="w-full max-w-6xl mt-12 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">

@@ -8,7 +8,6 @@ const TradesMen = () => {
     <div className="lg:mx-20">
       <HeroSection />
       <ConstructionComponent />
-      <ConstructionForm />
     </div>
   );
 };
