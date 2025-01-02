@@ -34,10 +34,30 @@ export default function SearchTrade() {
             </label>
             <Select label="Select Role">
               <Option>Labour/Foreman</Option>
+              <Option>Carpenter</Option>
+              <Option>BrickLayer</Option>
+              <Option>Equipmentment Operator</Option>
+              <Option>Estimator</Option>
+              <Option>HVAC Technician</Option>
+              <Option>Plumber</Option>
+              <Option>Electrician</Option>
+              <Option>Painter</Option>
+              <Option>Safty manager</Option>
+              <Option>Roofer</Option>
+              <Option>Welder/Fabrigator</Option>
+              <Option>Construction manager</Option>
+              <Option>Land scaper</Option>
+              <Option>Tiler</Option>
+              <Option>Screteder</Option>
+              <Option>POP installer</Option>
+              <Option>Iron Bender</Option>
+              <Option>Paver</Option>
+              <Option>Wood work Fabricator</Option>
+              <Option>Concrete floor designer</Option>
             </Select>
           </div>
           <div className="flex justify-end">
-            <Button  className=" bg-yellow-800" onClick={handleModalToggle}>
+            <Button className=" bg-yellow-800" onClick={handleModalToggle}>
               Submit
             </Button>
           </div>
