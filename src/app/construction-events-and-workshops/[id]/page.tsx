@@ -1,11 +1,29 @@
+"use client";
+
 import Layout from "@/components/Layout";
 import AboutHeader from "@/screens/AboutScreen/AboutHeader";
-import EventList from "@/screens/InventsAndWorkshops/EventList";
+import EventDetail from "@/screens/InventsAndWorkshops/EventDetailes";
+import { useSearchParams } from "next/navigation";
+
 import React from "react";
 
-const page = () => {
+const Page = ({ events }: { events: any[] | undefined }) => {
+  const searchParams = useSearchParams();
+  const id = searchParams.get("id"); // Get the 'id' from the URL search params
+
+  // Handle undefined or empty events array
+  if (!events || events.length === 0) {
+    return <p>No events available</p>;
+  }
+
+  const event = events.find((e) => e.id === id); // Find the event by ID
+
+  if (!event) {
+    return <p>Event not found</p>;
+  }
+
   return (
-    <div className=" overflow-hidden">
+    <div className="overflow-hidden">
       <Layout>
         <AboutHeader
           title="Events-and-workshops"
@@ -20,7 +38,7 @@ const page = () => {
         >
           <div className="absolute inset-0 bg-white opacity-95"></div>
           <div className="relative">
-            <EventList />
+            <EventDetail event={event} />
           </div>
         </div>
       </Layout>
@@ -28,4 +46,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default Page;

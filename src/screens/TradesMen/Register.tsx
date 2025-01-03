@@ -71,7 +71,7 @@ const RegisterForm = () => {
   }, [formData.profilePicture]);
 
   return (
-    <Card className="p-6 max-w-4xl mx-auto border">
+    <Card className="p-6 md:max-w-4xl md:mx-auto border">
       <h2 className="text-2xl font-bold mb-4">
         Register as a Construction Tradesmen or a Construction Vendor
       </h2>

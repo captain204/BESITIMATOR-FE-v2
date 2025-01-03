@@ -45,7 +45,7 @@ const Header = () => {
 
   return (
     <div>
-      <div className="w-full max-w-4xl bg-white shadow-xl rounded-lg p-8 text-start">
+      <div className="w-full md:max-w-4xl bg-white shadow-xl rounded-lg md:p-8 p-4 text-start">
         <h1 className="md:text-3xl text-2xl font-extrabold text-gray-800 mb-4 tracking-tight">
           Construction Tradesmen/Construction Vendors
         </h1>
