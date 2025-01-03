@@ -38,7 +38,7 @@ const EventList: React.FC = () => {
             key={event.id}
             className="shadow-lg hover:shadow-xl transition md:mb-0 mb-6"
           >
-            <CardHeader color="blue" className="relative h-56">
+            <CardHeader  className="relative h-56 bg-yellow-900">
               <img
                 src={event.image_path}
                 alt={event.title}
