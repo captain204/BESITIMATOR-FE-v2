@@ -1,7 +1,6 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-import axios from "axios";
 import {
   Card,
   CardHeader,
@@ -10,10 +9,9 @@ import {
   Button,
 } from "@material-tailwind/react";
 import Link from "next/link";
-import { useRouter } from "next/router";
 import axiosInstance from "@/Globals/Interceptor";
 
-// Event List Page
+// Event List Pagehdhgdgdfbnbbcbcnb
 const EventList: React.FC = () => {
   const [events, setEvents] = useState<any>([]);
 
@@ -33,12 +31,12 @@ const EventList: React.FC = () => {
         Upcoming Events
       </Typography>
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
-        {events.map((event:any) => (
+        {events.map((event: any) => (
           <Card
             key={event.id}
             className="shadow-lg hover:shadow-xl transition md:mb-0 mb-6"
           >
-            <CardHeader  className="relative h-56 bg-yellow-900">
+            <CardHeader className="relative h-56 bg-yellow-900">
               <img
                 src={event.image_path}
                 alt={event.title}
@@ -52,7 +50,10 @@ const EventList: React.FC = () => {
               <Typography className="text-gray-600 mb-4">
                 {event.description}
               </Typography>
-              <Link href={`/construction-events-and-workshops/${event.id}`} passHref>
+              <Link
+                href={`/construction-events-and-workshops/${event.id}`}
+                passHref
+              >
                 <Button variant="gradient" className="bg-yellow-800">
                   View Details
                 </Button>
@@ -65,11 +66,7 @@ const EventList: React.FC = () => {
   );
 };
 
-
-
-
-export default EventList
-
+export default EventList;
 
 // "use client";
 

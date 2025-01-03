@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
   Navbar,
   Collapse,
@@ -27,7 +27,8 @@ import {
 } from "@heroicons/react/24/solid";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-
+import Cookies from "js-cookie";
+import axiosInstance from "@/Globals/Interceptor";
 
 const navListMenuItems = [
   {
@@ -61,7 +62,6 @@ const navListMenuItems = [
     path: "/trades-men-and-construction-vendors-log",
   },
 ];
-
 
 // const navListMenuItems = [
 //   {
@@ -102,10 +102,6 @@ function NavListMenu() {
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = React.useState(false);
 
-
-
-
-
   const renderItems = navListMenuItems.map(({ icon, title, path }, key) => (
     <Link href={path} key={key} passHref>
       <MenuItem className="flex items-center border-none gap-5 rounded-none md:py-5">
@@ -127,7 +123,7 @@ function NavListMenu() {
       </MenuItem>
     </Link>
   ));
-  
+
   // const renderItems = navListMenuItems.map(({ icon, title }, key) => (
   //   <a href="#" key={key}>
   //     <MenuItem className="flex items-center border-none gap-5  rounded-none md:py-5 ">
@@ -234,6 +230,13 @@ function NavList() {
 const NavbarWithMegaMenu = () => {
   const [openNav, setOpenNav] = React.useState(false);
   const router = useRouter();
+  const [token, setToken] = useState(null);
+
+  useEffect(() => {
+    // Check for token in cookies on component mount
+    const storedToken: any = Cookies.get("token");
+    setToken(storedToken);
+  }, []);
 
   React.useEffect(() => {
     window.addEventListener(
@@ -241,6 +244,19 @@ const NavbarWithMegaMenu = () => {
       () => window.innerWidth >= 960 && setOpenNav(false)
     );
   }, []);
+
+  const handleSignout = () => {
+    try {
+      // Remove token from cookies
+      Cookies.remove("token");
+      setToken(null); // Update token state
+
+      // Redirect to the login page
+      router.push("/login");
+    } catch (error) {
+      console.error("Signout failed:", error);
+    }
+  };
 
   return (
     <div className=" !w-full !bg-white">
@@ -277,13 +293,33 @@ const NavbarWithMegaMenu = () => {
                 />
               </div>
             </div>
-            <Button
+            {/* <Button
               className="bg-yellow-700"
               size="sm"
               onClick={() => router.push("/login")}
             >
               Sign In
-            </Button>
+            </Button> */}
+
+            <div className="hidden gap-2 lg:flex">
+              {token ? (
+                <Button
+                  className="bg-red-600"
+                  size="sm"
+                  onClick={handleSignout}
+                >
+                  Sign Out
+                </Button>
+              ) : (
+                <Button
+                  className="bg-yellow-700"
+                  size="sm"
+                  onClick={() => router.push("/signup")}
+                >
+                  Sign Up
+                </Button>
+              )}
+            </div>
           </div>
           <IconButton
             variant="text"
@@ -321,14 +357,32 @@ const NavbarWithMegaMenu = () => {
                 />
               </div>
             </div>
-            <Button
+            {/* <Button
               size="sm"
               fullWidth
               className="bg-yellow-600"
               onClick={() => router.push("/login")}
             >
               Sign In
-            </Button>
+            </Button> */}
+
+            {token ? (
+              <Button
+                className="bg-red-600 w-full"
+                size="sm"
+                onClick={handleSignout}
+              >
+                Sign Out
+              </Button>
+            ) : (
+              <Button
+                className="bg-yellow-700 w-full"
+                size="sm"
+                onClick={() => router.push("/signup")}
+              >
+                Sign Up
+              </Button>
+            )}
           </div>
         </Collapse>
       </Navbar>
