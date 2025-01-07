@@ -4,49 +4,40 @@ import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
+interface SettingOutInputs {
+  perimeter: string;
+  girth: string;
+  pegBundles: string;
+  tieRods: string;
+  ropeQuantity: string;
+}
+
 const SettingOut: React.FC = () => {
-  const [settings, setSettings] = useState<any>({
-    perimeterOfStructure: 100,
-    pegBundles: 2,
-    tieRodCount: 31,
-    nailKg: 4.0,
-    ropeQuantity: 111,
-    ItemOfWork: null,
+  const [settings, setSettings] = useState<SettingOutInputs>({
+    perimeter: "100",
+    girth: "0",
+    pegBundles: "2",
+    tieRods: "31",
+    ropeQuantity: "111",
   });
 
   const dispatch: AppDispatch = useDispatch();
-
   const response = useSelector((state: RootState) => state.getUser.response);
 
   useEffect(() => {
-    {
-      dispatch(getUser());
-    }
+    dispatch(getUser());
   }, [dispatch]);
 
   useEffect(() => {
     if (typeof window !== "undefined" && window.localStorage) {
-      setSettings({
-        perimeterOfStructure:
-          localStorage.getItem("perimeterOfStructure") || "100",
-        pegBundles: localStorage.getItem("pegBundles") || "2",
-        tieRodCount: localStorage.getItem("tieRodCount") || "31",
-        nailKg: localStorage.getItem("nailKg") || "4.0",
-        ropeQuantity: localStorage.getItem("ropeQuantity") || "111",
-        ItemOfWork: localStorage.getItem("ItemOfWork"),
-      });
+      const savedSettings = localStorage.getItem("Setting Out Inputs");
+      if (savedSettings) {
+        setSettings(JSON.parse(savedSettings));
+      }
     }
   }, []);
 
-  const {
-    perimeterOfStructure,
-    pegBundles,
-    tieRodCount,
-    nailKg,
-    ropeQuantity,
-  } = settings;
-
-  // const userName = "User Name";
+  const { perimeter, pegBundles, tieRods, ropeQuantity, girth } = settings;
 
   return (
     <div>
@@ -61,17 +52,15 @@ const SettingOut: React.FC = () => {
       <div className="bg-black rounded-lg p-4 mb-4">
         <p>
           Setting out a structure perimeter of{" "}
-          <strong>{perimeterOfStructure} meters</strong>, you will require:
+          <strong>{perimeter} meters</strong> and girth of{" "}
+          <strong>{girth} meters</strong>, you will require:
         </p>
         <ul className="list-disc ml-6">
           <li>
             <strong>{pegBundles} bundles</strong> of pegs (20 pieces per bundle)
           </li>
           <li>
-            <strong>{tieRodCount} tie rods</strong> (12mm x 50mm x 3600mm wood)
-          </li>
-          <li>
-            <strong>{nailKg} kg</strong> of 3-inch nails
+            <strong>{tieRods} tie rods</strong> (12mm x 50mm x 3600mm wood)
           </li>
         </ul>
         <p>

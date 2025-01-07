@@ -130,60 +130,7 @@ const Stepform = () => {
     }
   };
 
-  // const handleNext = async () => {
-  //   if (activeStep === 1) { // If we're on Step 2 (index 1)
-  //     setLoading(true);
-  //     try {
-  //       const response = await axiosInstance.post("/api/users/estimator", formData);
-  //       console.log("Form submitted successfully:", response.data);
-  //       toast.success("Automated Form submitted successfully!");
-  //     } catch (error) {
-  //       console.error("Error submitting form:", error);
-  //       toast.error("Failed to submit automated form.");
-  //     } finally {
-  //       setLoading(false);
-  //     }
-  //   } else if (isLastStep) {
-  //     // If it's the last step (Step 3), submit the form
-  //     setLoading(true);
-  //     try {
-  //       const response = await axiosInstance.post("/api/users/estimator", formData);
-  //       console.log("Form submitted successfully:", response.data);
-  //       toast.success("Automated Form submitted successfully!");
-  //     } catch (error) {
-  //       console.error("Error submitting form:", error);
-  //       toast.error("Failed to submit automated form.");
-  //     } finally {
-  //       setLoading(false);
-  //     }
-  //   } else {
-  //     // Otherwise, just move to the next step
-  //     setActiveStep((cur) => cur + 1);
-  //   }
-  // };
-
-  // const handleNext = async () => {
-  //   if (isLastStep) {
-  //     setLoading(true);
-  //     try {
-  //       const response = await axiosInstance.post(
-  //         "/api/users/estimator",
-  //         formData
-  //       );
-  //       console.log("Form submitted successfully:", response.data);
-  //       console.log(response)
-  //       console.log(response?.data)
-  //       toast.success("Automated Form submitted successfully!");
-  //     } catch (error) {
-  //       console.error("Error submitting form:", error);
-  //       toast.error("Failed to submit automated form.");
-  //     } finally {
-  //       setLoading(false);
-  //     }
-  //   } else {
-  //     setActiveStep((cur) => cur + 1);
-  //   }
-  // };
+ 
 
   const handlePrev = () => {
     if (!isFirstStep) {

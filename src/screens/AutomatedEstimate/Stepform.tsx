@@ -8,11 +8,12 @@ import {
   Spinner,
 } from "@material-tailwind/react";
 import DynamicSelect from "./DynamicSelect";
-import StepTwo from "./StepTwo";
+// import StepTwo from "./StepTwo";
 import { toast } from "react-toastify";
 import axiosInstance from "@/Globals/Interceptor";
 import ResultPage from "./Results/StepThree";
 import { useRouter } from "next/navigation";
+import StepTwoForm from "./Steptwogrouped/StepTwo";
 
 const Stepform = () => {
   const router = useRouter();
@@ -139,6 +140,7 @@ const Stepform = () => {
     }
     if (activeStep === 1) {
       const isValid = await validateStepTwo?.(); // Optional chaining for safety
+      console.log("Validation status:", isValid); // Debug log
       if (!isValid) {
         toast.error("Please correct the errors before proceeding.");
         return;
@@ -220,11 +222,11 @@ const Stepform = () => {
         return <DynamicSelect />;
       case 1:
         return (
-          <StepTwo
-            validateStep={(validationFunction) =>
+          <StepTwoForm
+            validateStep={(validationFunction:any) =>
               setValidateStepTwo(() => validationFunction)
             }
-            setFormData={(data) =>
+            setFormData={(data:any) =>
               setFormData((prev) => ({ ...prev, ...data }))
             }
           />
