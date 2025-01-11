@@ -70,6 +70,30 @@ const schemas: any = {
     dampbreadth: yup.string().required("breath is required"),
     damparea: yup.string().required("Area is required"),
   }),
+
+  "Formwork/Capentry works": yup.object().shape({
+    formworkLength: yup.string().required("Length is required"),
+    formworkBreadth: yup.string().required("Breadth is required"),
+    formworkArea: yup.string().required("Area is required"),
+  }),
+
+  "Blockwork and Brickwork": yup.object().shape({
+    blockworklength: yup.string().required("Length is required"),
+    blockworkbreadth: yup.string().required("Breadth is required"),
+    blockworkarea: yup.string().required("Area is required"),
+  }),
+
+  "plastering works": yup.object().shape({
+    plasterlength: yup.string().required("Length is required"),
+    plasterbreadth: yup.string().required("Breadth is required"),
+    plasterarea: yup.string().required("Area is required"),
+  }),
+
+  "Screeding works": yup.object().shape({
+    Screedinglength: yup.string().required("Length is required"),
+    Screedingbreadth: yup.string().required("Breadth is required"),
+    Screedingarea: yup.string().required("Area is required"),
+  }),
 };
 
 const StepTwo: React.FC<StepTwoProps> = ({ validateStep, setFormData }) => {
@@ -129,6 +153,30 @@ const StepTwo: React.FC<StepTwoProps> = ({ validateStep, setFormData }) => {
         { name: "dampbreadth", label: "Breadth" },
         { name: "damplength", label: "Length" },
         { name: "damparea", label: "Area" },
+      ],
+
+      "Formwork/Capentry works": [
+        { name: "formworkbreadth", label: "Breadth" },
+        { name: "formworklength", label: "Length" },
+        { name: "formworkarea", label: "Area" },
+      ],
+
+      "Blockwork and Brickwork": [
+        { name: "blockworkbreadth", label: "Breadth" },
+        { name: "blockworklength", label: "Length" },
+        { name: "blockworkarea", label: "Area" },
+      ],
+
+      "plastering works": [
+        { name: "plasterbreadth", label: "Breadth" },
+        { name: "plasterlength", label: "Length" },
+        { name: "plasterarea", label: "Area" },
+      ],
+
+      "Screeding works": [
+        { name: "Screedingbreadth", label: "Breadth" },
+        { name: "Screedinglength", label: "Length" },
+        { name: "Screedingarea", label: "Area" },
       ],
     };
 
@@ -226,8 +274,32 @@ const StepTwo: React.FC<StepTwoProps> = ({ validateStep, setFormData }) => {
       "Reinforcement/Iron bending works": [
         { name: "dampgirth", label: "Girth" },
         { name: "damplength", label: "Length" },
-        { name: "dampbreadth", label: "Width" },
+        { name: "dampbreadth", label: "Breadth" },
         { name: "damparea", label: "Area" },
+      ],
+      "Formwork/Capentry works": [
+        { name: "formworklength", label: "Length" },
+        { name: "formworkbreadth", label: "Breadth" },
+        { name: "formworkarea", label: "Area" },
+      ],
+
+      "Blockwork and Brickwork": [
+        { name: "blockworklength", label: "Length" },
+        { name: "blockworkbreadth", label: "Breadth" },
+        { name: "blockworkarea", label: "Area" },
+      ],
+
+      "plastering works": [
+        { name: "plasterlength", label: "Length" },
+        { name: "plasterbreadth", label: "Breadth" },
+        { name: "plasterarea", label: "Area" },
+      ],
+
+
+      "Screeding works": [
+        { name: "Screedinglength", label: "Length" },
+        { name: "Screedingbreadth", label: "Breadth" },
+        { name: "Screedingarea", label: "Area" },
       ],
     };
 
