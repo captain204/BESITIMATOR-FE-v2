@@ -13,7 +13,10 @@ import { toast } from "react-toastify";
 import axiosInstance from "@/Globals/Interceptor";
 import ResultPage from "./Results/StepThree";
 import { useRouter } from "next/navigation";
-import StepTwoForm from "./Steptwogrouped/StepTwoforms";
+import StepTwoForm from "./SteptwogroupedAutomated/Clearingform";
+import ExcavationForm from "./SteptwogroupedAutomated/ExcavationForm";
+import SettingOutForm from "./SteptwogroupedAutomated/SettingOutForm";
+import FillingWorks from "./SteptwogroupedAutomated/FillingWorks";
 
 const Stepform = () => {
   const router = useRouter();
@@ -22,6 +25,7 @@ const Stepform = () => {
   const [isFirstStep, setIsFirstStep] = useState(true);
   const [loading, setLoading] = useState(false);
   const [storedMaterials, setStoredMaterials] = useState<any>({});
+
   const [validateStepTwo, setValidateStepTwo] = useState<
     () => Promise<boolean>
   >(() => async () => true);
@@ -216,21 +220,86 @@ const Stepform = () => {
   //   }
   // };
 
+  // const renderStepContent = () => {
+  //   const ItemOfWork = storedMaterials.ItemOfWork;
+  //   switch (activeStep) {
+  //     case 0:
+  //       return <DynamicSelect />;
+  //     case 1:
+  //       return ItemOfWork === "Clearing Works" ? (
+  //         <StepTwoForm
+  //           validateStep={(validationFunction: any) =>
+  //             setValidateStepTwo(() => validationFunction)
+  //           }
+  //           setFormData={(data: any) =>
+  //             setFormData((prev) => ({ ...prev, ...data }))
+  //           }
+  //         />
+  //       ) : (
+  //         <ExcavationForm
+  //         validateStep={(validationFunction: any) =>
+  //           setValidateStepTwo(() => validationFunction)
+  //         }
+  //         setFormData={(data: any) =>
+  //           setFormData((prev) => ({ ...prev, ...data }))
+  //         }
+  //       />
+  //       );
+  //     case 2:
+  //       return <ResultPage />;
+  //     default:
+  //       return null;
+  //   }
+  // };
+
   const renderStepContent = () => {
+    const ItemOfWork = storedMaterials.ItemOfWork;
     switch (activeStep) {
       case 0:
         return <DynamicSelect />;
       case 1:
-        return (
-          <StepTwoForm
-            validateStep={(validationFunction:any) =>
-              setValidateStepTwo(() => validationFunction)
-            }
-            setFormData={(data:any) =>
-              setFormData((prev) => ({ ...prev, ...data }))
-            }
-          />
-        );
+        if (ItemOfWork === "Clearing Works") {
+          return (
+            <StepTwoForm
+              validateStep={(validationFunction: any) =>
+                setValidateStepTwo(() => validationFunction)
+              }
+           
+            />
+          );
+        } else if (ItemOfWork === "Excavation") {
+          return (
+            <ExcavationForm
+              validateStep={(validationFunction: any) =>
+                setValidateStepTwo(() => validationFunction)
+              }
+            />
+          );
+        } else if (ItemOfWork === "Setting out") {
+          return (
+            <SettingOutForm
+              validateStep={(validationFunction: any) =>
+                setValidateStepTwo(() => validationFunction)
+              }
+              setFormData={(data: any) =>
+                setFormData((prev) => ({ ...prev, ...data }))
+              }
+            />
+          );
+        } else if (ItemOfWork === "Filling works") {
+          return (
+            <FillingWorks
+              validateStep={(validationFunction: any) =>
+                setValidateStepTwo(() => validationFunction)
+              }
+              // setFormData={(data: any) =>
+              //   setFormData((prev) => ({ ...prev, ...data }))
+              // }
+            />
+          );
+        } else {
+          return <div>Unknown ItemOfWork</div>;
+        }
       case 2:
         return <ResultPage />;
       default:

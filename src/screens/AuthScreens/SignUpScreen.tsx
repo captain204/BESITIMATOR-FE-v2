@@ -1,5 +1,4 @@
 "use client";
-
 import { Typography } from "@material-tailwind/react";
 import Link from "next/link";
 import React, { useState } from "react";
