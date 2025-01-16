@@ -8,10 +8,10 @@ interface StepTwoProps {
 }
 
 const settingoutSchema = yup.object().shape({
-  sitePerimeter: yup.string().required("Perimeter of structure is required"),
+  siteLength: yup.string().required("Perimeter of structure is required"),
 });
 
-const SettingOutForm: React.FC<StepTwoProps> = ({ validateStep }) => {
+const Reinforcementform: React.FC<StepTwoProps> = ({ validateStep }) => {
   const [unit, setUnit] = useState<string>("Metres");
 
   const [itemOfWork, setItemOfWork] = useState<string>("");
@@ -33,7 +33,7 @@ const SettingOutForm: React.FC<StepTwoProps> = ({ validateStep }) => {
   } = useForm({
     resolver: yupResolver(settingoutSchema),
     defaultValues: {
-      sitePerimeter: "",
+      siteLength: "",
     },
   });
 
@@ -62,7 +62,7 @@ const SettingOutForm: React.FC<StepTwoProps> = ({ validateStep }) => {
 
         // Store data in localStorage, including unit
         localStorage.setItem(
-          "Setting Out Inputs",
+          "Reinforcement/Iron bending works Inputs",
           JSON.stringify(formDataWithUnit)
         );
       }
@@ -84,29 +84,29 @@ const SettingOutForm: React.FC<StepTwoProps> = ({ validateStep }) => {
       </h1>
       <div className="flex flex-col w-full md:w-1/2 mb-4">
         <label htmlFor="siteLength" className="font-medium text-black mb-1">
-          Perimeter of structure (Ground Floor perimeter):
+          Girth / Total Length:
         </label>
         <Controller
-          name="sitePerimeter"
+          name="siteLength"
           control={control}
           render={({ field }) => (
             <input
               {...field}
               id="siteLength"
-              placeholder="Enter Perimeter of structure"
+              placeholder="Enter Girth/Total Length"
               onChange={(e) => {
                 field.onChange(e); // Update the value
-                clearErrors("sitePerimeter"); // Clear errors
+                clearErrors("siteLength"); // Clear errors
               }}
               className={`py-3 px-4 w-full bg-white border text-black rounded-lg focus:ring-1 focus:ring-yellow-400 focus:outline-none ${
-                errors.sitePerimeter ? "border-red-500" : "border-gray-300"
+                errors.siteLength ? "border-red-500" : "border-gray-300"
               }`}
             />
           )}
         />
-        {errors.sitePerimeter && (
+        {errors.siteLength && (
           <p className="text-red-500 text-sm mt-1">
-            {errors.sitePerimeter.message}
+            {errors.siteLength.message}
           </p>
         )}
       </div>
@@ -133,4 +133,4 @@ const SettingOutForm: React.FC<StepTwoProps> = ({ validateStep }) => {
   );
 };
 
-export default SettingOutForm;
+export default Reinforcementform;

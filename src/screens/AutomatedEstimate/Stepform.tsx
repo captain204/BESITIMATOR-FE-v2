@@ -19,6 +19,7 @@ import SettingOutForm from "./SteptwogroupedAutomated/SettingOutForm";
 import FillingWorks from "./SteptwogroupedAutomated/FillingWorks";
 import ConcreteForm from "./SteptwogroupedAutomated/ConcreteForm";
 import DampprovingForm from "./SteptwogroupedAutomated/DampProving";
+import Reinforcementform from "./SteptwogroupedAutomated/Reignforcementform";
 
 const Stepform = () => {
   const router = useRouter();
@@ -266,7 +267,6 @@ const Stepform = () => {
               validateStep={(validationFunction: any) =>
                 setValidateStepTwo(() => validationFunction)
               }
-           
             />
           );
         } else if (ItemOfWork === "Excavation") {
@@ -283,9 +283,6 @@ const Stepform = () => {
               validateStep={(validationFunction: any) =>
                 setValidateStepTwo(() => validationFunction)
               }
-              setFormData={(data: any) =>
-                setFormData((prev) => ({ ...prev, ...data }))
-              }
             />
           );
         } else if (ItemOfWork === "Filling works") {
@@ -299,33 +296,31 @@ const Stepform = () => {
               // }
             />
           );
-        }
-        
-        else if (ItemOfWork === "Concrete/Binding Works") {
+        } else if (ItemOfWork === "Concrete/Binding Works") {
           return (
             <ConcreteForm
               validateStep={(validationFunction: any) =>
                 setValidateStepTwo(() => validationFunction)
               }
-          
             />
           );
-        }
-
-
-        else if (ItemOfWork === "Damp proofing works") {
+        } else if (ItemOfWork === "Damp proofing works") {
           return (
             <DampprovingForm
               validateStep={(validationFunction: any) =>
                 setValidateStepTwo(() => validationFunction)
               }
-          
             />
           );
-        }
-        
-        
-        else {
+        } else if (ItemOfWork === "Reinforcement/Iron bending works") {
+          return (
+            <Reinforcementform
+              validateStep={(validationFunction: any) =>
+                setValidateStepTwo(() => validationFunction)
+              }
+            />
+          );
+        } else {
           return <div>Unknown ItemOfWork</div>;
         }
       case 2:
