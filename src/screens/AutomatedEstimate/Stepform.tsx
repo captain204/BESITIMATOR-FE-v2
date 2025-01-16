@@ -17,6 +17,8 @@ import StepTwoForm from "./SteptwogroupedAutomated/Clearingform";
 import ExcavationForm from "./SteptwogroupedAutomated/ExcavationForm";
 import SettingOutForm from "./SteptwogroupedAutomated/SettingOutForm";
 import FillingWorks from "./SteptwogroupedAutomated/FillingWorks";
+import ConcreteForm from "./SteptwogroupedAutomated/ConcreteForm";
+import DampprovingForm from "./SteptwogroupedAutomated/DampProving";
 
 const Stepform = () => {
   const router = useRouter();
@@ -297,7 +299,33 @@ const Stepform = () => {
               // }
             />
           );
-        } else {
+        }
+        
+        else if (ItemOfWork === "Concrete/Binding Works") {
+          return (
+            <ConcreteForm
+              validateStep={(validationFunction: any) =>
+                setValidateStepTwo(() => validationFunction)
+              }
+          
+            />
+          );
+        }
+
+
+        else if (ItemOfWork === "Damp proofing works") {
+          return (
+            <DampprovingForm
+              validateStep={(validationFunction: any) =>
+                setValidateStepTwo(() => validationFunction)
+              }
+          
+            />
+          );
+        }
+        
+        
+        else {
           return <div>Unknown ItemOfWork</div>;
         }
       case 2:

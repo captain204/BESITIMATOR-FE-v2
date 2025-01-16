@@ -77,7 +77,7 @@ const excavationWorksSchema = yup.object().shape({
     }),
 });
 
-const ExcavationForm: React.FC<StepTwoProps> = ({ validateStep }) => {
+const ConcreteForm: React.FC<StepTwoProps> = ({ validateStep }) => {
   const [unit, setUnit] = useState<string>("Metres");
   const [type, setType] = useState<string>("Circular");
   const [itemOfWork, setItemOfWork] = useState<string>("");
@@ -117,7 +117,7 @@ const ExcavationForm: React.FC<StepTwoProps> = ({ validateStep }) => {
         const formData = getValues();
         const formDataWithUnit = { ...formData, unit };
         localStorage.setItem(
-          "Excavation Inputs",
+          "Concrete-Binding works Inputs",
           JSON.stringify(formDataWithUnit)
         );
       }
@@ -379,4 +379,4 @@ const ExcavationForm: React.FC<StepTwoProps> = ({ validateStep }) => {
   );
 };
 
-export default ExcavationForm;
+export default ConcreteForm;

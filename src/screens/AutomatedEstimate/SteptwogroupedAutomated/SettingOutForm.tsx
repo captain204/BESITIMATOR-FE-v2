@@ -80,7 +80,7 @@ const SettingOutForm: React.FC<StepTwoProps> = ({
   }, [memoizedValidateStep]);
 
   return (
-    <div className="flex flex-col items-center justify-center w-full mb-6 mt-20">
+    <div className="flex flex-col items-center justify-center w-full  mb-6 mt-20">
       {/* Site Length */}
       <h1 className="text-xl text-start font-bold text-black mb-6">
         Specify your{" "}
