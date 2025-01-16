@@ -125,7 +125,7 @@ const ClearingForm: React.FC<StepTwoProps> = ({ validateStep }) => {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center w-full mb-6 mt-20">
+    <div className="flex flex-col items-center justify-center md:w-full mb-6 mt-20">
       <h1 className="text-xl text-start font-bold text-black mb-6">
         Specify your{" "}
         <span className="text-yellow-900">{itemOfWork || "Work Item"}</span>{" "}
