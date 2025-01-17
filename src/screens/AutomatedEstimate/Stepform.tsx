@@ -26,6 +26,8 @@ import SlapsForm from "./SteptwogroupedAutomated/FormworksForms/Slabs";
 import ColumnFormworkForm from "./SteptwogroupedAutomated/FormworksForms/Column";
 import LintelformworkForm from "./SteptwogroupedAutomated/FormworksForms/Lintel";
 import GroundBeamFormworkForm from "./SteptwogroupedAutomated/FormworksForms/GroundSuspendedBeams";
+import BlockworkForm from "./SteptwogroupedAutomated/Bloackwork";
+import PlasteringForm from "./SteptwogroupedAutomated/Plastering";
 
 const Stepform = () => {
   const router = useRouter();
@@ -34,27 +36,6 @@ const Stepform = () => {
   const [isFirstStep, setIsFirstStep] = useState(true);
   const [loading, setLoading] = useState(false);
   const [storedMaterials, setStoredMaterials] = useState<any>({});
-
-  const [formwork, setFormwork] = useState("");
-
-  useEffect(() => {
-    const storedFormwork = localStorage.getItem("Formwork/Carpentry-works-sub") || "";
-    setFormwork(storedFormwork);
-  
-    // Add an event listener to detect storage changes
-    const handleStorageChange = (event: StorageEvent) => {
-      if (event.key === "Formwork/Carpentry-works-sub") {
-        setFormwork(event.newValue || "");
-      }
-    };
-  
-    window.addEventListener("storage", handleStorageChange);
-  
-    // Clean up the event listener
-    return () => {
-      window.removeEventListener("storage", handleStorageChange);
-    };
-  }, []);
 
   const [validateStepTwo, setValidateStepTwo] = useState<
     () => Promise<boolean>
@@ -370,7 +351,26 @@ const Stepform = () => {
               />
             );
           }
-        } else {
+        } else if (ItemOfWork === "Blockwork and Brickwork") {
+          return (
+            <BlockworkForm
+              validateStep={(validationFunction: any) =>
+                setValidateStepTwo(() => validationFunction)
+              }
+            />
+          );
+        } 
+        else if (ItemOfWork === "plastering works") {
+          return (
+            <PlasteringForm
+              validateStep={(validationFunction: any) =>
+                setValidateStepTwo(() => validationFunction)
+              }
+            />
+          );
+        } 
+        
+        else {
           return <div>Unknown ItemOfWork</div>;
         }
 
