@@ -8,14 +8,14 @@ interface StepTwoProps {
 }
 
 const columnSchema = yup.object().shape({
-  hight: yup.string().required("Height is required"),
+  width: yup.string().required("width is required"),
   total: yup.string().required("total is required"),
 });
 
-const ColumnForm: React.FC<StepTwoProps> = ({ validateStep }) => {
+const LintelformworkForm: React.FC<StepTwoProps> = ({ validateStep }) => {
   const [unit, setUnit] = useState<string>("Metres");
 
-  const [itemOfWork, setItemOfWork] = useState<string>("");
+ 
 
 
 
@@ -28,17 +28,11 @@ const ColumnForm: React.FC<StepTwoProps> = ({ validateStep }) => {
   };
   
   const reinforcementFor = getLocalStorageItem(
-    "Where-you-need-your-reinforcement-for",
+    "Formwork/Carpentry-works-sub",
     ""
   );
 
-  useEffect(() => {
-    // Retrieve the work item from local storage
-    const storedItem = localStorage.getItem("ItemOfWork");
-    if (storedItem) {
-      setItemOfWork(storedItem);
-    }
-  }, []);
+
 
   const {
     control,
@@ -49,7 +43,7 @@ const ColumnForm: React.FC<StepTwoProps> = ({ validateStep }) => {
   } = useForm({
     resolver: yupResolver(columnSchema),
     defaultValues: {
-      hight: "",
+      width: "",
       total: "",
     },
   });
@@ -64,7 +58,7 @@ const ColumnForm: React.FC<StepTwoProps> = ({ validateStep }) => {
 
         // Store data in localStorage, including unit
         localStorage.setItem(
-          "Reinforcemet-Column Inputs",
+          "Formwork-Lintel Inputs",
           JSON.stringify(formDataWithUnit)
         );
       }
@@ -86,34 +80,34 @@ const ColumnForm: React.FC<StepTwoProps> = ({ validateStep }) => {
       </h1>
       <div className="flex flex-col w-full md:w-1/2 mb-4">
         <label htmlFor="siteLength" className="font-medium text-black mb-1">
-          Height:
+        Width of opening:
         </label>
         <Controller
-          name="hight"
+          name="width"
           control={control}
           render={({ field }) => (
             <input
               {...field}
-              id="hight"
+              id="width"
               placeholder="Enter height"
               onChange={(e) => {
                 field.onChange(e); // Update the value
-                clearErrors("hight"); // Clear errors
+                clearErrors("width"); // Clear errors
               }}
               className={`py-3 px-4 w-full bg-white border text-black rounded-lg focus:ring-1 focus:ring-yellow-400 focus:outline-none ${
-                errors.hight ? "border-red-500" : "border-gray-300"
+                errors.width ? "border-red-500" : "border-gray-300"
               }`}
             />
           )}
         />
-        {errors.hight && (
-          <p className="text-red-500 text-sm mt-1">{errors.hight.message}</p>
+        {errors.width && (
+          <p className="text-red-500 text-sm mt-1">{errors.width.message}</p>
         )}
       </div>
 
       <div className="flex flex-col w-full md:w-1/2 mb-4">
         <label htmlFor="siteLength" className="font-medium text-black mb-1">
-          Total No (Nos)
+          Total No of Orders
         </label>
         <Controller
           name="total"
@@ -160,4 +154,4 @@ const ColumnForm: React.FC<StepTwoProps> = ({ validateStep }) => {
   );
 };
 
-export default ColumnForm;
+export default LintelformworkForm;

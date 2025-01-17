@@ -50,24 +50,26 @@ const options = [
       </div>
     ),
   },
+
+  
 ];
 
 export default function Formwork() {
   const [selected, setSelected] = useState("Ground beams");
 
   useEffect(() => {
-      const storedOption = localStorage.getItem("Formwork/Carpentry-works")
+      const storedOption = localStorage.getItem("Formwork/Carpentry-works-sub")
       if (storedOption) {
         setSelected(storedOption);
       } else {
-        localStorage.setItem("Formwork/Carpentry-works", "Ground beams");
+        localStorage.setItem("Formwork/Carpentry-works-sub", "Ground beams");
       }
     }, []);
   
     const handleSelectChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
       const newOption = event.target.value;
       setSelected(newOption);
-      localStorage.setItem("Formwork/Carpentry-works", newOption);
+      localStorage.setItem("Formwork/Carpentry-works-sub", newOption);
     };
  
 

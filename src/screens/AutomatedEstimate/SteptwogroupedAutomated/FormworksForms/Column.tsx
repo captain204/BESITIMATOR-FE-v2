@@ -9,13 +9,13 @@ interface StepTwoProps {
 
 const columnSchema = yup.object().shape({
   hight: yup.string().required("Height is required"),
+  perimetre: yup.string().required("perimetre is required"),
   total: yup.string().required("total is required"),
 });
 
-const ColumnForm: React.FC<StepTwoProps> = ({ validateStep }) => {
+const ColumnFormworkForm: React.FC<StepTwoProps> = ({ validateStep }) => {
   const [unit, setUnit] = useState<string>("Metres");
 
-  const [itemOfWork, setItemOfWork] = useState<string>("");
 
 
 
@@ -28,17 +28,10 @@ const ColumnForm: React.FC<StepTwoProps> = ({ validateStep }) => {
   };
   
   const reinforcementFor = getLocalStorageItem(
-    "Where-you-need-your-reinforcement-for",
+    "Formwork/Carpentry-works-sub",
     ""
   );
 
-  useEffect(() => {
-    // Retrieve the work item from local storage
-    const storedItem = localStorage.getItem("ItemOfWork");
-    if (storedItem) {
-      setItemOfWork(storedItem);
-    }
-  }, []);
 
   const {
     control,
@@ -51,6 +44,7 @@ const ColumnForm: React.FC<StepTwoProps> = ({ validateStep }) => {
     defaultValues: {
       hight: "",
       total: "",
+      perimetre: ""
     },
   });
 
@@ -64,7 +58,7 @@ const ColumnForm: React.FC<StepTwoProps> = ({ validateStep }) => {
 
         // Store data in localStorage, including unit
         localStorage.setItem(
-          "Reinforcemet-Column Inputs",
+          "formwork-Column Inputs",
           JSON.stringify(formDataWithUnit)
         );
       }
@@ -84,6 +78,7 @@ const ColumnForm: React.FC<StepTwoProps> = ({ validateStep }) => {
         <span className="text-yellow-900">{reinforcementFor || "Work Item"}</span>{" "}
         inputs
       </h1>
+
       <div className="flex flex-col w-full md:w-1/2 mb-4">
         <label htmlFor="siteLength" className="font-medium text-black mb-1">
           Height:
@@ -111,9 +106,41 @@ const ColumnForm: React.FC<StepTwoProps> = ({ validateStep }) => {
         )}
       </div>
 
+
+
       <div className="flex flex-col w-full md:w-1/2 mb-4">
         <label htmlFor="siteLength" className="font-medium text-black mb-1">
-          Total No (Nos)
+          Perimetre:
+        </label>
+        <Controller
+          name="perimetre"
+          control={control}
+          render={({ field }) => (
+            <input
+              {...field}
+              id="perimetre"
+              placeholder="Enter height"
+              onChange={(e) => {
+                field.onChange(e); // Update the value
+                clearErrors("perimetre"); // Clear errors
+              }}
+              className={`py-3 px-4 w-full bg-white border text-black rounded-lg focus:ring-1 focus:ring-yellow-400 focus:outline-none ${
+                errors.hight ? "border-red-500" : "border-gray-300"
+              }`}
+            />
+          )}
+        />
+        {errors.perimetre && (
+          <p className="text-red-500 text-sm mt-1">{errors.perimetre.message}</p>
+        )}
+      </div>
+
+
+
+
+      <div className="flex flex-col w-full md:w-1/2 mb-4">
+        <label htmlFor="siteLength" className="font-medium text-black mb-1">
+          Total Nos of Columns:
         </label>
         <Controller
           name="total"
@@ -122,7 +149,7 @@ const ColumnForm: React.FC<StepTwoProps> = ({ validateStep }) => {
             <input
               {...field}
               id="total"
-              placeholder="Total No (Nos)"
+              placeholder="Total Nos of Columns"
               onChange={(e) => {
                 field.onChange(e); // Update the value
                 clearErrors("total"); // Clear errors
@@ -160,4 +187,4 @@ const ColumnForm: React.FC<StepTwoProps> = ({ validateStep }) => {
   );
 };
 
-export default ColumnForm;
+export default ColumnFormworkForm;

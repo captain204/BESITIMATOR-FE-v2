@@ -22,6 +22,10 @@ import DampprovingForm from "./SteptwogroupedAutomated/DampProving";
 import ColumnForm from "./SteptwogroupedAutomated/Reinforcementforms/Column";
 import ForMultipleReinforcementform from "./SteptwogroupedAutomated/Reinforcementforms/GroundSuspendedLintelBeamform";
 import Slabs from "./SteptwogroupedAutomated/Reinforcementforms/Slabs";
+import SlapsForm from "./SteptwogroupedAutomated/FormworksForms/Slabs";
+import ColumnFormworkForm from "./SteptwogroupedAutomated/FormworksForms/Column";
+import LintelformworkForm from "./SteptwogroupedAutomated/FormworksForms/Lintel";
+import GroundBeamFormworkForm from "./SteptwogroupedAutomated/FormworksForms/GroundSuspendedBeams";
 
 const Stepform = () => {
   const router = useRouter();
@@ -31,13 +35,26 @@ const Stepform = () => {
   const [loading, setLoading] = useState(false);
   const [storedMaterials, setStoredMaterials] = useState<any>({});
 
-  // useEffect(() => {
-  //   // Load the value from local storage when the component mounts
-  //   const storedValue = localStorage.getItem(
-  //     "Where-you-need-your-reinforcement-for"
-  //   );
-  //   setReinforcementFor(storedValue); // Set state to the stored value
-  // }, []);
+  const [formwork, setFormwork] = useState("");
+
+  useEffect(() => {
+    const storedFormwork = localStorage.getItem("Formwork/Carpentry-works-sub") || "";
+    setFormwork(storedFormwork);
+  
+    // Add an event listener to detect storage changes
+    const handleStorageChange = (event: StorageEvent) => {
+      if (event.key === "Formwork/Carpentry-works-sub") {
+        setFormwork(event.newValue || "");
+      }
+    };
+  
+    window.addEventListener("storage", handleStorageChange);
+  
+    // Clean up the event listener
+    return () => {
+      window.removeEventListener("storage", handleStorageChange);
+    };
+  }, []);
 
   const [validateStepTwo, setValidateStepTwo] = useState<
     () => Promise<boolean>
@@ -217,17 +234,26 @@ const Stepform = () => {
 
   const renderStepContent = () => {
     const ItemOfWork = storedMaterials?.ItemOfWork; // Ensure storedMaterials exists
-    const getLocalStorageItem = (key:any, defaultValue:any) => {
+    const getLocalStorageItem = (key: any, defaultValue: any) => {
       if (typeof window !== "undefined" && window.localStorage) {
         return localStorage.getItem(key) || defaultValue;
       }
       return defaultValue;
     };
-    
+
+    const getLocalStorageItemtwo = (key: any, defaultValue: any) => {
+      if (typeof window !== "undefined" && window.localStorage) {
+        return localStorage.getItem(key) || defaultValue;
+      }
+      return defaultValue;
+    };
+
     const reinforcementFor = getLocalStorageItem(
       "Where-you-need-your-reinforcement-for",
       ""
     );
+
+    const formwork = getLocalStorageItemtwo("Formwork/Carpentry-works-sub", "");
 
     switch (activeStep) {
       case 0:
@@ -303,6 +329,41 @@ const Stepform = () => {
           } else {
             return (
               <ForMultipleReinforcementform
+                validateStep={(validationFunction: any) =>
+                  setValidateStepTwo(() => validationFunction)
+                }
+              />
+            );
+          }
+        } else if (ItemOfWork === "Formwork/Capentry works") {
+          // Handle "beam" and "lintel"
+          if (formwork === "Column") {
+            return (
+              <ColumnFormworkForm
+                validateStep={(validationFunction: any) =>
+                  setValidateStepTwo(() => validationFunction)
+                }
+              />
+            );
+          } else if (formwork === "Slabs") {
+            return (
+              <SlapsForm
+                validateStep={(validationFunction: any) =>
+                  setValidateStepTwo(() => validationFunction)
+                }
+              />
+            );
+          } else if (formwork === "Lintels") {
+            return (
+              <LintelformworkForm
+                validateStep={(validationFunction: any) =>
+                  setValidateStepTwo(() => validationFunction)
+                }
+              />
+            );
+          } else {
+            return (
+              <GroundBeamFormworkForm
                 validateStep={(validationFunction: any) =>
                   setValidateStepTwo(() => validationFunction)
                 }
