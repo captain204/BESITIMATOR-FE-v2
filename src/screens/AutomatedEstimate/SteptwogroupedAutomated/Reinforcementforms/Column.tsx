@@ -7,14 +7,30 @@ interface StepTwoProps {
   validateStep: (triggerValidation: () => Promise<boolean>) => void;
 }
 
-const settingoutSchema = yup.object().shape({
-  sitePerimeter: yup.string().required("Perimeter of structure is required"),
+const columnSchema = yup.object().shape({
+  hight: yup.string().required("Height is required"),
+  total: yup.string().required("Perimeter of structure is required"),
 });
 
-const SettingOutForm: React.FC<StepTwoProps> = ({ validateStep }) => {
+const ColumnForm: React.FC<StepTwoProps> = ({ validateStep }) => {
   const [unit, setUnit] = useState<string>("Metres");
 
   const [itemOfWork, setItemOfWork] = useState<string>("");
+
+
+
+
+  const getLocalStorageItem = (key:any, defaultValue:any) => {
+    if (typeof window !== "undefined" && window.localStorage) {
+      return localStorage.getItem(key) || defaultValue;
+    }
+    return defaultValue;
+  };
+  
+  const reinforcementFor = getLocalStorageItem(
+    "Where-you-need-your-reinforcement-for",
+    ""
+  );
 
   useEffect(() => {
     // Retrieve the work item from local storage
@@ -31,9 +47,10 @@ const SettingOutForm: React.FC<StepTwoProps> = ({ validateStep }) => {
     getValues,
     clearErrors,
   } = useForm({
-    resolver: yupResolver(settingoutSchema),
+    resolver: yupResolver(columnSchema),
     defaultValues: {
-      sitePerimeter: "",
+      hight: "",
+      total: "",
     },
   });
 
@@ -47,7 +64,7 @@ const SettingOutForm: React.FC<StepTwoProps> = ({ validateStep }) => {
 
         // Store data in localStorage, including unit
         localStorage.setItem(
-          "Setting Out Inputs",
+          "Reinforcemet-Column Inputs",
           JSON.stringify(formDataWithUnit)
         );
       }
@@ -64,35 +81,60 @@ const SettingOutForm: React.FC<StepTwoProps> = ({ validateStep }) => {
       {/* Site Length */}
       <h1 className="text-xl text-start font-bold text-black mb-6">
         Specify your{" "}
-        <span className="text-yellow-900">{itemOfWork || "Work Item"}</span>{" "}
+        <span className="text-yellow-900">{reinforcementFor || "Work Item"}</span>{" "}
         inputs
       </h1>
       <div className="flex flex-col w-full md:w-1/2 mb-4">
         <label htmlFor="siteLength" className="font-medium text-black mb-1">
-          Perimeter of structure (Ground Floor perimeter):
+          Height:
         </label>
         <Controller
-          name="sitePerimeter"
+          name="hight"
           control={control}
           render={({ field }) => (
             <input
               {...field}
-              id="siteLength"
-              placeholder="Enter Perimeter of structure"
+              id="hight"
+              placeholder="Enter height"
               onChange={(e) => {
                 field.onChange(e); // Update the value
-                clearErrors("sitePerimeter"); // Clear errors
+                clearErrors("hight"); // Clear errors
               }}
               className={`py-3 px-4 w-full bg-white border text-black rounded-lg focus:ring-1 focus:ring-yellow-400 focus:outline-none ${
-                errors.sitePerimeter ? "border-red-500" : "border-gray-300"
+                errors.hight ? "border-red-500" : "border-gray-300"
               }`}
             />
           )}
         />
-        {errors.sitePerimeter && (
-          <p className="text-red-500 text-sm mt-1">
-            {errors.sitePerimeter.message}
-          </p>
+        {errors.hight && (
+          <p className="text-red-500 text-sm mt-1">{errors.hight.message}</p>
+        )}
+      </div>
+
+      <div className="flex flex-col w-full md:w-1/2 mb-4">
+        <label htmlFor="siteLength" className="font-medium text-black mb-1">
+          Total No (Nos)
+        </label>
+        <Controller
+          name="total"
+          control={control}
+          render={({ field }) => (
+            <input
+              {...field}
+              id="total"
+              placeholder="Total No (Nos)"
+              onChange={(e) => {
+                field.onChange(e); // Update the value
+                clearErrors("total"); // Clear errors
+              }}
+              className={`py-3 px-4 w-full bg-white border text-black rounded-lg focus:ring-1 focus:ring-yellow-400 focus:outline-none ${
+                errors.total ? "border-red-500" : "border-gray-300"
+              }`}
+            />
+          )}
+        />
+        {errors.total && (
+          <p className="text-red-500 text-sm mt-1">{errors.total.message}</p>
         )}
       </div>
 
@@ -118,4 +160,4 @@ const SettingOutForm: React.FC<StepTwoProps> = ({ validateStep }) => {
   );
 };
 
-export default SettingOutForm;
+export default ColumnForm;

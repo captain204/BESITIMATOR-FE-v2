@@ -11,10 +11,23 @@ const settingoutSchema = yup.object().shape({
   siteLength: yup.string().required("Perimeter of structure is required"),
 });
 
-const Reinforcementform: React.FC<StepTwoProps> = ({ validateStep }) => {
+const ForMultipleReinforcementform: React.FC<StepTwoProps> = ({ validateStep }) => {
   const [unit, setUnit] = useState<string>("Metres");
 
   const [itemOfWork, setItemOfWork] = useState<string>("");
+
+
+  const getLocalStorageItem = (key:any, defaultValue:any) => {
+    if (typeof window !== "undefined" && window.localStorage) {
+      return localStorage.getItem(key) || defaultValue;
+    }
+    return defaultValue;
+  };
+  
+  const reinforcementFor = getLocalStorageItem(
+    "Where-you-need-your-reinforcement-for",
+    ""
+  );
 
   useEffect(() => {
     // Retrieve the work item from local storage
@@ -79,7 +92,7 @@ const Reinforcementform: React.FC<StepTwoProps> = ({ validateStep }) => {
       {/* Site Length */}
       <h1 className="text-xl text-start font-bold text-black mb-6">
         Specify your{" "}
-        <span className="text-yellow-900">{itemOfWork || "Work Item"}</span>{" "}
+        <span className="text-yellow-900">{reinforcementFor  || "Work Item"}</span>{" "}
         inputs
       </h1>
       <div className="flex flex-col w-full md:w-1/2 mb-4">
@@ -133,4 +146,4 @@ const Reinforcementform: React.FC<StepTwoProps> = ({ validateStep }) => {
   );
 };
 
-export default Reinforcementform;
+export default ForMultipleReinforcementform;

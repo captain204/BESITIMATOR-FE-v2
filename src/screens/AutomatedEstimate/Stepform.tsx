@@ -19,7 +19,9 @@ import SettingOutForm from "./SteptwogroupedAutomated/SettingOutForm";
 import FillingWorks from "./SteptwogroupedAutomated/FillingWorks";
 import ConcreteForm from "./SteptwogroupedAutomated/ConcreteForm";
 import DampprovingForm from "./SteptwogroupedAutomated/DampProving";
-import Reinforcementform from "./SteptwogroupedAutomated/Reignforcementform";
+import ColumnForm from "./SteptwogroupedAutomated/Reinforcementforms/Column";
+import ForMultipleReinforcementform from "./SteptwogroupedAutomated/Reinforcementforms/GroundSuspendedLintelBeamform";
+import Slabs from "./SteptwogroupedAutomated/Reinforcementforms/Slabs";
 
 const Stepform = () => {
   const router = useRouter();
@@ -28,6 +30,14 @@ const Stepform = () => {
   const [isFirstStep, setIsFirstStep] = useState(true);
   const [loading, setLoading] = useState(false);
   const [storedMaterials, setStoredMaterials] = useState<any>({});
+
+  // useEffect(() => {
+  //   // Load the value from local storage when the component mounts
+  //   const storedValue = localStorage.getItem(
+  //     "Where-you-need-your-reinforcement-for"
+  //   );
+  //   setReinforcementFor(storedValue); // Set state to the stored value
+  // }, []);
 
   const [validateStepTwo, setValidateStepTwo] = useState<
     () => Promise<boolean>
@@ -205,61 +215,24 @@ const Stepform = () => {
     setIsFirstStep(activeStep === 0);
   }, [activeStep]);
 
-  // const renderStepContent = () => {
-  //   switch (activeStep) {
-  //     case 0:
-  //       return <DynamicSelect />;
-  //     case 1:
-  //       return (
-  //         <StepTwo
-  //         validateStep={setValidateStepTwo} // Pass validation function
-  //         setFormData={(data) => setFormData((prev) => ({ ...prev, ...data }))}
-  //       />
-  //       );
-  //     case 2:
-  //       return <ResultPage />;
-  //     default:
-  //       return null;
-  //   }
-  // };
-
-  // const renderStepContent = () => {
-  //   const ItemOfWork = storedMaterials.ItemOfWork;
-  //   switch (activeStep) {
-  //     case 0:
-  //       return <DynamicSelect />;
-  //     case 1:
-  //       return ItemOfWork === "Clearing Works" ? (
-  //         <StepTwoForm
-  //           validateStep={(validationFunction: any) =>
-  //             setValidateStepTwo(() => validationFunction)
-  //           }
-  //           setFormData={(data: any) =>
-  //             setFormData((prev) => ({ ...prev, ...data }))
-  //           }
-  //         />
-  //       ) : (
-  //         <ExcavationForm
-  //         validateStep={(validationFunction: any) =>
-  //           setValidateStepTwo(() => validationFunction)
-  //         }
-  //         setFormData={(data: any) =>
-  //           setFormData((prev) => ({ ...prev, ...data }))
-  //         }
-  //       />
-  //       );
-  //     case 2:
-  //       return <ResultPage />;
-  //     default:
-  //       return null;
-  //   }
-  // };
-
   const renderStepContent = () => {
-    const ItemOfWork = storedMaterials.ItemOfWork;
+    const ItemOfWork = storedMaterials?.ItemOfWork; // Ensure storedMaterials exists
+    const getLocalStorageItem = (key:any, defaultValue:any) => {
+      if (typeof window !== "undefined" && window.localStorage) {
+        return localStorage.getItem(key) || defaultValue;
+      }
+      return defaultValue;
+    };
+    
+    const reinforcementFor = getLocalStorageItem(
+      "Where-you-need-your-reinforcement-for",
+      ""
+    );
+
     switch (activeStep) {
       case 0:
         return <DynamicSelect />;
+
       case 1:
         if (ItemOfWork === "Clearing Works") {
           return (
@@ -291,9 +264,6 @@ const Stepform = () => {
               validateStep={(validationFunction: any) =>
                 setValidateStepTwo(() => validationFunction)
               }
-              // setFormData={(data: any) =>
-              //   setFormData((prev) => ({ ...prev, ...data }))
-              // }
             />
           );
         } else if (ItemOfWork === "Concrete/Binding Works") {
@@ -313,18 +283,39 @@ const Stepform = () => {
             />
           );
         } else if (ItemOfWork === "Reinforcement/Iron bending works") {
-          return (
-            <Reinforcementform
-              validateStep={(validationFunction: any) =>
-                setValidateStepTwo(() => validationFunction)
-              }
-            />
-          );
+          // Handle "beam" and "lintel"
+          if (reinforcementFor === "Column") {
+            return (
+              <ColumnForm
+                validateStep={(validationFunction: any) =>
+                  setValidateStepTwo(() => validationFunction)
+                }
+              />
+            );
+          } else if (reinforcementFor === "Slabs") {
+            return (
+              <Slabs
+                validateStep={(validationFunction: any) =>
+                  setValidateStepTwo(() => validationFunction)
+                }
+              />
+            );
+          } else {
+            return (
+              <ForMultipleReinforcementform
+                validateStep={(validationFunction: any) =>
+                  setValidateStepTwo(() => validationFunction)
+                }
+              />
+            );
+          }
         } else {
           return <div>Unknown ItemOfWork</div>;
         }
+
       case 2:
         return <ResultPage />;
+
       default:
         return null;
     }
