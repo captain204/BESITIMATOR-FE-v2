@@ -43,7 +43,7 @@ const excavationWorksSchema = yup.object().shape({
     }),
 });
 
-const ClearingForm: React.FC<StepTwoProps> = ({ validateStep }) => {
+const Paintingworksform: React.FC<StepTwoProps> = ({ validateStep }) => {
   const [unit, setUnit] = useState<string>("Metres");
   const [itemOfWork, setItemOfWork] = useState<string>("");
   const [showArea, setShowArea] = useState<boolean>(false);
@@ -77,7 +77,7 @@ const ClearingForm: React.FC<StepTwoProps> = ({ validateStep }) => {
         const formData = getValues();
         const formDataWithUnit = { ...formData, unit };
         localStorage.setItem(
-          "Clearing Works  Inputs",
+          "Painting  Inputs",
           JSON.stringify(formDataWithUnit)
         );
       }
@@ -104,7 +104,7 @@ const ClearingForm: React.FC<StepTwoProps> = ({ validateStep }) => {
       {showArea && (
         <div className="flex flex-col w-full md:w-1/2 ">
           <label htmlFor="area" className="font-medium text-black mb-1">
-            Area:
+            Site Area:
           </label>
           <Controller
             name="area"
@@ -135,7 +135,7 @@ const ClearingForm: React.FC<StepTwoProps> = ({ validateStep }) => {
         <>
           <div className="flex flex-col w-full md:w-1/2 mb-4">
             <label htmlFor="length" className="font-medium text-black mb-1">
-              Length:
+              Site Length:
             </label>
             <Controller
               name="length"
@@ -165,7 +165,7 @@ const ClearingForm: React.FC<StepTwoProps> = ({ validateStep }) => {
 
           <div className="flex flex-col w-full md:w-1/2 mb-2">
             <label htmlFor="breadth" className="font-medium text-black mb-1">
-              Breadth:
+              Site Breadth:
             </label>
             <Controller
               name="breadth"
@@ -201,7 +201,7 @@ const ClearingForm: React.FC<StepTwoProps> = ({ validateStep }) => {
             className="mb-6 mt-6 inline-block bg-yellow-100 text-yellow-900 font-bold px-4 py-1 rounded-md shadow-md transition duration-300 transform hover:bg-yellow-200 hover:scale-105 focus:outline-none focus:ring-2 focus:ring-yellow-400 focus:ring-offset-2"
             onClick={toggleAreaInput}
           >
-            {showArea ? "Or Specify Dimensions:" : "Or Area:"}
+            {showArea ? "Or Specify Dimensions:" : "Or Site Area:"}
           </button>
         </div>
 
@@ -222,5 +222,4 @@ const ClearingForm: React.FC<StepTwoProps> = ({ validateStep }) => {
   );
 };
 
-export default ClearingForm;
-
+export default Paintingworksform;

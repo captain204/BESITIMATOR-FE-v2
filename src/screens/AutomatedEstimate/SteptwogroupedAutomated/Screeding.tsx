@@ -43,7 +43,8 @@ const excavationWorksSchema = yup.object().shape({
     }),
 });
 
-const ClearingForm: React.FC<StepTwoProps> = ({ validateStep }) => {
+
+const Screeding: React.FC<StepTwoProps> = ({ validateStep }) => {
   const [unit, setUnit] = useState<string>("Metres");
   const [itemOfWork, setItemOfWork] = useState<string>("");
   const [showArea, setShowArea] = useState<boolean>(false);
@@ -77,7 +78,7 @@ const ClearingForm: React.FC<StepTwoProps> = ({ validateStep }) => {
         const formData = getValues();
         const formDataWithUnit = { ...formData, unit };
         localStorage.setItem(
-          "Clearing Works  Inputs",
+          "Screeding  Inputs",
           JSON.stringify(formDataWithUnit)
         );
       }
@@ -104,7 +105,7 @@ const ClearingForm: React.FC<StepTwoProps> = ({ validateStep }) => {
       {showArea && (
         <div className="flex flex-col w-full md:w-1/2 ">
           <label htmlFor="area" className="font-medium text-black mb-1">
-            Area:
+           Wall Area:
           </label>
           <Controller
             name="area"
@@ -135,7 +136,7 @@ const ClearingForm: React.FC<StepTwoProps> = ({ validateStep }) => {
         <>
           <div className="flex flex-col w-full md:w-1/2 mb-4">
             <label htmlFor="length" className="font-medium text-black mb-1">
-              Length:
+             Wall Length:
             </label>
             <Controller
               name="length"
@@ -165,7 +166,7 @@ const ClearingForm: React.FC<StepTwoProps> = ({ validateStep }) => {
 
           <div className="flex flex-col w-full md:w-1/2 mb-2">
             <label htmlFor="breadth" className="font-medium text-black mb-1">
-              Breadth:
+            Wall  Breadth:
             </label>
             <Controller
               name="breadth"
@@ -222,5 +223,5 @@ const ClearingForm: React.FC<StepTwoProps> = ({ validateStep }) => {
   );
 };
 
-export default ClearingForm;
+export default Screeding;
 

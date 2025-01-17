@@ -28,6 +28,11 @@ import LintelformworkForm from "./SteptwogroupedAutomated/FormworksForms/Lintel"
 import GroundBeamFormworkForm from "./SteptwogroupedAutomated/FormworksForms/GroundSuspendedBeams";
 import BlockworkForm from "./SteptwogroupedAutomated/Bloackwork";
 import PlasteringForm from "./SteptwogroupedAutomated/Plastering";
+import Screeding from "./SteptwogroupedAutomated/Screeding";
+import Ceilingworksform from "./SteptwogroupedAutomated/Ceilingworksform";
+import Paintingworksform from "./SteptwogroupedAutomated/PaintingForms";
+import Tilingform from "./SteptwogroupedAutomated/Tiling";
+import PavingStoneform from "./SteptwogroupedAutomated/PavingStone";
 
 const Stepform = () => {
   const router = useRouter();
@@ -359,8 +364,7 @@ const Stepform = () => {
               }
             />
           );
-        } 
-        else if (ItemOfWork === "plastering works") {
+        } else if (ItemOfWork === "plastering works") {
           return (
             <PlasteringForm
               validateStep={(validationFunction: any) =>
@@ -368,9 +372,47 @@ const Stepform = () => {
               }
             />
           );
-        } 
-        
-        else {
+        } else if (ItemOfWork === "Screeding works") {
+          return (
+            <Screeding
+              validateStep={(validationFunction: any) =>
+                setValidateStepTwo(() => validationFunction)
+              }
+            />
+          );
+        } else if (ItemOfWork === "Ceiling works") {
+          return (
+            <Ceilingworksform
+              validateStep={(validationFunction: any) =>
+                setValidateStepTwo(() => validationFunction)
+              }
+            />
+          );
+        } else if (ItemOfWork === "Painting works") {
+          return (
+            <Paintingworksform
+              validateStep={(validationFunction: any) =>
+                setValidateStepTwo(() => validationFunction)
+              }
+            />
+          );
+        } else if (ItemOfWork === "Tiling/Granite Slap/Facing Brick works") {
+          return (
+            <Tilingform
+              validateStep={(validationFunction: any) =>
+                setValidateStepTwo(() => validationFunction)
+              }
+            />
+          );
+        } else if (ItemOfWork === "Paving stone Works") {
+          return (
+            <PavingStoneform
+              validateStep={(validationFunction: any) =>
+                setValidateStepTwo(() => validationFunction)
+              }
+            />
+          );
+        } else {
           return <div>Unknown ItemOfWork</div>;
         }
 
