@@ -14,6 +14,7 @@ const ClearWorkResult: React.FC = () => {
     typeOfClearing: "",
     landStatus: "Non-water logged/stable land",
     landAreaComposition: "",
+    clearworks: "",
   });
 
   useEffect(() => {
@@ -31,6 +32,7 @@ const ClearWorkResult: React.FC = () => {
           localStorage.getItem("IsTheLandArea") ||
           "Non-water logged/stable land",
         landAreaComposition: localStorage.getItem("landAreaComposition") || "",
+        clearworks: localStorage.getItem("clearing works") || "",
       });
     }
   }, [dispatch]);
@@ -41,69 +43,88 @@ const ClearWorkResult: React.FC = () => {
     typeOfClearing,
     landStatus,
     landAreaComposition,
+    clearworks,
   } = data;
   const { length = 0, breadth = 0, area = 0 } = ClearingWorksInputs;
 
   const preliminaryNeeded = "Bulldozer with tyre, bulldozer without tyre";
   const estimatedTime = area > 0 ? area * 0.01 : length * breadth * 0.01;
-  const amount = area * 28;
+  const amount = area * 28 || length * breadth * 28;
 
   return (
-    <div className="text-black">
+    <div className="text-black md:w-full  w-[20rem]">
       <h1 className="text-2xl font-bold text-black mb-4">
         {ItemOfWork} Result
       </h1>
-      <p>
-        Hi <strong className="font-bold">{response?.name}</strong>,
+      <p className="mb-4">
+        Hi <strong className="font-bold text-xl  ">{response?.name}</strong>,
       </p>
-      {ItemOfWork === "manual" ? (
-        <p className="text-black">
-          For <strong>{area || length * breadth} m²</strong> adopting{" "}
-          <strong>{typeOfClearing}</strong> where the area is composed of{" "}
-          <strong>{landAreaComposition}</strong>, it will cost you an estimated
-          amount of<strong>{amount.toFixed(2)} naira</strong> to clear{" "}
-          <strong>{area} m²</strong> area of land. Usually, this{" "}
-          <strong>{area || length * breadth} m²</strong> will take a 1 man
-          labour an estimated time of {estimatedTime.toFixed(2)} days to clear.
-          Also, for areas mainly composed of trees, you will require a chain saw
-          to cut trees.
-        </p>
+      {clearworks === "manual" ? (
+        <>
+          <p className="text-black">
+            For <strong className="text-yellow-900">{area || length * breadth} m²</strong> adopting{" "}
+           <strong>{clearworks} </strong> 
+            {/* <strong>{typeOfClearing}</strong>  */}
+            
+            where the area is composed of{" "}
+            <strong>{landAreaComposition}</strong>, it will cost you an
+            estimated amount of <strong> {amount.toFixed(2)} naira</strong> to
+            clear <strong>{area || length * breadth} m²</strong> area of land. Usually, this{" "}
+            <strong>{area || length * breadth} m²</strong> will take a 1 man
+            labour an estimated time of <strong> {estimatedTime.toFixed(2)} </strong> days to
+            clear. Also, for areas mainly composed of trees, you will require a
+            chain saw to cut trees.
+          </p>
+          <p>
+            Please note: 1 construction day = 9 Hours. You can check our
+            <Link href="/applicable-material-labour-price" className="text-blue-900 underline ml-1 ">
+              material and labor price list/rates
+            </Link>{" "}
+            for applicable rates for your project.
+          </p>
+        </>
       ) : (
-        <p className="text-black">
-          For <strong>{area || length * breadth} m²</strong> adopting{" "}
-          <strong>{typeOfClearing}</strong> where the area is composed of{" "}
-          <strong>{landStatus}</strong>, you will require{" "}
-          <strong>{preliminaryNeeded}</strong> for an estimated amount of{" "}
-          <strong>{amount.toFixed(2)} naira</strong> to clear{" "}
-          <strong>{area} m²</strong> area of land. Usually, this{" "}
-          <strong>{area || length * breadth} m²</strong> will take a 1 man
-          labour an estimated time of {estimatedTime.toFixed(2)} days to clear.
-          Also, for areas mainly composed of trees, you will require a chain saw
-          to cut trees.
-        </p>
+        <>
+          <>
+            <p className="text-black">
+              For <strong>{area || length * breadth} m²</strong> adopting{" "}
+              {/* <strong>{typeOfClearing}</strong>  */}
+              <strong>{clearworks} </strong> 
+              
+              where the area is {" "}
+              <strong>{landStatus}</strong>, you will require{" "}
+              <strong>{preliminaryNeeded}</strong> for an estimated amount of{" "}
+              <strong>{amount.toFixed(2)} naira</strong> to clear{" "}
+              <strong>{area || length * breadth} m²</strong> area of land. Usually, this{" "}
+              <strong>{area || length * breadth} m²</strong> will take a 1 man
+              labour an estimated time of <strong>{estimatedTime.toFixed(2)} </strong> days to
+              clear. 
+            </p>
+            <p>
+              Also, please note that for machineries that do not use tyres
+              (i.e., tracks—see picture below), you will require a low-bed truck
+              to help transport the material.
+            </p>
+          </>
+          <p>
+            Please note: 1 construction day = 9 Hours. You can check our
+            <Link href="/applicable-material-labour-price" className="text-blue-900 underline ml-1 ">
+              material and labor price list/rates
+            </Link>{" "}
+            for applicable rates for your project.
+          </p>
+          <div className="mt-4">
+            <h2 className="text-xl font-bold">Picture of Preliminary Item</h2>
+            <p>Item that requires a low bed for transportation:</p>
+            <img
+              src="/yes.jpg" // Replace with actual image path
+              alt="Preliminary item requiring a low bed for transportation"
+              className="w-full h-auto rounded-lg border"
+            />
+          </div>
+        </>
       )}
 
-      <p>
-        Also, please note that for machineries that do not use tyres (i.e.,
-        tracks—see picture below), you will require a low-bed truck to help
-        transport the material.
-      </p>
-      <p>
-        Please note: 1 construction day = 9 Hours. You can check our
-        <Link href="/pricing" className="text-blue-900 underline ml-1 ">
-          material and labor price list/rates
-        </Link>{" "}
-        for applicable rates for your project.
-      </p>
-      <div className="mt-4">
-        <h2 className="text-xl font-bold">Picture of Preliminary Item</h2>
-        <p>Item that requires a low bed for transportation:</p>
-        <img
-          src="/yes.jpg" // Replace with actual image path
-          alt="Preliminary item requiring a low bed for transportation"
-          className="w-full h-auto rounded-lg border"
-        />
-      </div>
       <p className="mt-4">Thank You.</p>
     </div>
   );
