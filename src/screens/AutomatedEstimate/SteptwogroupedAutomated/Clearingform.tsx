@@ -223,4 +223,3 @@ const ClearingForm: React.FC<StepTwoProps> = ({ validateStep }) => {
 };
 
 export default ClearingForm;
-

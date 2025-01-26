@@ -111,7 +111,7 @@ const SettingOutForm: React.FC<StepTwoProps> = ({ validateStep }) => {
           className="py-3 px-4 w-full bg-white border text-black rounded-lg focus:ring-1 focus:ring-yellow-400 focus:outline-none"
         >
           <option>Metres</option>
-          <option>Millimeter</option>
+          <option>Millimetres</option>
         </select>
       </div>
     </div>
