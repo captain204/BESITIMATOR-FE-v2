@@ -41,7 +41,7 @@ const ResultPage: React.FC = () => {
   };
 
   return (
-    <div className="min-auto bg-gray-50 py-10 px-6 flex flex-col items-center mt-10">
+    <div className="min-auto  px-6 flex flex-col items-center mt-10">
       <div className="max-w-4xl w-full bg-white rounded-lg shadow-md p-6">
         {renderContent()}
         <a
