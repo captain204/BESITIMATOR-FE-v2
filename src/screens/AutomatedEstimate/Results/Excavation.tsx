@@ -79,7 +79,7 @@ const Excavation: React.FC = () => {
     type: ExcavationInputs.type,
     volume:
       data.ExcavationInputs.unit === "Millimetres"
-        ? ExcavationInputs.volume / 1_000_000_000 // Convert mm³ to m³
+        ? ExcavationInputs.volume / 1000_000_000 // Convert mm³ to m³
         : ExcavationInputs.volume,
   };
 
@@ -132,68 +132,87 @@ const Excavation: React.FC = () => {
   return (
     <div className="md:w-full w-80 ">
       <h1 className="text-2xl font-bold text-black mb-4">Excavation Result</h1>
-      <p className="text-black">
+      <p className="text-black text-xl mb-5">
         Hi <strong>{response?.name}</strong>,
       </p>
 
       {excavationIn === "Excavation in Rocky areas" ? (
         <p className="text-black mb-4">
-          For a<strong> {formattedVolume}m<sup>3</sup></strong>, you will require 1 man labour for
-          an estimated number of{" "}
-          <strong> {manLabourOutputPerDay} days</strong>, and they
-          will require <strong> {DisposalpreliminaryRequired} </strong> to carry
-          out the excavation work. For excavation work above 250m<sup>3</sup>, adopting a
-          mechanical approach using an excavator is more cost-effective.
+          For a
+          <strong>
+            {" "}
+            {formattedVolume}m<sup>3</sup>
+          </strong>
+          , you will require 1 man labour for an estimated number of{" "}
+          <strong> {manLabourOutputPerDay} days</strong>, and he will require{" "}
+          <strong> {DisposalpreliminaryRequired} </strong> to carry out the
+          excavation work. Although, for excavation work above 250m<sup>3</sup>,
+          its usually more cost effective to adopt a mechanical approach using
+          and excavator with hammer or bowl depending on the site location.
         </p>
       ) : excavationIn ===
         "Excavation in Moderately rocky Areas (hard ground: Mix of Stones and sandy matter)" ? (
         <p className="text-black mb-4">
-          For a<strong> {formattedVolume}m<sup>3</sup></strong>, you will require 1 man labour for
-          an estimated number of{" "}
-          <strong> {moderatelyManLabourOutputPerDay} days</strong>,
-          and they will require{" "}
-          <strong> {moderatelyPreliminaryRequired} </strong> to carry out the
-          excavation work. For excavation work above 250m<sup>3</sup>, adopting a
-          mechanical approach using an excavator is more cost-effective.
+          For a
+          <strong>
+            {" "}
+            {formattedVolume}m<sup>3</sup>
+          </strong>
+          , you will require 1 man labour for an estimated number of{" "}
+          <strong> {moderatelyManLabourOutputPerDay} days</strong>, and he will
+          require <strong> {moderatelyPreliminaryRequired} </strong> to carry
+          out the excavation work. Although, for excavation work above 250m
+          <sup>3</sup>, its usually more cost effective to adopt a mechanical
+          approach using and excavator with hammer or bowl depending on the site
+          location.
         </p>
       ) : (
         <p className="text-black mb-4">
-          For a<strong> {formattedVolume}m<sup>3</sup></strong>, you will require 1 man labour for
-          an estimated number of{" "}
-          <strong> {nonrockyManLabourOutputPerDay} days</strong>, and
-          they will require <strong> {nonrockyPreliminaryRequired} </strong> to
-          carry out the excavation work. For excavation work above 250m<sup>3</sup>,
-          adopting a mechanical approach using an excavator is more
-          cost-effective.
+          For a
+          <strong>
+            {" "}
+            {formattedVolume}m<sup>3</sup>
+          </strong>
+          , you will require 1 man labour for an estimated number of{" "}
+          <strong> {nonrockyManLabourOutputPerDay} days</strong>, and they will
+          require <strong> {nonrockyPreliminaryRequired} </strong> to carry out
+          the excavation work. Although, for excavation work above 250 m
+          <sup>3</sup>, its usually more cost effective to adopt a mechanical
+          approach using and excavator with hammer or bowl depending on the site
+          location.
         </p>
       )}
 
       <div className="text-black mb-4">
-        <p>Disposal</p>
         <p>
-          To dispose <strong> {formatter.format(volume)}m<sup>3</sup></strong> of excavated material, if the
-          disposal distance is <strong> {disposalMaterial} </strong>, you will
-          require 1 man labour for an estimated number of{" "}
+          To dispose{" "}
+          <strong>
+            {" "}
+            {formatter.format(volume)}m<sup>3</sup>
+          </strong>{" "}
+          of excavated material, if the distance of disposal is{" "}
+          <strong> {disposalMaterial} </strong>, you will require 1 man labour
+          for an estimated number of{" "}
           <strong>
             {disposable === "Within 10m to Disposal"
               ? DisposalmanLabourOutputPerDay
               : DisposalmanLabourOutputPerDaytwo}{" "}
-            days
+            days to cart this excavated material using
           </strong>{" "}
           using
-          <strong> {preliminaryRequired} </strong>.
+          <strong> {preliminaryRequired} </strong>. Although this man labour may
+          require a platform for ease of movement.
         </p>
       </div>
 
       {wouldYou === "yes" ? (
-        <div className="bg-black rounded-lg p-4 mb-4">
-          <p>Shoring</p>
+        <div className="text-black  mb-4">
           <p>
             If shoring is required during this excavation process for a length
             of
-            <strong>{numericLengthToBeShored}</strong> m, you will require an
-            estimated number of
-            {shoringFirstWood} pcs of 1" x 12" or 25mm x 300mm x 3600mm wood,{" "}
+            <strong> {numericLengthToBeShored}</strong>m, you will require an
+            estimated number of <strong>{shoringFirstWood} </strong> pcs of 1" x
+            12" or 25mm x 300mm x 3600mm wood,{" "}
             <strong> {shoringSecondWood} </strong> nos of 2" x 2" or 50mm x 50mm
             x 3600mm wood and <strong>{shoringNail}</strong> (kg) 4" & 5"* kg of
             4” and 5” Nail. Also, you will require {shoringLabourRequired} for
@@ -203,7 +222,7 @@ const Excavation: React.FC = () => {
       ) : null}
 
       <p className="text-black mb-6">
-        Note: 1 construction day = 9 hours. You can check our
+        Note: 1 construction day = 9 hours. You can check our {" "}
         <Link href="/pricing" className="text-blue-900 underline">
           material and labour price list/rates
         </Link>{" "}
@@ -214,12 +233,6 @@ const Excavation: React.FC = () => {
 };
 
 export default Excavation;
-
-
-
-
-
-
 
 // import { getUser } from "@/Globals/Slices/AuthSlices/GetUser";
 // import { AppDispatch, RootState } from "@/Globals/store/store";
@@ -315,24 +328,23 @@ export default Excavation;
 //   const formattedVolume = formatter.format(volume); // Formatting the volume
 //   const manLabourOutputPerDay = formatter.format(volume * 0.83);
 //   const preliminaryRequired = "Excavator with Hydraulic hammer, Jack hammer, Blasting process";
-  
+
 //   const moderatelyManLabourOutputPerDay = formatter.format(volume * 0.11);
 //   const moderatelyPreliminaryRequired = "Digger and Shovel";
 //   const nonrockyManLabourOutputPerDay = formatter.format(volume * 0.06);
 //   const nonrockyPreliminaryRequired = "Shovels";
-  
+
 //   const DisposalmanLabourOutputPerDay = formatter.format(volume * 0.1);
 //   const DisposalmanLabourOutputPerDaytwo = volume * 0.12;
 //   const DisposalpreliminaryRequired = "Wheel Barrow, Shovel";
 //   const numericLengthToBeShored = Number(lengthToBeShored) || 0;
-  
+
 //   //shoring
 //   const shoringFirstWood = numericLengthToBeShored * 0.61;
 //   const shoringSecondWood = numericLengthToBeShored * 0.61;
 //   const shoringNail = numericLengthToBeShored * 0.14;
 //   const shoringLabourRequired = "Carpenter and labour";
 //   const shoringLabourperday = numericLengthToBeShored;
-  
 
 //   const response = useSelector((state: RootState) => state.getUser.response);
 
