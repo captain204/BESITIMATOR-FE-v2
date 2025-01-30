@@ -14,7 +14,10 @@ const EOptionTwo = () => {
     if (storedOption) {
       setSelected(storedOption);
     } else {
-      localStorage.setItem("Disposal-of-Excavated-Materials", "Within 10m to Disposal");
+      localStorage.setItem(
+        "Disposal-of-Excavated-Materials",
+        "Within 10m to Disposal"
+      );
     }
   }, []);
 
@@ -43,7 +46,6 @@ const EOptionTwo = () => {
           <option value="Within 10-20m to Disposal">
             Within 10-20m to Disposal
           </option>
-          
         </select>
       </div>
     </div>

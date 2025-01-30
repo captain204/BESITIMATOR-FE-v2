@@ -40,7 +40,7 @@ const EOptionOne = () => {
           <option value="Excavation in Rocky areas">
             Excavation in Rocky areas
           </option>
-          <option value="Excavation in Moderately rocky Areas ( hard ground: Mix of Stones and sandy matter)">
+          <option value="Excavation in Moderately rocky Areas (hard ground: Mix of Stones and sandy matter)">
             Excavation in Moderately rocky Areas ( hard ground: Mix of Stones
             and sandy matter){" "}
           </option>

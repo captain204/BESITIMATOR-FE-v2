@@ -125,6 +125,9 @@ const ExcavationForm: React.FC<StepTwoProps> = ({ validateStep }) => {
     });
   }, [validateStep, trigger, getValues, unit]);
 
+
+  
+
   useEffect(() => {
     memoizedValidateStep();
   }, [memoizedValidateStep]);
@@ -372,7 +375,7 @@ const ExcavationForm: React.FC<StepTwoProps> = ({ validateStep }) => {
           className="py-3 px-4 w-full bg-white border text-black rounded-lg focus:ring-1 focus:ring-yellow-400 focus:outline-none"
         >
           <option value="Metres">Metres</option>
-          <option value="Kilometres">Millimetres</option>
+          <option value="Millimetres">Millimetres</option>
         </select>
       </div>
     </div>
