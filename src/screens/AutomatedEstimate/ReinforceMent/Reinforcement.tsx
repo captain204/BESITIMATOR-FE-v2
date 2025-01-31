@@ -146,18 +146,11 @@
 //   );
 // }
 
-
-
-
-
-
-
 import { useEffect, useState } from "react";
 import SelectInput from "./Groundbeams";
 import Column from "./Column";
 import Slabs from "./Slabs";
 import Lintels from "./Lintel";
-
 
 const options = [
   {
