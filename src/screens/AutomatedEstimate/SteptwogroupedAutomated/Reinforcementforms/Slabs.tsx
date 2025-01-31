@@ -43,50 +43,18 @@ const excavationWorksSchema = yup.object().shape({
     }),
 });
 
-// const excavationWorksSchema = yup.object().shape({
-//   length: yup
-//     .string()
-//     .test("length-required", "Length is required", function (value) {
-//       const { area } = this.parent;
-//       if (!area?.trim()) {
-//         return Boolean(value?.trim());
-//       }
-//       return true; // Skip validation if area is filled
-//     }),
-//   breadth: yup
-//     .string()
-//     .test("breadth-required", "Breadth is required", function (value) {
-//       const { area } = this.parent;
-//       if (!area?.trim()) {
-//         return Boolean(value?.trim());
-//       }
-//       return true; // Skip validation if area is filled
-//     }),
-//   area: yup
-//     .string()
-//     .test("area-required", "Area is required", function (value) {
-//       const { length, breadth } = this.parent;
-//       // Skip area validation if length and breadth are filled
-//       if (length?.trim() && breadth?.trim()) {
-//         return true;
-//       }
-//       return Boolean(value?.trim()); // Otherwise, validate area
-//     }),
-// });
-
 const SlapsForm: React.FC<StepTwoProps> = ({ validateStep }) => {
   const [unit, setUnit] = useState<string>("Metres");
   const [itemOfWork, setItemOfWork] = useState<string>("");
   const [showArea, setShowArea] = useState<boolean>(false);
 
-
-  const getLocalStorageItem = (key:any, defaultValue:any) => {
+  const getLocalStorageItem = (key: any, defaultValue: any) => {
     if (typeof window !== "undefined" && window.localStorage) {
       return localStorage.getItem(key) || defaultValue;
     }
     return defaultValue;
   };
-  
+
   const reinforcementFor = getLocalStorageItem(
     "Where-you-need-your-reinforcement-for",
     ""
@@ -141,7 +109,9 @@ const SlapsForm: React.FC<StepTwoProps> = ({ validateStep }) => {
     <div className="flex flex-col items-center justify-center w-full mb-6 mt-20">
       <h1 className="text-xl text-start font-bold text-black mb-6">
         Specify your{" "}
-        <span className="text-yellow-900">{reinforcementFor || "Work Item"}</span>{" "}
+        <span className="text-yellow-900">
+          {reinforcementFor || "Work Item"}
+        </span>{" "}
         inputs
       </h1>
 
@@ -156,6 +126,7 @@ const SlapsForm: React.FC<StepTwoProps> = ({ validateStep }) => {
             render={({ field }) => (
               <input
                 {...field}
+                typeof="number"
                 id="area"
                 placeholder="Enter Area"
                 type="number"

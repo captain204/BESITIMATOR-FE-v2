@@ -9,6 +9,14 @@ const Reinforcement: React.FC = () => {
   const [itemsOfWork, selectItemOfwork] = useState("");
   const [reinforcementType, setReinforcementType] = useState("");
   const [lintelType, setLintelType] = useState("");
+  const [GroundSuspendedLintel, setGroundSuspendedLintel] = useState({
+    GSLintel: {
+      siteLength: 0,
+      unit: "Metres",
+    },
+  });
+  const [Column, setColumn] = useState("");
+  const [slabs, setSlabs] = useState("");
   const [data, setData] = useState({
     ItemOfWork: "",
   });
@@ -38,6 +46,23 @@ const Reinforcement: React.FC = () => {
         localStorage.getItem("material-used-for-your-lintel") || ""
       );
 
+      const GSLintelInputs = JSON.parse(
+        localStorage.getItem("Reinforcement/Iron bending works Inputs") || "{}"
+      );
+
+      setGroundSuspendedLintel({
+        GSLintel: {
+          ...GroundSuspendedLintel.GSLintel,
+          ...GSLintelInputs,
+        },
+      });
+
+      // setGroundSuspendedLintel(
+      //   localStorage.getItem("Reinforcement/Iron bending works Inputs") || ""
+      // );
+      setColumn(localStorage.getItem("Reinforcemet-Column Inputs") || "");
+      setSlabs(localStorage.getItem("Reinforcement-slaps Inputs") || "");
+
       setData({
         ItemOfWork: localStorage.getItem("ItemOfWork") || "",
       });
@@ -53,29 +78,25 @@ const Reinforcement: React.FC = () => {
     }
   }, [dispatch]);
 
-  const { fillingLevelling } = dataa;
+  const { GSLintel } = GroundSuspendedLintel;
 
-  const convertlevellingToMeters = (value: number) =>
-    dataa.fillingLevelling.unit === "Millimetres" ? value / 1000 : value;
+  const convertGroundSuspendedLintelToMeters = (value: number) =>
+    GroundSuspendedLintel.GSLintel.unit === "Millimetres"
+      ? value / 1000
+      : value;
 
   // Convert mm to meters if unit is Millimetres
 
-  const convertedLevelingInputs = {
-    length: convertlevellingToMeters(fillingLevelling.length),
-    breadth: convertlevellingToMeters(fillingLevelling.breadth),
-    area:
-      dataa.fillingLevelling.unit === "Millimetres"
-        ? fillingLevelling.area / 1000_000 // Convert mm³ to m³
-        : fillingLevelling.area,
+  const convertedLevelingInputs:any = {
+    length: convertGroundSuspendedLintelToMeters(GSLintel.siteLength),
   };
 
-  const Area =
-    convertedLevelingInputs.breadth * convertedLevelingInputs.length ||
-    convertedLevelingInputs.area;
-
-  const Guage = Area * 0.35;
-  const Bituminous = Area * 1.15;
-  const manLabour = Area * 0.0;
+  const GSLintelLength = convertedLevelingInputs.length || 0;
+  const GModeratelySixtons = GSLintelLength * 0.01
+  const GModeratelyTwelvetons = GSLintelLength * 0.00
+  const GModeratelyTentons = GSLintelLength * 0.01
+  const GModeratelyBindingWire = GSLintelLength * 0.00003
+  const GModeratelyLabourRequirement =  GSLintelLength  * 0.02
 
   // Ensure volume is always a number
   const formatter = new Intl.NumberFormat();
@@ -94,16 +115,19 @@ const Reinforcement: React.FC = () => {
       {reinforcementType === "Ground beams" ? (
         <p className="text-black">
           Reinforcement requirement for a Ground beam of an average height of 1m
-          and width of 0.23m in *Ground beam (average height of 1m and width
-          0.23m) area* of Girth/ total length of *Girth/total Length (m)* m, you
-          will require an estimated amount of *16mm (tons)* tons of 16mm
-          reinforcement as the main bars, *12mm (tons)* tons of 12mm
-          reinforcement as the runner, *10mm (tons)* tons of 10mm reinforcement
-          as the stirrups/rings and *Binding wire (20kg) roll* roll(s) of
+          and width of 0.23m in{" "}
+          <strong>
+            {" "}
+            {reinforcementType} (average height of 1m and width 0.23m) area{" "}
+          </strong>{" "}
+          of Girth/ total length of <strong>{GSLintelLength}m</strong> , you
+          will require an estimated amount of <strong>{GModeratelySixtons}</strong> tons of 16mm
+          reinforcement as the main bars, <strong>{GModeratelyTwelvetons}</strong> tons of 12mm
+          reinforcement as the runner, <strong>{GModeratelyTentons}</strong> tons of 10mm reinforcement
+          as the stirrups/rings and <strong>{GModeratelyBindingWire}</strong> roll(s) of
           binding wire. For labour requirement for this item of work, labours
           are usually paid per tonnage for the work done. Therefore, the total
-          estimated amount of tons used for this work item is *Labour
-          requirement* tons. This may be multiplied by the applicable per ton
+          estimated amount of tons used for this work item is <strong>{GModeratelyLabourRequirement}</strong> tons. This may be multiplied by the applicable per ton
           rate. You may refer to our material and labour price list/rates.
         </p>
       ) : reinforcementType === "Suspected beams" ? (

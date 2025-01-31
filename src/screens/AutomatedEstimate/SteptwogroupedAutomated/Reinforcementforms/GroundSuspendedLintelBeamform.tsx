@@ -11,19 +11,20 @@ const settingoutSchema = yup.object().shape({
   siteLength: yup.string().required("Perimeter of structure is required"),
 });
 
-const ForMultipleReinforcementform: React.FC<StepTwoProps> = ({ validateStep }) => {
+const ForMultipleReinforcementform: React.FC<StepTwoProps> = ({
+  validateStep,
+}) => {
   const [unit, setUnit] = useState<string>("Metres");
 
   const [itemOfWork, setItemOfWork] = useState<string>("");
 
-
-  const getLocalStorageItem = (key:any, defaultValue:any) => {
+  const getLocalStorageItem = (key: any, defaultValue: any) => {
     if (typeof window !== "undefined" && window.localStorage) {
       return localStorage.getItem(key) || defaultValue;
     }
     return defaultValue;
   };
-  
+
   const reinforcementFor = getLocalStorageItem(
     "Where-you-need-your-reinforcement-for",
     ""
@@ -50,21 +51,6 @@ const ForMultipleReinforcementform: React.FC<StepTwoProps> = ({ validateStep }) 
     },
   });
 
-  // Memoizing the validateStep call to avoid triggering the effect unnecessarily
-  // const memoizedValidateStep = useCallback(() => {
-  //   validateStep(async () => {
-  //     const isValid = await trigger();
-  //     if (isValid) {
-  //       const formData = getValues();
-  //       setFormData(formData);
-
-  //       // Store data in localStorage
-  //       localStorage.setItem("Clearing Works Inputs", JSON.stringify(formData));
-  //     }
-  //     return isValid;
-  //   });
-  // }, [validateStep, trigger, getValues, setFormData]);
-
   const memoizedValidateStep = useCallback(() => {
     validateStep(async () => {
       const isValid = await trigger();
@@ -81,7 +67,7 @@ const ForMultipleReinforcementform: React.FC<StepTwoProps> = ({ validateStep }) 
       }
       return isValid;
     });
-  }, [validateStep, trigger, getValues, unit]);
+  }, [trigger, getValues, unit]);
 
   useEffect(() => {
     memoizedValidateStep();
@@ -92,7 +78,9 @@ const ForMultipleReinforcementform: React.FC<StepTwoProps> = ({ validateStep }) 
       {/* Site Length */}
       <h1 className="text-xl text-start font-bold text-black mb-6">
         Specify your{" "}
-        <span className="text-yellow-900">{reinforcementFor  || "Work Item"}</span>{" "}
+        <span className="text-yellow-900">
+          {reinforcementFor || "Work Item"}
+        </span>{" "}
         inputs
       </h1>
       <div className="flex flex-col w-full md:w-1/2 mb-4">
@@ -105,6 +93,7 @@ const ForMultipleReinforcementform: React.FC<StepTwoProps> = ({ validateStep }) 
           render={({ field }) => (
             <input
               {...field}
+              type="number"
               id="siteLength"
               placeholder="Enter Girth/Total Length"
               onChange={(e) => {
@@ -138,8 +127,8 @@ const ForMultipleReinforcementform: React.FC<StepTwoProps> = ({ validateStep }) 
           // id="unit"
           className="py-3 px-4 w-full bg-white border text-black rounded-lg focus:ring-1 focus:ring-yellow-400 focus:outline-none"
         >
-          <option>Metres</option>
-          <option>Millimeter</option>
+          <option value="Metres">Metres</option>
+          <option value="Millimetres">Millimetres</option>
         </select>
       </div>
     </div>
