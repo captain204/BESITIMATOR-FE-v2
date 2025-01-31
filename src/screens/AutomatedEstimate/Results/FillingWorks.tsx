@@ -188,7 +188,29 @@ const Excavation: React.FC = () => {
         Hi <strong>{response?.name}</strong>,
       </p>
 
-      {filling === "Filling with Sharp sand" ? (
+      {filling === "Levelling and compacting" ? (
+        <div className="text-black">
+          <h3 className="font-semibold">
+            Spreading, Levelling and Compacting:
+          </h3>
+          <p>
+            To spread properly, level and compact the area just filled which is{" "}
+            <strong>
+              {formatter.format(Area)}m<sup>2</sup>
+            </strong>
+            , it will require a 1 man labour an estimated number of{" "}
+            <strong>{formatter.format(manLabourLeveling)}</strong>
+            days using a to achieve this task. However, in low budget
+            circumstances, rope lines may be used to take even levels across the
+            area to be levelled and compacted if a dumpy/auto level is
+            unavailable. Also, for site areas that will be subjected to heavy
+            load user and high traffic passage (road and compound areas), it is
+            usually preferable to use roller compactors instead of plate
+            compactors that may be used in less load user and low traffic
+            passage area.
+          </p>
+        </div>
+      ) : filling === "Filling with Sharp sand" ? (
         <p className="text-black mb-4">
           To fill{" "}
           <strong>
@@ -372,28 +394,6 @@ const Excavation: React.FC = () => {
           adopting manual labour may require a platform for ease of movement.
         </p>
       )}
-
-      {filling === "Levelling and compacting" ? (
-        <div className="text-black">
-          <h3 className="font-semibold">Spreading, Levelling and Compacting:</h3>
-          <p>
-            To spread properly, level and compact the area just filled which is{" "}
-            <strong>
-              {formatter.format(Area)}m<sup>2</sup>
-            </strong>
-            , it will require a 1 man labour an estimated number of{" "}
-            <strong>{formatter.format(manLabourLeveling)}</strong>
-            days using a to achieve this task. However, in low budget
-            circumstances, rope lines may be used to take even levels across the
-            area to be levelled and compacted if a dumpy/auto level is
-            unavailable. Also, for site areas that will be subjected to heavy
-            load user and high traffic passage (road and compound areas), it is
-            usually preferable to use roller compactors instead of plate
-            compactors that may be used in less load user and low traffic
-            passage area.
-          </p>
-        </div>
-      ) : null}
 
       <p className="text-black mb-6">
         Note: 1 construction day = 9 hours. You can check our{" "}

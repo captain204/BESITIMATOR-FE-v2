@@ -26,18 +26,18 @@ const Dampproving: React.FC = () => {
 
     if (typeof window !== "undefined") {
       const DampProvingInputs = JSON.parse(
-        localStorage.getItem("Damp Proving Inputs") || "{}"
+        localStorage.getItem("Damp Proving  Inputs") || "{}"
       );
       setData({
         ItemOfWork: localStorage.getItem("ItemOfWork") || "",
       });
       setDataa({
         fillingLevelling: {
-          // ...dataa.fillingLevelling,
+          ...dataa.fillingLevelling,
           ...DampProvingInputs,
         },
       });
-      setExcavationIn(excavationIn);
+
       selectItemOfwork(itemsOfWork);
     }
   }, [dispatch]);
@@ -85,9 +85,9 @@ const Dampproving: React.FC = () => {
         <strong>
           {formatter.format(Area)}m<sup>2</sup>
         </strong>{" "}
-        of Damp proofing/Felting works, you will require an estimated amount of
+        of Damp proofing/Felting works, you will require an estimated amount of {""}
         <strong>{formatter.format(Guage)}Kg </strong> if using any guage of
-        polythene nylon and will take a 1 man labour an estimated number of{" "}
+        polythene nylon and will take a 1 man labour an estimated number of {" "}
         <strong>{formatter.format(manLabour)} days</strong>. If using Bituminous
         or cementitious felting, you will require an estimated amount of
         <strong>
