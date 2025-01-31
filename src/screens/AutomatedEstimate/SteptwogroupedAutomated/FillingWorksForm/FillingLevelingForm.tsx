@@ -43,7 +43,7 @@ const excavationWorksSchema = yup.object().shape({
     }),
 });
 
-const DampprovingForm: React.FC<StepTwoProps> = ({ validateStep }) => {
+const FillingLevellingForm: React.FC<StepTwoProps> = ({ validateStep }) => {
   const [unit, setUnit] = useState<string>("Metres");
   const [itemOfWork, setItemOfWork] = useState<string>("");
   const [showArea, setShowArea] = useState<boolean>(false);
@@ -77,7 +77,7 @@ const DampprovingForm: React.FC<StepTwoProps> = ({ validateStep }) => {
         const formData = getValues();
         const formDataWithUnit = { ...formData, unit };
         localStorage.setItem(
-          "Damp Proving  Inputs",
+          "FillingLevellingForm  Inputs",
           JSON.stringify(formDataWithUnit)
         );
       }
@@ -113,8 +113,8 @@ const DampprovingForm: React.FC<StepTwoProps> = ({ validateStep }) => {
               <input
                 {...field}
                 id="area"
-                placeholder="Enter Area"
                 type="number"
+                placeholder="Enter Area"
                 onChange={(e) => {
                   field.onChange(e);
                   clearErrors("area");
@@ -222,4 +222,4 @@ const DampprovingForm: React.FC<StepTwoProps> = ({ validateStep }) => {
   );
 };
 
-export default DampprovingForm;
+export default FillingLevellingForm;

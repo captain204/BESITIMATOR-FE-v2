@@ -125,9 +125,6 @@ const ExcavationForm: React.FC<StepTwoProps> = ({ validateStep }) => {
     });
   }, [validateStep, trigger, getValues, unit]);
 
-
-  
-
   useEffect(() => {
     memoizedValidateStep();
   }, [memoizedValidateStep]);
@@ -182,6 +179,7 @@ const ExcavationForm: React.FC<StepTwoProps> = ({ validateStep }) => {
                 <input
                   {...field}
                   id="volume"
+                  type="number"
                   placeholder="Enter Volume"
                   onChange={(e) => {
                     field.onChange(e);
@@ -215,6 +213,7 @@ const ExcavationForm: React.FC<StepTwoProps> = ({ validateStep }) => {
                 <input
                   {...field}
                   id="radius"
+                  type="number"
                   placeholder="Enter Radius"
                   onChange={(e) => {
                     field.onChange(e);
@@ -243,6 +242,7 @@ const ExcavationForm: React.FC<StepTwoProps> = ({ validateStep }) => {
               render={({ field }) => (
                 <input
                   {...field}
+                  type="number"
                   id="height"
                   placeholder="Enter Height"
                   onChange={(e) => {
@@ -276,6 +276,7 @@ const ExcavationForm: React.FC<StepTwoProps> = ({ validateStep }) => {
               render={({ field }) => (
                 <input
                   {...field}
+                  type="number"
                   id="length"
                   placeholder="Enter Length"
                   onChange={(e) => {
@@ -306,6 +307,7 @@ const ExcavationForm: React.FC<StepTwoProps> = ({ validateStep }) => {
                 <input
                   {...field}
                   id="width"
+                  type="number"
                   placeholder="Enter Width"
                   onChange={(e) => {
                     field.onChange(e);
@@ -334,6 +336,7 @@ const ExcavationForm: React.FC<StepTwoProps> = ({ validateStep }) => {
               render={({ field }) => (
                 <input
                   {...field}
+                  type="number"
                   id="depth"
                   placeholder="Enter Depth"
                   onChange={(e) => {

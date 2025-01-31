@@ -38,20 +38,25 @@ const Fillings = () => {
           className="py-3 w-full md:w-96 p-1 bg-white border text-black border-gray-300 rounded-lg  focus:ring-1 focus:ring-yellow-400 focus:outline-none"
         >
           <option value="Filling with Sharp sand">
-            Filling with Sharp sand
+            Filling with Sharp sand to be well compacted
           </option>
           <option value="Filling with filling sand">
-            Filling with filling sand
+            Filling with filling sand to be well compacted
           </option>
           <option value="Filling with laterite filling sand">
-            Filling with laterite filling sand
+            Filling with laterite filling sand to be well compacted
           </option>
-          <option value="Filling with Hardcore">Filling with Hardcore</option>
+          <option value="Filling with Hardcore">
+            Filling with Hardcore to be well compacted
+          </option>
           <option value="Filling with stone base">
-            Filling with stone base
+            Filling with stone base to be well compacted
+          </option>
+          <option value="Filling with rubbles">
+            Filling with rubbles to be well compacted
           </option>
           <option value="Filling with stone dust filling">
-            Filling with stone dust filling
+            Filling with stone dust filling to be well compacted
           </option>
           <option value="Levelling and compacting">
             Levelling and compacting

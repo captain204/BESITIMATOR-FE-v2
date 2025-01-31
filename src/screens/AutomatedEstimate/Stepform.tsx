@@ -16,7 +16,7 @@ import { useRouter } from "next/navigation";
 import StepTwoForm from "./SteptwogroupedAutomated/Clearingform";
 import ExcavationForm from "./SteptwogroupedAutomated/ExcavationForm";
 import SettingOutForm from "./SteptwogroupedAutomated/SettingOutForm";
-import FillingWorks from "./SteptwogroupedAutomated/FillingWorks";
+import FillingWorks from "./SteptwogroupedAutomated/FillingWorksForm/FillingWorks";
 import ConcreteForm from "./SteptwogroupedAutomated/ConcreteForm";
 import DampprovingForm from "./SteptwogroupedAutomated/DampProving";
 import ColumnForm from "./SteptwogroupedAutomated/Reinforcementforms/Column";
@@ -33,6 +33,7 @@ import Ceilingworksform from "./SteptwogroupedAutomated/Ceilingworksform";
 import Paintingworksform from "./SteptwogroupedAutomated/PaintingForms";
 import Tilingform from "./SteptwogroupedAutomated/Tiling";
 import PavingStoneform from "./SteptwogroupedAutomated/PavingStone";
+import FillingLevellingForm from "./SteptwogroupedAutomated/FillingWorksForm/FillingLevelingForm";
 
 const Stepform = () => {
   const router = useRouter();
@@ -239,6 +240,17 @@ const Stepform = () => {
       ""
     );
 
+    const getLocalStorage = (key: any, defaultValue: any) => {
+      if (typeof window !== "undefined" && window.localStorage) {
+        return localStorage.getItem(key) || defaultValue;
+      }
+      return defaultValue;
+    };
+
+    const fillingLeveling = getLocalStorage("Filling-works", "");
+
+    // localStorage.getItem("Filling-works")
+
     const formwork = getLocalStorageItemtwo("Formwork/Carpentry-works-sub", "");
 
     switch (activeStep) {
@@ -271,13 +283,22 @@ const Stepform = () => {
             />
           );
         } else if (ItemOfWork === "Filling works") {
-          return (
-            <FillingWorks
-              validateStep={(validationFunction: any) =>
-                setValidateStepTwo(() => validationFunction)
-              }
-            />
-          );
+          if (fillingLeveling === "Levelling and compacting") {
+            return (
+              <FillingLevellingForm
+                validateStep={(validationFunction: any) =>
+                  setValidateStepTwo(() => validationFunction)
+                }
+              />
+            );
+          } else
+            return (
+              <FillingWorks
+                validateStep={(validationFunction: any) =>
+                  setValidateStepTwo(() => validationFunction)
+                }
+              />
+            );
         } else if (ItemOfWork === "Concrete/Binding Works") {
           return (
             <ConcreteForm
