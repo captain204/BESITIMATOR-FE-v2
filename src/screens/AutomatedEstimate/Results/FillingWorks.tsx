@@ -9,6 +9,7 @@ const Excavation: React.FC = () => {
   const [lengthToBeShored, setLengthToBeShored] = useState("");
   const [excavationIn, setExcavationIn] = useState("");
   const [filling, setFilling] = useState("");
+  const [itemsOfWork, selectItemOfwork] = useState("");
   const [data, setData] = useState({
     ItemOfWork: "",
     ExcavationInputs: {
@@ -65,6 +66,7 @@ const Excavation: React.FC = () => {
       setFilling(fillingworks);
       setLengthToBeShored(lengthToBeShored);
       setExcavationIn(excavationIn);
+      selectItemOfwork(itemsOfWork);
     }
   }, [dispatch]);
 
@@ -105,7 +107,7 @@ const Excavation: React.FC = () => {
     convertedLevelingInputs.breadth * convertedLevelingInputs.length ||
     convertedLevelingInputs.area;
 
-  const manLabourLeveling = Area * 0.00;
+  const manLabourLeveling = Area * 0.0;
 
   // Calculate volume dynamically based on the type
   const calculateVolume = () => {
@@ -173,13 +175,15 @@ const Excavation: React.FC = () => {
   const fillingWithDustNoOfTons = formatter.format(volume * 2.59);
   const fillingWithDustManLabour = formatter.format(volume * 0.17);
   const fillingWithDustManLabourtwo = formatter.format(volume * 0.22);
-  const fillingWithDustPreliminaryRequired = "Wheel barrow andShovel";
+  const fillingWithDustPreliminaryRequired = "Wheel barrow and Shovel";
 
   const response = useSelector((state: RootState) => state.getUser.response);
 
   return (
     <div className="md:w-full w-80 ">
-      <h1 className="text-2xl font-bold text-black mb-4">Excavation Result</h1>
+      <h1 className="text-2xl font-bold text-black mb-4">
+        {data.ItemOfWork} Result
+      </h1>
       <p className="text-black text-xl mb-5">
         Hi <strong>{response?.name}</strong>,
       </p>
@@ -232,11 +236,7 @@ const Excavation: React.FC = () => {
         </p>
       ) : filling === "Filling with laterite filling sand" ? (
         <p className="text-black mb-4">
-          const fillingWithLateriteNoOfTons = formatter.format(volume * 2.83);
-          const fillingWithLateriteManLabour = formatter.format(volume * 0.19);
-          const fillingWithLateriteManLabourtwo = formatter.format(volume *
-          0.22); const fillingWithLateritePreliminaryRequired = "Wheel barrow
-          and Shovel"; To fill{" "}
+          To fill{" "}
           <strong>
             {formattedVolume}m<sup>3</sup>
           </strong>{" "}
@@ -374,12 +374,15 @@ const Excavation: React.FC = () => {
       )}
 
       {filling === "Levelling and compacting" ? (
-        <div>
-          <h3>Spreading, Levelling and Compacting:</h3>
+        <div className="text-black">
+          <h3 className="font-semibold">Spreading, Levelling and Compacting:</h3>
           <p>
-            To spread properly, level and compact the area just filled which is
-            <strong>{formatter.format(Area)}m2</strong>, it will require a 1 man
-            labour an estimated number of {manLabourLeveling}
+            To spread properly, level and compact the area just filled which is{" "}
+            <strong>
+              {formatter.format(Area)}m<sup>2</sup>
+            </strong>
+            , it will require a 1 man labour an estimated number of{" "}
+            <strong>{formatter.format(manLabourLeveling)}</strong>
             days using a to achieve this task. However, in low budget
             circumstances, rope lines may be used to take even levels across the
             area to be levelled and compacted if a dumpy/auto level is

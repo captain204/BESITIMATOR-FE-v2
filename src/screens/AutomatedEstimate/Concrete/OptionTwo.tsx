@@ -3,9 +3,16 @@ import React, { useEffect, useState } from "react";
 const EOptionTwo = () => {
   const [selected, setSelected] = useState<string>("Grade M7.5(1:4:8)");
 
-  const handleSelectChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    setSelected(event.target.value);
-  };
+  // const handleSelectChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+  //   setSelected(event.target.value);
+  // };
+
+
+    const handleSelectChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+      const newOption = event.target.value;
+      setSelected(newOption);
+      localStorage.setItem("What-type-of-concrete-mix", newOption);
+    };
 
   useEffect(() => {
     const storedOption = localStorage.getItem("What-type-of-concrete-mix");

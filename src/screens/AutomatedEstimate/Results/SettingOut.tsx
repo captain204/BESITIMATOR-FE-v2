@@ -93,7 +93,7 @@ const SettingOut: React.FC = () => {
       {ShapeOfBuilding === "Three sided shaped like triangle, scalene etc" ? (
         <>
           <h1 className="text-2xl font-bold text-black mb-4">
-            Setting Out Result
+            {ItemOfWork} Result
           </h1>
           <p className="text-black text-xl mb-2">
             Hi <strong>{response?.name}</strong>,

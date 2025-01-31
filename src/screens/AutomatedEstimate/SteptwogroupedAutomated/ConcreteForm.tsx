@@ -179,6 +179,7 @@ const ConcreteForm: React.FC<StepTwoProps> = ({ validateStep }) => {
                 <input
                   {...field}
                   id="volume"
+                  type="number"
                   placeholder="Enter Volume"
                   onChange={(e) => {
                     field.onChange(e);
@@ -211,6 +212,7 @@ const ConcreteForm: React.FC<StepTwoProps> = ({ validateStep }) => {
               render={({ field }) => (
                 <input
                   {...field}
+                   type="number"
                   id="radius"
                   placeholder="Enter Radius"
                   onChange={(e) => {
@@ -241,6 +243,7 @@ const ConcreteForm: React.FC<StepTwoProps> = ({ validateStep }) => {
                 <input
                   {...field}
                   id="height"
+                   type="number"
                   placeholder="Enter Height"
                   onChange={(e) => {
                     field.onChange(e);
@@ -273,6 +276,7 @@ const ConcreteForm: React.FC<StepTwoProps> = ({ validateStep }) => {
               render={({ field }) => (
                 <input
                   {...field}
+                   type="number"
                   id="length"
                   placeholder="Enter Length"
                   onChange={(e) => {
@@ -302,6 +306,7 @@ const ConcreteForm: React.FC<StepTwoProps> = ({ validateStep }) => {
               render={({ field }) => (
                 <input
                   {...field}
+                   type="number"
                   id="width"
                   placeholder="Enter Width"
                   onChange={(e) => {
@@ -331,6 +336,7 @@ const ConcreteForm: React.FC<StepTwoProps> = ({ validateStep }) => {
               render={({ field }) => (
                 <input
                   {...field}
+                   type="number"
                   id="depth"
                   placeholder="Enter Depth"
                   onChange={(e) => {
@@ -372,7 +378,7 @@ const ConcreteForm: React.FC<StepTwoProps> = ({ validateStep }) => {
           className="py-3 px-4 w-full bg-white border text-black rounded-lg focus:ring-1 focus:ring-yellow-400 focus:outline-none"
         >
           <option value="Metres">Metres</option>
-          <option value="Kilometres">Millimetres</option>
+          <option value="Millimetres">Millimetres</option>
         </select>
       </div>
     </div>
