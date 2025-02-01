@@ -158,6 +158,10 @@ const Reinforcement: React.FC = () => {
   const GLintelFourBindingWire = GSLintelLength * 0.0;
   const GLintelFourLabourRequirement = GSLintelLength * 0.0;
 
+  //angle
+  const AngleLength = GSLintelLength * 2.0;
+  const LabourRequirement = GSLintelLength * 0.01;
+
   // Ensure volume is always a number
   const formatter = new Intl.NumberFormat();
 
@@ -378,11 +382,13 @@ const Reinforcement: React.FC = () => {
         )
       ) : (
         <p className="text-black">
-          Angle Iron requirement for a Lintel which has a total Length of *Total
-          Length (m)* m, you will require an estimated amount of *Angle Iron
-          Length (m)* m. This will take a 1 man labour an estimated number of *1
-          man labour out put per day (days)* days. Please note 1construction day
-          = 9 Hours
+          Angle Iron requirement for a Lintel which has a total Length of{" "}
+          <strong>{formatter.format(GSLintelLength)}m</strong>, you will require
+          an estimated amount of{" "}
+          <strong>{formatter.format(AngleLength)}m</strong>. This will take a 1
+          man labour an estimated number of{" "}
+          <strong>{formatter.format(LabourRequirement)}</strong> days. Please
+          note 1construction day = 9 Hours
         </p>
       )}
 
