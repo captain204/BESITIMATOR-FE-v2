@@ -9,6 +9,8 @@ const Reinforcement: React.FC = () => {
   const [itemsOfWork, selectItemOfwork] = useState("");
   const [reinforcementType, setReinforcementType] = useState("");
   const [lintelType, setLintelType] = useState("");
+  const [statusOfConstruction, setStatusOfConstruction] = useState("");
+  const [lintelROptions, setLintelROptions] = useState("");
   const [GroundSuspendedLintel, setGroundSuspendedLintel] = useState({
     GSLintel: {
       siteLength: 0,
@@ -46,8 +48,16 @@ const Reinforcement: React.FC = () => {
         localStorage.getItem("material-used-for-your-lintel") || ""
       );
 
+      setStatusOfConstruction(
+        localStorage.getItem("Status-of-construction-area") || ""
+      );
+
       const GSLintelInputs = JSON.parse(
         localStorage.getItem("Reinforcement/Iron bending works Inputs") || "{}"
+      );
+
+      setLintelROptions(
+        localStorage.getItem("Lintel-reinforcement-option") || ""
       );
 
       setGroundSuspendedLintel({
@@ -87,16 +97,66 @@ const Reinforcement: React.FC = () => {
 
   // Convert mm to meters if unit is Millimetres
 
-  const convertedLevelingInputs:any = {
+  const convertedLevelingInputs: any = {
     length: convertGroundSuspendedLintelToMeters(GSLintel.siteLength),
   };
 
   const GSLintelLength = convertedLevelingInputs.length || 0;
-  const GModeratelySixtons = GSLintelLength * 0.01
-  const GModeratelyTwelvetons = GSLintelLength * 0.00
-  const GModeratelyTentons = GSLintelLength * 0.01
-  const GModeratelyBindingWire = GSLintelLength * 0.00003
-  const GModeratelyLabourRequirement =  GSLintelLength  * 0.02
+
+  //moderately
+  const GModeratelySixtons = GSLintelLength * 0.01;
+  const GModeratelyTwelvetons = GSLintelLength * 0.0;
+  const GModeratelyTentons = GSLintelLength * 0.01;
+  const GModeratelyBindingWire = GSLintelLength * 0.00003;
+  const GModeratelyLabourRequirement = GSLintelLength * 0.02;
+
+  //non-swampy
+  const GNonSwampySixtons = GSLintelLength * 0.0;
+  const GNonSwampyTwelvetons = GSLintelLength * 0.0;
+  const GNonSwampyTentons = GSLintelLength * 0.01;
+  const GNonSwampyBindingWire = GSLintelLength * 0.00002;
+  const GNonSwampyLabourRequirement = GSLintelLength * 0.01;
+
+  //moderately2
+
+  const GWithFloodingSixtons = GSLintelLength * 0.02;
+  const GWithFloodingTwelvetons = GSLintelLength * 0.0;
+  const GWithFloodingTentons = GSLintelLength * 0.01;
+  const GWithFloodingBindingWire = GSLintelLength * 0.00005;
+  const GWithFloodingLabourRequirement = GSLintelLength * 0.03;
+
+  //suspendedbeam
+  const GSuspendedBeamSixtons = GSLintelLength * 0.07;
+  // const GSuspendedBeamTwelvetons = GSLintelLength * 0.0;
+  const GSuspendedBeamTentons = GSLintelLength * 0.01;
+  const GSuspendedBeamBindingWire = GSLintelLength * 0.00011;
+  const GSuspendedBeamLabourRequirement = GSLintelLength * 0.07;
+
+  //lintelReinforcement 225
+
+  // const GLintelOneSixtons = GSLintelLength * 0.07;
+  const GLintelOneTwelvetons = GSLintelLength * 0.0;
+  const GLintelOneTentons = GSLintelLength * 0.0;
+  const GLintelOneBindingWire = GSLintelLength * 0.00001;
+  const GLintelOneLabourRequirement = GSLintelLength * 0.01;
+
+  //lintelReinforcement 150
+  const GLintelTwoTwelvetons = GSLintelLength * 0.0;
+  const GLintelTwoTentons = GSLintelLength * 0.0;
+  const GLintelTwoBindingWire = GSLintelLength * 0.00001;
+  const GLintelTwoLabourRequirement = GSLintelLength * 0.01;
+
+  //lintelReinforcement 225 prescard
+  const GLintelThreeTwelvetons = GSLintelLength * 0.0;
+  const GLintelThreeTentons = GSLintelLength * 0.0;
+  const GLintelThreeBindingWire = GSLintelLength * 0.0;
+  const GLintelThreeLabourRequirement = GSLintelLength * 0.0;
+
+  //lintelReinforcement 150 prescard
+  const GLintelFourTwelvetons = GSLintelLength * 0.0;
+  const GLintelFourTentons = GSLintelLength * 0.0;
+  const GLintelFourBindingWire = GSLintelLength * 0.0;
+  const GLintelFourLabourRequirement = GSLintelLength * 0.0;
 
   // Ensure volume is always a number
   const formatter = new Intl.NumberFormat();
@@ -113,35 +173,100 @@ const Reinforcement: React.FC = () => {
       </p>
 
       {reinforcementType === "Ground beams" ? (
-        <p className="text-black">
-          Reinforcement requirement for a Ground beam of an average height of 1m
-          and width of 0.23m in{" "}
-          <strong>
-            {" "}
-            {reinforcementType} (average height of 1m and width 0.23m) area{" "}
-          </strong>{" "}
-          of Girth/ total length of <strong>{GSLintelLength}m</strong> , you
-          will require an estimated amount of <strong>{GModeratelySixtons}</strong> tons of 16mm
-          reinforcement as the main bars, <strong>{GModeratelyTwelvetons}</strong> tons of 12mm
-          reinforcement as the runner, <strong>{GModeratelyTentons}</strong> tons of 10mm reinforcement
-          as the stirrups/rings and <strong>{GModeratelyBindingWire}</strong> roll(s) of
-          binding wire. For labour requirement for this item of work, labours
-          are usually paid per tonnage for the work done. Therefore, the total
-          estimated amount of tons used for this work item is <strong>{GModeratelyLabourRequirement}</strong> tons. This may be multiplied by the applicable per ton
-          rate. You may refer to our material and labour price list/rates.
-        </p>
+        statusOfConstruction === "Moderately Swampy without footing" ? (
+          <p className="text-black">
+            Reinforcement requirement for a Ground beam of an average height of
+            1m and width of 0.23m in{" "}
+            <strong>
+              {" "}
+              {reinforcementType} (average height of 1m and width 0.23m) area{" "}
+            </strong>{" "}
+            of Girth/ total length of{" "}
+            <strong>{formatter.format(GSLintelLength)}m</strong> , you will
+            require an estimated amount of{" "}
+            <strong>{formatter.format(GModeratelySixtons)}</strong> tons of 16mm
+            reinforcement as the main bars,{" "}
+            <strong>{formatter.format(GModeratelyTwelvetons)}</strong> tons of
+            12mm reinforcement as the runner,{" "}
+            <strong>{formatter.format(GModeratelyTentons)}</strong> tons of 10mm
+            reinforcement as the stirrups/rings and{" "}
+            <strong>{formatter.format(GModeratelyBindingWire)}</strong> roll(s)
+            of binding wire. For labour requirement for this item of work,
+            labours are usually paid per tonnage for the work done. Therefore,
+            the total estimated amount of tons used for this work item is{" "}
+            <strong>{formatter.format(GModeratelyLabourRequirement)}</strong>{" "}
+            tons. This may be multiplied by the applicable per ton rate. You may
+            refer to our material and labour price list/rates.
+          </p>
+        ) : statusOfConstruction === "Non-Swampy" ? (
+          <p className="text-black">
+            Reinforcement requirement for a Ground beam of an average height of
+            1m and width of 0.23m in{" "}
+            <strong>
+              {" "}
+              {reinforcementType} (average height of 1m and width 0.23m) area{" "}
+            </strong>{" "}
+            of Girth/ total length of{" "}
+            <strong>{formatter.format(GSLintelLength)}m</strong> , you will
+            require an estimated amount of{" "}
+            <strong>{formatter.format(GNonSwampySixtons)}</strong> tons of 16mm
+            reinforcement as the main bars,{" "}
+            <strong>{formatter.format(GNonSwampyTwelvetons)}</strong> tons of
+            12mm reinforcement as the runner,{" "}
+            <strong>{formatter.format(GNonSwampyTentons)}</strong> tons of 10mm
+            reinforcement as the stirrups/rings and{" "}
+            <strong>{formatter.format(GNonSwampyBindingWire)}</strong> roll(s)
+            of binding wire. For labour requirement for this item of work,
+            labours are usually paid per tonnage for the work done. Therefore,
+            the total estimated amount of tons used for this work item is{" "}
+            <strong>{formatter.format(GNonSwampyLabourRequirement)}</strong>{" "}
+            tons. This may be multiplied by the applicable per ton rate. You may
+            refer to our material and labour price list/rates.
+          </p>
+        ) : (
+          <p className="text-black">
+            Reinforcement requirement for a Ground beam of an average height of
+            1m and width of 0.23m in{" "}
+            <strong>
+              {" "}
+              {reinforcementType} (average height of 1m and width 0.23m) area{" "}
+            </strong>{" "}
+            of Girth/ total length of{" "}
+            <strong>{formatter.format(GSLintelLength)}m</strong> , you will
+            require an estimated amount of{" "}
+            <strong>{formatter.format(GWithFloodingSixtons)}</strong> tons of
+            16mm reinforcement as the main bars,{" "}
+            <strong>{formatter.format(GWithFloodingTwelvetons)}</strong> tons of
+            12mm reinforcement as the runner,{" "}
+            <strong>{formatter.format(GWithFloodingTentons)}</strong> tons of
+            10mm reinforcement as the stirrups/rings and{" "}
+            <strong>{formatter.format(GWithFloodingBindingWire)}</strong>{" "}
+            roll(s) of binding wire. For labour requirement for this item of
+            work, labours are usually paid per tonnage for the work done.
+            Therefore, the total estimated amount of tons used for this work
+            item is{" "}
+            <strong>{formatter.format(GWithFloodingLabourRequirement)}</strong>{" "}
+            tons. This may be multiplied by the applicable per ton rate. You may
+            refer to our material and labour price list/rates.
+          </p>
+        )
       ) : reinforcementType === "Suspected beams" ? (
         <p className="text-black">
           Reinforcement requirement for a Suspended beam of an average height of
-          1m and width of 0.23m of Girth/ total length of *Girth/total Length
-          (m)* m, you will require an estimated amount of *16mm (tons)* tons of
-          16mm reinforcement as the main bars, *10mm (tons)* tons of 10mm
-          reinforcement as the stirrups/rings and *Binding wire (20kg) roll*
-          roll(s) of binding wire. For labour requirement for this item of work,
-          labours are usually paid per tonnage for the work done. Therefore, the
-          total estimated amount of tons used for this work item is *Labour
-          requirement* tons. This may be multiplied by the applicable per ton
-          rate. You may refer to our material and labour price list/rates.
+          1m and width of 0.23m of Girth/ total length of{" "}
+          <strong>{formatter.format(GSLintelLength)}m</strong> you will require
+          an estimated amount of{" "}
+          <strong>{formatter.format(GSuspendedBeamSixtons)}</strong> tons of
+          16mm reinforcement as the main bars,{" "}
+          <strong>{formatter.format(GSuspendedBeamTentons)}</strong> tons of
+          10mm reinforcement as the stirrups/rings and{" "}
+          <strong>{formatter.format(GSuspendedBeamBindingWire)}</strong> roll(s)
+          of binding wire. For labour requirement for this item of work, labours
+          are usually paid per tonnage for the work done. Therefore, the total
+          estimated amount of tons used for this work item is{" "}
+          <strong>{formatter.format(GSuspendedBeamLabourRequirement)}</strong>{" "}
+          tons. This may be multiplied by the applicable per ton rate. You may
+          refer to our material and labour price list/rates.
         </p>
       ) : reinforcementType === "Column" ? (
         <p className="text-black">
@@ -170,18 +295,87 @@ const Reinforcement: React.FC = () => {
           material and labour price list/rates.
         </p>
       ) : lintelType === "Reinforcement" ? (
-        <p className="text-black">
-          Reinforcement requirement for a Lintel of *Lintel approach and size*
-          which has a total Length of *Total Length (m)* m, you will require an
-          estimated amount of *12mm (tons)* tons of 12mm reinforcement as the
-          main bars, *10mm (tons)* tons of 10mm reinforcement as the
-          stirrups/rings and *Binding wire (20kg) roll* roll(s) of binding wire.
-          For labour requirement for this item of work, labours are usually paid
-          per tonnage for the work done. Therefore, the total estimated amount
-          of tons used for this work item is *Labour requirement* tons. This may
-          be multiplied by the applicable per ton rate. You may refer to our
-          material and labour price list/rates.
-        </p>
+        lintelROptions === "in situ casted (width 225mm)" ? (
+          <p className="text-black">
+            Reinforcement requirement for a Lintel of *Lintel approach and size*
+            which has a total Length of{" "}
+            <strong>{formatter.format(GSLintelLength)}m</strong> you will
+            require an estimated amount of{" "}
+            <strong>{formatter.format(GLintelOneTwelvetons)}</strong> tons of
+            12mm reinforcement as the main bars,{" "}
+            <strong>{formatter.format(GLintelOneTentons)}</strong> tons of 10mm
+            reinforcement as the stirrups/rings and{" "}
+            <strong>{formatter.format(GLintelOneBindingWire)}</strong> roll(s)
+            of binding wire. For labour requirement for this item of work,
+            labours are usually paid per tonnage for the work done. Therefore,
+            the total estimated amount of tons used for this work item is
+            <strong>
+              {formatter.format(GLintelOneLabourRequirement)}
+            </strong>{" "}
+            tons. This may be multiplied by the applicable per ton rate. You may
+            refer to our material and labour price list/rates.
+          </p>
+        ) : lintelROptions === "in situ casted (width 150mm)" ? (
+          <p className="text-black">
+            Reinforcement requirement for a Lintel of *Lintel approach and size*
+            which has a total Length of{" "}
+            <strong>{formatter.format(GSLintelLength)}m</strong> you will
+            require an estimated amount of{" "}
+            <strong>{formatter.format(GLintelTwoTwelvetons)}</strong> tons of
+            12mm reinforcement as the main bars,{" "}
+            <strong>{formatter.format(GLintelTwoTentons)}</strong> tons of 10mm
+            reinforcement as the stirrups/rings and{" "}
+            <strong>{formatter.format(GLintelTwoBindingWire)}</strong> roll(s)
+            of binding wire. For labour requirement for this item of work,
+            labours are usually paid per tonnage for the work done. Therefore,
+            the total estimated amount of tons used for this work item is
+            <strong>
+              {formatter.format(GLintelTwoLabourRequirement)}
+            </strong>{" "}
+            tons. This may be multiplied by the applicable per ton rate. You may
+            refer to our material and labour price list/rates.
+          </p>
+        ) : lintelROptions === "in situ casted (width 150mm)" ? (
+          <p className="text-black">
+            Reinforcement requirement for a Lintel of *Lintel approach and size*
+            which has a total Length of{" "}
+            <strong>{formatter.format(GSLintelLength)}m</strong> you will
+            require an estimated amount of{" "}
+            <strong>{formatter.format(GLintelThreeTwelvetons)}</strong> tons of
+            12mm reinforcement as the main bars,{" "}
+            <strong>{formatter.format(GLintelThreeTentons)}</strong> tons of
+            10mm reinforcement as the stirrups/rings and{" "}
+            <strong>{formatter.format(GLintelThreeBindingWire)}</strong> roll(s)
+            of binding wire. For labour requirement for this item of work,
+            labours are usually paid per tonnage for the work done. Therefore,
+            the total estimated amount of tons used for this work item is
+            <strong>
+              {formatter.format(GLintelThreeLabourRequirement)}
+            </strong>{" "}
+            tons. This may be multiplied by the applicable per ton rate. You may
+            refer to our material and labour price list/rates.
+          </p>
+        ) : (
+          <p className="text-black">
+            Reinforcement requirement for a Lintel of *Lintel approach and size*
+            which has a total Length of{" "}
+            <strong>{formatter.format(GSLintelLength)}m</strong> you will
+            require an estimated amount of{" "}
+            <strong>{formatter.format(GLintelFourTwelvetons)}</strong> tons of
+            12mm reinforcement as the main bars,{" "}
+            <strong>{formatter.format(GLintelFourTentons)}</strong> tons of 10mm
+            reinforcement as the stirrups/rings and{" "}
+            <strong>{formatter.format(GLintelFourBindingWire)}</strong> roll(s)
+            of binding wire. For labour requirement for this item of work,
+            labours are usually paid per tonnage for the work done. Therefore,
+            the total estimated amount of tons used for this work item is
+            <strong>
+              {formatter.format(GLintelFourLabourRequirement)}
+            </strong>{" "}
+            tons. This may be multiplied by the applicable per ton rate. You may
+            refer to our material and labour price list/rates.
+          </p>
+        )
       ) : (
         <p className="text-black">
           Angle Iron requirement for a Lintel which has a total Length of *Total
