@@ -17,16 +17,13 @@ const ColumnForm: React.FC<StepTwoProps> = ({ validateStep }) => {
 
   const [itemOfWork, setItemOfWork] = useState<string>("");
 
-
-
-
-  const getLocalStorageItem = (key:any, defaultValue:any) => {
+  const getLocalStorageItem = (key: any, defaultValue: any) => {
     if (typeof window !== "undefined" && window.localStorage) {
       return localStorage.getItem(key) || defaultValue;
     }
     return defaultValue;
   };
-  
+
   const reinforcementFor = getLocalStorageItem(
     "Where-you-need-your-reinforcement-for",
     ""
@@ -81,7 +78,9 @@ const ColumnForm: React.FC<StepTwoProps> = ({ validateStep }) => {
       {/* Site Length */}
       <h1 className="text-xl text-start font-bold text-black mb-6">
         Specify your{" "}
-        <span className="text-yellow-900">{reinforcementFor || "Work Item"}</span>{" "}
+        <span className="text-yellow-900">
+          {reinforcementFor || "Work Item"}
+        </span>{" "}
         inputs
       </h1>
       <div className="flex flex-col w-full md:w-1/2 mb-4">
@@ -95,6 +94,7 @@ const ColumnForm: React.FC<StepTwoProps> = ({ validateStep }) => {
             <input
               {...field}
               id="hight"
+              type="number"
               placeholder="Enter height"
               onChange={(e) => {
                 field.onChange(e); // Update the value
@@ -122,6 +122,7 @@ const ColumnForm: React.FC<StepTwoProps> = ({ validateStep }) => {
             <input
               {...field}
               id="total"
+              type="number"
               placeholder="Total No (Nos)"
               onChange={(e) => {
                 field.onChange(e); // Update the value
@@ -152,8 +153,8 @@ const ColumnForm: React.FC<StepTwoProps> = ({ validateStep }) => {
           // id="unit"
           className="py-3 px-4 w-full bg-white border text-black rounded-lg focus:ring-1 focus:ring-yellow-400 focus:outline-none"
         >
-          <option>Metres</option>
-          <option>Millimeter</option>
+          <option className="Metres">Metres</option>
+          <option className="Millimeter">Millimeter</option>
         </select>
       </div>
     </div>

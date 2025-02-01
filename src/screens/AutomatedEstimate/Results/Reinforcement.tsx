@@ -11,13 +11,22 @@ const Reinforcement: React.FC = () => {
   const [lintelType, setLintelType] = useState("");
   const [statusOfConstruction, setStatusOfConstruction] = useState("");
   const [lintelROptions, setLintelROptions] = useState("");
+  const [columnStatus, setcolumnStatus] = useState("");
   const [GroundSuspendedLintel, setGroundSuspendedLintel] = useState({
     GSLintel: {
       siteLength: 0,
       unit: "Metres",
     },
   });
-  const [Column, setColumn] = useState("");
+
+  const [Column, setColumn] = useState({
+    colum: {
+      total: 0,
+      hight: 0,
+      unit: "Metres",
+    },
+  });
+
   const [slabs, setSlabs] = useState("");
   const [data, setData] = useState({
     ItemOfWork: "",
@@ -38,6 +47,10 @@ const Reinforcement: React.FC = () => {
     if (typeof window !== "undefined") {
       const DampProvingInputs = JSON.parse(
         localStorage.getItem("Damp Proving  Inputs") || "{}"
+      );
+
+      setcolumnStatus(
+        localStorage.getItem("Status-of-construction-area-column") || ""
       );
 
       setReinforcementType(
@@ -67,10 +80,21 @@ const Reinforcement: React.FC = () => {
         },
       });
 
+      const ColumnInputs = JSON.parse(
+        localStorage.getItem("Reinforcemet-Column Inputs") || "{}"
+      );
+
+      setColumn({
+        colum: {
+          ...Column.colum,
+          ...ColumnInputs,
+        },
+      });
+
       // setGroundSuspendedLintel(
       //   localStorage.getItem("Reinforcement/Iron bending works Inputs") || ""
       // );
-      setColumn(localStorage.getItem("Reinforcemet-Column Inputs") || "");
+
       setSlabs(localStorage.getItem("Reinforcement-slaps Inputs") || "");
 
       setData({
@@ -90,13 +114,35 @@ const Reinforcement: React.FC = () => {
 
   const { GSLintel } = GroundSuspendedLintel;
 
-  const convertGroundSuspendedLintelToMeters = (value: number) =>
+  const convertGroundSuspendedLintelToMeters: any = (value: number) =>
     GroundSuspendedLintel.GSLintel.unit === "Millimetres"
       ? value / 1000
       : value;
 
-  // Convert mm to meters if unit is Millimetres
+  const { colum } = Column;
 
+  const convertColumnToMeters = (value: number) =>
+    Column.colum.unit === "Millimetres" ? value / 1000 : value;
+
+  const convertedColumnInputs: any = {
+    total: convertColumnToMeters(colum.total),
+    hight: convertColumnToMeters(colum.hight),
+  };
+
+  //column inputs
+  const ColumntotalNos = convertedColumnInputs.total;
+  const ColumnHeight = convertedColumnInputs.hight;
+  const CModeratelySixtons = ColumnHeight * 0.01;
+  const CModeratelyTentons = ColumnHeight * 0.01;
+  const CModeratelyBindinCWire = ColumnHeight * 0.00001;
+  const CModeratelyLabourRequirement = ColumnHeight * 0.01;
+
+  const CSixtons = ColumnHeight * 0.01;
+  const CTentons = ColumnHeight * 0.01;
+  const CBindinCWire = ColumnHeight * 0.00001;
+  const CLabourRequirement = ColumnHeight * 0.01;
+
+  // Convert mm to meters if unit is Millimetres
   const convertedLevelingInputs: any = {
     length: convertGroundSuspendedLintelToMeters(GSLintel.siteLength),
   };
@@ -118,7 +164,6 @@ const Reinforcement: React.FC = () => {
   const GNonSwampyLabourRequirement = GSLintelLength * 0.01;
 
   //moderately2
-
   const GWithFloodingSixtons = GSLintelLength * 0.02;
   const GWithFloodingTwelvetons = GSLintelLength * 0.0;
   const GWithFloodingTentons = GSLintelLength * 0.01;
@@ -273,19 +318,65 @@ const Reinforcement: React.FC = () => {
           refer to our material and labour price list/rates.
         </p>
       ) : reinforcementType === "Column" ? (
-        <p className="text-black">
-          Reinforcement requirement for a Column of column size *Column Size*
-          which has a total height of *Total Height (m)* m and consisting of
-          *Nos of Columns* nos, you will require an estimated amount of *16mm
-          (tons)* tons of 16mm reinforcement as the main bars, *10mm (tons)*
-          tons of 10mm reinforcement as the stirrups/rings and *Binding wire
-          (20kg) roll* roll(s) of binding wire. For labour requirement for this
-          item of work, labours are usually paid per tonnage for the work done.
-          Therefore, the total estimated amount of tons used for this work item
-          is *Labour requirement* tons. This may be multiplied by the applicable
-          per ton rate. You may refer to our material and labour price
-          list/rates.
-        </p>
+        // columnStatus
+        columnStatus === "225mm x225mm column sizes" ? (
+          <p className="text-black">
+            requirement for a Column of column size{" "}
+            <strong>{columnStatus}</strong> which has a total height of{" "}
+            <strong>{formatter.format(ColumnHeight)}m</strong> and consisting of{" "}
+            <strong>{formatter.format(ColumntotalNos)} nos</strong>, you will
+            require an estimated amount of{" "}
+            <strong>{formatter.format(CModeratelySixtons)} </strong> tons of
+            16mm reinforcement as the main bars,{" "}
+            <strong>{formatter.format(CModeratelyTentons)}</strong> tons of 10mm
+            reinforcement as the stirrups/rings and{" "}
+            <strong>{formatter.format(CModeratelyBindinCWire)} roll(s)</strong>{" "}
+            of binding wire. For labour requirement for this item of work,
+            labours are usually paid per tonnage for the work done. Therefore,
+            the total estimated amount of tons used for this work item is{" "}
+            <strong>{formatter.format(CModeratelyLabourRequirement)}</strong>{" "}
+            tons. This may be multiplied by the applicable per ton rate. You may
+            refer to our material and labour price list/rates.
+          </p>
+        ) : columnStatus === "225mm x 450mm column sizes" ? (
+          <p className="text-black">
+            requirement for a Column of column size{" "}
+            <strong>{columnStatus}</strong> which has a total height of{" "}
+            <strong>{formatter.format(ColumnHeight)}m</strong> and consisting of{" "}
+            <strong>{formatter.format(ColumntotalNos)} nos</strong>, you will
+            require an estimated amount of{" "}
+            <strong>{formatter.format(CSixtons)} </strong> tons of 16mm
+            reinforcement as the main bars,{" "}
+            <strong>{formatter.format(CTentons)}</strong> tons of 10mm
+            reinforcement as the stirrups/rings and{" "}
+            <strong>{formatter.format(CBindinCWire)} roll(s)</strong> of binding
+            wire. For labour requirement for this item of work, labours are
+            usually paid per tonnage for the work done. Therefore, the total
+            estimated amount of tons used for this work item is{" "}
+            <strong>{formatter.format(CLabourRequirement)}</strong> tons. This
+            may be multiplied by the applicable per ton rate. You may refer to
+            our material and labour price list/rates.
+          </p>
+        ) : (
+          <p className="text-black">
+            requirement for a Column of column size{" "}
+            <strong>{columnStatus}</strong> which has a total height of{" "}
+            <strong>{formatter.format(ColumnHeight)}m</strong> and consisting of{" "}
+            <strong>{formatter.format(ColumntotalNos)} nos</strong>, you will
+            require an estimated amount of{" "}
+            <strong>{formatter.format(CModeratelySixtons)} </strong> tons of
+            16mm reinforcement as the main bars,{" "}
+            <strong>{formatter.format(CModeratelyTentons)}</strong> tons of 10mm
+            reinforcement as the stirrups/rings and{" "}
+            <strong>{formatter.format(CModeratelyBindinCWire)} roll(s)</strong>{" "}
+            of binding wire. For labour requirement for this item of work,
+            labours are usually paid per tonnage for the work done. Therefore,
+            the total estimated amount of tons used for this work item is{" "}
+            <strong>{formatter.format(CModeratelyLabourRequirement)}</strong>{" "}
+            tons. This may be multiplied by the applicable per ton rate. You may
+            refer to our material and labour price list/rates.
+          </p>
+        )
       ) : reinforcementType === "Slabs" ? (
         <p className="text-black">
           Reinforcement requirement for a Slab/ Suspended slab where the *size

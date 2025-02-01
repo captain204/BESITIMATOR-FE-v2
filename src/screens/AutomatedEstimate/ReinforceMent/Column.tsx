@@ -1,20 +1,25 @@
 import React, { useEffect, useState } from "react";
 
 const Column = () => {
-  const [selected, setSelected] = useState<string>("0.23x0.23m");
+  const [selected, setSelected] = useState<string>("225mm x225mm column sizes");
 
   const handleSelectChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     const newOption = event.target.value;
     setSelected(newOption);
-    localStorage.setItem("Status-of-construction-area", newOption);
+    localStorage.setItem("Status-of-construction-area-column", newOption);
   };
 
   useEffect(() => {
-    const storedOption = localStorage.getItem("Status-of-construction-area");
+    const storedOption = localStorage.getItem(
+      "Status-of-construction-area-column"
+    );
     if (storedOption) {
       setSelected(storedOption);
     } else {
-      localStorage.setItem("Status-of-construction-area", "0.23x0.23m");
+      localStorage.setItem(
+        "Status-of-construction-area-column",
+        "225mm x225mm column sizes"
+      );
     }
   }, []);
 
@@ -38,7 +43,9 @@ const Column = () => {
           <option value="225mm x 450mm column sizes">
             225mm x 450mm column sizes
           </option>
-          <option value="450mm x 450mm column sizes">450mm x 450mm column sizes</option>
+          <option value="450mm x 450mm column sizes">
+            450mm x 450mm column sizes
+          </option>
         </select>
       </div>
     </div>
