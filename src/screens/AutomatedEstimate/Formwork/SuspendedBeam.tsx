@@ -6,12 +6,12 @@ const Suspendedbeams = () => {
   );
 
   useEffect(() => {
-    const storedOption = localStorage.getItem("Suspended-beams");
+    const storedOption = localStorage.getItem("Suspended-beams-formework");
     if (storedOption) {
       setSelected(storedOption);
     } else {
       localStorage.setItem(
-        "Suspended-beams",
+        "Suspended-beams-formework",
         "framed structure av. Height 300mm"
       );
     }
@@ -20,7 +20,7 @@ const Suspendedbeams = () => {
   const handleSelectChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     const newOption = event.target.value;
     setSelected(newOption);
-    localStorage.setItem("Suspended-beams", newOption);
+    localStorage.setItem("Suspended-beams-formework", newOption);
   };
 
   return (

@@ -12,7 +12,7 @@ const Formwork: React.FC = () => {
   const [FormworkStatus, setFormworkStatus] = useState("");
   const [lintelROptions, setLintelROptions] = useState("");
   const [columnStatus, setcolumnStatus] = useState("");
-  const [sizeOfSlap, setSizeOfSlap] = useState("");
+  const [suspended, setSuspended] = useState("");
   const [GroundSuspendedLintel, setGroundSuspendedLintel] = useState({
     GSLintel: {
       siteLength: 0,
@@ -32,6 +32,15 @@ const Formwork: React.FC = () => {
 
   const [BeamColumndata, setFormworkBeamdata] = useState({
     formWorkBeamInputsData: {
+      breadth: 0,
+      length: 0,
+      area: 0,
+      unit: "Metres",
+    },
+  });
+
+  const [SuspendedFormworkdata, setSuspendedFormworkdata] = useState({
+    formWorkSuspendedInputsData: {
       breadth: 0,
       length: 0,
       area: 0,
@@ -69,7 +78,8 @@ const Formwork: React.FC = () => {
 
       setcolumnStatus(localStorage.getItem("Slabs-Slaps") || "");
 
-      setSizeOfSlap;
+      // Suspended-beams-formework
+      // // setSizeOfSlap;
       // Slabs-Slaps
 
       setFormWorkType(
@@ -90,6 +100,8 @@ const Formwork: React.FC = () => {
         localStorage.getItem("Lintel-reinforcement-option") || ""
       );
 
+      setSuspended(localStorage.getItem("Suspended-beams-formework") || "");
+      //setSuspended
       setGroundSuspendedLintel({
         GSLintel: {
           ...GroundSuspendedLintel.GSLintel,
@@ -181,6 +193,30 @@ const Formwork: React.FC = () => {
   const GupFootstandsLabour = FormworkColumnArea * 1.0;
   const GupFootstandsLabourCapenter = FormworkColumnArea * 0.05;
 
+  //suspendedBeam
+
+  const SuspendedMarineBorad = FormworkColumnArea * 0.36;
+  const SuspendedWoodone = FormworkColumnArea * 1.05;
+  const SuspendedWoodTwo = FormworkColumnArea * 3.0;
+  const SuspendedWoodThree = FormworkColumnArea * 1.76;
+  // const SuspendedPegs = FormworkColumnArea * 0.07;
+  const SuspendedNail = FormworkColumnArea * 0.19;
+  const totalLength = FormworkColumnArea * 1.2;
+  // const SuspendedLabour = FormworkColumnArea * 1.0;
+  const SuspendedLabourCapenter = FormworkColumnArea * 0.07;
+  const AcroProps = FormworkColumnArea * 4.8;
+
+  const SSuspendedMarineBorad = FormworkColumnArea * 0.36;
+  const SSuspendedWoodone = FormworkColumnArea * 1.05;
+  const SSuspendedWoodTwo = FormworkColumnArea * 2.0;
+  const SSuspendedWoodThree = FormworkColumnArea * 0.4;
+  // const SuspendedPegs = FormworkColumnArea * 0.07;
+  const SSuspendedNail = FormworkColumnArea * 0.19;
+  const StotalLength = FormworkColumnArea * 1.2;
+  // const SuspendedLabour = FormworkColumnArea * 1.0;
+  const SSuspendedLabourCapenter = FormworkColumnArea * 0.04;
+  const SAcroProps = FormworkColumnArea * 0.0;
+
   // const SlapThelvetons = SlapArea * 0.02;
   // const SlapBindinCWire = SlapArea * 0.00003;
   // const SlapLabourRequirement = SlapArea * 0.02;
@@ -261,24 +297,6 @@ const Formwork: React.FC = () => {
   const GLintelOneBindingWire = GSLintelLength * 0.00001;
   const GLintelOneLabourRequirement = GSLintelLength * 0.01;
 
-  //lintelReinforcement 150
-  const GLintelTwoTwelvetons = GSLintelLength * 0.0;
-  const GLintelTwoTentons = GSLintelLength * 0.0;
-  const GLintelTwoBindingWire = GSLintelLength * 0.00001;
-  const GLintelTwoLabourRequirement = GSLintelLength * 0.01;
-
-  //lintelReinforcement 225 prescard
-  const GLintelThreeTwelvetons = GSLintelLength * 0.0;
-  const GLintelThreeTentons = GSLintelLength * 0.0;
-  const GLintelThreeBindingWire = GSLintelLength * 0.0;
-  const GLintelThreeLabourRequirement = GSLintelLength * 0.0;
-
-  //lintelReinforcement 150 prescard
-  const GLintelFourTwelvetons = GSLintelLength * 0.0;
-  const GLintelFourTentons = GSLintelLength * 0.0;
-  const GLintelFourBindingWire = GSLintelLength * 0.0;
-  const GLintelFourLabourRequirement = GSLintelLength * 0.0;
-
   //angle
   const AngleLength = GSLintelLength * 2.0;
   const LabourRequirement = GSLintelLength * 0.01;
@@ -339,17 +357,19 @@ const Formwork: React.FC = () => {
               {formatter.format(FormworkColumnArea)} m<sup>2</sup>
             </strong>
             , you will require an estimated amount of; If using marine boards,{" "}
-            <strong>{formatter.format(GupFootstandsMarineBorad)} Nos</strong> and if
-            using 1” x 12” (25mm x 300mm) plank,{" "}
-            <strong>{formatter.format(GupFootstandsWoodone)}nos </strong>. Also, you
-            require an estimated amount of{" "}
-            <strong>{formatter.format(GupFootstandsWoodTwo)} nos</strong> of 2” x 3”
-            (50mm x 75mm) wood,{" "}
+            <strong>{formatter.format(GupFootstandsMarineBorad)} Nos</strong>{" "}
+            and if using 1” x 12” (25mm x 300mm) plank,{" "}
+            <strong>{formatter.format(GupFootstandsWoodone)}nos </strong>. Also,
+            you require an estimated amount of{" "}
+            <strong>{formatter.format(GupFootstandsWoodTwo)} nos</strong> of 2”
+            x 3” (50mm x 75mm) wood,{" "}
             <strong>{formatter.format(GupFootstandsPegs)}</strong>
             Bundles of Wooden pegs,{" "}
-            <strong>{formatter.format(GupFootstandsNail)}kg</strong> of 4’’ and 5”
-            sized wooden nails and{" "}
-            <strong>{formatter.format(GupFootstandsBindingwire)} roll(s)</strong>
+            <strong>{formatter.format(GupFootstandsNail)}kg</strong> of 4’’ and
+            5” sized wooden nails and{" "}
+            <strong>
+              {formatter.format(GupFootstandsBindingwire)} roll(s)
+            </strong>
             of binding wire. For labour requirement for this item of work,
             labours may be paid per sq. m for the work done. Therefore, the
             total area for this work item is{" "}
@@ -366,26 +386,55 @@ const Formwork: React.FC = () => {
           </p>
         )
       ) : reinformworkType === "Suspended beams" ? (
-        <p className="text-black">
-          Formwork requirement for *Area of Work* of an Area of *Area of
-          Formwork(m2)* m2, you will require an estimated amount of; If using
-          marine boards, *Marine Board (Nos)* Nos and if using 1” x 12” (25mm x
-          300mm) plank, *1 x 12 wood (nos)* nos. Also, you require an estimated
-          amount of *2 x 3 Woods (nos)* nos of 2” x 3” (50mm x 75mm) wood, *2” x
-          4” Wood (nos) * nos of 2” x 4” (50mm x 100mm) wood, *Nail (kg) 3”, 4”
-          and 5” size (kg)* kg of 3”, 4’’ and 5” sized wooden nails and
-          *Acro-props/bamboo (nos)* nos of Acroprops or bamboo. However, in the
-          cases of unframed structures, you may require little or next to no
-          Acro-props or bamboo because the bottom of the beams are supported by
-          blockworks. For labour requirement for this item of work, labours may
-          be paid per Lin. m for the work done. Therefore, the total length for
-          this work item is *Labour requirement* m. This may be multiplied by
-          the applicable cost per m rate – you may refer here (link to material
-          and labour price list/rates). Alternatively, if decided to pay the
-          manpower for this job per day, it will take an estimated number of *1
-          carpenter and Labour output per day (days)* days for 1 carpenter and a
-          labour to complete this task. .
+        suspended === "framed structure av. Height 300mm" ? (
+          <p className="text-black">
+            Formwork requirement for <strong>{FormworkStatus}</strong>  of an Area of{" "}
+            {formatter.format(FormworkColumnArea)} m<sup>2</sup>, you will
+            require an estimated amount of; If using marine boards,{" "}
+            <strong>{formatter.format(SuspendedMarineBorad)} Nos</strong> and if using 1” x 12”
+            (25mm x 300mm) plank, <strong>{formatter.format(SuspendedWoodone)}nos</strong>. Also,
+            you require an estimated amount of{" "}
+            <strong>{formatter.format(SuspendedWoodTwo)}nos</strong> of 2” x 3” (50mm x 75mm)
+            wood, <strong>{formatter.format(SuspendedWoodThree)}nos</strong> of 2” x 4” (50mm x
+            100mm) wood, <strong>{formatter.format(SuspendedNail)}</strong> kg of 3”, 4’’ and 5”
+            sized wooden nails and
+            <strong>{formatter.format(AcroProps)}nos</strong> of Acroprops or bamboo. However, in
+            the cases of unframed structures, you may require little or next to
+            no Acro-props or bamboo because the bottom of the beams are
+            supported by blockworks. For labour requirement for this item of
+            work, labours may be paid per Lin. m for the work done. Therefore,
+            the total length for this work item is *Labour requirement* m. This
+            may be multiplied by the applicable cost per m rate – you may refer
+            here (link to material and labour price list/rates). Alternatively,
+            if decided to pay the manpower for this job per day, it will take an
+            estimated number of <strong>{formatter.format(SuspendedLabourCapenter)} days</strong>{" "}
+            for 1 carpenter and a labour to complete this task. .
+          </p>
+        ) : (
+          <p className="text-black">
+          Formwork requirement for <strong>{FormworkStatus}</strong>  of an Area of{" "}
+          {formatter.format(FormworkColumnArea)} m<sup>2</sup>, you will
+          require an estimated amount of; If using marine boards,{" "}
+          <strong>{formatter.format(SSuspendedMarineBorad)} Nos</strong> and if using 1” x 12”
+          (25mm x 300mm) plank, <strong>{formatter.format(SSuspendedWoodone)}nos</strong>. Also,
+          you require an estimated amount of{" "}
+          <strong>{formatter.format(SSuspendedWoodTwo)}nos</strong> of 2” x 3” (50mm x 75mm)
+          wood, <strong>{formatter.format(SSuspendedWoodThree)}nos</strong> of 2” x 4” (50mm x
+          100mm) wood, <strong>{formatter.format(SSuspendedNail)}</strong> kg of 3”, 4’’ and 5”
+          sized wooden nails and
+          <strong>{formatter.format(SAcroProps)}nos</strong> of Acroprops or bamboo. However, in
+          the cases of unframed structures, you may require little or next to
+          no Acro-props or bamboo because the bottom of the beams are
+          supported by blockworks. For labour requirement for this item of
+          work, labours may be paid per Lin. m for the work done. Therefore,
+          the total length for this work item is *Labour requirement* m. This
+          may be multiplied by the applicable cost per m rate – you may refer
+          here (link to material and labour price list/rates). Alternatively,
+          if decided to pay the manpower for this job per day, it will take an
+          estimated number of <strong>{formatter.format(SSuspendedLabourCapenter)} days</strong>{" "}
+          for 1 carpenter and a labour to complete this task. .
         </p>
+        )
       ) : reinformworkType === "Column" ? (
         // columnStatus
 
