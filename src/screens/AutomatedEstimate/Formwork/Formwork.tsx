@@ -42,6 +42,16 @@ const options = [
   },
 
   {
+    label: "Staircase",
+    value: "Staircase",
+    component: (
+      <div className="">
+        <Slabs />
+      </div>
+    ),
+  },
+
+  {
     label: "Lintels",
     value: "Lintels",
     component: (
