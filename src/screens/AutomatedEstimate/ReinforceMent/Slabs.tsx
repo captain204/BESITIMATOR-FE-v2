@@ -8,15 +8,15 @@ const Slabs = () => {
   const handleSelectChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     const newOption = event.target.value;
     setSelected(newOption);
-    localStorage.setItem("Slabs", newOption);
+    localStorage.setItem("Slabs-Slaps", newOption);
   };
 
   useEffect(() => {
-    const storedOption = localStorage.getItem("Slabs");
+    const storedOption = localStorage.getItem("Slabs-Slaps");
     if (storedOption) {
       setSelected(storedOption);
     } else {
-      localStorage.setItem("Slabs", "Slab with average thickness of 150mm");
+      localStorage.setItem("Slabs-Slaps", "Slab with average thickness of 150mm");
     }
   }, []);
 

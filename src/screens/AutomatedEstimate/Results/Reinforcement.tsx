@@ -12,6 +12,7 @@ const Reinforcement: React.FC = () => {
   const [statusOfConstruction, setStatusOfConstruction] = useState("");
   const [lintelROptions, setLintelROptions] = useState("");
   const [columnStatus, setcolumnStatus] = useState("");
+  const [sizeOfSlap, setSizeOfSlap] = useState("");
   const [GroundSuspendedLintel, setGroundSuspendedLintel] = useState({
     GSLintel: {
       siteLength: 0,
@@ -26,6 +27,19 @@ const Reinforcement: React.FC = () => {
       unit: "Metres",
     },
   });
+
+  //tryigt to set area for slabs
+
+  const [Slapdata, setSlapdata] = useState({
+    SlapInputsData: {
+      breadth: 0,
+      length: 0,
+      area: 0,
+      unit: "Metres",
+    },
+  });
+
+  //
 
   const [slabs, setSlabs] = useState("");
   const [data, setData] = useState({
@@ -49,9 +63,14 @@ const Reinforcement: React.FC = () => {
         localStorage.getItem("Damp Proving  Inputs") || "{}"
       );
 
-      setcolumnStatus(
-        localStorage.getItem("Status-of-construction-area-column") || ""
+      const ReinforcementSlapInputs = JSON.parse(
+        localStorage.getItem("Reinforcement-slaps Inputs") || "{}"
       );
+
+      setcolumnStatus(localStorage.getItem("Slabs-Slaps") || "");
+
+      setSizeOfSlap;
+      // Slabs-Slaps
 
       setReinforcementType(
         localStorage.getItem("Where-you-need-your-reinforcement-for") || ""
@@ -91,6 +110,13 @@ const Reinforcement: React.FC = () => {
         },
       });
 
+      setSlapdata({
+        SlapInputsData: {
+          ...Slapdata.SlapInputsData,
+          ...ReinforcementSlapInputs,
+        },
+      });
+
       // setGroundSuspendedLintel(
       //   localStorage.getItem("Reinforcement/Iron bending works Inputs") || ""
       // );
@@ -114,10 +140,40 @@ const Reinforcement: React.FC = () => {
 
   const { GSLintel } = GroundSuspendedLintel;
 
+  const { SlapInputsData } = Slapdata;
+
+  const convertSlapToMeters = (value: number) =>
+    Slapdata.SlapInputsData.unit === "Millimetres" ? value / 1000 : value;
+
+  const convertedSlapInputs = {
+    length: convertSlapToMeters(SlapInputsData.length),
+    breadth: convertSlapToMeters(SlapInputsData.breadth),
+    area:
+      Slapdata.SlapInputsData.unit === "Millimetres"
+        ? SlapInputsData.area / 1000_000 // Convert mm³ to m³
+        : SlapInputsData.area,
+  };
+
+  const SlapArea =
+    convertedSlapInputs.breadth * convertedSlapInputs.length ||
+    convertedSlapInputs.area;
+
+  const SlapThelvetons = SlapArea * 0.02;
+  const SlapBindinCWire = SlapArea * 0.00003;
+  const SlapLabourRequirement = SlapArea * 0.02;
+
+  const SlapThelveTwotons = SlapArea * 0.02;
+  const SlapBindinTwoWire = SlapArea * 0.00003;
+  const SlapLabourTwoRequirement = SlapArea * 0.02;
+
   const convertGroundSuspendedLintelToMeters: any = (value: number) =>
     GroundSuspendedLintel.GSLintel.unit === "Millimetres"
       ? value / 1000
       : value;
+
+  const convertedLevelingInputs: any = {
+    length: convertGroundSuspendedLintelToMeters(GSLintel.siteLength),
+  };
 
   const { colum } = Column;
 
@@ -143,9 +199,6 @@ const Reinforcement: React.FC = () => {
   const CLabourRequirement = ColumnHeight * 0.01;
 
   // Convert mm to meters if unit is Millimetres
-  const convertedLevelingInputs: any = {
-    length: convertGroundSuspendedLintelToMeters(GSLintel.siteLength),
-  };
 
   const GSLintelLength = convertedLevelingInputs.length || 0;
 
@@ -379,14 +432,18 @@ const Reinforcement: React.FC = () => {
         )
       ) : reinforcementType === "Slabs" ? (
         <p className="text-black">
-          Reinforcement requirement for a Slab/ Suspended slab where the *size
-          of slab* ans the area of the slab is *Area (m2)* m2, you will require
-          an estimated amount of *12mm (tons)* tons of 12mm reinforcement and
-          *Binding wire (20kg) roll* roll(s) of binding wire. For labour
-          requirement for this item of work, labours are usually paid per
-          tonnage for the work done. Therefore, the total estimated amount of
-          tons used for this work item is *Labour requirement* tons. This may be
-          multiplied by the applicable per ton rate. You may refer to our
+          Reinforcement requirement for a Slab/ Suspended slab where the{" "}
+          <strong> {columnStatus} </strong> ans the area of the slab is{" "}
+          <strong>{formatter.format(SlapArea)}m<sup>2</sup></strong>, you will require an
+          estimated amount of{" "}
+          <strong>{formatter.format(SlapThelvetons)}tons</strong>  of 12mm
+          reinforcement and {" "}
+          <strong>{formatter.format(SlapBindinCWire)}roll(s)</strong>  of
+          binding wire. For labour requirement for this item of work, labours
+          are usually paid per tonnage for the work done. Therefore, the total
+          estimated amount of tons used for this work item is{" "}
+          <strong>{formatter.format(SlapLabourRequirement)}tons</strong>. This
+          may be multiplied by the applicable per ton rate. You may refer to our
           material and labour price list/rates.
         </p>
       ) : lintelType === "Reinforcement" ? (
