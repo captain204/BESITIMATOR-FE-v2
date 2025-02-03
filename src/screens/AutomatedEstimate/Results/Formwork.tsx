@@ -49,6 +49,16 @@ const Formwork: React.FC = () => {
     },
   });
 
+  const [Slapdata, setSlapdata] = useState({
+    SlapInputData: {
+      breadth: 0,
+      length: 0,
+      area: 0,
+      unit: "Metres",
+      perimetre: 0,
+    },
+  });
+
   const [SuspendedFormworkdata, setSuspendedFormworkdata] = useState({
     formWorkSuspendedInputsData: {
       breadth: 0,
@@ -80,6 +90,10 @@ const Formwork: React.FC = () => {
     if (typeof window !== "undefined") {
       const DampProvingInputs = JSON.parse(
         localStorage.getItem("Damp Proving  Inputs") || "{}"
+      );
+
+      const SlapInputs = JSON.parse(
+        localStorage.getItem("SlapsFormworkForm-Inputs") || "{}"
       );
 
       const coLumnFormworkInputs = JSON.parse(
@@ -117,10 +131,18 @@ const Formwork: React.FC = () => {
 
       setSuspended(localStorage.getItem("Suspended-beams-formework") || "");
       //setSuspended
+
       setGroundSuspendedLintel({
         GSLintel: {
           ...GroundSuspendedLintel.GSLintel,
           ...GSLintelInputs,
+        },
+      });
+
+      setSlapdata({
+        SlapInputData: {
+          ...Slapdata.SlapInputData,
+          ...SlapInputs,
         },
       });
 
@@ -176,6 +198,37 @@ const Formwork: React.FC = () => {
 
   const { Columnformwork } = formWorkColumnData;
 
+  //Slapdata
+  const { SlapInputData } = Slapdata;
+
+  const SlapToMeters = (value: number) =>
+    Slapdata.SlapInputData.unit === "Millimetres" ? value / 1000 : value;
+
+  const convertedSlapInputs = {
+    length: SlapToMeters(SlapInputData.length),
+    breadth: SlapToMeters(SlapInputData.breadth),
+    perimetre: SlapToMeters(SlapInputData.perimetre),
+    area:
+      Slapdata.SlapInputData.unit === "Millimetres"
+        ? SlapInputData.area / 1000_000 // Convert mm³ to m³
+        : SlapInputData.area,
+  };
+
+  const slapArea = convertedSlapInputs.area;
+  const slapPerimetre = convertedSlapInputs.perimetre;
+
+  const SlapMarineBored = slapArea * 0.36;
+  const SlapWoodone = slapArea * 1.05;
+  const SlapWoodTwo = slapArea * 0.83;
+  const SlapWoodThree = slapArea * 0.61;
+  const SlapBoxes = slapArea * 1.0;
+  const SlapNail = slapArea * 0.19;
+  const SlapBindingwire = slapArea * 0.02;
+  const SlapLabour = slapArea * 1.0;
+  const SlapLabourCapenter = slapArea * 0.03;
+  const SlapAcro = slapArea * 1.13;
+  const BamboSlap = slapArea * 1.85;
+
   const convertColumnformworkToMeters = (value: number) =>
     formWorkColumnData.Columnformwork.unit === "Millimetres"
       ? value / 1000
@@ -184,7 +237,6 @@ const Formwork: React.FC = () => {
   const ColumnHight = convertColumnformworkToMeters(Columnformwork.hight);
   const ColumnTotal = convertColumnformworkToMeters(Columnformwork.total);
   const Perimetre = convertColumnformworkToMeters(Columnformwork.perimetre);
-
   const AreaOFColumFormwork = Perimetre * ColumnHight * ColumnTotal;
 
   const AreaOFColumMarineBored = AreaOFColumFormwork * 0.36;
@@ -359,42 +411,6 @@ const Formwork: React.FC = () => {
 
   const GSLintelLength = convertedLevelingInputs.length || 0;
 
-  //moderately
-  const GModeratelySixtons = GSLintelLength * 0.01;
-  const GModeratelyTwelvetons = GSLintelLength * 0.0;
-  const GModeratelyTentons = GSLintelLength * 0.01;
-  const GModeratelyBindingWire = GSLintelLength * 0.00003;
-  const GModeratelyLabourRequirement = GSLintelLength * 0.02;
-
-  //non-swampy
-  const GNonSwampySixtons = GSLintelLength * 0.0;
-  const GNonSwampyTwelvetons = GSLintelLength * 0.0;
-  const GNonSwampyTentons = GSLintelLength * 0.01;
-  const GNonSwampyBindingWire = GSLintelLength * 0.00002;
-  const GNonSwampyLabourRequirement = GSLintelLength * 0.01;
-
-  //moderately2
-  const GWithFloodingSixtons = GSLintelLength * 0.02;
-  const GWithFloodingTwelvetons = GSLintelLength * 0.0;
-  const GWithFloodingTentons = GSLintelLength * 0.01;
-  const GWithFloodingBindingWire = GSLintelLength * 0.00005;
-  const GWithFloodingLabourRequirement = GSLintelLength * 0.03;
-
-  //suspendedbeam
-  const GSuspendedBeamSixtons = GSLintelLength * 0.07;
-  // const GSuspendedBeamTwelvetons = GSLintelLength * 0.0;
-  const GSuspendedBeamTentons = GSLintelLength * 0.01;
-  const GSuspendedBeamBindingWire = GSLintelLength * 0.00011;
-  const GSuspendedBeamLabourRequirement = GSLintelLength * 0.07;
-
-  //lintelReinforcement 225
-
-  // const GLintelOneSixtons = GSLintelLength * 0.07;
-  const GLintelOneTwelvetons = GSLintelLength * 0.0;
-  const GLintelOneTentons = GSLintelLength * 0.0;
-  const GLintelOneBindingWire = GSLintelLength * 0.00001;
-  const GLintelOneLabourRequirement = GSLintelLength * 0.01;
-
   //angle
   const AngleLength = GSLintelLength * 2.0;
   const LabourRequirement = GSLintelLength * 0.01;
@@ -545,8 +561,8 @@ const Formwork: React.FC = () => {
         // columnStatus
         ccolumnStatus === "225mm x 225mm in framed structure " ? (
           <p className="text-black">
-            Formwork requirement for a Column of column size *Column Size* which
-            has a total area of{" "}
+            Formwork requirement for a Column of column size{" "}
+            <strong>{ccolumnStatus}</strong> which has a total area of{" "}
             <strong>
               {formatter.format(AreaOFColumFormwork)}m<sup>2</sup>
             </strong>{" "}
@@ -620,10 +636,10 @@ const Formwork: React.FC = () => {
             </strong>{" "}
             for 1 carpenter and a labour to complete this task.
           </p>
-        ) : ccolumnStatus === "450mm x 450mm in framed structure" ? (
+        ) : ccolumnStatus === "225mm x 450mm in unframed structure" ? (
           <p className="text-black">
-            Formwork requirement for a Column of column size *Column Size* which
-            has a total area of{" "}
+            Formwork requirement for a Column of column size{" "}
+            <strong>{ccolumnStatus}</strong> which has a total area of{" "}
             <strong>
               {formatter.format(AreaOFColumFormwork)}m<sup>2</sup>
             </strong>{" "}
@@ -662,8 +678,8 @@ const Formwork: React.FC = () => {
           </p>
         ) : ccolumnStatus === "225mm x 225mm in unframed structure" ? (
           <p className="text-black">
-            Formwork requirement for a Column of column size *Column Size* which
-            has a total area of{" "}
+            Formwork requirement for a Column of column size{" "}
+            <strong>{ccolumnStatus}</strong> which has a total area of{" "}
             <strong>
               {formatter.format(AreaOFColumFormwork)}m<sup>2</sup>
             </strong>{" "}
@@ -702,8 +718,8 @@ const Formwork: React.FC = () => {
           </p>
         ) : ccolumnStatus === "450mm x 450mm in unframed structure" ? (
           <p className="text-black">
-            Formwork requirement for a Column of column size *Column Size* which
-            has a total area of{" "}
+            Formwork requirement for a Column of column size{" "}
+            <strong>{ccolumnStatus}</strong> which has a total area of{" "}
             <strong>
               {formatter.format(AreaOFColumFormwork)}m<sup>2</sup>
             </strong>{" "}
@@ -742,65 +758,76 @@ const Formwork: React.FC = () => {
           </p>
         ) : (
           <p className="text-black">
-          Formwork requirement for a Column of column size *Column Size* which
-          has a total area of{" "}
-          <strong>
-            {formatter.format(AreaOFColumFormwork)}m<sup>2</sup>
-          </strong>{" "}
-          and consisting of{" "}
-          <strong> {formatter.format(ColumnTotal)} nos</strong>, you will
-          require an estimated amount of; If using marine. boards,{" "}
-          <strong>{formatter.format(AreaOFSixthColumMarineBored)}Nos</strong>{" "}
-          , if using 1” x 12” (25mm x 300mm) plank,{" "}
-          <strong>{formatter.format(AreaOFSixthColumWoodone)}nos</strong> and
-          if using column boxes{" "}
-          <strong>{formatter.format(AreaOFSixthColumBoxes)}nos</strong> of
-          same sized boxes. Also, you require an estimated amount of{" "}
-          <strong>{formatter.format(AreaOFSixthColumWoodTwo)} nos</strong>
-          of 2” x 3” (50mm x 75mm) wood to form boxes if using marine board
-          and column boxes,{" "}
-          <strong>{formatter.format(AreaOFSixthColumNail)}</strong> kg of 4’’
-          and 5” sized wooden nails and{" "}
-          <strong>{formatter.format(AreaOFSixthColumWoodThree)}nos</strong> of
-          2” x 6” (50mm x 200mm) wood as side supports or shoring. However, in
-          the cases of using column boxes or 1” x 12” plank, you may require
-          <strong>
-            {formatter.format(AreaOFSixthColumBindingwire)} rolls
-          </strong>{" "}
-          of binding wire for extra bracing. For labour requirement for this
-          item of work, labours may be paid per column for the work done.
-          Therefore, the total nos of column for this work item is{" "}
-          <strong>{formatter.format(AreaOFSixthColumLabour)}</strong> nos.
-          This may be multiplied by the applicable cost per m column – you may
-          refer here (link to material and labour price list/rates).
-          Alternatively, if decided to pay the manpower for this job per day,
-          it will take an estimated number of{" "}
-          <strong>
-            {formatter.format(AreaOFSixthColumLabourCapenter)} days
-          </strong>{" "}
-          for 1 carpenter and a labour to complete this task.
-        </p>
+            Formwork requirement for a Column of column size{" "}
+            <strong>{ccolumnStatus}</strong> which has a total area of{" "}
+            <strong>
+              {formatter.format(AreaOFColumFormwork)}m<sup>2</sup>
+            </strong>{" "}
+            and consisting of{" "}
+            <strong> {formatter.format(ColumnTotal)} nos</strong>, you will
+            require an estimated amount of; If using marine. boards,{" "}
+            <strong>{formatter.format(AreaOFSixthColumMarineBored)}Nos</strong>{" "}
+            , if using 1” x 12” (25mm x 300mm) plank,{" "}
+            <strong>{formatter.format(AreaOFSixthColumWoodone)}nos</strong> and
+            if using column boxes{" "}
+            <strong>{formatter.format(AreaOFSixthColumBoxes)}nos</strong> of
+            same sized boxes. Also, you require an estimated amount of{" "}
+            <strong>{formatter.format(AreaOFSixthColumWoodTwo)} nos</strong>
+            of 2” x 3” (50mm x 75mm) wood to form boxes if using marine board
+            and column boxes,{" "}
+            <strong>{formatter.format(AreaOFSixthColumNail)}</strong> kg of 4’’
+            and 5” sized wooden nails and{" "}
+            <strong>{formatter.format(AreaOFSixthColumWoodThree)}nos</strong> of
+            2” x 6” (50mm x 200mm) wood as side supports or shoring. However, in
+            the cases of using column boxes or 1” x 12” plank, you may require
+            <strong>
+              {formatter.format(AreaOFSixthColumBindingwire)} rolls
+            </strong>{" "}
+            of binding wire for extra bracing. For labour requirement for this
+            item of work, labours may be paid per column for the work done.
+            Therefore, the total nos of column for this work item is{" "}
+            <strong>{formatter.format(AreaOFSixthColumLabour)}</strong> nos.
+            This may be multiplied by the applicable cost per m column – you may
+            refer here (link to material and labour price list/rates).
+            Alternatively, if decided to pay the manpower for this job per day,
+            it will take an estimated number of{" "}
+            <strong>
+              {formatter.format(AreaOFSixthColumLabourCapenter)} days
+            </strong>{" "}
+            for 1 carpenter and a labour to complete this task.
+          </p>
         )
       ) : reinformworkType === "Slabs" ? (
         <p className="text-black">
-          Formwork requirement for *Area of Work* of an Area of *Area of
-          Formwork(m2)* m2 and or *perimeter of slab* m for the sides, you will
-          require an estimated amount of; If using marine boards, *Marine Board
-          (Nos)* Nos and if using 1” x 12” (25mm x 300mm) plank, *1 x 12 wood
-          (nos)* nos. Also, you require an estimated amount of *2 x 3 Woods
-          (nos)* nos of 2” x 3” (50mm x 75mm) wood spaced at 40mm c/c, *2” x 4”
-          Wood (nos) * nos of 2” x 4” (50mm x 100mm) wood spaced at 600mm c/c ,
-          *Nail (kg) 3”, 4” and 5” size (kg)* kg of 3”, 4’’ and 5” sized wooden
-          nails and if using acro props as support, *Acro-props (nos)* nos and
-          if using Bamboo as support, * bamboo (nos)* nos of bamboo. For labour
-          requirement for this item of work, labours may be paid per sqm for
-          work done. Therefore, the total area for this work item is *Labour
-          requirement per m2* m2. This may be multiplied by the applicable cost
-          per m2 rate – you may refer here (link to material and labour price
-          list/rates). Alternatively, if decided to pay the manpower for this
-          job per day, it will take an estimated number of *1 carpenter and
-          Labour output per day (days)* days for 1 carpenter and a labour to
-          complete this t
+          Formwork requirement for *Area of Work* of an Area of{" "}
+          <strong>
+            {formatter.format(slapArea)}m<sup>2</sup>
+          </strong>
+          m2 and or <strong>{formatter.format(slapPerimetre)}</strong> m for the
+          sides, you will require an estimated amount of; If using marine
+          boards, <strong>{formatter.format(SlapMarineBored)}Nos</strong>
+          and if using 1” x 12” (25mm x 300mm) plank,{" "}
+          <strong>{formatter.format(SlapWoodone)} nos</strong>. Also, you
+          require an estimated amount of <strong>{SlapWoodTwo} nos</strong> of
+          2” x 3” (50mm x 75mm) wood spaced at 40mm c/c,{" "}
+          <strong>{formatter.format(SlapWoodThree)} nos</strong>
+          of 2” x 4” (50mm x 100mm) wood spaced at 600mm c/c ,{" "}
+          <strong>{formatter.format(SlapNail)}</strong> kg of 3”, 4’’ and 5”
+          sized wooden nails and if using acro props as support,{" "}
+          <strong>{formatter.format(SlapAcro)}</strong> nos and if using Bamboo
+          as support, <strong>{formatter.format(BamboSlap)}</strong> nos of
+          bamboo. For labour requirement for this item of work, labours may be
+          paid per sqm for work done. Therefore, the total area for this work
+          item is{" "}
+          <strong>
+            {SlapLabour}m<sup>2</sup>
+          </strong>
+          . This may be multiplied by the applicable cost per m2 rate – you may
+          refer here (link to material and labour price list/rates).
+          Alternatively, if decided to pay the manpower for this job per day, it
+          will take an estimated number of{" "}
+          <strong>{formatter.format(SlapLabourCapenter)}</strong> days for 1
+          carpenter and a labour to complete this t
         </p>
       ) : reinformworkType === "Staircase" ? (
         <p>

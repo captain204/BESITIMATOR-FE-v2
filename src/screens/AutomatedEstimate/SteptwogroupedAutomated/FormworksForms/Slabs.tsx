@@ -83,7 +83,7 @@ const SlapsForm: React.FC<StepTwoProps> = ({ validateStep }) => {
         const formData = getValues();
         const formDataWithUnit = { ...formData, unit };
         localStorage.setItem(
-          "SlapsFormworkForm Inputs",
+          "SlapsFormworkForm-Inputs",
           JSON.stringify(formDataWithUnit)
         );
       }
