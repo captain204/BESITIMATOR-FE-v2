@@ -12,10 +12,20 @@ const Formwork: React.FC = () => {
   const [FormworkStatus, setFormworkStatus] = useState("");
   const [lintelROptions, setLintelROptions] = useState("");
   const [columnStatus, setcolumnStatus] = useState("");
+  const [ccolumnStatus, setccolumnStatus] = useState("");
   const [suspended, setSuspended] = useState("");
   const [GroundSuspendedLintel, setGroundSuspendedLintel] = useState({
     GSLintel: {
       siteLength: 0,
+      unit: "Metres",
+    },
+  });
+
+  const [formWorkColumnData, setFormWorkColumnData] = useState({
+    Columnformwork: {
+      hight: 0,
+      total: 0,
+      perimetre: 0,
       unit: "Metres",
     },
   });
@@ -72,11 +82,16 @@ const Formwork: React.FC = () => {
         localStorage.getItem("Damp Proving  Inputs") || "{}"
       );
 
+      const coLumnFormworkInputs = JSON.parse(
+        localStorage.getItem("formwork-Column Inputs") || "{}"
+      );
+
       const BeamFormworkInputs = JSON.parse(
         localStorage.getItem("GroundBeamSuspendedFormworkForm Inputs") || "{}"
       );
 
       setcolumnStatus(localStorage.getItem("Slabs-Slaps") || "");
+      setccolumnStatus(localStorage.getItem("formWorkColumnStatus") || "");
 
       // Suspended-beams-formework
       // // setSizeOfSlap;
@@ -106,6 +121,13 @@ const Formwork: React.FC = () => {
         GSLintel: {
           ...GroundSuspendedLintel.GSLintel,
           ...GSLintelInputs,
+        },
+      });
+
+      setFormWorkColumnData({
+        Columnformwork: {
+          ...formWorkColumnData.Columnformwork,
+          ...coLumnFormworkInputs,
         },
       });
 
@@ -151,6 +173,83 @@ const Formwork: React.FC = () => {
   const { GSLintel } = GroundSuspendedLintel;
 
   const { formWorkBeamInputsData } = BeamColumndata;
+
+  const { Columnformwork } = formWorkColumnData;
+
+  const convertColumnformworkToMeters = (value: number) =>
+    formWorkColumnData.Columnformwork.unit === "Millimetres"
+      ? value / 1000
+      : value;
+
+  const ColumnHight = convertColumnformworkToMeters(Columnformwork.hight);
+  const ColumnTotal = convertColumnformworkToMeters(Columnformwork.total);
+  const Perimetre = convertColumnformworkToMeters(Columnformwork.perimetre);
+
+  const AreaOFColumFormwork = Perimetre * ColumnHight * ColumnTotal;
+
+  const AreaOFColumMarineBored = AreaOFColumFormwork * 0.36;
+  const AreaOFColumWoodone = AreaOFColumFormwork * 1.05;
+  const AreaOFColumWoodTwo = AreaOFColumFormwork * 3.49;
+  const AreaOFColumWoodThree = AreaOFColumFormwork * 4.0;
+  const AreaOFColumBoxes = AreaOFColumFormwork * 1.0;
+  const AreaOFColumNail = AreaOFColumFormwork * 0.19;
+  const AreaOFColumBindingwire = AreaOFColumFormwork * 0.02;
+  const AreaOFColumLabour = AreaOFColumFormwork * 1.0;
+  const AreaOFColumLabourCapenter = AreaOFColumFormwork * 0.04;
+
+  const AreaOFSecondColumMarineBored = AreaOFColumFormwork * 0.36;
+  const AreaOFSecondColumWoodone = AreaOFColumFormwork * 1.05;
+  const AreaOFSecondColumWoodTwo = AreaOFColumFormwork * 3.49;
+  const AreaOFSecondColumWoodThree = AreaOFColumFormwork * 4.0;
+  const AreaOFSecondColumBoxes = AreaOFColumFormwork * 1.0;
+  const AreaOFSecondColumNail = AreaOFColumFormwork * 0.19;
+  const AreaOFSecondColumBindingwire = AreaOFColumFormwork * 0.02;
+  const AreaOFSecondColumLabour = AreaOFColumFormwork * 1.0;
+  const AreaOFSecondColumLabourCapenter = AreaOFColumFormwork * 0.05;
+
+  const AreaOFThirdColumMarineBored = AreaOFColumFormwork * 0.36;
+  const AreaOFThirdColumWoodone = AreaOFColumFormwork * 1.05;
+  const AreaOFThirdColumWoodTwo = AreaOFColumFormwork * 3.49;
+  const AreaOFThirdColumWoodThree = AreaOFColumFormwork * 4.0;
+  const AreaOFThirdColumBoxes = AreaOFColumFormwork * 1.0;
+  const AreaOFThirdColumNail = AreaOFColumFormwork * 0.19;
+  const AreaOFThirdColumBindingwire = AreaOFColumFormwork * 0.02;
+  const AreaOFThirdColumLabour = AreaOFColumFormwork * 1.0;
+  const AreaOFThirdColumLabourCapenter = AreaOFColumFormwork * 0.06;
+
+  const AreaOFFouthColumMarineBored = AreaOFColumFormwork * 0.18;
+  const AreaOFFouthColumWoodone = AreaOFColumFormwork * 1.53;
+  const AreaOFFouthColumWoodTwo = AreaOFColumFormwork * 3.49;
+  const AreaOFFouthColumWoodThree = AreaOFColumFormwork * 4.0;
+  const AreaOFFouthColumBoxes = AreaOFColumFormwork * 1.0;
+  const AreaOFFouthColumNail = AreaOFColumFormwork * 0.19;
+  const AreaOFFouthColumBindingwire = AreaOFColumFormwork * 0.02;
+  const AreaOFFouthColumLabour = AreaOFColumFormwork * 1.0;
+  const AreaOFFouthColumLabourCapenter = AreaOFColumFormwork * 0.06;
+
+  const AreaOFFifthColumMarineBored = AreaOFColumFormwork * 0.18;
+  const AreaOFFifthColumWoodone = AreaOFColumFormwork * 2.11;
+  const AreaOFFifthColumWoodTwo = AreaOFColumFormwork * 3.49;
+  const AreaOFFifthColumWoodThree = AreaOFColumFormwork * 4.0;
+  const AreaOFFifthColumBoxes = AreaOFColumFormwork * 1.0;
+  const AreaOFFifthColumNail = AreaOFColumFormwork * 0.19;
+  const AreaOFFifthColumBindingwire = AreaOFColumFormwork * 0.02;
+  const AreaOFFifthColumLabour = AreaOFColumFormwork * 1.0;
+  const AreaOFFifthColumLabourCapenter = AreaOFColumFormwork * 0.06;
+
+  const AreaOFSixthColumMarineBored = AreaOFColumFormwork * 0.18;
+  const AreaOFSixthColumWoodone = AreaOFColumFormwork * 0.53;
+  const AreaOFSixthColumWoodTwo = AreaOFColumFormwork * 3.49;
+  const AreaOFSixthColumWoodThree = AreaOFColumFormwork * 4.0;
+  const AreaOFSixthColumBoxes = AreaOFColumFormwork * 1.0;
+  const AreaOFSixthColumNail = AreaOFColumFormwork * 0.19;
+  const AreaOFSixthColumBindingwire = AreaOFColumFormwork * 0.02;
+  const AreaOFSixthColumLabour = AreaOFColumFormwork * 1.0;
+  const AreaOFSixthColumLabourCapenter = AreaOFColumFormwork * 0.06;
+
+  // hight: 0,
+  // total: 0,
+  // perimetre: 0
 
   const convertFormworkColumnToMeters = (value: number) =>
     BeamColumndata.formWorkBeamInputsData.unit === "Millimetres"
@@ -201,7 +300,7 @@ const Formwork: React.FC = () => {
   const SuspendedWoodThree = FormworkColumnArea * 1.76;
   // const SuspendedPegs = FormworkColumnArea * 0.07;
   const SuspendedNail = FormworkColumnArea * 0.19;
-  const totalLength = FormworkColumnArea * 1.2;
+
   // const SuspendedLabour = FormworkColumnArea * 1.0;
   const SuspendedLabourCapenter = FormworkColumnArea * 0.07;
   const AcroProps = FormworkColumnArea * 4.8;
@@ -212,7 +311,6 @@ const Formwork: React.FC = () => {
   const SSuspendedWoodThree = FormworkColumnArea * 0.4;
   // const SuspendedPegs = FormworkColumnArea * 0.07;
   const SSuspendedNail = FormworkColumnArea * 0.19;
-  const StotalLength = FormworkColumnArea * 1.2;
   // const SuspendedLabour = FormworkColumnArea * 1.0;
   const SSuspendedLabourCapenter = FormworkColumnArea * 0.04;
   const SAcroProps = FormworkColumnArea * 0.0;
@@ -388,78 +486,301 @@ const Formwork: React.FC = () => {
       ) : reinformworkType === "Suspended beams" ? (
         suspended === "framed structure av. Height 300mm" ? (
           <p className="text-black">
-            Formwork requirement for <strong>{FormworkStatus}</strong>  of an Area of{" "}
-            {formatter.format(FormworkColumnArea)} m<sup>2</sup>, you will
-            require an estimated amount of; If using marine boards,{" "}
-            <strong>{formatter.format(SuspendedMarineBorad)} Nos</strong> and if using 1” x 12”
-            (25mm x 300mm) plank, <strong>{formatter.format(SuspendedWoodone)}nos</strong>. Also,
-            you require an estimated amount of{" "}
-            <strong>{formatter.format(SuspendedWoodTwo)}nos</strong> of 2” x 3” (50mm x 75mm)
-            wood, <strong>{formatter.format(SuspendedWoodThree)}nos</strong> of 2” x 4” (50mm x
-            100mm) wood, <strong>{formatter.format(SuspendedNail)}</strong> kg of 3”, 4’’ and 5”
-            sized wooden nails and
-            <strong>{formatter.format(AcroProps)}nos</strong> of Acroprops or bamboo. However, in
-            the cases of unframed structures, you may require little or next to
-            no Acro-props or bamboo because the bottom of the beams are
-            supported by blockworks. For labour requirement for this item of
-            work, labours may be paid per Lin. m for the work done. Therefore,
-            the total length for this work item is *Labour requirement* m. This
-            may be multiplied by the applicable cost per m rate – you may refer
-            here (link to material and labour price list/rates). Alternatively,
-            if decided to pay the manpower for this job per day, it will take an
-            estimated number of <strong>{formatter.format(SuspendedLabourCapenter)} days</strong>{" "}
+            Formwork requirement for <strong>{FormworkStatus}</strong> of an
+            Area of {formatter.format(FormworkColumnArea)} m<sup>2</sup>, you
+            will require an estimated amount of; If using marine boards,{" "}
+            <strong>{formatter.format(SuspendedMarineBorad)} Nos</strong> and if
+            using 1” x 12” (25mm x 300mm) plank,{" "}
+            <strong>{formatter.format(SuspendedWoodone)}nos</strong>. Also, you
+            require an estimated amount of{" "}
+            <strong>{formatter.format(SuspendedWoodTwo)}nos</strong> of 2” x 3”
+            (50mm x 75mm) wood,{" "}
+            <strong>{formatter.format(SuspendedWoodThree)}nos</strong> of 2” x
+            4” (50mm x 100mm) wood,{" "}
+            <strong>{formatter.format(SuspendedNail)}</strong> kg of 3”, 4’’ and
+            5” sized wooden nails and
+            <strong>{formatter.format(AcroProps)}nos</strong> of Acroprops or
+            bamboo. However, in the cases of unframed structures, you may
+            require little or next to no Acro-props or bamboo because the bottom
+            of the beams are supported by blockworks. For labour requirement for
+            this item of work, labours may be paid per Lin. m for the work done.
+            Therefore, the total length for this work item is *Labour
+            requirement* m. This may be multiplied by the applicable cost per m
+            rate – you may refer here (link to material and labour price
+            list/rates). Alternatively, if decided to pay the manpower for this
+            job per day, it will take an estimated number of{" "}
+            <strong>{formatter.format(SuspendedLabourCapenter)} days</strong>{" "}
             for 1 carpenter and a labour to complete this task. .
           </p>
         ) : (
           <p className="text-black">
-          Formwork requirement for <strong>{FormworkStatus}</strong>  of an Area of{" "}
-          {formatter.format(FormworkColumnArea)} m<sup>2</sup>, you will
-          require an estimated amount of; If using marine boards,{" "}
-          <strong>{formatter.format(SSuspendedMarineBorad)} Nos</strong> and if using 1” x 12”
-          (25mm x 300mm) plank, <strong>{formatter.format(SSuspendedWoodone)}nos</strong>. Also,
-          you require an estimated amount of{" "}
-          <strong>{formatter.format(SSuspendedWoodTwo)}nos</strong> of 2” x 3” (50mm x 75mm)
-          wood, <strong>{formatter.format(SSuspendedWoodThree)}nos</strong> of 2” x 4” (50mm x
-          100mm) wood, <strong>{formatter.format(SSuspendedNail)}</strong> kg of 3”, 4’’ and 5”
-          sized wooden nails and
-          <strong>{formatter.format(SAcroProps)}nos</strong> of Acroprops or bamboo. However, in
-          the cases of unframed structures, you may require little or next to
-          no Acro-props or bamboo because the bottom of the beams are
-          supported by blockworks. For labour requirement for this item of
-          work, labours may be paid per Lin. m for the work done. Therefore,
-          the total length for this work item is *Labour requirement* m. This
-          may be multiplied by the applicable cost per m rate – you may refer
-          here (link to material and labour price list/rates). Alternatively,
-          if decided to pay the manpower for this job per day, it will take an
-          estimated number of <strong>{formatter.format(SSuspendedLabourCapenter)} days</strong>{" "}
-          for 1 carpenter and a labour to complete this task. .
-        </p>
+            Formwork requirement for <strong>{FormworkStatus}</strong> of an
+            Area of {formatter.format(FormworkColumnArea)} m<sup>2</sup>, you
+            will require an estimated amount of; If using marine boards,{" "}
+            <strong>{formatter.format(SSuspendedMarineBorad)} Nos</strong> and
+            if using 1” x 12” (25mm x 300mm) plank,{" "}
+            <strong>{formatter.format(SSuspendedWoodone)}nos</strong>. Also, you
+            require an estimated amount of{" "}
+            <strong>{formatter.format(SSuspendedWoodTwo)}nos</strong> of 2” x 3”
+            (50mm x 75mm) wood,{" "}
+            <strong>{formatter.format(SSuspendedWoodThree)}nos</strong> of 2” x
+            4” (50mm x 100mm) wood,{" "}
+            <strong>{formatter.format(SSuspendedNail)}</strong> kg of 3”, 4’’
+            and 5” sized wooden nails and
+            <strong>{formatter.format(SAcroProps)}nos</strong> of Acroprops or
+            bamboo. However, in the cases of unframed structures, you may
+            require little or next to no Acro-props or bamboo because the bottom
+            of the beams are supported by blockworks. For labour requirement for
+            this item of work, labours may be paid per Lin. m for the work done.
+            Therefore, the total length for this work item is *Labour
+            requirement* m. This may be multiplied by the applicable cost per m
+            rate – you may refer here (link to material and labour price
+            list/rates). Alternatively, if decided to pay the manpower for this
+            job per day, it will take an estimated number of{" "}
+            <strong>{formatter.format(SSuspendedLabourCapenter)} days</strong>{" "}
+            for 1 carpenter and a labour to complete this task. .
+          </p>
         )
       ) : reinformworkType === "Column" ? (
         // columnStatus
-
-        <p className="text-black">
+        ccolumnStatus === "225mm x 225mm in framed structure " ? (
+          <p className="text-black">
+            Formwork requirement for a Column of column size *Column Size* which
+            has a total area of{" "}
+            <strong>
+              {formatter.format(AreaOFColumFormwork)}m<sup>2</sup>
+            </strong>{" "}
+            and consisting of{" "}
+            <strong> {formatter.format(ColumnTotal)} nos</strong>, you will
+            require an estimated amount of; If using marine. boards,{" "}
+            <strong>{formatter.format(AreaOFColumMarineBored)}Nos</strong> , if
+            using 1” x 12” (25mm x 300mm) plank,{" "}
+            <strong>{formatter.format(AreaOFColumWoodone)}nos</strong> and if
+            using column boxes{" "}
+            <strong>{formatter.format(AreaOFColumBoxes)}nos</strong> of same
+            sized boxes. Also, you require an estimated amount of{" "}
+            <strong>{formatter.format(AreaOFColumWoodTwo)} nos</strong>
+            of 2” x 3” (50mm x 75mm) wood to form boxes if using marine board
+            and column boxes,{" "}
+            <strong>{formatter.format(AreaOFColumNail)}</strong> kg of 4’’ and
+            5” sized wooden nails and{" "}
+            <strong>{formatter.format(AreaOFColumWoodThree)}nos</strong> of 2” x
+            6” (50mm x 200mm) wood as side supports or shoring. However, in the
+            cases of using column boxes or 1” x 12” plank, you may require
+            <strong>{formatter.format(AreaOFColumBindingwire)} rolls</strong> of
+            binding wire for extra bracing. For labour requirement for this item
+            of work, labours may be paid per column for the work done.
+            Therefore, the total nos of column for this work item is{" "}
+            <strong>{formatter.format(AreaOFColumLabour)}</strong> nos. This may
+            be multiplied by the applicable cost per m column – you may refer
+            here (link to material and labour price list/rates). Alternatively,
+            if decided to pay the manpower for this job per day, it will take an
+            estimated number of{" "}
+            <strong>{formatter.format(AreaOFColumLabourCapenter)} days</strong>{" "}
+            for 1 carpenter and a labour to complete this task.
+          </p>
+        ) : ccolumnStatus === "225mm x 450mm in framed structure" ? (
+          <p className="text-black">
+            Formwork requirement for a Column of column size *Column Size* which
+            has a total area of{" "}
+            <strong>
+              {formatter.format(AreaOFColumFormwork)}m<sup>2</sup>
+            </strong>{" "}
+            and consisting of{" "}
+            <strong> {formatter.format(ColumnTotal)} nos</strong>, you will
+            require an estimated amount of; If using marine. boards,{" "}
+            <strong>{formatter.format(AreaOFSecondColumMarineBored)}Nos</strong>{" "}
+            , if using 1” x 12” (25mm x 300mm) plank,{" "}
+            <strong>{formatter.format(AreaOFSecondColumWoodone)}nos</strong> and
+            if using column boxes{" "}
+            <strong>{formatter.format(AreaOFSecondColumBoxes)}nos</strong> of
+            same sized boxes. Also, you require an estimated amount of{" "}
+            <strong>{formatter.format(AreaOFSecondColumWoodTwo)} nos</strong>
+            of 2” x 3” (50mm x 75mm) wood to form boxes if using marine board
+            and column boxes,{" "}
+            <strong>{formatter.format(AreaOFSecondColumNail)}</strong> kg of 4’’
+            and 5” sized wooden nails and{" "}
+            <strong>{formatter.format(AreaOFSecondColumWoodThree)}nos</strong>{" "}
+            of 2” x 6” (50mm x 200mm) wood as side supports or shoring. However,
+            in the cases of using column boxes or 1” x 12” plank, you may
+            require
+            <strong>
+              {formatter.format(AreaOFSecondColumBindingwire)} rolls
+            </strong>{" "}
+            of binding wire for extra bracing. For labour requirement for this
+            item of work, labours may be paid per column for the work done.
+            Therefore, the total nos of column for this work item is{" "}
+            <strong>{formatter.format(AreaOFSecondColumLabour)}</strong> nos.
+            This may be multiplied by the applicable cost per m column – you may
+            refer here (link to material and labour price list/rates).
+            Alternatively, if decided to pay the manpower for this job per day,
+            it will take an estimated number of{" "}
+            <strong>
+              {formatter.format(AreaOFSecondColumLabourCapenter)} days
+            </strong>{" "}
+            for 1 carpenter and a labour to complete this task.
+          </p>
+        ) : ccolumnStatus === "450mm x 450mm in framed structure" ? (
+          <p className="text-black">
+            Formwork requirement for a Column of column size *Column Size* which
+            has a total area of{" "}
+            <strong>
+              {formatter.format(AreaOFColumFormwork)}m<sup>2</sup>
+            </strong>{" "}
+            and consisting of{" "}
+            <strong> {formatter.format(ColumnTotal)} nos</strong>, you will
+            require an estimated amount of; If using marine. boards,{" "}
+            <strong>{formatter.format(AreaOFThirdColumMarineBored)}Nos</strong>{" "}
+            , if using 1” x 12” (25mm x 300mm) plank,{" "}
+            <strong>{formatter.format(AreaOFThirdColumWoodone)}nos</strong> and
+            if using column boxes{" "}
+            <strong>{formatter.format(AreaOFThirdColumBoxes)}nos</strong> of
+            same sized boxes. Also, you require an estimated amount of{" "}
+            <strong>{formatter.format(AreaOFThirdColumWoodTwo)} nos</strong>
+            of 2” x 3” (50mm x 75mm) wood to form boxes if using marine board
+            and column boxes,{" "}
+            <strong>{formatter.format(AreaOFThirdColumNail)}</strong> kg of 4’’
+            and 5” sized wooden nails and{" "}
+            <strong>{formatter.format(AreaOFThirdColumWoodThree)}nos</strong> of
+            2” x 6” (50mm x 200mm) wood as side supports or shoring. However, in
+            the cases of using column boxes or 1” x 12” plank, you may require
+            <strong>
+              {formatter.format(AreaOFThirdColumBindingwire)} rolls
+            </strong>{" "}
+            of binding wire for extra bracing. For labour requirement for this
+            item of work, labours may be paid per column for the work done.
+            Therefore, the total nos of column for this work item is{" "}
+            <strong>{formatter.format(AreaOFThirdColumLabour)}</strong> nos.
+            This may be multiplied by the applicable cost per m column – you may
+            refer here (link to material and labour price list/rates).
+            Alternatively, if decided to pay the manpower for this job per day,
+            it will take an estimated number of{" "}
+            <strong>
+              {formatter.format(AreaOFThirdColumLabourCapenter)} days
+            </strong>{" "}
+            for 1 carpenter and a labour to complete this task.
+          </p>
+        ) : ccolumnStatus === "225mm x 225mm in unframed structure" ? (
+          <p className="text-black">
+            Formwork requirement for a Column of column size *Column Size* which
+            has a total area of{" "}
+            <strong>
+              {formatter.format(AreaOFColumFormwork)}m<sup>2</sup>
+            </strong>{" "}
+            and consisting of{" "}
+            <strong> {formatter.format(ColumnTotal)} nos</strong>, you will
+            require an estimated amount of; If using marine. boards,{" "}
+            <strong>{formatter.format(AreaOFFouthColumMarineBored)}Nos</strong>{" "}
+            , if using 1” x 12” (25mm x 300mm) plank,{" "}
+            <strong>{formatter.format(AreaOFFouthColumWoodone)}nos</strong> and
+            if using column boxes{" "}
+            <strong>{formatter.format(AreaOFFouthColumBoxes)}nos</strong> of
+            same sized boxes. Also, you require an estimated amount of{" "}
+            <strong>{formatter.format(AreaOFFouthColumWoodTwo)} nos</strong>
+            of 2” x 3” (50mm x 75mm) wood to form boxes if using marine board
+            and column boxes,{" "}
+            <strong>{formatter.format(AreaOFFouthColumNail)}</strong> kg of 4’’
+            and 5” sized wooden nails and{" "}
+            <strong>{formatter.format(AreaOFFouthColumWoodThree)}nos</strong> of
+            2” x 6” (50mm x 200mm) wood as side supports or shoring. However, in
+            the cases of using column boxes or 1” x 12” plank, you may require
+            <strong>
+              {formatter.format(AreaOFFouthColumBindingwire)} rolls
+            </strong>{" "}
+            of binding wire for extra bracing. For labour requirement for this
+            item of work, labours may be paid per column for the work done.
+            Therefore, the total nos of column for this work item is{" "}
+            <strong>{formatter.format(AreaOFFouthColumLabour)}</strong> nos.
+            This may be multiplied by the applicable cost per m column – you may
+            refer here (link to material and labour price list/rates).
+            Alternatively, if decided to pay the manpower for this job per day,
+            it will take an estimated number of{" "}
+            <strong>
+              {formatter.format(AreaOFFouthColumLabourCapenter)} days
+            </strong>{" "}
+            for 1 carpenter and a labour to complete this task.
+          </p>
+        ) : ccolumnStatus === "450mm x 450mm in unframed structure" ? (
+          <p className="text-black">
+            Formwork requirement for a Column of column size *Column Size* which
+            has a total area of{" "}
+            <strong>
+              {formatter.format(AreaOFColumFormwork)}m<sup>2</sup>
+            </strong>{" "}
+            and consisting of{" "}
+            <strong> {formatter.format(ColumnTotal)} nos</strong>, you will
+            require an estimated amount of; If using marine. boards,{" "}
+            <strong>{formatter.format(AreaOFFifthColumMarineBored)}Nos</strong>{" "}
+            , if using 1” x 12” (25mm x 300mm) plank,{" "}
+            <strong>{formatter.format(AreaOFFifthColumWoodone)}nos</strong> and
+            if using column boxes{" "}
+            <strong>{formatter.format(AreaOFFifthColumBoxes)}nos</strong> of
+            same sized boxes. Also, you require an estimated amount of{" "}
+            <strong>{formatter.format(AreaOFFifthColumWoodTwo)} nos</strong>
+            of 2” x 3” (50mm x 75mm) wood to form boxes if using marine board
+            and column boxes,{" "}
+            <strong>{formatter.format(AreaOFFifthColumNail)}</strong> kg of 4’’
+            and 5” sized wooden nails and{" "}
+            <strong>{formatter.format(AreaOFFifthColumWoodThree)}nos</strong> of
+            2” x 6” (50mm x 200mm) wood as side supports or shoring. However, in
+            the cases of using column boxes or 1” x 12” plank, you may require
+            <strong>
+              {formatter.format(AreaOFFifthColumBindingwire)} rolls
+            </strong>{" "}
+            of binding wire for extra bracing. For labour requirement for this
+            item of work, labours may be paid per column for the work done.
+            Therefore, the total nos of column for this work item is{" "}
+            <strong>{formatter.format(AreaOFFifthColumLabour)}</strong> nos.
+            This may be multiplied by the applicable cost per m column – you may
+            refer here (link to material and labour price list/rates).
+            Alternatively, if decided to pay the manpower for this job per day,
+            it will take an estimated number of{" "}
+            <strong>
+              {formatter.format(AreaOFFifthColumLabourCapenter)} days
+            </strong>{" "}
+            for 1 carpenter and a labour to complete this task.
+          </p>
+        ) : (
+          <p className="text-black">
           Formwork requirement for a Column of column size *Column Size* which
-          has a total area of *Area of formwork(m2)* m2 and consisting of *Nos
-          of Columns* nos, you will require an estimated amount of; If using
-          marine. boards, *Marine Board (Nos)* Nos, if using 1” x 12” (25mm x
-          300mm) plank, *1 x 12 wood (nos)* nos and if using column boxes
-          *column boxes* nos of same sized boxes. Also, you require an estimated
-          amount of *2 x 3 Woods (nos)* nos of 2” x 3” (50mm x 75mm) wood to
-          form boxes if using marine board and column boxes, *Nail (kg) 4” and
-          5” size (kg)* kg of 4’’ and 5” sized wooden nails and *2x6 wood of
-          50mm x 200mm wood (nos)* nos of 2” x 6” (50mm x 200mm) wood as side
-          supports or shoring. However, in the cases of using column boxes or 1”
-          x 12” plank, you may require *Binding wire* rolls of binding wire for
-          extra bracing. For labour requirement for this item of work, labours
-          may be paid per column for the work done. Therefore, the total nos of
-          column for this work item is *Labour requirement (per column)* nos.
+          has a total area of{" "}
+          <strong>
+            {formatter.format(AreaOFColumFormwork)}m<sup>2</sup>
+          </strong>{" "}
+          and consisting of{" "}
+          <strong> {formatter.format(ColumnTotal)} nos</strong>, you will
+          require an estimated amount of; If using marine. boards,{" "}
+          <strong>{formatter.format(AreaOFSixthColumMarineBored)}Nos</strong>{" "}
+          , if using 1” x 12” (25mm x 300mm) plank,{" "}
+          <strong>{formatter.format(AreaOFSixthColumWoodone)}nos</strong> and
+          if using column boxes{" "}
+          <strong>{formatter.format(AreaOFSixthColumBoxes)}nos</strong> of
+          same sized boxes. Also, you require an estimated amount of{" "}
+          <strong>{formatter.format(AreaOFSixthColumWoodTwo)} nos</strong>
+          of 2” x 3” (50mm x 75mm) wood to form boxes if using marine board
+          and column boxes,{" "}
+          <strong>{formatter.format(AreaOFSixthColumNail)}</strong> kg of 4’’
+          and 5” sized wooden nails and{" "}
+          <strong>{formatter.format(AreaOFSixthColumWoodThree)}nos</strong> of
+          2” x 6” (50mm x 200mm) wood as side supports or shoring. However, in
+          the cases of using column boxes or 1” x 12” plank, you may require
+          <strong>
+            {formatter.format(AreaOFSixthColumBindingwire)} rolls
+          </strong>{" "}
+          of binding wire for extra bracing. For labour requirement for this
+          item of work, labours may be paid per column for the work done.
+          Therefore, the total nos of column for this work item is{" "}
+          <strong>{formatter.format(AreaOFSixthColumLabour)}</strong> nos.
           This may be multiplied by the applicable cost per m column – you may
           refer here (link to material and labour price list/rates).
-          Alternatively, if decided to pay the manpower for this job per day, it
-          will take an estimated number of *1 carpenter and Labour output per
-          day (days)* days for 1 carpenter and a labour to complete this task.
+          Alternatively, if decided to pay the manpower for this job per day,
+          it will take an estimated number of{" "}
+          <strong>
+            {formatter.format(AreaOFSixthColumLabourCapenter)} days
+          </strong>{" "}
+          for 1 carpenter and a labour to complete this task.
         </p>
+        )
       ) : reinformworkType === "Slabs" ? (
         <p className="text-black">
           Formwork requirement for *Area of Work* of an Area of *Area of
