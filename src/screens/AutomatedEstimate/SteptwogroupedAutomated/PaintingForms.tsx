@@ -77,7 +77,7 @@ const Paintingworksform: React.FC<StepTwoProps> = ({ validateStep }) => {
         const formData = getValues();
         const formDataWithUnit = { ...formData, unit };
         localStorage.setItem(
-          "Painting  Inputs",
+          "Painting-Inputs",
           JSON.stringify(formDataWithUnit)
         );
       }

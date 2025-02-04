@@ -1,11 +1,27 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 const SelectGlosspaint = () => {
-  const [selected, setSelected] = useState<string>("option2");
+  const [selected, setSelected] = useState<string>("One coat");
 
-  const handleSelectChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    setSelected(event.target.value);
-  };
+ useEffect(() => {
+    const storedOption = localStorage.getItem(
+      "gloss-select"
+    );
+    if (storedOption) {
+      setSelected(storedOption);
+    } else {
+      localStorage.setItem(
+        "gloss-select",
+        "Within 10m to Disposal"
+      );
+    }
+  }, []);
+
+    const handleSelectChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+      const newOption = event.target.value;
+      setSelected(newOption);
+      localStorage.setItem("gloss-select", newOption);
+    };
 
   return (
     <div className="flex flex-col items-center gap-3  justify-center w-full md:ml-20">

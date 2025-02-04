@@ -1,11 +1,28 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 const SelectTextcoatpaint = () => {
-  const [selected, setSelected] = useState<string>("option2");
+  const [selected, setSelected] = useState<string>("One coat");
 
-  const handleSelectChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    setSelected(event.target.value);
-  };
+        useEffect(() => {
+          const storedOption = localStorage.getItem(
+            "TextCoatPaint"
+          );
+          if (storedOption) {
+            setSelected(storedOption);
+          } else {
+            localStorage.setItem(
+              "TextCoatPaint",
+              "One coat"
+            );
+          }
+        }, []);
+      
+        // Update the selected option and store it in localStorage
+        const handleSelectChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+          const newOption = event.target.value;
+          setSelected(newOption);
+          localStorage.setItem("Silkoptions", newOption);
+        };
 
   return (
     <div className="flex flex-col items-center gap-3  justify-center w-full md:ml-20">

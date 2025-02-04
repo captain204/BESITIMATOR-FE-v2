@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import SelectSilk from "./Suboption";
 import SelectEmulsionpaint from "./SelectEmulsionpaint";
 import SelectTextcoatpaint from "./SuboptionTextcoat";
@@ -11,8 +11,8 @@ const options = [
     component: <div></div>,
   },
   {
-    label: "satin/ silk paint",
-    value: "satin/ silk paint",
+    label: "satin/silk paint",
+    value: "satin/silk paint",
     component: (
       <div>
         <SelectSilk />
@@ -41,9 +41,29 @@ const options = [
 export default function PaintingWorks() {
   const [selectedOption, setSelectedOption] = useState("primer");
 
-  const handleSelectChange = (event: any) => {
-    setSelectedOption(event.target.value);
-  };
+  // const handleSelectChange = (event: any) => {
+  //   setSelectedOption(event.target.value);
+  // };
+
+ useEffect(() => {
+    const storedOption = localStorage.getItem(
+      "Painting-select"
+    );
+    if (storedOption) {
+      setSelectedOption(storedOption);
+    } else {
+      localStorage.setItem(
+        "Painting-select",
+        "Within 10m to Disposal"
+      );
+    }
+  }, []);
+
+    const handleSelectChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+      const newOption = event.target.value;
+      setSelectedOption(newOption);
+      localStorage.setItem("Painting-select", newOption);
+    };
 
   const selectedComponent = options.find(
     (opt) => opt.value === selectedOption
