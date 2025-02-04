@@ -8,6 +8,8 @@ const ScreedingResult: React.FC = () => {
   const dispatch: AppDispatch = useDispatch();
   const [itemsOfWork, selectItemOfwork] = useState("");
   const [BlockworkStatus, setBlockworkStatus] = useState("");
+  const [ratioStatus, setRatioStatus] = useState("");
+  const [screedingStatus, setScreedingStatus] = useState("");
   const [data, setData] = useState({
     ItemOfWork: "",
   });
@@ -30,6 +32,12 @@ const ScreedingResult: React.FC = () => {
       );
 
       setBlockworkStatus(localStorage.getItem("Wall-screedingstat") || "");
+      setRatioStatus(localStorage.getItem("ratio-of-screeding") || "");
+
+      //   Wall-screeding-status
+
+      //   thickness-of-floor-screeding
+      setScreedingStatus(localStorage.getItem("Wall-screeding-status") || "");
 
       setData({
         ItemOfWork: localStorage.getItem("ItemOfWork") || "",
@@ -84,20 +92,22 @@ const ScreedingResult: React.FC = () => {
   const roughPreliminary = "Standing Platform, Bucket";
 
   //blockwork one RatioOne
-  const RatioOneroughCementQuantity = Area * 0.03;
-  const RatioOneroughScreedingPaint = Area * 0.04;
-  const RatioOneroughTopBond = Area * 0.17;
-  const RatioOneroughLabourRequirement = Area * 1.0;
-  const RatioOneroughScreederOutput = Area * 0.01;
-  const RatioOneroughPreliminary = "Standing Platform, Bucket";
+  const RatioOneCementQuantity = Area * 0.38;
+  const RatioOneSandPaint = Area * 0.07;
+  const RatioOneTopBond = Area * 0.17;
+  const RatioOneLabourRequirement = Area * 1.0;
+  const RatioOneTilerLabourRequirement = Area * 0.03;
+  const RatioOneScreederOutput = Area * 0.01;
+  const RatioOnePreliminary = "HeadPans,Shovel";
 
   //blockwork one RatioOne
-  const RatioTworoughCementQuantity = Area * 0.03;
-  const RatioTworoughScreedingPaint = Area * 0.04;
-  const RatioTworoughTopBond = Area * 0.17;
-  const RatioTworoughLabourRequirement = Area * 1.0;
-  const RatioTworoughScreederOutput = Area * 0.01;
-  const RatioTworoughPreliminary = "Standing Platform, Bucket";
+  const RatioTwoCementQuantity = Area * 0.35;
+  const RatioTwoSandPaint = Area * 0.07;
+  const RatioTwoTopBond = Area * 0.17;
+  const RatioTwoLabourRequirement = Area * 1.0;
+  const RatioTwoTilerLabourRequirement = Area * 0.03;
+  const RatioTwoScreederOutput = Area * 0.01;
+  const RatioTwoPreliminary = "HeadPans,Shovel";
 
   //   const BlockQuantity = Area * 10;
   //   const CementQuantity = Area * 0.26;
@@ -131,61 +141,129 @@ const ScreedingResult: React.FC = () => {
         Hi <strong>{response?.name}</strong>,
       </p>
 
-      {BlockworkStatus === "Smooth wall" ? (
-        <p className="text-black">
-          Material requirement for wall screeding an area of{" "}
-          <strong>
-            {Area}m<sup>2</sup>
-          </strong>{" "}
-          , if the wall is <strong>{BlockworkStatus}</strong> you will require
-          an estimated amount of <strong>{formatter.format(smoothCementQuantity)}</strong> bags of
-          cement (either POP cement/ Black Cement),{" "}
-          <strong>{formatter.format(smoothScreedingPaint)}</strong> 20 litre bucket of Screeding
-          paint and <strong>{formatter.format(smoothTopBond)}</strong> kg of Topbond glue. The
-          labour requirement for this item of work, labours (Screeder) may be
-          paid per sq. m for the work done. Therefore, the total area for this
-          work item is{" "}
-          <strong>
-            {formatter.format(smoothLabourRequirement)}m<sup>2</sup>
-          </strong>
-          . This may be multiplied by the applicable cost per m2 – you may refer
-          here (link to material and labour price list/rates). Alternatively, it
-          will take a 1 manpower gang (1 Screeder) an estimated number of{" "}
-          <strong>{formatter.format(smoothScreederOutput)}days</strong> to screed a wall area of{" "}
-          <strong>
-            {Area}m<sup>2</sup>
-          </strong>
-          . Also, the preliminary required for this item of work are{" "}
-          <strong>{smoothPreliminary}</strong>
-        </p>
-      ) : (
-        <p className="text-black">
-          Material requirement for wall screeding an area of{" "}
-          <strong>
-            {Area}m<sup>2</sup>
-          </strong>{" "}
-          , if the wall is <strong>{BlockworkStatus}</strong> you will require
-          an estimated amount of <strong>{formatter.format(roughCementQuantity)}</strong> bags of
-          cement (either POP cement/ Black Cement),{" "}
-          <strong>{formatter.format(roughScreedingPaint)}</strong> 20 litre bucket of Screeding
-          paint and <strong>{formatter.format(roughTopBond)}</strong> kg of Topbond glue. The
-          labour requirement for this item of work, labours (Screeder) may be
-          paid per sq. m for the work done. Therefore, the total area for this
-          work item is{" "}
-          <strong>
-            {formatter.format(roughLabourRequirement)}m<sup>2</sup>
-          </strong>
-          . This may be multiplied by the applicable cost per m2 – you may refer
-          here (link to material and labour price list/rates). Alternatively, it
-          will take a 1 manpower gang (1 Screeder) an estimated number of{" "}
-          <strong>{formatter.format(roughScreederOutput)}days</strong> to screed a wall area of{" "}
-          <strong>
-            {Area}m<sup>2</sup>
-          </strong>
-          . Also, the preliminary required for this item of work are{" "}
-          <strong>{roughPreliminary}</strong>
-        </p>
-      )}
+      {screedingStatus === "Wall Screeding (To receive paint)" ? (
+        BlockworkStatus === "Smooth wall" ? (
+          <p className="text-black">
+            Material requirement for wall screeding an area of{" "}
+            <strong>
+              {formatter.format(Area)}m<sup>2</sup>
+            </strong>{" "}
+            , if the wall is <strong>{BlockworkStatus}</strong> you will require
+            an estimated amount of{" "}
+            <strong>{formatter.format(smoothCementQuantity)}</strong> bags of
+            cement (either POP cement/ Black Cement),{" "}
+            <strong>{formatter.format(smoothScreedingPaint)}</strong> 20 litre
+            bucket of Screeding paint and{" "}
+            <strong>{formatter.format(smoothTopBond)}</strong> kg of Topbond
+            glue. The labour requirement for this item of work, labours
+            (Screeder) may be paid per sq. m for the work done. Therefore, the
+            total area for this work item is{" "}
+            <strong>
+              {formatter.format(smoothLabourRequirement)}m<sup>2</sup>
+            </strong>
+            . This may be multiplied by the applicable cost per m2 – you may
+            refer here (link to material and labour price list/rates).
+            Alternatively, it will take a 1 manpower gang (1 Screeder) an
+            estimated number of{" "}
+            <strong>{formatter.format(smoothScreederOutput)}days</strong> to
+            screed a wall area of{" "}
+            <strong>
+              {Area}m<sup>2</sup>
+            </strong>
+            . Also, the preliminary required for this item of work are{" "}
+            <strong>{smoothPreliminary}</strong>
+          </p>
+        ) : (
+          <p className="text-black">
+            Material requirement for wall screeding an area of{" "}
+            <strong>
+              {formatter.format(Area)}m<sup>2</sup>
+            </strong>{" "}
+            , if the wall is <strong>{BlockworkStatus}</strong> you will require
+            an estimated amount of{" "}
+            <strong>{formatter.format(roughCementQuantity)}</strong> bags of
+            cement (either POP cement/ Black Cement),{" "}
+            <strong>{formatter.format(roughScreedingPaint)}</strong> 20 litre
+            bucket of Screeding paint and{" "}
+            <strong>{formatter.format(roughTopBond)}</strong> kg of Topbond
+            glue. The labour requirement for this item of work, labours
+            (Screeder) may be paid per sq. m for the work done. Therefore, the
+            total area for this work item is{" "}
+            <strong>
+              {formatter.format(roughLabourRequirement)}m<sup>2</sup>
+            </strong>
+            . This may be multiplied by the applicable cost per m2 – you may
+            refer here (link to material and labour price list/rates).
+            Alternatively, it will take a 1 manpower gang (1 Screeder) an
+            estimated number of{" "}
+            <strong>{formatter.format(roughScreederOutput)}days</strong> to
+            screed a wall area of{" "}
+            <strong>
+              {Area}m<sup>2</sup>
+            </strong>
+            . Also, the preliminary required for this item of work are{" "}
+            <strong>{roughPreliminary}</strong>
+          </p>
+        )
+      ) : screedingStatus === "Floor Screeding (To receive Tiles)" ? (
+        ratioStatus === "1:4" ? (
+          <p className="text-black">
+            Material requirement for an area of{" "}
+            <strong>
+              {formatter.format(Area)}m<sup>2</sup>
+            </strong>{" "}
+            of Floor Screeding using a mix ratio of{" "}
+            <strong>{ratioStatus}</strong>, (Cement and Sand) and average
+            thickness of plastering is between 38-42mm thickness, you will
+            require an estimated amount of{" "}
+            <strong>{formatter.format(RatioOneCementQuantity)}</strong> bags of
+            cement and <strong>{formatter.format(RatioOneSandPaint)}</strong>{" "}
+            tons of sharp sand. The labour requirement for this item of work,
+            labours (Tiler and Labour) may be paid per sq. m for the work done.
+            Therefore, the total area for this work item is{" "}
+            <strong>
+              {formatter.format(RatioOneLabourRequirement)}m<sup>2</sup>
+            </strong>{" "}
+            This may be multiplied by the applicable cost per m2 – you may refer
+            here (link to material and labour price list/rates). Alternatively,
+            it will take a 1 manpower gang (1 Tiler and labour) an estimated
+            number of{" "}
+            <strong>{formatter.format(RatioOneTilerLabourRequirement)}</strong>{" "}
+            days to screed a floor area of
+            <strong>{formatter.format(Area)}</strong> Also, the preliminary
+            required for this item of work are{" "}
+            <strong>{RatioOnePreliminary}</strong>
+          </p>
+        ) : (
+          <p className="text-black">
+            Material requirement for an area of{" "}
+            <strong>
+              {formatter.format(Area)}m<sup>2</sup>
+            </strong>{" "}
+            of Floor Screeding using a mix ratio of{" "}
+            <strong>{ratioStatus}</strong>, (Cement and Sand) and average
+            thickness of plastering is between 38-42mm thickness, you will
+            require an estimated amount of{" "}
+            <strong>{formatter.format(RatioTwoCementQuantity)}</strong> bags of
+            cement and <strong>{formatter.format(RatioTwoSandPaint)}</strong>{" "}
+            tons of sharp sand. The labour requirement for this item of work,
+            labours (Tiler and Labour) may be paid per sq. m for the work done.
+            Therefore, the total area for this work item is{" "}
+            <strong>
+              {formatter.format(RatioTwoLabourRequirement)}m<sup>2</sup>
+            </strong>{" "}
+            This may be multiplied by the applicable cost per m2 – you may refer
+            here (link to material and labour price list/rates). Alternatively,
+            it will take a 1 manpower gang (1 Tiler and labour) an estimated
+            number of{" "}
+            <strong>{formatter.format(RatioTwoTilerLabourRequirement)}</strong>{" "}
+            days to screed a floor area of
+            <strong>{formatter.format(Area)}</strong> Also, the preliminary
+            required for this item of work are{" "}
+            <strong>{RatioTwoPreliminary}</strong>
+          </p>
+        )
+      ) : null}
 
       <p className="text-black mb-6">
         Note: 1 construction day = 9 hours. You can check our{" "}

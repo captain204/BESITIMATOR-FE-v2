@@ -27,7 +27,7 @@ export default function Screeding() {
   const [selected, setSelected] = useState("Wall Screeding (To receive paint)");
 
   useEffect(() => {
-    const storedOption = localStorage.getItem("Wall Screeding (To receive paint)");
+    const storedOption = localStorage.getItem("Wall-screeding-status");
     if (storedOption) {
       setSelected(storedOption);
     } else {
