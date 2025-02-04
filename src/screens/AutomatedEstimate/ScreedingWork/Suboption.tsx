@@ -5,11 +5,11 @@ const SelectInput = () => {
   
 
   useEffect(() => {
-    const storedOption = localStorage.getItem("Wall-screeding");
+    const storedOption = localStorage.getItem("Wall-screedingstat");
     if (storedOption) {
       setSelected(storedOption);
     } else {
-      localStorage.setItem("Wall-screeding", "Smooth wall");
+      localStorage.setItem("Wall-screedingstat", "Smooth wall");
     }
   }, []);
 
@@ -17,7 +17,7 @@ const SelectInput = () => {
   const handleSelectChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     const newOption = event.target.value;
     setSelected(newOption);
-    localStorage.setItem("Wall-screeding", newOption);
+    localStorage.setItem("Wall-screedingstat", newOption);
   };
 
   return (

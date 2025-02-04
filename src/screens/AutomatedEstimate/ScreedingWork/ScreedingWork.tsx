@@ -27,12 +27,12 @@ export default function Screeding() {
   const [selected, setSelected] = useState("Wall Screeding (To receive paint)");
 
   useEffect(() => {
-    const storedOption = localStorage.getItem("Wall-screeding");
+    const storedOption = localStorage.getItem("Wall Screeding (To receive paint)");
     if (storedOption) {
       setSelected(storedOption);
     } else {
       localStorage.setItem(
-        "Wall-screeding",
+        "Wall-screeding-status",
         "Wall Screeding (To receive paint)"
       );
     }
@@ -42,7 +42,7 @@ export default function Screeding() {
   const handleSelectChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     const newOption = event.target.value;
     setSelected(newOption);
-    localStorage.setItem("Wall-screeding", newOption);
+    localStorage.setItem("Wall-screeding-status", newOption);
   };
 
   const selectedComponent = options.find(
