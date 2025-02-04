@@ -43,7 +43,6 @@ const excavationWorksSchema = yup.object().shape({
     }),
 });
 
-
 const PlasteringForm: React.FC<StepTwoProps> = ({ validateStep }) => {
   const [unit, setUnit] = useState<string>("Metres");
   const [itemOfWork, setItemOfWork] = useState<string>("");
@@ -78,7 +77,7 @@ const PlasteringForm: React.FC<StepTwoProps> = ({ validateStep }) => {
         const formData = getValues();
         const formDataWithUnit = { ...formData, unit };
         localStorage.setItem(
-          "plastering  Inputs",
+          "plastering-Inputs",
           JSON.stringify(formDataWithUnit)
         );
       }
@@ -105,7 +104,7 @@ const PlasteringForm: React.FC<StepTwoProps> = ({ validateStep }) => {
       {showArea && (
         <div className="flex flex-col w-full md:w-1/2 ">
           <label htmlFor="area" className="font-medium text-black mb-1">
-           Wall Area:
+            Wall Area:
           </label>
           <Controller
             name="area"
@@ -136,7 +135,7 @@ const PlasteringForm: React.FC<StepTwoProps> = ({ validateStep }) => {
         <>
           <div className="flex flex-col w-full md:w-1/2 mb-4">
             <label htmlFor="length" className="font-medium text-black mb-1">
-             Wall Length:
+              Wall Length:
             </label>
             <Controller
               name="length"
@@ -166,7 +165,7 @@ const PlasteringForm: React.FC<StepTwoProps> = ({ validateStep }) => {
 
           <div className="flex flex-col w-full md:w-1/2 mb-2">
             <label htmlFor="breadth" className="font-medium text-black mb-1">
-            Wall  Breadth:
+              Wall Breadth:
             </label>
             <Controller
               name="breadth"
@@ -224,4 +223,3 @@ const PlasteringForm: React.FC<StepTwoProps> = ({ validateStep }) => {
 };
 
 export default PlasteringForm;
-

@@ -4,7 +4,7 @@ const OptionOne = () => {
   const [selected, setSelected] = useState<string>("1:3");
 
   useEffect(() => {
-    const storedOption = localStorage.getItem("1:3");
+    const storedOption = localStorage.getItem("What-is-your-plastering-mix-ratio");
     if (storedOption) {
       setSelected(storedOption);
     } else {

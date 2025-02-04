@@ -7,6 +7,8 @@ import ConcreteAndBlinding from "./ConcreateAndBinding";
 import DampProofing from "./Dampproving";
 import Reinforcement from "./Reinforcement";
 import Formwork from "./Formwork";
+import BlockWorkResult from "./BlockworkResult";
+import PlasteringResult from "./PlasteringResult";
 
 const ResultPage: React.FC = () => {
   const [itemOfWork, setItemOfWork] = useState<string>("");
@@ -34,6 +36,10 @@ const ResultPage: React.FC = () => {
         return <Reinforcement />;
       case "Formwork/Capentry works":
         return <Formwork />;
+        case  "Blockwork and Brickwork":
+        return < BlockWorkResult/>
+        case "plastering works" :
+          return <PlasteringResult/>
 
       default:
         return <p className="text-gray-600">No work details available.</p>;
