@@ -77,7 +77,7 @@ const Ceilingworksform: React.FC<StepTwoProps> = ({ validateStep }) => {
         const formData = getValues();
         const formDataWithUnit = { ...formData, unit };
         localStorage.setItem(
-          "Ceiling  Inputs",
+          "Ceiling-Inputs",
           JSON.stringify(formDataWithUnit)
         );
       }

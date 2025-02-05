@@ -1,10 +1,10 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import SelectInput from "./Suboption";
 
 const options = [
   {
-    label: "POP Suspended ceiling with Gypsum board",
-    value: "POP Suspended ceiling with Gypsum board",
+    label: "SUSPENDED CEILING (PLASTER BOARD)",
+    value: "SUSPENDED CEILING (PLASTER BOARD)",
     component: (
       <div>
         <SelectInput />
@@ -12,37 +12,39 @@ const options = [
     ),
   },
   {
-    label: "Suspended Ceiling with Aluminum grid ",
-    value: "Suspended Ceiling with Aluminum grid ",
+    label: "SUSPENDED CEILING (60 X 60CM) WITH STEEL RUNNERS",
+    value: "SUSPENDED CEILING (60 X 60CM) WITH STEEL RUNNERS",
     component: <div> </div>,
   },
 
   {
-    label: "POP Suspended Ceiling – Casting",
-    value: "POP Suspended Ceiling – Casting",
-    component: <div></div>,
-  },
-
-
-
-  {
-    label: "PVC Stripped suspended ceiling",
-    value: "PVC Stripped suspended ceiling",
+    label: "SUSPENDED CEILING (CASTING)",
+    value: "SUSPENDED CEILING (CASTING)",
     component: <div></div>,
   },
 ];
 
 export default function CeilingWork() {
-  const [selectedOption, setSelectedOption] = useState(
-    "POP Suspended ceiling with Gypsum board"
-  );
+  const [selected, setSelected] = useState("SUSPENDED CEILING (PLASTER BOARD)");
 
-  const handleSelectChange = (event: any) => {
-    setSelectedOption(event.target.value);
+  useEffect(() => {
+    const storedOption = localStorage.getItem("Ceiling-options");
+    if (storedOption) {
+      setSelected(storedOption);
+    } else {
+      localStorage.setItem("Ceiling-options", "SUSPENDED CEILING (PLASTER BOARD)");
+    }
+  }, []);
+
+  // Update the selected option and store it in localStorage
+  const handleSelectChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    const newOption = event.target.value;
+    setSelected(newOption);
+    localStorage.setItem("Ceiling-options", newOption);
   };
 
   const selectedComponent = options.find(
-    (opt) => opt.value === selectedOption
+    (opt) => opt.value === selected
   )?.component;
 
   return (
@@ -59,7 +61,7 @@ export default function CeilingWork() {
         <select
           id="select-option"
           onChange={handleSelectChange}
-          value={selectedOption}
+          value={selected}
           className="py-3 w-full md:w-96 p-1 bg-white border text-black border-gray-300 rounded-lg focus:ring-1 focus:ring-yellow-400 focus:outline-none"
         >
           {options.map((option) => (
