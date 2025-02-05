@@ -77,7 +77,7 @@ const PavingStoneform: React.FC<StepTwoProps> = ({ validateStep }) => {
         const formData = getValues();
         const formDataWithUnit = { ...formData, unit };
         localStorage.setItem(
-          "PavingStone  Inputs",
+          "PavingStone-Inputs",
           JSON.stringify(formDataWithUnit)
         );
       }

@@ -12,6 +12,7 @@ import PlasteringResult from "./PlasteringResult";
 import ScreedingResult from "./ScreedingResult";
 import PaintingResult from "./PaintingResult";
 import TillingResult from "./TillingResult";
+import PavingWorksResult from "./PavingWorksResults";
 
 const ResultPage: React.FC = () => {
   const [itemOfWork, setItemOfWork] = useState<string>("");
@@ -51,6 +52,9 @@ const ResultPage: React.FC = () => {
 
       case "Tiling/Granite Slap/Facing Brick works":
         return <TillingResult />;
+
+      case "Paving stone Works":
+        return <PavingWorksResult />;
 
       default:
         return <p className="text-gray-600">No work details available.</p>;
